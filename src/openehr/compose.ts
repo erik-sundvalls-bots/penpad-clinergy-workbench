@@ -1,8 +1,7 @@
 import type { WorkbenchState } from "../model.ts";
 import { painForm } from "../knowledge.ts";
-import { serialization } from "../../vendor/ehrtslib/ehrtslib-0.13.0.min.js";
 import { term, type Term } from "./terms.ts";
-import { TEMPLATE_ID, webTemplate } from "./webtemplate.ts";
+import { TEMPLATE_ID } from "./template.ts";
 
 export interface CoverageRow {
   key: string;
@@ -12,7 +11,6 @@ export interface CoverageRow {
 
 export interface ThumbComposition {
   canonical: Record<string, unknown>;
-  flat: Record<string, string | boolean>;
   coverage: CoverageRow[];
   /** Form values used that have no reviewed row at all. */
   missingTerms: string[];
@@ -77,14 +75,9 @@ export function buildThumbEncounter(state: WorkbenchState, narrative: string): T
     section("Assessment", [...problems, ...exclusions]),
   ].filter((entry) => Array.isArray(entry.items) && entry.items.length > 0);
   const canonical = composition(content);
-  const flat = serialization.serializeToFlat(canonical, webTemplate, {
-    locatableName: "omit",
-    flavor: "input",
-  }) as Record<string, string | boolean>;
 
   return {
     canonical,
-    flat,
     coverage: [...used].sort().map(coverageOf),
     missingTerms: [...used].filter((key) => !term(key)).sort(),
   };

@@ -23,7 +23,6 @@ import { validateComposition } from "./openehr/validate.ts";
 import { term } from "./openehr/terms.ts";
 import optUrl from "../templates/thumb-pain.opt?url";
 import optPlainUrl from "../templates/thumb-pain-encounter.v2.opt?url";
-import webTemplateUrl from "../templates/thumb-pain-encounter.v2.web-template.json?url";
 import { render, renderReport, type Finding } from "../vendor/sentence.ts";
 
 const FEATURE_LABEL: Record<string, string> = {
@@ -64,8 +63,6 @@ if (!app) throw new Error("missing #app");
 const root: HTMLElement = app;
 
 let state = emptyState();
-let flatMode = false;
-
 root.innerHTML = page();
 wire();
 paint();
@@ -121,12 +118,9 @@ function page(): string {
           <div class="downloads">
             <a href="${optUrl}" download="thumb-pain-encounter.v2-coded.opt">Thumb pain OPT</a>
             <a href="${optPlainUrl}" download="thumb-pain-encounter.v2.opt">Uncoded OPT</a>
-            <a href="${webTemplateUrl}" download="thumb-pain-encounter.v2.web-template.json">Web template</a>
           </div>
           <div class="tabs-mini">
-            <button type="button" id="tab-canonical" aria-pressed="true">Canonical JSON</button>
-            <button type="button" id="tab-flat" aria-pressed="false">FLAT</button>
-            <button type="button" id="copy-ehr">Copy</button>
+            <button type="button" id="copy-ehr">Copy canonical JSON</button>
           </div>
           <p id="ehr-badge" class="note"></p>
           <pre id="ehr" class="json"></pre>
@@ -369,16 +363,6 @@ function wire(): void {
       document.querySelector<HTMLDialogElement>("#exam-dialog")?.close();
       return;
     }
-    if (button.id === "tab-canonical") {
-      flatMode = false;
-      paint();
-      return;
-    }
-    if (button.id === "tab-flat") {
-      flatMode = true;
-      paint();
-      return;
-    }
     if (button.id === "copy-ehr") {
       void navigator.clipboard?.writeText(document.querySelector("#ehr")?.textContent ?? "");
       return;
@@ -590,15 +574,11 @@ function paintGalen(findings: Finding[]): void {
 
 function paintEhr(_findings: Finding[], english: string[]): void {
   const result = buildThumbEncounter(state, english.join("\n"));
-  const checked = validateComposition(result.canonical, result.flat);
+  const checked = validateComposition(result.canonical);
   const pre = document.querySelector("#ehr");
   if (pre) {
-    pre.textContent = flatMode
-      ? Object.entries(result.flat).sort(([a], [b]) => a.localeCompare(b)).map(([key, value]) => `${key}: ${value}`).join("\n")
-      : JSON.stringify(result.canonical, null, 2);
+    pre.textContent = JSON.stringify(result.canonical, null, 2);
   }
-  document.querySelector("#tab-canonical")?.setAttribute("aria-pressed", flatMode ? "false" : "true");
-  document.querySelector("#tab-flat")?.setAttribute("aria-pressed", flatMode ? "true" : "false");
   const badge = document.querySelector("#ehr-badge");
   if (badge) {
     badge.textContent = checked.valid
