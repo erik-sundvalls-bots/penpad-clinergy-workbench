@@ -16,6 +16,8 @@ import {
   demoState,
   emptyState,
   findingsFromState,
+  mapperContext,
+  mapperHref,
   selectedConceptKeys,
   toggleChoice,
   toggleSide,
@@ -113,7 +115,7 @@ function page(): string {
         </section>
         <section class="panel">
           <h2>OpenGALEN</h2>
-          <p class="note">Bindings for the concepts you have selected. OpenGALEN is fully open. A review flag means the name matched only after normalisation.</p>
+          <p class="note">Bindings for the concepts you have selected. OpenGALEN is fully open. A review flag means the name matched only after normalisation. A name with no verified binding opens the OpenGALEN browser, where the mapping is made.</p>
           <div id="galen"></div>
         </section>
         <section class="panel">
@@ -306,7 +308,7 @@ function about(): string {
     <h2>About</h2>
     <p>This is an experimental workbench for hackathon participants. It is part of the <a href="https://pen-pad-revival.github.io">PEN&amp;PAD revival</a>. The form follows the 1998 Clinergy thumb pain demo, screen by screen, as written up at <a href="https://pen-pad-revival.github.io/docs/clinergy-thumb-pain-demo/">the public walkthrough</a>. The sentence generator and the openEHR builder are vendored from <a href="https://github.com/erik-sundvalls-bots/clinergy-extractor">clinergy-extractor</a> main and bundled into this page.</p>
     <p>Clinergy content is © 1997-8 Semantic Technologies Ltd / Victoria University of Manchester. Only a small extract (the thumb pain and thumb swelling forms, the sentence rules those forms need, and the OpenGALEN name mappings for their concepts) is included, and only for demonstration.</p>
-    <p>OpenGALEN names link to the <a href="https://erik-sundvalls-bots.github.io/opengalen-browser/">OpenGALEN browser</a> (<code>#concept=Name</code>). Swedish wording is ours and has not had a native-speaker review. Character, frequency and the On Examination block have no openEHR element in this template; frequency and examination prose are known gaps.</p>
+    <p>OpenGALEN names link to the <a href="https://erik-sundvalls-bots.github.io/opengalen-browser/">OpenGALEN browser</a> (<code>#concept=Name</code>). Names without a verified binding link there too, on <code>?map=kind/Name</code>, so the mapping stays in that browser. Swedish wording is ours and has not had a native-speaker review. Character, frequency and the On Examination block have no openEHR element in this template; frequency and examination prose are known gaps.</p>
   </section>`;
 }
 
@@ -553,7 +555,8 @@ function paintGalen(findings: Finding[]): void {
   const rows = keys.map((key) => {
     const row = galenRows[key];
     if (!row?.opengalen) {
-      return `<tr><td><code>${escapeText(key)}</code></td><td>No verified mapping</td><td></td><td></td></tr>`;
+      const href = mapperHref(key, mapperContext(key, [painForm, swellingForm], conceptLabel(key)));
+      return `<tr><td><code>${escapeText(key)}</code></td><td><a href="${escapeAttr(href)}" target="_blank" rel="noreferrer">Suggest a mapping</a></td><td></td><td></td></tr>`;
     }
     const href = GALEN_BROWSER + encodeURIComponent(row.opengalen);
     const review = row.needsHumanReview ? `<span class="badge">needs review</span>` : "";

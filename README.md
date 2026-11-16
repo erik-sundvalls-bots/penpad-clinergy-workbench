@@ -10,6 +10,8 @@ Clinergy content is © 1997-8 Semantic Technologies Ltd / Victoria University of
 
 The sentence generator and the openEHR builder are vendored from [clinergy-extractor](https://github.com/erik-sundvalls-bots/clinergy-extractor) `main`. See [vendor/README.md](vendor/README.md) for the local fixes to port back.
 
+A selected concept with no verified OpenGALEN binding links to the [OpenGALEN browser](https://erik-sundvalls-bots.github.io/opengalen-browser/) mapper (`?map=kind/Name`). The mapping itself is made there, not in this page.
+
 ## Develop
 
 ```bash

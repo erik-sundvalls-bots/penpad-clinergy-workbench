@@ -194,3 +194,66 @@ export function toggleChoice(current: string | null, value: string): string | nu
 export function toggleSide(sides: Array<"left" | "right">, side: "left" | "right"): Array<"left" | "right"> {
   return sides.includes(side) ? sides.filter((item) => item !== side) : [...sides, side];
 }
+
+/** The OpenGALEN browser does the mapping. This is only the address of that tool. */
+export const MAPPER_BASE = "https://erik-sundvalls-bots.github.io/opengalen-browser/";
+
+export interface MapperContext {
+  kind: "formTopic" | "exam" | "descriptor" | "criterialLink" | "value" | "concept";
+  display?: string;
+  feature?: string;
+  siblings?: string[];
+  forms?: string[];
+}
+
+interface MapperForm {
+  topic: string;
+  firstLayer: { feature?: string; values?: unknown[] }[];
+  moreLayer: { feature?: string; values?: unknown[] }[];
+  diagnoses?: FormLink[];
+  associatedSymptomsAndSigns?: FormLink[];
+}
+
+/** Enough context for the browser to open one unmapped Clinergy name. */
+export function mapperContext(key: string, forms: MapperForm[], display: string): MapperContext {
+  const topics = new Set<string>();
+  const valueHits: { feature: string; siblings: string[]; form: string }[] = [];
+  const descriptorForms: string[] = [];
+  for (const form of forms) {
+    topics.add(form.topic);
+    for (const link of [...(form.diagnoses ?? []), ...(form.associatedSymptomsAndSigns ?? [])]) {
+      if (link.preCoordinated) topics.add(link.preCoordinated);
+      if (link.concept) topics.add(link.concept);
+    }
+    for (const row of [...form.firstLayer, ...form.moreLayer]) {
+      if (!row.feature) continue;
+      const values = (row.values ?? []).filter((value): value is string => typeof value === "string");
+      if (row.feature === key && !descriptorForms.includes(form.topic)) descriptorForms.push(form.topic);
+      if (values.includes(key)) {
+        valueHits.push({ feature: row.feature, siblings: values.filter((value) => value !== key), form: form.topic });
+      }
+    }
+  }
+  if (valueHits.length) {
+    return {
+      kind: "value",
+      display,
+      feature: valueHits[0].feature,
+      siblings: [...new Set(valueHits.flatMap((hit) => hit.siblings))],
+      forms: [...new Set(valueHits.map((hit) => hit.form))],
+    };
+  }
+  if (descriptorForms.length) return { kind: "descriptor", display, forms: descriptorForms };
+  if (topics.has(key)) return { kind: "formTopic", display };
+  return { kind: "concept", display };
+}
+
+export function mapperHref(name: string, ctx: MapperContext): string {
+  const url = new URL(MAPPER_BASE);
+  url.searchParams.set("map", ctx.kind + "/" + name);
+  if (ctx.display) url.searchParams.set("display", ctx.display);
+  if (ctx.feature) url.searchParams.set("feature", ctx.feature);
+  if (ctx.siblings?.length) url.searchParams.set("siblings", ctx.siblings.join(","));
+  if (ctx.forms?.length) url.searchParams.set("forms", ctx.forms.join(","));
+  return url.href;
+}
