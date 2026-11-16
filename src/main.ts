@@ -20,6 +20,13 @@ import {
 } from "./model.ts";
 import { buildThumbEncounter } from "./openehr/compose.ts";
 import { validateComposition } from "./openehr/validate.ts";
+import {
+  ZIP_CSS_SELECT_OPTIONS,
+  buildZipehrPreviewDocument,
+  canonicalToZipehrHtml5,
+  resolveZipehrCssFile,
+  zipehrTextStats,
+} from "./openehr/zipehr.ts";
 import { term } from "./openehr/terms.ts";
 import optUrl from "../templates/thumb-pain.opt?url";
 import optPlainUrl from "../templates/thumb-pain-encounter.v2.opt?url";
@@ -63,6 +70,11 @@ if (!app) throw new Error("missing #app");
 const root: HTMLElement = app;
 
 let state = emptyState();
+let ehrFormatTab: "canonical" | "zipehr" = "canonical";
+let zipehrViewMode: "code" | "document" = "document";
+let zipehrStylesheet = "default";
+let cachedZipehrHtml = "";
+let cachedZipehrCss = "";
 root.innerHTML = page();
 wire();
 paint();
@@ -119,11 +131,38 @@ function page(): string {
             <a href="${optUrl}" download="thumb-pain-encounter.v2-coded.opt">Thumb pain OPT</a>
             <a href="${optPlainUrl}" download="thumb-pain-encounter.v2.opt">Uncoded OPT</a>
           </div>
-          <div class="tabs-mini">
-            <button type="button" id="copy-ehr">Copy canonical JSON</button>
+          <div class="ehr-format-tabs" role="tablist" aria-label="openEHR representation">
+            <button type="button" class="ehr-format-tab active" data-ehr-format="canonical" role="tab" aria-selected="true">Canonical JSON</button>
+            <button type="button" class="ehr-format-tab" data-ehr-format="zipehr" role="tab" aria-selected="false">ZipEHR</button>
+          </div>
+          <div id="ehr-canonical-pane">
+            <div class="tabs-mini">
+              <button type="button" id="copy-ehr">Copy</button>
+              <button type="button" id="download-ehr">Download</button>
+              <span id="ehr-canonical-stats" class="output-stats"></span>
+            </div>
+            <pre id="ehr" class="json"></pre>
+          </div>
+          <div id="ehr-zipehr-pane" hidden>
+            <div class="zipehr-view-tabs" role="tablist" aria-label="ZipEHR view">
+              <button type="button" class="zipehr-view-tab" data-zipehr-view="code" role="tab" aria-selected="false">Code</button>
+              <button type="button" class="zipehr-view-tab active" data-zipehr-view="document" role="tab" aria-selected="true">Document</button>
+            </div>
+            <div class="tabs-mini">
+              <label class="zipehr-css-label" for="zipehr-css-select">Stylesheet:</label>
+              <select id="zipehr-css-select" class="zipehr-css-select" aria-label="ZipEHR stylesheet">
+                ${ZIP_CSS_SELECT_OPTIONS.map(
+                  (opt) => `<option value="${escapeAttr(opt.value)}">${escapeText(opt.label)}</option>`,
+                ).join("")}
+              </select>
+              <button type="button" id="copy-zipehr">Copy</button>
+              <button type="button" id="download-zipehr">Download</button>
+              <span id="zipehr-stats" class="output-stats"></span>
+            </div>
+            <pre id="zipehr-code" class="json zipehr-code" hidden></pre>
+            <iframe id="zipehr-document" class="zipehr-document" title="ZipEHR document view" sandbox="allow-same-origin"></iframe>
           </div>
           <p id="ehr-badge" class="note"></p>
-          <pre id="ehr" class="json"></pre>
           <p id="ehr-errors" class="missing"></p>
         </section>
         <section class="panel" id="exam-note">
@@ -367,6 +406,27 @@ function wire(): void {
       void navigator.clipboard?.writeText(document.querySelector("#ehr")?.textContent ?? "");
       return;
     }
+    if (button.id === "download-ehr") {
+      const text = document.querySelector("#ehr")?.textContent ?? "";
+      downloadTextFile("thumb-encounter.canonical.json", text, "application/json");
+      return;
+    }
+    if (button.id === "copy-zipehr") {
+      void navigator.clipboard?.writeText(cachedZipehrHtml);
+      return;
+    }
+    if (button.id === "download-zipehr") {
+      downloadTextFile("thumb-encounter.zipehr.html5", cachedZipehrHtml, "text/html");
+      return;
+    }
+    if (button.dataset.ehrFormat === "canonical" || button.dataset.ehrFormat === "zipehr") {
+      setEhrFormatTab(button.dataset.ehrFormat);
+      return;
+    }
+    if (button.dataset.zipehrView === "code" || button.dataset.zipehrView === "document") {
+      setZipehrViewMode(button.dataset.zipehrView);
+      return;
+    }
     if (button.dataset.spin && button.dataset.dir) {
       const group = button.dataset.spin === "swelling" ? state.swelling : state.pain;
       const next = (group.durationNumber ?? 0) + Number(button.dataset.dir);
@@ -424,11 +484,78 @@ function wire(): void {
   });
   root.addEventListener("change", (event) => {
     const target = event.target;
+    if (target instanceof HTMLSelectElement && target.id === "zipehr-css-select") {
+      zipehrStylesheet = target.value;
+      void refreshZipehrDocument();
+      return;
+    }
     if (!(target instanceof HTMLSelectElement) || !target.dataset.unit) return;
     const form = target.dataset.unit === "swelling" ? state.swelling : state.pain;
     form.durationUnit = target.value;
     paintOutputs();
   });
+}
+
+function downloadTextFile(filename: string, text: string, mime: string): void {
+  const blob = new Blob([text], { type: mime });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename;
+  link.click();
+  URL.revokeObjectURL(url);
+}
+
+function setEhrFormatTab(tab: "canonical" | "zipehr"): void {
+  ehrFormatTab = tab;
+  const canonicalPane = document.querySelector<HTMLElement>("#ehr-canonical-pane");
+  const zipehrPane = document.querySelector<HTMLElement>("#ehr-zipehr-pane");
+  if (canonicalPane) canonicalPane.hidden = tab !== "canonical";
+  if (zipehrPane) zipehrPane.hidden = tab !== "zipehr";
+  for (const button of document.querySelectorAll<HTMLButtonElement>("[data-ehr-format]")) {
+    const on = button.dataset.ehrFormat === tab;
+    button.classList.toggle("active", on);
+    button.setAttribute("aria-selected", on ? "true" : "false");
+  }
+  if (tab === "zipehr") void refreshZipehrDocument();
+}
+
+function setZipehrViewMode(mode: "code" | "document"): void {
+  zipehrViewMode = mode;
+  const code = document.querySelector<HTMLElement>("#zipehr-code");
+  const frame = document.querySelector<HTMLElement>("#zipehr-document");
+  if (code) code.hidden = mode !== "code";
+  if (frame) frame.hidden = mode !== "document";
+  for (const button of document.querySelectorAll<HTMLButtonElement>("[data-zipehr-view]")) {
+    const on = button.dataset.zipehrView === mode;
+    button.classList.toggle("active", on);
+    button.setAttribute("aria-selected", on ? "true" : "false");
+  }
+}
+
+async function loadZipehrStylesheet(): Promise<string> {
+  const file = resolveZipehrCssFile(zipehrStylesheet);
+  if (!file) return "";
+  const baseUrl = import.meta.env.BASE_URL || "/";
+  const res = await fetch(`${baseUrl}zipehr-css/${file}`);
+  if (!res.ok) throw new Error(`ZipEHR stylesheet ${file}: HTTP ${res.status}`);
+  return res.text();
+}
+
+async function refreshZipehrDocument(): Promise<void> {
+  const frame = document.querySelector<HTMLIFrameElement>("#zipehr-document");
+  if (!frame || !cachedZipehrHtml) return;
+  try {
+    const css = await loadZipehrStylesheet();
+    cachedZipehrCss = css;
+    frame.srcdoc = buildZipehrPreviewDocument(cachedZipehrHtml, css);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    frame.srcdoc = buildZipehrPreviewDocument(
+      cachedZipehrHtml,
+      `/* ${message} */\n`,
+    );
+  }
 }
 
 function applyFormClick(form: FindingForm, button: HTMLButtonElement): void {
@@ -575,9 +702,13 @@ function paintGalen(findings: Finding[]): void {
 function paintEhr(_findings: Finding[], english: string[]): void {
   const result = buildThumbEncounter(state, english.join("\n"));
   const checked = validateComposition(result.canonical);
+  const jsonText = JSON.stringify(result.canonical, null, 2);
   const pre = document.querySelector("#ehr");
-  if (pre) {
-    pre.textContent = JSON.stringify(result.canonical, null, 2);
+  if (pre) pre.textContent = jsonText;
+  const canonicalStats = document.querySelector("#ehr-canonical-stats");
+  if (canonicalStats) {
+    const stats = zipehrTextStats(jsonText);
+    canonicalStats.textContent = `${stats.characters.toLocaleString()} characters · ${stats.lines.toLocaleString()} lines`;
   }
   const badge = document.querySelector("#ehr-badge");
   if (badge) {
@@ -590,6 +721,22 @@ function paintEhr(_findings: Finding[], english: string[]): void {
     const lines = checked.errors.concat(checked.warnings).map((issue) => `${issue.severity}: ${issue.path} — ${issue.message}`);
     errors.textContent = lines.join("\n");
   }
+  void (async () => {
+    try {
+      cachedZipehrHtml = await canonicalToZipehrHtml5(result.canonical);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      cachedZipehrHtml = `<!-- ZipEHR serialize failed: ${message} -->`;
+    }
+    const code = document.querySelector("#zipehr-code");
+    if (code) code.textContent = cachedZipehrHtml;
+    const zipehrStats = document.querySelector("#zipehr-stats");
+    if (zipehrStats) {
+      const stats = zipehrTextStats(cachedZipehrHtml);
+      zipehrStats.textContent = `${stats.characters.toLocaleString()} characters · ${stats.lines.toLocaleString()} lines`;
+    }
+    if (ehrFormatTab === "zipehr") await refreshZipehrDocument();
+  })();
 }
 
 function paintExam(): void {

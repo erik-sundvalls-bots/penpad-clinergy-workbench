@@ -12,7 +12,11 @@ The sentence generator and the openEHR builder are vendored from [clinergy-extra
 
 ## openEHR output
 
-Compositions are **canonical RM JSON** (template `thumb-pain-encounter.v2`). The UI shows that JSON and validates it with ehrtslib against the coded OPT. FLAT is not generated or posted: FerroEHR/EHRbase/Better interoperability for this template is via canonical `POST /ehr/{ehr_id}/composition`. See [docs/validation-crosscheck.md](docs/validation-crosscheck.md) for why FLAT was dropped and how to post to a CDR (`npm run post:cdr` with `OPENEHR_BASE_URL` and `OPENEHR_EHR_ID`).
+Compositions are **canonical RM JSON** (template `thumb-pain-encounter.v2`). That is what the workbench **posts** to CDRs (`POST /ehr/{ehr_id}/composition?templateId=…`) and what the **Canonical JSON** tab shows; ehrtslib validates it against the coded OPT.
+
+The **ZipEHR** tab is a human-readable view only: ehrtslib `zipehr.html5/short` with the same options as the [ehrtslib demo app](https://github.com/ErikSundvall/ehrtslib/tree/main/examples/demo-app) (emoji symbols, linesaving layout, RM property names as HTML comments). Code/Document toggle, copy, download, and stylesheet picker match that demo.
+
+**FLAT** is not shown in the UI and is not posted from this app (to keep the hackathon surface small). That is not a statement that FerroEHR rejects ehrtslib FLAT in general — FLAT ↔ Ferro conventions are still being aligned ([#316](https://github.com/ErikSundvall/ehrtslib/issues/316), [#317](https://github.com/ErikSundvall/ehrtslib/issues/317), [PR 318](https://github.com/ErikSundvall/ehrtslib/pull/318)); no live FLAT post with fixed node ids has been tried yet. See [docs/validation-crosscheck.md](docs/validation-crosscheck.md) and `npm run post:cdr` for canonical posting.
 
 ## Develop
 

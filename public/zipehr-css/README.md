@@ -1,0 +1,1 @@
+Stylesheets copied from [ehrtslib `examples/demo-app/public/zipehr-css`](https://github.com/ErikSundvall/ehrtslib/tree/main/examples/demo-app/public/zipehr-css) (v0.13). Used by the workbench ZipEHR **Document** view.

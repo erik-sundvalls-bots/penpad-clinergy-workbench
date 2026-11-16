@@ -1,3 +1,15 @@
+export function serializeToHtml5Variant(
+  obj: unknown,
+  variant: "zipehr.html5.short" | "zipehr.html5.full" | "zipehr.html5.emoji",
+  options?: {
+    symbolVariant?: "emoji" | "lettercode";
+    layout?: "oneliner" | "linesaving" | "fluffy";
+    propertyMode?: "omit" | "attribute" | "comment";
+  },
+): Promise<string>;
+
+export function zipehrHtml5ToCanonical(html: string): unknown;
+
 export const parser: {
   parseOptXml(xml: string): { operationalTemplate: unknown; warnings?: unknown[] };
   isOptXml(xml: string): boolean;
