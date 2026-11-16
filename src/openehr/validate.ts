@@ -23,17 +23,8 @@ const templateValidator = new validation.TemplateValidator({
 });
 
 /**
- * The shipped OPT, which FerroEHR accepted, still constrains DV_DURATION.value
- * as INTEGER. ehrtslib 0.13 writes C_DURATION on a fresh export, but this file
- * was not re-exported. The composition keeps the ISO-8601 string.
- */
-function durationIntegerFalsePositive(issue: ValidationIssue): boolean {
-  return issue.message === "Expected integer, got string" && issue.path.endsWith("/value/value/");
-}
-
-/**
- * ehrtslib 0.13 still counts each `_mapping` key as another instance of the
- * coded node, so two symptoms look like two values of a max-1 child.
+ * ehrtslib counts each `_mapping` key as another instance of a max-1 coded
+ * node. https://github.com/ErikSundvall/ehrtslib/issues/317
  */
 function mappingCardinalityFalsePositive(issue: ValidationIssue): boolean {
   return issue.message.startsWith("instance count ");
@@ -67,7 +58,7 @@ export function validateComposition(
   }
 
   const templateResult = templateValidator.validate(typed, operationalTemplate);
-  errors.push(...asIssues(templateResult.errors, "error").filter((issue) => !durationIntegerFalsePositive(issue)));
+  errors.push(...asIssues(templateResult.errors, "error"));
   warnings.push(...asIssues(templateResult.warnings, "warning"));
   return { valid: errors.length === 0, errors, warnings };
 }

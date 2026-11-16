@@ -1393,7 +1393,7 @@
                                         <upper>1</upper>
                                       </existence>
                                       <children xsi:type="C_PRIMITIVE_OBJECT">
-                                        <rm_type_name>INTEGER</rm_type_name>
+                                        <rm_type_name>DURATION</rm_type_name>
                                         <occurrences>
                                           <lower_included>true</lower_included>
                                           <upper_included>true</upper_included>
@@ -1403,7 +1403,7 @@
                                           <upper>1</upper>
                                         </occurrences>
                                         <node_id></node_id>
-                                        <item xsi:type="C_INTEGER">
+                                        <item xsi:type="C_DURATION">
                                         </item>
                                       </children>
                                     </attributes>
@@ -1451,7 +1451,7 @@
                                             <upper>1</upper>
                                           </existence>
                                           <children xsi:type="C_PRIMITIVE_OBJECT">
-                                            <rm_type_name>INTEGER</rm_type_name>
+                                            <rm_type_name>DURATION</rm_type_name>
                                             <occurrences>
                                               <lower_included>true</lower_included>
                                               <upper_included>true</upper_included>
@@ -1461,7 +1461,7 @@
                                               <upper>1</upper>
                                             </occurrences>
                                             <node_id></node_id>
-                                            <item xsi:type="C_INTEGER">
+                                            <item xsi:type="C_DURATION">
                                             </item>
                                           </children>
                                         </attributes>
@@ -1499,7 +1499,7 @@
                                             <upper>1</upper>
                                           </existence>
                                           <children xsi:type="C_PRIMITIVE_OBJECT">
-                                            <rm_type_name>INTEGER</rm_type_name>
+                                            <rm_type_name>DURATION</rm_type_name>
                                             <occurrences>
                                               <lower_included>true</lower_included>
                                               <upper_included>true</upper_included>
@@ -1509,7 +1509,7 @@
                                               <upper>1</upper>
                                             </occurrences>
                                             <node_id></node_id>
-                                            <item xsi:type="C_INTEGER">
+                                            <item xsi:type="C_DURATION">
                                             </item>
                                           </children>
                                         </attributes>
@@ -5507,7 +5507,7 @@
                                             <upper>1</upper>
                                           </existence>
                                           <children xsi:type="C_PRIMITIVE_OBJECT">
-                                            <rm_type_name>INTEGER</rm_type_name>
+                                            <rm_type_name>DURATION</rm_type_name>
                                             <occurrences>
                                               <lower_included>true</lower_included>
                                               <upper_included>true</upper_included>
@@ -5517,7 +5517,7 @@
                                               <upper>1</upper>
                                             </occurrences>
                                             <node_id></node_id>
-                                            <item xsi:type="C_INTEGER">
+                                            <item xsi:type="C_DURATION">
                                             </item>
                                           </children>
                                         </attributes>
@@ -5565,7 +5565,7 @@
                                                 <upper>1</upper>
                                               </existence>
                                               <children xsi:type="C_PRIMITIVE_OBJECT">
-                                                <rm_type_name>INTEGER</rm_type_name>
+                                                <rm_type_name>DURATION</rm_type_name>
                                                 <occurrences>
                                                   <lower_included>true</lower_included>
                                                   <upper_included>true</upper_included>
@@ -5575,7 +5575,7 @@
                                                   <upper>1</upper>
                                                 </occurrences>
                                                 <node_id></node_id>
-                                                <item xsi:type="C_INTEGER">
+                                                <item xsi:type="C_DURATION">
                                                 </item>
                                               </children>
                                             </attributes>
@@ -5613,7 +5613,7 @@
                                                 <upper>1</upper>
                                               </existence>
                                               <children xsi:type="C_PRIMITIVE_OBJECT">
-                                                <rm_type_name>INTEGER</rm_type_name>
+                                                <rm_type_name>DURATION</rm_type_name>
                                                 <occurrences>
                                                   <lower_included>true</lower_included>
                                                   <upper_included>true</upper_included>
@@ -5623,7 +5623,7 @@
                                                   <upper>1</upper>
                                                 </occurrences>
                                                 <node_id></node_id>
-                                                <item xsi:type="C_INTEGER">
+                                                <item xsi:type="C_DURATION">
                                                 </item>
                                               </children>
                                             </attributes>
