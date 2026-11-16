@@ -1,0 +1,297 @@
+# Swedish language pack. Translations are ours, written for this repository.
+# They have not been reviewed by a native speaker. Erik's review is pending.
+# No Clinergy text: the keys are concept names, the words are our Swedish.
+id: sv
+subJoiner: av
+locationOrder: sub-lat-loc
+# An adverb is the neuter adjective (svår -> svårt) when no adverb is listed.
+adverbRule: suffix-t
+prepositions:
+  in: i
+  of: av
+  on: på
+definiteness:
+  topic: false
+  location: false
+  subLocation: false
+laterality:
+  left:
+    adjective: vänster
+    adjectiveForms:
+      en: vänster
+      ett: vänster
+      plural: vänstra
+      definite: vänstra
+  right:
+    adjective: höger
+    adjectiveForms:
+      en: höger
+      ett: höger
+      plural: högra
+      definite: högra
+entries:
+  ThumbPainSymptom:
+    noun: tumsmärta
+    gender: en
+    definite: tumsmärtan
+    plural: tumsmärtor
+  PainSymptom:
+    noun: smärta
+    gender: en
+    definite: smärtan
+    plural: smärtor
+    definitePlural: smärtorna
+  ThumbSwellingSymptom:
+    noun: tumsvullnad
+    gender: en
+    definite: tumsvullnaden
+    plural: tumsvullnader
+  SwellingSymptom:
+    noun: svullnad
+    gender: en
+    definite: svullnaden
+    plural: svullnader
+    definitePlural: svullnaderna
+  Thumb:
+    noun: tumme
+    gender: en
+    definite: tummen
+    plural: tummar
+    definitePlural: tummarna
+  DistalPhalanx:
+    noun: ytterfalang
+    gender: en
+    definite: ytterfalangen
+    plural: ytterfalanger
+  Onset:
+    noun: debut
+    gender: en
+    definite: debuten
+    plural: debuter
+  Severity:
+    noun: svårhetsgrad
+    gender: en
+    adjective: svår
+    adjectiveForms:
+      en: svår
+      ett: svårt
+      plural: svåra
+      definite: svåra
+  Duration:
+    noun: i
+  presence:
+    # Real rules use valueNoun, so the noun is the word in the sentence.
+    noun: föreligger
+    adjective: föreligger
+    indeclinable: true
+  gradual:
+    noun: gradvis
+    adjective: gradvis
+    indeclinable: true
+  moderate:
+    adjective: måttlig
+    adjectiveForms:
+      en: måttlig
+      ett: måttligt
+      plural: måttliga
+      definite: måttliga
+    adverb: måttligt
+  day:
+    noun: dag
+    gender: en
+    definite: dagen
+    plural: dagar
+  week:
+    noun: vecka
+    gender: en
+    definite: veckan
+    plural: veckor
+  # ett-word used by the agreement tests. "symtom" is a common Swedish noun.
+  Symptom:
+    noun: symtom
+    gender: ett
+    definite: symtomet
+    plural: symtom
+    definitePlural: symtomen
+  Skin:
+    noun: hud
+    gender: en
+    definite: huden
+  Stomach:
+    noun: magsäck
+    gender: en
+    definite: magsäcken
+  # Real thumb-form keys. Wording is ours and has not had a native-speaker review.
+  # The synthetic names above (Onset, Severity, Duration, DistalPhalanx) stay for the extractor tests.
+  distalPhalanx:
+    noun: ytterfalang
+    gender: en
+    definite: ytterfalangen
+    plural: ytterfalanger
+  AbsoluteOnset:
+    noun: debut
+    gender: en
+    definite: debuten
+  AbsoluteSeverity:
+    adjective: svår
+    adjectiveForms:
+      en: svår
+      ett: svårt
+      plural: svåra
+      definite: svåra
+  QuantityDuration:
+    adjective: i
+    indeclinable: true
+  # The real duration rule names the value TemporalValue. The number and unit
+  # replace that word, but the renderer still asks for its noun.
+  TemporalValue:
+    noun: tid
+    gender: en
+  AbsoluteProgress:
+    adjective: blir
+    indeclinable: true
+  AbsoluteProcessPattern:
+    adjective: förekomst
+    indeclinable: true
+  absence:
+    adjective: frånvarande
+    indeclinable: true
+  possible:
+    adjective: möjlig
+    adjectiveForms:
+      en: möjlig
+      ett: möjligt
+      plural: möjliga
+      definite: möjliga
+  excluded:
+    noun: utesluten
+  rapid:
+    noun: hastig
+  sudden:
+    noun: plötslig
+  mild:
+    noun: lätt
+  severe:
+    noun: svår
+  achingPain:
+    noun: molande
+  piercingPain:
+    noun: stickande
+  dullPain:
+    noun: dov
+  throbbingPain:
+    noun: bultande
+  pressingPain:
+    noun: tryckande
+  burningPain:
+    noun: brännande
+  infrequent:
+    noun: sällsynt
+  occasional:
+    noun: enstaka
+  frequent:
+    noun: frekvent
+  better:
+    noun: bättre
+  same:
+    adjective: samma
+    indeclinable: true
+  worse:
+    noun: sämre
+  single:
+    noun: enstaka
+  intermittant:
+    noun: intermittent
+  persistant:
+    noun: ihållande
+  continuous:
+    noun: kontinuerlig
+  soft:
+    noun: mjuk
+  firm:
+    noun: fast
+  hard:
+    noun: hård
+  fluctuant:
+    noun: fluktuerande
+  rough:
+    noun: skrovlig
+  smooth:
+    noun: slät
+  nodular:
+    noun: knottrig
+  irregular:
+    noun: oregelbunden
+  ThumbNail:
+    noun: tumnagel
+    gender: en
+    definite: tumnageln
+  proximalPhalanx:
+    noun: grundfalang
+    gender: en
+    definite: grundfalangen
+  InterphalangealJoint:
+    noun: IP-led
+    gender: en
+    definite: IP-leden
+  MetacarpoPhalangealJoint:
+    noun: MCP-led
+    gender: en
+    definite: MCP-leden
+  ThenarEminence:
+    noun: thenar
+    gender: en
+    definite: thenaren
+  hour:
+    noun: timme
+    gender: en
+    plural: timmar
+  minute:
+    noun: minut
+    gender: en
+    plural: minuter
+  second:
+    noun: sekund
+    gender: en
+    plural: sekunder
+  month:
+    noun: månad
+    gender: en
+    plural: månader
+  year:
+    noun: år
+    gender: ett
+    plural: år
+  ThumbSprain:
+    noun: tumstukning
+    gender: en
+  ThumbJointDislocation:
+    noun: tumledsluxation
+    gender: en
+  ThumbFracture:
+    noun: tumfraktur
+    gender: en
+  SubcutaneousInfection:
+    noun: subkutan infektion
+    gender: en
+  Whitlow:
+    noun: panaritium
+    gender: ett
+  Paronychia:
+    noun: paronyki
+    gender: en
+  Osteoarthritis:
+    noun: artros
+    gender: en
+  RheumatoidArthritis:
+    noun: reumatoid artrit
+    gender: en
+  Gout:
+    noun: gikt
+    gender: en
+  Cellulitis:
+    noun: cellulit
+    gender: en
+  JointStiffnessSymptom:
+    noun: ledstelhet
+    gender: en

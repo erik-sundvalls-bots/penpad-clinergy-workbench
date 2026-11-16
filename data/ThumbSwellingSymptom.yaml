@@ -1,0 +1,130 @@
+# Data-entry form for "thumb swelling" (ThumbSwellingSymptom)
+# Source: ClinergyDemo.zip (sha256 f138c38b24de630c...), model k_20_00
+# Extracted by clinergy-extractor 0.1.0 on 2026-11-15.
+# Content (c) 1997-8 Semantic Technologies Ltd / Victoria University of Manchester. All rights reserved.
+# Small extract published in this repository with the owner's approval, for demonstration only. See data/README.md.
+# firstLayer = items shown when the form opens; moreLayer = items behind the '>>' button.
+# inheritance compares each row with visibilityAncestor (nearest supertype with its own rows).
+# concept: key into concepts.yaml at the top of this folder; exam names are keys into exams.yaml.
+# summaryType names the value set of the topic's own present/absent style control (sentence-rules.yaml).
+topic: ThumbSwellingSymptom
+display: thumb swelling
+category: symptom
+summaryType: AbsentPresent
+location: Thumb
+supers: [HandSwellingSymptom]
+concept: "concepts.yaml#ThumbSwellingSymptom"
+visibilityAncestor: HandSwellingSymptom
+firstLayer:
+  - feature: laterality
+    values: [leftSelection, rightSelection]
+    multiple: true
+  - feature: sublocation
+    values:
+      - ThumbNail
+      - proximalPhalanx
+      - distalPhalanx
+      - InterphalangealJoint
+      - MetacarpoPhalangealJoint
+      - ThenarEminence
+  - feature: QuantityDuration
+    values: [TemporalValue]
+    inheritance: same-as-ancestor
+  - feature: AbsoluteOnset
+    values: [gradual, rapid, sudden]
+    inheritance: same-as-ancestor
+  - feature: AbsoluteSeverity
+    values: [mild, moderate, severe]
+    inheritance: same-as-ancestor
+moreLayer:
+  - feature: AbsoluteConsistency
+    values: [soft, firm, hard, fluctuant]
+    inheritance: same-as-ancestor
+  - feature: AbsoluteProgress
+    values: [better, same, worse]
+    inheritance: same-as-ancestor
+  - feature: AbsoluteTexture
+    values: [rough, smooth, nodular, irregular]
+    inheritance: same-as-ancestor
+  - criterialLink: ConseqPain
+    values:
+      - {attribute: hasClinicalAbsence, value: absence}
+      - {attribute: hasClinicalAbsence, value: presence}
+    inheritance: same-as-ancestor
+  - criterialLink: ConseqTendernessSign
+    values:
+      - {attribute: hasClinicalAbsence, value: absence}
+      - {attribute: hasClinicalAbsence, value: presence}
+    inheritance: same-as-ancestor
+  - criterialLink: ConseqErythemaSign
+    values:
+      - {attribute: hasClinicalAbsence, value: absence}
+      - {attribute: hasClinicalAbsence, value: presence}
+    inheritance: same-as-ancestor
+associatedSymptomsAndSigns:
+  - item: JointStiffnessSymptom
+    concept: JointStiffnessSymptom
+    preposition: null
+    location: null
+    preCoordinated: JointStiffnessSymptom
+    category: symptom
+    summaryType: AbsentPresent
+diagnoses:
+  - item: Osteoarthritis
+    concept: Osteoarthritis
+    preposition: null
+    location: null
+    preCoordinated: Osteoarthritis
+    category: disease
+    summaryType: PresentPossibleExcluded
+  - item: RheumatoidArthritis
+    concept: RheumatoidArthritis
+    preposition: null
+    location: null
+    preCoordinated: RheumatoidArthritis
+    category: disease
+    summaryType: PresentPossibleExcluded
+  - item: Gout
+    concept: Gout
+    preposition: null
+    location: null
+    preCoordinated: Gout
+    category: disease
+    summaryType: PresentPossibleExcluded
+  - item: Cellulitis
+    concept: Cellulitis
+    preposition: null
+    location: null
+    preCoordinated: Cellulitis
+    category: disease
+    summaryType: PresentPossibleExcluded
+otherLinks: []
+examinations:
+  - exam: ThumbExam
+    perSide: [left, right]
+    signs: [TendernessSign]
+    subExams: [ThumbMovementExam]
+# --- OpenGALEN 8 mappings (added by clinergy-to-opengalen: verified or reviewed only) ---
+opengalen:
+  topic: null
+  items: {}
+  values:
+    leftSelection: {opengalen: leftSelection, method: exact, needsHumanReview: false}
+    rightSelection: {opengalen: rightSelection, method: exact, needsHumanReview: false}
+    ThumbNail: {opengalen: ThumbNail, method: exact, needsHumanReview: false}
+    proximalPhalanx: {opengalen: ProximalPhalanx, method: normalised, needsHumanReview: true}
+    distalPhalanx: {opengalen: DistalPhalanx, method: normalised, needsHumanReview: true}
+    InterphalangealJoint: {opengalen: InterphalangealJoint, method: exact, needsHumanReview: false}
+    MetacarpoPhalangealJoint: {opengalen: MetacarpoPhalangealJoint, method: exact, needsHumanReview: false}
+    ThenarEminence: {opengalen: ThenarEminence, method: exact, needsHumanReview: false}
+    gradual: {opengalen: gradual, method: exact, needsHumanReview: false}
+    sudden: {opengalen: sudden, method: exact, needsHumanReview: false}
+    soft: {opengalen: soft, method: exact, needsHumanReview: false}
+    firm: {opengalen: firm, method: exact, needsHumanReview: false}
+    hard: {opengalen: hard, method: exact, needsHumanReview: false}
+    fluctuant: {opengalen: fluctuant, method: exact, needsHumanReview: false}
+    rough: {opengalen: rough, method: exact, needsHumanReview: false}
+    smooth: {opengalen: smooth, method: exact, needsHumanReview: false}
+    nodular: {opengalen: nodular, method: exact, needsHumanReview: false}
+    absence: {opengalen: absence, method: exact, needsHumanReview: false}
+    presence: {opengalen: presence, method: exact, needsHumanReview: false}

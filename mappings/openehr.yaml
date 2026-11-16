@@ -1,0 +1,131 @@
+# Clinergy descriptor/value -> openEHR path.
+# at-codes are copied from the published CKM archetypes named below (fetched via
+# the CKM ADL, revisions from each archetype's other_details.revision).
+# They were not guessed. Review status is ours: Erik has not signed off.
+#
+# Sources:
+#   openEHR-EHR-COMPOSITION.encounter.v1        revision 1.0.12
+#   openEHR-EHR-OBSERVATION.story.v1            revision 1.3.3
+#   openEHR-EHR-CLUSTER.symptom_sign.v2         revision 2.1.5
+#   openEHR-EHR-CLUSTER.anatomical_location.v1  revision 1.5.1
+# Category code 433 "event" and setting code 228 "primary medical care" are
+# from the openEHR terminology (composition category, setting).
+templateId: thumb-pain-encounter.v1
+composition:
+  archetype: openEHR-EHR-COMPOSITION.encounter.v1
+  revision: "1.0.12"
+  category:
+    code: "433"
+    text: event
+    terminology: openehr
+  setting:
+    code: "228"
+    text: primary medical care
+    terminology: openehr
+story:
+  archetype: openEHR-EHR-OBSERVATION.story.v1
+  revision: "1.3.3"
+  # /data[at0001]/events[at0002]/data[at0003]/items[at0004]  Story, DV_TEXT
+  nodeId: at0004
+  path: /data[at0001]/events[at0002]/data[at0003]/items[at0004]
+  rmType: DV_TEXT
+symptom:
+  archetype: openEHR-EHR-CLUSTER.symptom_sign.v2
+  revision: "2.1.5"
+  # Symptom/Sign name. DV_TEXT. The site is NOT repeated here: the archetype
+  # says to record a body site either in the name or in the structured slot.
+  name:
+    nodeId: at0001
+    path: /items[at0001]
+    rmType: DV_TEXT
+  # Structured body site slot. Allows CLUSTER.anatomical_location.v1.
+  bodySiteSlot: at0147
+location:
+  archetype: openEHR-EHR-CLUSTER.anatomical_location.v1
+  revision: "1.5.1"
+  # Body site name, DV_TEXT.
+  name:
+    nodeId: at0001
+    path: /items[at0001]
+    rmType: DV_TEXT
+  # Specific site: "a specific region or a point on, or within, the identified
+  # body site" (CKM text). Used for the sub-location, e.g. distal phalanx.
+  specificSite:
+    nodeId: at0065
+    path: /items[at0065]
+    rmType: DV_TEXT
+    status: needs-review
+  laterality:
+    nodeId: at0002
+    path: /items[at0002]
+    rmType: DV_CODED_TEXT
+    status: mapped
+    values:
+      right:
+        code: at0004
+        text: Right
+      left:
+        code: at0003
+        text: Left
+descriptors:
+  # Real extract names (AbsoluteSeverity, ...) and the synthetic fixture names
+  # (Severity, ...) share one node. LOCAL FIX for the thumb forms.
+  Severity: &severity
+    nodeId: at0021
+    path: /items[at0021]
+    rmType: DV_CODED_TEXT
+    status: mapped
+    note: "Severity category. Local codes are the archetype's own mild/moderate/severe."
+    values:
+      mild:
+        code: at0023
+        text: Mild
+      moderate:
+        code: at0024
+        text: Moderate
+      severe:
+        code: at0025
+        text: Severe
+  AbsoluteSeverity: *severity
+  Onset: &onset
+    nodeId: at0164
+    path: /items[at0164]
+    rmType: DV_TEXT
+    status: needs-review
+    note: >
+      Episode onset at0152 is a date/time, so gradual/rapid/sudden do not go
+      there. Onset timing at0164 allows DV_TEXT, and the CKM comment says the
+      type of onset can be coded, for example gradual or sudden. The archetype
+      does not enumerate those words, so the value is text.
+  AbsoluteOnset: *onset
+  Duration: &duration
+    nodeId: at0028
+    path: /items[at0028]
+    rmType: DV_DURATION
+    status: mapped
+    note: "Episode duration. A number and a unit become an ISO 8601 duration."
+  QuantityDuration: *duration
+  Character: &character
+    nodeId: at0189
+    path: /items[at0189]
+    rmType: DV_TEXT
+    status: needs-review
+    note: "Character is DV_TEXT. The archetype does not list aching, piercing, dull, throbbing, pressing or burning."
+  AbsolutePainDescriptor: *character
+  Frequency: &frequency
+    status: unmapped
+    note: >
+      No frequency element. Pattern at0003 is a narrative pattern (the CKM
+      comment says constant or intermittent), not the infrequent/occasional/frequent scale.
+  AbsoluteFrequency: *frequency
+summary:
+  presence:
+    status: implied
+    note: >
+      CLUSTER.symptom_sign.v2 is for a positively present symptom. Recording
+      the cluster is the presence. There is no separate present/absent element.
+  absence:
+    status: unmapped
+    note: >
+      Explicit absence is the misuse case of this archetype. It belongs in
+      CLUSTER.exclusion_symptom_sign, which this template does not include.

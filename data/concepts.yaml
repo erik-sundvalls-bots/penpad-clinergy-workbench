@@ -1,0 +1,170 @@
+# Displays the sentence generator needs for the thumb forms.
+# Topic displays are copied from ThumbPainSymptom.yaml and ThumbSwellingSymptom.yaml.
+# PainSymptom and SwellingSymptom are the grammatical heads of those
+# pre-coordinated names ("thumb pain" -> "pain", "thumb swelling" -> "swelling").
+# The ancestor concept records were not in the attached extract; the heads are
+# the words in the five known-good sentences.
+# Value displays that are not a plain de-camelcase are the button words read
+# from the public walkthrough (https://pen-pad-revival.github.io/docs/clinergy-thumb-pain-demo/).
+# Clinergy names: Content (c) 1997-8 Semantic Technologies Ltd / Victoria University of Manchester.
+# Published here with the owner's approval, for demonstration only. See README.md.
+ThumbPainSymptom:
+  display: thumb pain
+  category: symptom
+  summaryType: AbsentPresent
+  supers: [FingerPainSymptom]
+PainSymptom:
+  display: pain
+  category: symptom
+  summaryType: AbsentPresent
+  supers: []
+ThumbSwellingSymptom:
+  display: thumb swelling
+  category: symptom
+  summaryType: AbsentPresent
+  supers: [HandSwellingSymptom]
+SwellingSymptom:
+  display: swelling
+  category: symptom
+  summaryType: AbsentPresent
+  supers: []
+Thumb:
+  display: thumb
+presence:
+  display: present
+absence:
+  display: absent
+possible:
+  display: possible
+excluded:
+  display: excluded
+achingPain:
+  display: aching
+piercingPain:
+  display: piercing
+dullPain:
+  display: dull
+throbbingPain:
+  display: throbbing
+pressingPain:
+  display: pressing
+burningPain:
+  display: burning
+mild:
+  display: mild
+moderate:
+  display: moderate
+severe:
+  display: severe
+infrequent:
+  display: infrequent
+occasional:
+  display: occasional
+frequent:
+  display: frequent
+gradual:
+  display: gradual
+rapid:
+  display: rapid
+sudden:
+  display: sudden
+better:
+  display: better
+same:
+  display: same
+worse:
+  display: worse
+single:
+  display: single
+intermittant:
+  display: intermittant
+persistant:
+  display: persistant
+continuous:
+  display: continuous
+soft:
+  display: soft
+firm:
+  display: firm
+hard:
+  display: hard
+fluctuant:
+  display: fluctuant
+rough:
+  display: rough
+smooth:
+  display: smooth
+nodular:
+  display: nodular
+irregular:
+  display: irregular
+ThumbNail:
+  display: thumb nail
+proximalPhalanx:
+  display: proximal phalanx
+distalPhalanx:
+  display: distal phalanx
+InterphalangealJoint:
+  display: I-P joint
+MetacarpoPhalangealJoint:
+  display: MCP joint
+ThenarEminence:
+  display: thenar eminence
+second:
+  display: second
+minute:
+  display: minute
+hour:
+  display: hour
+day:
+  display: day
+week:
+  display: week
+month:
+  display: month
+year:
+  display: year
+ThumbSprain:
+  display: thumb sprain
+  category: disease
+  summaryType: PresentPossibleExcluded
+ThumbJointDislocation:
+  display: thumb joint dislocation
+  category: disease
+  summaryType: PresentPossibleExcluded
+ThumbFracture:
+  display: thumb fracture
+  category: disease
+  summaryType: PresentPossibleExcluded
+SubcutaneousInfection:
+  display: subcutaneous infection
+  category: disease
+  summaryType: PresentPossibleExcluded
+Whitlow:
+  display: whitlow
+  category: disease
+  summaryType: PresentPossibleExcluded
+Paronychia:
+  display: paronychia
+  category: disease
+  summaryType: PresentPossibleExcluded
+Osteoarthritis:
+  display: osteoarthritis
+  category: disease
+  summaryType: PresentPossibleExcluded
+RheumatoidArthritis:
+  display: rheumatoid arthritis
+  category: disease
+  summaryType: PresentPossibleExcluded
+Gout:
+  display: gout
+  category: disease
+  summaryType: PresentPossibleExcluded
+Cellulitis:
+  display: cellulitis
+  category: disease
+  summaryType: PresentPossibleExcluded
+JointStiffnessSymptom:
+  display: joint stiffness
+  category: symptom
+  summaryType: AbsentPresent

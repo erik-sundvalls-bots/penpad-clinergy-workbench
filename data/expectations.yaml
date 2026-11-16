@@ -1,0 +1,14 @@
+# Five known-good English summary sentences from the 1998 Clinergy thumb demo.
+# The strings were read off the public walkthrough:
+# https://pen-pad-revival.github.io/docs/clinergy-thumb-pain-demo/
+# The workbench tests must render these findings to these sentences.
+- expected: "Swelling of left thumb present"
+  finding: {topic: ThumbSwellingSymptom, location: Thumb, laterality: left, summary: presence, qualifiers: []}
+- expected: "Swelling of distal phalanx of left thumb for 2 weeks, present"
+  finding: {topic: ThumbSwellingSymptom, location: Thumb, laterality: left, subLocation: distalPhalanx, summary: presence, qualifiers: [{descriptor: QuantityDuration, value: TemporalValue, number: 2, unit: week}]}
+- expected: "Gradual onset, moderately severe swelling of distal phalanx of left thumb for 2 weeks, present"
+  finding: {topic: ThumbSwellingSymptom, location: Thumb, laterality: left, subLocation: distalPhalanx, summary: presence, qualifiers: [{descriptor: AbsoluteOnset, value: gradual}, {descriptor: AbsoluteSeverity, value: moderate}, {descriptor: QuantityDuration, value: TemporalValue, number: 2, unit: week}]}
+- expected: "Pain in right thumb"
+  finding: {topic: ThumbPainSymptom, location: Thumb, laterality: right, qualifiers: []}
+- expected: "Moderately severe pain in right thumb"
+  finding: {topic: ThumbPainSymptom, location: Thumb, laterality: right, qualifiers: [{descriptor: AbsoluteSeverity, value: moderate}]}

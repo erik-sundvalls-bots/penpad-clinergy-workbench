@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Test operational template, written for this repository.
+  Built from the published CKM archetypes below. It is not a CKM template export.
+  at-codes are the ones in those archetypes (see mappings/openehr.yaml).
+
+  openEHR-EHR-COMPOSITION.encounter.v1        1.0.12
+  openEHR-EHR-OBSERVATION.story.v1            1.3.3
+  openEHR-EHR-CLUSTER.symptom_sign.v2         2.1.5
+  openEHR-EHR-CLUSTER.anatomical_location.v1  1.5.1
+-->
+<template xmlns="http://schemas.openehr.org/v1">
+  <language>
+    <terminology_id>
+      <value>ISO_639-1</value>
+    </terminology_id>
+    <code_string>en</code_string>
+  </language>
+  <description>
+    <original_author id="name">clinergy-extractor</original_author>
+    <lifecycle_state>unmanaged</lifecycle_state>
+    <details>
+      <purpose>Test template for a thumb-pain finding carried as a story with symptom/sign and anatomical location clusters.</purpose>
+    </details>
+  </description>
+  <template_id>
+    <value>thumb-pain-encounter.v1</value>
+  </template_id>
+  <concept>thumb-pain-encounter.v1</concept>
+  <definition>
+    <COMPOSITION archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Encounter" path="">
+      <category>
+        <value>
+          <defining_code>
+            <terminology_id>
+              <value>openehr</value>
+            </terminology_id>
+            <code_string>433</code_string>
+          </defining_code>
+        </value>
+      </category>
+      <context>
+        <EVENT_CONTEXT>
+          <setting>
+            <defining_code>
+              <terminology_id>
+                <value>openehr</value>
+              </terminology_id>
+              <code_string>228</code_string>
+            </defining_code>
+          </setting>
+        </EVENT_CONTEXT>
+      </context>
+      <content archetype_id="openEHR-EHR-OBSERVATION.story.v1" concept_name="Story/History" path="/content">
+        <data>
+          <HISTORY node_id="at0001">
+            <events>
+              <EVENT node_id="at0002">
+                <data>
+                  <ITEM_TREE node_id="at0003">
+                    <items>
+                      <ELEMENT node_id="at0004" concept_name="Story" path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]"/>
+                      <CLUSTER archetype_id="openEHR-EHR-CLUSTER.symptom_sign.v2" concept_name="Symptom/Sign" path="/data[at0001]/events[at0002]/data[at0003]/items">
+                        <items>
+                          <ELEMENT node_id="at0001" concept_name="Symptom/Sign name" path="/items[at0001]"/>
+                          <CLUSTER archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1" concept_name="Anatomical location" path="/items[at0147]">
+                            <items>
+                              <ELEMENT node_id="at0001" concept_name="Body site name" path="/items[at0001]"/>
+                              <ELEMENT node_id="at0065" concept_name="Specific site" path="/items[at0065]"/>
+                              <ELEMENT node_id="at0002" concept_name="Laterality" path="/items[at0002]">
+                                <value>
+                                  <defining_code>
+                                    <code_string>at0004</code_string>
+                                    <code_string>at0003</code_string>
+                                  </defining_code>
+                                </value>
+                              </ELEMENT>
+                            </items>
+                          </CLUSTER>
+                          <ELEMENT node_id="at0021" concept_name="Severity category" path="/items[at0021]">
+                            <value>
+                              <defining_code>
+                                <code_string>at0023</code_string>
+                                <code_string>at0024</code_string>
+                                <code_string>at0025</code_string>
+                              </defining_code>
+                            </value>
+                          </ELEMENT>
+                          <ELEMENT node_id="at0164" concept_name="Onset timing" path="/items[at0164]"/>
+                          <ELEMENT node_id="at0028" concept_name="Episode duration" path="/items[at0028]"/>
+                          <ELEMENT node_id="at0189" concept_name="Character" path="/items[at0189]"/>
+                        </items>
+                      </CLUSTER>
+                    </items>
+                  </ITEM_TREE>
+                </data>
+              </EVENT>
+            </events>
+          </HISTORY>
+        </data>
+      </content>
+    </COMPOSITION>
+  </definition>
+</template>

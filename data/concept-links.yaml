@@ -1,0 +1,26 @@
+# Locative links the sentence generator reads ("preposition Location").
+# Thumb pain uses "in" and thumb swelling uses "of": those are the prepositions
+# in the five known-good sentences. concept-links.yaml was not in the attached
+# extract. Diagnosis prepositions are the ones written on the form links
+# ("on Thumb", "of Thumb").
+ThumbPainSymptom:
+  locativeLinks:
+    - in Thumb
+ThumbSwellingSymptom:
+  locativeLinks:
+    - of Thumb
+SubcutaneousInfection:
+  locativeLinks:
+    - on Thumb
+Whitlow:
+  locativeLinks:
+    - on Thumb
+Paronychia:
+  locativeLinks:
+    - on Thumb
+Osteoarthritis:
+  locativeLinks:
+    - of Thumb
+RheumatoidArthritis:
+  locativeLinks:
+    - of Thumb

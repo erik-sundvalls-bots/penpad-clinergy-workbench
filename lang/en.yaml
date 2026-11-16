@@ -1,0 +1,59 @@
+# English language pack for the synthetic thumb-pain fixture.
+# Our own wording, the same words as the concept displays in that fixture.
+# Not a copy of a Clinergy lexicon scan. A real extract's English still comes
+# from its concepts.yaml and sentence-rules.yaml when no pack is passed.
+id: en
+subJoiner: of
+locationOrder: sub-lat-loc
+adverbRule: none
+prepositions:
+  in: in
+  of: of
+  on: on
+definiteness:
+  topic: false
+  location: false
+  subLocation: false
+laterality:
+  left:
+    adjective: left
+    indeclinable: true
+  right:
+    adjective: right
+    indeclinable: true
+entries:
+  ThumbPainSymptom:
+    noun: thumb pain
+  PainSymptom:
+    noun: pain
+  ThumbSwellingSymptom:
+    noun: thumb swelling
+  SwellingSymptom:
+    noun: swelling
+    gender: en
+  Thumb:
+    noun: thumb
+    plural: thumbs
+  DistalPhalanx:
+    noun: distal phalanx
+  Onset:
+    noun: onset
+  Severity:
+    adjective: severe
+  Duration:
+    noun: for
+  presence:
+    adjective: present
+    indeclinable: true
+  gradual:
+    adjective: gradual
+    indeclinable: true
+  moderate:
+    adverb: moderately
+    adjective: moderate
+  day:
+    noun: day
+    plural: days
+  week:
+    noun: week
+    plural: weeks

@@ -1,0 +1,129 @@
+# Data-entry form for "thumb pain" (ThumbPainSymptom)
+# Source: ClinergyDemo.zip (sha256 f138c38b24de630c...), model k_20_00
+# Extracted by clinergy-extractor 0.1.0 on 2026-11-15.
+# Content (c) 1997-8 Semantic Technologies Ltd / Victoria University of Manchester. All rights reserved.
+# Small extract published in this repository with the owner's approval, for demonstration only. See data/README.md.
+# firstLayer = items shown when the form opens; moreLayer = items behind the '>>' button.
+# inheritance compares each row with visibilityAncestor (nearest supertype with its own rows).
+# concept: key into concepts.yaml at the top of this folder; exam names are keys into exams.yaml.
+# summaryType names the value set of the topic's own present/absent style control (sentence-rules.yaml).
+topic: ThumbPainSymptom
+display: thumb pain
+category: symptom
+summaryType: AbsentPresent
+location: Thumb
+supers: [FingerPainSymptom]
+concept: "concepts.yaml#ThumbPainSymptom"
+visibilityAncestor: FingerPainSymptom
+firstLayer:
+  - feature: laterality
+    values: [leftSelection, rightSelection]
+    multiple: true
+  - feature: QuantityDuration
+    values: [TemporalValue]
+    inheritance: same-as-ancestor
+  - feature: AbsolutePainDescriptor
+    values: [achingPain, piercingPain, dullPain, throbbingPain, pressingPain, burningPain]
+    inheritance: same-as-ancestor
+  - feature: AbsoluteSeverity
+    values: [mild, moderate, severe]
+    inheritance: same-as-ancestor
+  - feature: AbsoluteFrequency
+    values: [infrequent, occasional, frequent]
+    inheritance: same-as-ancestor
+moreLayer:
+  - feature: AbsoluteOnset
+    values: [gradual, rapid, sudden]
+    inheritance: same-as-ancestor
+  - feature: AbsoluteProgress
+    values: [better, same, worse]
+    inheritance: same-as-ancestor
+  - feature: AbsoluteProcessPattern
+    values: [single, intermittant, persistant, continuous]
+    inheritance: same-as-ancestor
+associatedSymptomsAndSigns:
+  - item: SwellingSymptom of Thumb
+    concept: SwellingSymptom
+    preposition: of
+    location: Thumb
+    preCoordinated: ThumbSwellingSymptom
+    category: symptom
+    summaryType: AbsentPresent
+diagnoses:
+  - item: ThumbSprain
+    concept: ThumbSprain
+    preposition: null
+    location: null
+    preCoordinated: ThumbSprain
+    category: disease
+    summaryType: PresentPossibleExcluded
+  - item: ThumbJointDislocation
+    concept: ThumbJointDislocation
+    preposition: null
+    location: null
+    preCoordinated: ThumbJointDislocation
+    category: disease
+    summaryType: PresentPossibleExcluded
+  - item: ThumbFracture
+    concept: ThumbFracture
+    preposition: null
+    location: null
+    preCoordinated: ThumbFracture
+    category: disease
+    summaryType: PresentPossibleExcluded
+  - item: SubcutaneousInfection on Thumb
+    concept: SubcutaneousInfection
+    preposition: "on"
+    location: Thumb
+    preCoordinated: null
+    category: disease
+    summaryType: PresentPossibleExcluded
+  - item: Whitlow on Thumb
+    concept: Whitlow
+    preposition: "on"
+    location: Thumb
+    preCoordinated: null
+    category: disease
+    summaryType: PresentPossibleExcluded
+  - item: Paronychia on Thumb
+    concept: Paronychia
+    preposition: "on"
+    location: Thumb
+    preCoordinated: null
+    category: disease
+    summaryType: PresentPossibleExcluded
+  - item: Osteoarthritis of Thumb
+    concept: Osteoarthritis
+    preposition: of
+    location: Thumb
+    preCoordinated: null
+    category: disease
+    summaryType: PresentPossibleExcluded
+  - item: RheumatoidArthritis of Thumb
+    concept: RheumatoidArthritis
+    preposition: of
+    location: Thumb
+    preCoordinated: null
+    category: disease
+    summaryType: PresentPossibleExcluded
+otherLinks: []
+examinations:
+  - exam: ThumbExam
+    perSide: [left, right]
+    signs: [TendernessSign]
+    subExams: [ThumbMovementExam]
+# --- OpenGALEN 8 mappings (added by clinergy-to-opengalen: verified or reviewed only) ---
+opengalen:
+  topic: null
+  items: {}
+  values:
+    leftSelection: {opengalen: leftSelection, method: exact, needsHumanReview: false}
+    rightSelection: {opengalen: rightSelection, method: exact, needsHumanReview: false}
+    burningPain: {opengalen: BurningPain, method: normalised, needsHumanReview: true}
+    infrequent: {opengalen: Infrequent, method: normalised, needsHumanReview: true}
+    occasional: {opengalen: Occasional, method: normalised, needsHumanReview: true}
+    gradual: {opengalen: gradual, method: exact, needsHumanReview: false}
+    sudden: {opengalen: sudden, method: exact, needsHumanReview: false}
+    single: {opengalen: single, method: exact, needsHumanReview: false}
+    intermittant: {opengalen: intermittent, method: normalised, needsHumanReview: true}
+    continuous: {opengalen: continuous, method: exact, needsHumanReview: false}

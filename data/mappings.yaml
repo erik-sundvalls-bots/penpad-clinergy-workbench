@@ -1,0 +1,211 @@
+# Clinergy -> OpenGALEN 8 mappings used by the thumb pain and thumb swelling forms.
+# Trimmed from the verified mapping file produced by clinergy-to-opengalen.
+# Clinergy names: Content (c) 1997-8 Semantic Technologies Ltd / Victoria University of Manchester. All rights reserved.
+# OpenGALEN: GALEN Open Source License (https://opengalen.eggbird.eu/gosl.html).
+# method: exact = identical name; normalised = the only name equal after case/punctuation/spelling
+# normalisation. needsHumanReview is the mapping tool's flag; method normalised is still a verified name.
+# This small extract is published here with the owner's approval, for demonstration only.
+SwellingSymptom:
+  opengalen: SwellingSymptom
+  kind: Class
+  iri: http://www.opengalen.org/owl/opengalen.owl#SwellingSymptom
+  method: exact
+  needsHumanReview: false
+Pain:
+  opengalen: Pain
+  kind: Class
+  iri: http://www.opengalen.org/owl/opengalen.owl#Pain
+  method: exact
+  needsHumanReview: false
+Thumb:
+  opengalen: Thumb
+  kind: Class
+  iri: http://www.opengalen.org/owl/opengalen.owl#Thumb
+  method: exact
+  needsHumanReview: false
+ThumbNail:
+  opengalen: ThumbNail
+  kind: Class
+  iri: http://www.opengalen.org/owl/opengalen.owl#ThumbNail
+  method: exact
+  needsHumanReview: false
+proximalPhalanx:
+  opengalen: ProximalPhalanx
+  kind: Class
+  iri: http://www.opengalen.org/owl/opengalen.owl#ProximalPhalanx
+  method: normalised
+  needsHumanReview: true
+distalPhalanx:
+  opengalen: DistalPhalanx
+  kind: Class
+  iri: http://www.opengalen.org/owl/opengalen.owl#DistalPhalanx
+  method: normalised
+  needsHumanReview: true
+InterphalangealJoint:
+  opengalen: InterphalangealJoint
+  kind: Class
+  iri: http://www.opengalen.org/owl/opengalen.owl#InterphalangealJoint
+  method: exact
+  needsHumanReview: false
+MetacarpoPhalangealJoint:
+  opengalen: MetacarpoPhalangealJoint
+  kind: Class
+  iri: http://www.opengalen.org/owl/opengalen.owl#MetacarpoPhalangealJoint
+  method: exact
+  needsHumanReview: false
+ThenarEminence:
+  opengalen: ThenarEminence
+  kind: Class
+  iri: http://www.opengalen.org/owl/opengalen.owl#ThenarEminence
+  method: exact
+  needsHumanReview: false
+leftSelection:
+  opengalen: leftSelection
+  kind: Class
+  iri: http://www.opengalen.org/owl/opengalen.owl#leftSelection
+  method: exact
+  needsHumanReview: false
+rightSelection:
+  opengalen: rightSelection
+  kind: Class
+  iri: http://www.opengalen.org/owl/opengalen.owl#rightSelection
+  method: exact
+  needsHumanReview: false
+burningPain:
+  opengalen: BurningPain
+  kind: Class
+  iri: http://www.opengalen.org/owl/opengalen.owl#BurningPain
+  method: normalised
+  needsHumanReview: true
+infrequent:
+  opengalen: Infrequent
+  kind: Class
+  iri: http://www.opengalen.org/owl/opengalen.owl#Infrequent
+  method: normalised
+  needsHumanReview: true
+occasional:
+  opengalen: Occasional
+  kind: Class
+  iri: http://www.opengalen.org/owl/opengalen.owl#Occasional
+  method: normalised
+  needsHumanReview: true
+gradual:
+  opengalen: gradual
+  kind: Class
+  iri: http://www.opengalen.org/owl/opengalen.owl#gradual
+  method: exact
+  needsHumanReview: false
+sudden:
+  opengalen: sudden
+  kind: Class
+  iri: http://www.opengalen.org/owl/opengalen.owl#sudden
+  method: exact
+  needsHumanReview: false
+single:
+  opengalen: single
+  kind: Class
+  iri: http://www.opengalen.org/owl/opengalen.owl#single
+  method: exact
+  needsHumanReview: false
+intermittant:
+  opengalen: intermittent
+  kind: Class
+  iri: http://www.opengalen.org/owl/opengalen.owl#intermittent
+  method: normalised
+  needsHumanReview: true
+continuous:
+  opengalen: continuous
+  kind: Class
+  iri: http://www.opengalen.org/owl/opengalen.owl#continuous
+  method: exact
+  needsHumanReview: false
+soft:
+  opengalen: soft
+  kind: Class
+  iri: http://www.opengalen.org/owl/opengalen.owl#soft
+  method: exact
+  needsHumanReview: false
+firm:
+  opengalen: firm
+  kind: Class
+  iri: http://www.opengalen.org/owl/opengalen.owl#firm
+  method: exact
+  needsHumanReview: false
+hard:
+  opengalen: hard
+  kind: Class
+  iri: http://www.opengalen.org/owl/opengalen.owl#hard
+  method: exact
+  needsHumanReview: false
+fluctuant:
+  opengalen: fluctuant
+  kind: Class
+  iri: http://www.opengalen.org/owl/opengalen.owl#fluctuant
+  method: exact
+  needsHumanReview: false
+rough:
+  opengalen: rough
+  kind: Class
+  iri: http://www.opengalen.org/owl/opengalen.owl#rough
+  method: exact
+  needsHumanReview: false
+smooth:
+  opengalen: smooth
+  kind: Class
+  iri: http://www.opengalen.org/owl/opengalen.owl#smooth
+  method: exact
+  needsHumanReview: false
+nodular:
+  opengalen: nodular
+  kind: Class
+  iri: http://www.opengalen.org/owl/opengalen.owl#nodular
+  method: exact
+  needsHumanReview: false
+absence:
+  opengalen: absence
+  kind: Class
+  iri: http://www.opengalen.org/owl/opengalen.owl#absence
+  method: exact
+  needsHumanReview: false
+presence:
+  opengalen: presence
+  kind: Class
+  iri: http://www.opengalen.org/owl/opengalen.owl#presence
+  method: exact
+  needsHumanReview: false
+second:
+  opengalen: second
+  kind: Class
+  iri: http://www.opengalen.org/owl/opengalen.owl#second
+  method: exact
+  needsHumanReview: false
+Paronychia:
+  opengalen: Paronychia
+  kind: Class
+  iri: http://www.opengalen.org/owl/opengalen.owl#Paronychia
+  method: exact
+  needsHumanReview: false
+Osteoarthritis:
+  opengalen: Osteoarthritis
+  kind: Class
+  iri: http://www.opengalen.org/owl/opengalen.owl#Osteoarthritis
+  method: exact
+  needsHumanReview: false
+RheumatoidArthritis:
+  opengalen: RheumatoidArthritis
+  kind: Class
+  iri: http://www.opengalen.org/owl/opengalen.owl#RheumatoidArthritis
+  method: exact
+  needsHumanReview: false
+Gout:
+  opengalen: Gout
+  kind: Class
+  iri: http://www.opengalen.org/owl/opengalen.owl#Gout
+  method: exact
+  needsHumanReview: false
+possible:
+  opengalen: possible
+  kind: Class
+  iri: http://www.opengalen.org/owl/opengalen.owl#possible
+  method: exact
+  needsHumanReview: false

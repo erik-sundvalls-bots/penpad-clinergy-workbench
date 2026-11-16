@@ -1,0 +1,182 @@
+{
+  "templateId": "thumb-pain-encounter.v1",
+  "version": "2.3",
+  "defaultLanguage": "en",
+  "tree": {
+    "id": "encounter",
+    "name": "Encounter",
+    "rmType": "COMPOSITION",
+    "nodeId": "openEHR-EHR-COMPOSITION.encounter.v1",
+    "aqlPath": "",
+    "min": 1,
+    "max": 1,
+    "children": [
+      {
+        "id": "story",
+        "name": "Story/History",
+        "rmType": "OBSERVATION",
+        "nodeId": "openEHR-EHR-OBSERVATION.story.v1",
+        "aqlPath": "/content[openEHR-EHR-OBSERVATION.story.v1]",
+        "min": 0,
+        "max": -1,
+        "children": [
+          {
+            "id": "event_series",
+            "name": "Event Series",
+            "rmType": "HISTORY",
+            "nodeId": "at0001",
+            "aqlPath": "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]",
+            "min": 1,
+            "max": 1,
+            "children": [
+              {
+                "id": "any_event",
+                "name": "Any event",
+                "rmType": "EVENT",
+                "nodeId": "at0002",
+                "aqlPath": "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]",
+                "min": 0,
+                "max": -1,
+                "children": [
+                  {
+                    "id": "tree",
+                    "name": "Tree",
+                    "rmType": "ITEM_TREE",
+                    "nodeId": "at0003",
+                    "aqlPath": "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]",
+                    "min": 1,
+                    "max": 1,
+                    "children": [
+                      {
+                        "id": "story_text",
+                        "name": "Story",
+                        "rmType": "ELEMENT",
+                        "nodeId": "at0004",
+                        "aqlPath": "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0004]",
+                        "min": 0,
+                        "max": -1
+                      },
+                      {
+                        "id": "symptom_sign",
+                        "name": "Symptom/Sign",
+                        "rmType": "CLUSTER",
+                        "nodeId": "openEHR-EHR-CLUSTER.symptom_sign.v2",
+                        "aqlPath": "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v2]",
+                        "min": 0,
+                        "max": -1,
+                        "children": [
+                          {
+                            "id": "symptom_name",
+                            "name": "Symptom/Sign name",
+                            "rmType": "ELEMENT",
+                            "nodeId": "at0001",
+                            "aqlPath": "/items[at0001]",
+                            "min": 1,
+                            "max": 1
+                          },
+                          {
+                            "id": "anatomical_location",
+                            "name": "Anatomical location",
+                            "rmType": "CLUSTER",
+                            "nodeId": "openEHR-EHR-CLUSTER.anatomical_location.v1",
+                            "aqlPath": "/items[openEHR-EHR-CLUSTER.anatomical_location.v1]",
+                            "min": 0,
+                            "max": -1,
+                            "children": [
+                              {
+                                "id": "body_site_name",
+                                "name": "Body site name",
+                                "rmType": "ELEMENT",
+                                "nodeId": "at0001",
+                                "aqlPath": "/items[at0001]",
+                                "min": 1,
+                                "max": 1
+                              },
+                              {
+                                "id": "specific_site",
+                                "name": "Specific site",
+                                "rmType": "ELEMENT",
+                                "nodeId": "at0065",
+                                "aqlPath": "/items[at0065]",
+                                "min": 0,
+                                "max": -1
+                              },
+                              {
+                                "id": "laterality",
+                                "name": "Laterality",
+                                "rmType": "ELEMENT",
+                                "nodeId": "at0002",
+                                "aqlPath": "/items[at0002]",
+                                "min": 0,
+                                "max": 1,
+                                "inputs": [
+                                  {
+                                    "type": "CODED_TEXT",
+                                    "list": [
+                                      { "value": "at0004", "label": "Right" },
+                                      { "value": "at0003", "label": "Left" }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "id": "severity",
+                            "name": "Severity category",
+                            "rmType": "ELEMENT",
+                            "nodeId": "at0021",
+                            "aqlPath": "/items[at0021]",
+                            "min": 0,
+                            "max": 1,
+                            "inputs": [
+                              {
+                                "type": "CODED_TEXT",
+                                "list": [
+                                  { "value": "at0023", "label": "Mild" },
+                                  { "value": "at0024", "label": "Moderate" },
+                                  { "value": "at0025", "label": "Severe" }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "id": "onset_timing",
+                            "name": "Onset timing",
+                            "rmType": "ELEMENT",
+                            "nodeId": "at0164",
+                            "aqlPath": "/items[at0164]",
+                            "min": 0,
+                            "max": 1
+                          },
+                          {
+                            "id": "episode_duration",
+                            "name": "Episode duration",
+                            "rmType": "ELEMENT",
+                            "nodeId": "at0028",
+                            "aqlPath": "/items[at0028]",
+                            "min": 0,
+                            "max": 1
+                          },
+                          {
+                            "id": "character",
+                            "name": "Character",
+                            "rmType": "ELEMENT",
+                            "nodeId": "at0189",
+                            "aqlPath": "/items[at0189]",
+                            "min": 0,
+                            "max": -1
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

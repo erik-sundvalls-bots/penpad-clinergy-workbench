@@ -1,0 +1,331 @@
+# Summary-sentence rules, trimmed to the thumb pain and thumb swelling forms.
+# Source: ClinergyDemo.zip model k_20_00, extracted by clinergy-extractor 0.1.0 on 2026-11-15.
+# Content (c) 1997-8 Semantic Technologies Ltd / Victoria University of Manchester. All rights reserved.
+# This small extract is published in this repository with the owner's approval, for demonstration only.
+# See data/README.md. Only the descriptors those two forms use are included.
+descriptors:
+  hasClinicalAbsence:
+    precedence: 1
+    rules:
+    - value: excluded
+      valueForm: valueNoun
+      descriptorForm: NoDescriptor
+      order: descFirst
+      position: afterTopic
+      valuePrecedence: null
+    - value: possible
+      valueForm: valueAdj
+      descriptorForm: NoDescriptor
+      order: valFirst
+      position: beforeTopic
+      valuePrecedence: null
+    - value: presence
+      valueForm: valueNoun
+      descriptorForm: NoDescriptor
+      order: descFirst
+      position: afterTopic
+      valuePrecedence: 2
+    - value: absence
+      valueForm: valueAdj
+      descriptorForm: NoDescriptor
+      order: valFirst
+      position: beforeTopic
+      valuePrecedence: 1
+  QuantityDuration:
+    precedence: 420
+    rules:
+    - value: TemporalValue
+      valueForm: valueNoun
+      descriptorForm: descAdj
+      order: descFirst
+      position: afterTopic
+      valuePrecedence: 0
+  AbsoluteSeverity:
+    precedence: 85
+    rules:
+    - value: mild
+      valueForm: valueNoun
+      descriptorForm: NoDescriptor
+      order: descFirst
+      position: beforeTopic
+      valuePrecedence: 1
+    - value: moderate
+      valueForm: valueAdj
+      descriptorForm: descAdj
+      order: valFirst
+      position: beforeTopic
+      valuePrecedence: 2
+    - value: severe
+      valueForm: valueNoun
+      descriptorForm: NoDescriptor
+      order: descFirst
+      position: beforeTopic
+      valuePrecedence: 3
+  AbsoluteProgress:
+    precedence: 410
+    rules:
+    - value: better
+      valueForm: valueNoun
+      descriptorForm: descAdj
+      order: descFirst
+      position: afterTopic
+      valuePrecedence: 0
+    - value: same
+      valueForm: valueAdj
+      descriptorForm: NoDescriptor
+      order: descFirst
+      position: afterTopic
+      valuePrecedence: 0
+    - value: worse
+      valueForm: valueNoun
+      descriptorForm: descAdj
+      order: descFirst
+      position: afterTopic
+      valuePrecedence: 0
+  AbsoluteOnset:
+    precedence: 8
+    rules:
+    - value: gradual
+      valueForm: valueNoun
+      descriptorForm: descNoun
+      order: valFirst
+      position: beforeTopic
+      valuePrecedence: 0
+    - value: rapid
+      valueForm: valueNoun
+      descriptorForm: descNoun
+      order: valFirst
+      position: beforeTopic
+      valuePrecedence: 0
+    - value: sudden
+      valueForm: valueNoun
+      descriptorForm: descNoun
+      order: valFirst
+      position: beforeTopic
+      valuePrecedence: 0
+  AbsoluteProcessPattern:
+    precedence: 18
+    rules:
+    - value: intermittant
+      valueForm: valueNoun
+      descriptorForm: NoDescriptor
+      order: descFirst
+      position: beforeTopic
+      valuePrecedence: 2
+    - value: persistant
+      valueForm: valueNoun
+      descriptorForm: NoDescriptor
+      order: descFirst
+      position: beforeTopic
+      valuePrecedence: 3
+    - value: single
+      valueForm: valueNoun
+      descriptorForm: descAdj
+      order: valFirst
+      position: beforeTopic
+      valuePrecedence: 1
+    - value: continuous
+      valueForm: valueNoun
+      descriptorForm: NoDescriptor
+      order: descFirst
+      position: beforeTopic
+      valuePrecedence: 4
+  AbsoluteFrequency:
+    precedence: 0
+    rules:
+    - value: infrequent
+      valueForm: valueNoun
+      descriptorForm: NoDescriptor
+      order: descFirst
+      position: beforeTopic
+      valuePrecedence: 0
+    - value: occasional
+      valueForm: valueNoun
+      descriptorForm: NoDescriptor
+      order: descFirst
+      position: beforeTopic
+      valuePrecedence: 0
+    - value: frequent
+      valueForm: valueNoun
+      descriptorForm: NoDescriptor
+      order: descFirst
+      position: beforeTopic
+      valuePrecedence: 0
+  AbsolutePainDescriptor:
+    precedence: 360
+    rules:
+    - value: piercingPain
+      valueForm: valueNoun
+      descriptorForm: NoDescriptor
+      order: descFirst
+      position: beforeTopic
+      valuePrecedence: 0
+    - value: dullPain
+      valueForm: valueNoun
+      descriptorForm: NoDescriptor
+      order: descFirst
+      position: beforeTopic
+      valuePrecedence: 0
+    - value: throbbingPain
+      valueForm: valueNoun
+      descriptorForm: NoDescriptor
+      order: descFirst
+      position: beforeTopic
+      valuePrecedence: 0
+    - value: burningPain
+      valueForm: valueNoun
+      descriptorForm: NoDescriptor
+      order: descFirst
+      position: beforeTopic
+      valuePrecedence: 0
+    - value: achingPain
+      valueForm: valueNoun
+      descriptorForm: NoDescriptor
+      order: descFirst
+      position: beforeTopic
+      valuePrecedence: 0
+    - value: pressingPain
+      valueForm: valueNoun
+      descriptorForm: NoDescriptor
+      order: descFirst
+      position: beforeTopic
+      valuePrecedence: 0
+  AbsoluteConsistency:
+    precedence: 125
+    rules:
+    - value: soft
+      valueForm: valueNoun
+      descriptorForm: NoDescriptor
+      order: descFirst
+      position: beforeTopic
+      valuePrecedence: 1
+    - value: firm
+      valueForm: valueNoun
+      descriptorForm: NoDescriptor
+      order: descFirst
+      position: beforeTopic
+      valuePrecedence: 2
+    - value: hard
+      valueForm: valueNoun
+      descriptorForm: NoDescriptor
+      order: descFirst
+      position: beforeTopic
+      valuePrecedence: 3
+    - value: fluctuant
+      valueForm: valueNoun
+      descriptorForm: NoDescriptor
+      order: descFirst
+      position: beforeTopic
+      valuePrecedence: 5
+  AbsoluteTexture:
+    precedence: 135
+    rules:
+    - value: smooth
+      valueForm: valueNoun
+      descriptorForm: NoDescriptor
+      order: descFirst
+      position: beforeTopic
+      valuePrecedence: 0
+    - value: nodular
+      valueForm: valueNoun
+      descriptorForm: NoDescriptor
+      order: descFirst
+      position: beforeTopic
+      valuePrecedence: 0
+    - value: irregular
+      valueForm: valueNoun
+      descriptorForm: NoDescriptor
+      order: descFirst
+      position: beforeTopic
+      valuePrecedence: 2
+    - value: rough
+      valueForm: valueNoun
+      descriptorForm: NoDescriptor
+      order: descFirst
+      position: beforeTopic
+      valuePrecedence: 0
+valuePrecedences:
+  rough: 0
+  fluctuant: 5
+  irregular: 2
+  nodular: 0
+  smooth: 0
+  hard: 3
+  pressingPain: 0
+  achingPain: 0
+  burningPain: 0
+  throbbingPain: 0
+  dullPain: 0
+  piercingPain: 0
+  presence: 2
+  absence: 1
+  continuous: 4
+  single: 1
+  frequent: 0
+  occasional: 0
+  infrequent: 0
+  persistant: 3
+  intermittant: 2
+  firm: 2
+  soft: 1
+  sudden: 0
+  rapid: 0
+  gradual: 0
+  worse: 0
+  same: 0
+  better: 0
+  severe: 3
+  moderate: 2
+  mild: 1
+  TemporalValue: 0
+summaryTypes:
+- 'AbsentPresent: { hasClinicalAbsence absence } { hasClinicalAbsence presence }'
+- 'PresentPossibleExcluded: { hasClinicalAbsence presence } { hasClinicalAbsence possible } { hasClinicalAbsence
+  excluded }'
+lexicon:
+  descriptors:
+    QuantityDuration:
+      noun: duration
+      adjective: for
+      negative: null
+    AbsoluteSeverity:
+      noun: severity
+      adjective: severe
+      negative: null
+    AbsoluteProgress:
+      noun: progress
+      adjective: getting
+      negative: null
+    AbsoluteOnset:
+      noun: onset
+      adjective: null
+      negative: null
+    AbsoluteProcessPattern:
+      noun: pattern
+      adjective: occurrence
+      negative: null
+    AbsoluteFrequency:
+      noun: frequency
+      adjective: null
+      negative: null
+    AbsolutePainDescriptor:
+      noun: character
+      adjective: null
+      negative: null
+    AbsoluteConsistency:
+      noun: consistency
+      adjective: null
+      negative: null
+    AbsoluteTexture:
+      noun: texture
+      adjective: null
+      negative: null
+  valueAdverbs:
+    continuous: continuously
+    total: totally
+    partial: partially
+    mild: mildly
+    moderate: moderately
+    severe: severely
+    traumatic: traumatically
+    accidental: accidentally
