@@ -1,0 +1,1173 @@
+# Reviewed Clinergy value bindings for the thumb pain workbench.
+# Clinergy names: (c) 1997-8 Semantic Technologies Ltd / Victoria University of Manchester.
+# OpenGALEN names: GALEN Open Source License. SNOMED CT: IHTSDO / SNOMED International.
+# verified: false means the code was not confirmed. Do not treat those rows as bindings.
+# match: = equivalent, ~ inexact, > Clinergy concept is broader than the target, < Clinergy concept is narrower.
+terms:
+  ThumbPainSymptom:
+    clinergy: ThumbPainSymptom
+    preferred: Pain in thumb
+    opengalen:
+      verified: false
+      note: No precoordinated ThumbPainSymptom class. OpenGALEN Pain is verified separately and the site
+        is Thumb.
+    snomed:
+      code: '300955002'
+      fsn: Pain in thumb (finding)
+      preferred: Pain in thumb
+      match: '='
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+    expression: 'Alternative post-coordination: 22253000 |Pain|:363698007 |Finding site|=76505004 |Thumb
+      structure|'
+  Pain:
+    clinergy: Pain
+    preferred: Pain
+    opengalen:
+      name: Pain
+      match: '='
+      verified: true
+      needsHumanReview: false
+      note: OpenGALEN 8 class name from the verified Clinergy mapping extract (IRI http://www.opengalen.org/owl/opengalen.owl#Pain).
+        That extract was produced against the OpenGALEN 8 release published in https://erik-sundvalls-bots.github.io/opengalen-browser/.
+    snomed:
+      code: '22253000'
+      fsn: Pain (finding)
+      preferred: Pain
+      match: '='
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  ThumbSwellingSymptom:
+    clinergy: ThumbSwellingSymptom
+    preferred: Swelling of thumb
+    opengalen:
+      verified: false
+      note: No precoordinated thumb swelling class. OpenGALEN SwellingSymptom is verified separately.
+    snomed:
+      verified: false
+      note: No active precoordinated 'swelling of thumb' finding. Bony/joint-only swelling concepts were
+        rejected as too narrow.
+    expression: '65124004 |Swelling|:363698007 |Finding site|=76505004 |Thumb structure|. OpenGALEN: SwellingSymptom
+      which isLocatumOf Thumb.'
+  SwellingSymptom:
+    clinergy: SwellingSymptom
+    preferred: Swelling
+    opengalen:
+      name: SwellingSymptom
+      match: '='
+      verified: true
+      needsHumanReview: false
+      note: OpenGALEN 8 class name from the verified Clinergy mapping extract (IRI http://www.opengalen.org/owl/opengalen.owl#SwellingSymptom).
+        That extract was produced against the OpenGALEN 8 release published in https://erik-sundvalls-bots.github.io/opengalen-browser/.
+    snomed:
+      code: '65124004'
+      fsn: Swelling (finding)
+      preferred: Swelling
+      match: '='
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  Thumb:
+    clinergy: Thumb
+    preferred: Thumb
+    opengalen:
+      name: Thumb
+      match: '='
+      verified: true
+      needsHumanReview: false
+      note: OpenGALEN 8 class name from the verified Clinergy mapping extract (IRI http://www.opengalen.org/owl/opengalen.owl#Thumb).
+        That extract was produced against the OpenGALEN 8 release published in https://erik-sundvalls-bots.github.io/opengalen-browser/.
+    snomed:
+      code: '76505004'
+      fsn: Thumb structure (body structure)
+      preferred: Thumb structure
+      match: '='
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  distalPhalanx:
+    clinergy: distalPhalanx
+    preferred: Distal phalanx of thumb
+    opengalen:
+      name: DistalPhalanx
+      match: '~'
+      verified: true
+      needsHumanReview: true
+      note: OpenGALEN 8 class name from the verified Clinergy mapping extract (IRI http://www.opengalen.org/owl/opengalen.owl#DistalPhalanx).
+        That extract was produced against the OpenGALEN 8 release published in https://erik-sundvalls-bots.github.io/opengalen-browser/.
+    snomed:
+      code: '182007006'
+      fsn: Entire distal phalanx of thumb (body structure)
+      preferred: Entire distal phalanx of thumb
+      match: '~'
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+    expression: 182007006 is the entire phalanx. 13829006 |Bone structure of distal phalanx of thumb|
+      is the bone only.
+  proximalPhalanx:
+    clinergy: proximalPhalanx
+    preferred: Proximal phalanx of thumb
+    opengalen:
+      name: ProximalPhalanx
+      match: '~'
+      verified: true
+      needsHumanReview: true
+      note: OpenGALEN 8 class name from the verified Clinergy mapping extract (IRI http://www.opengalen.org/owl/opengalen.owl#ProximalPhalanx).
+        That extract was produced against the OpenGALEN 8 release published in https://erik-sundvalls-bots.github.io/opengalen-browser/.
+    snomed:
+      code: '181992006'
+      fsn: Entire proximal phalanx of thumb (body structure)
+      preferred: Entire proximal phalanx of thumb
+      match: '='
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  ThumbNail:
+    clinergy: ThumbNail
+    preferred: Thumb nail
+    opengalen:
+      name: ThumbNail
+      match: '='
+      verified: true
+      needsHumanReview: false
+      note: OpenGALEN 8 class name from the verified Clinergy mapping extract (IRI http://www.opengalen.org/owl/opengalen.owl#ThumbNail).
+        That extract was produced against the OpenGALEN 8 release published in https://erik-sundvalls-bots.github.io/opengalen-browser/.
+    snomed:
+      code: '770819009'
+      fsn: Entire nail unit of thumb (body structure)
+      preferred: Entire nail unit of thumb
+      match: '~'
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  InterphalangealJoint:
+    clinergy: InterphalangealJoint
+    preferred: Interphalangeal joint of thumb
+    opengalen:
+      name: InterphalangealJoint
+      match: '='
+      verified: true
+      needsHumanReview: false
+      note: OpenGALEN 8 class name from the verified Clinergy mapping extract (IRI http://www.opengalen.org/owl/opengalen.owl#InterphalangealJoint).
+        That extract was produced against the OpenGALEN 8 release published in https://erik-sundvalls-bots.github.io/opengalen-browser/.
+    snomed:
+      code: '115955008'
+      fsn: Structure of interphalangeal joint of thumb (body structure)
+      preferred: Structure of interphalangeal joint of thumb
+      match: '='
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  MetacarpoPhalangealJoint:
+    clinergy: MetacarpoPhalangealJoint
+    preferred: Metacarpophalangeal joint of thumb
+    opengalen:
+      name: MetacarpoPhalangealJoint
+      match: '='
+      verified: true
+      needsHumanReview: false
+      note: OpenGALEN 8 class name from the verified Clinergy mapping extract (IRI http://www.opengalen.org/owl/opengalen.owl#MetacarpoPhalangealJoint).
+        That extract was produced against the OpenGALEN 8 release published in https://erik-sundvalls-bots.github.io/opengalen-browser/.
+    snomed:
+      code: '56310002'
+      fsn: Metacarpophalangeal joint structure of thumb (body structure)
+      preferred: Structure of metacarpophalangeal joint structure of thumb
+      match: '='
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  ThenarEminence:
+    clinergy: ThenarEminence
+    preferred: Thenar eminence
+    opengalen:
+      name: ThenarEminence
+      match: '='
+      verified: true
+      needsHumanReview: false
+      note: OpenGALEN 8 class name from the verified Clinergy mapping extract (IRI http://www.opengalen.org/owl/opengalen.owl#ThenarEminence).
+        That extract was produced against the OpenGALEN 8 release published in https://erik-sundvalls-bots.github.io/opengalen-browser/.
+    snomed:
+      verified: false
+      note: No SNOMED body structure whose FSN is the thenar eminence. Thenar muscle and skin-of-thenar
+        were not accepted as equal.
+  ThumbJoint:
+    clinergy: ThumbJoint
+    preferred: Thumb joint
+    opengalen:
+      verified: false
+      note: No ThumbJoint class in the verified OpenGALEN extract.
+    snomed:
+      code: '125684003'
+      fsn: Thumb joint structure (body structure)
+      preferred: Structure of thumb joint
+      match: '='
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  leftSelection:
+    clinergy: leftSelection
+    preferred: Left
+    opengalen:
+      name: leftSelection
+      match: '='
+      verified: true
+      needsHumanReview: false
+      note: OpenGALEN 8 class name from the verified Clinergy mapping extract (IRI http://www.opengalen.org/owl/opengalen.owl#leftSelection).
+        That extract was produced against the OpenGALEN 8 release published in https://erik-sundvalls-bots.github.io/opengalen-browser/.
+    snomed:
+      code: '7771000'
+      fsn: Left (qualifier value)
+      preferred: Left
+      match: '='
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  rightSelection:
+    clinergy: rightSelection
+    preferred: Right
+    opengalen:
+      name: rightSelection
+      match: '='
+      verified: true
+      needsHumanReview: false
+      note: OpenGALEN 8 class name from the verified Clinergy mapping extract (IRI http://www.opengalen.org/owl/opengalen.owl#rightSelection).
+        That extract was produced against the OpenGALEN 8 release published in https://erik-sundvalls-bots.github.io/opengalen-browser/.
+    snomed:
+      code: '24028007'
+      fsn: Right (qualifier value)
+      preferred: Right
+      match: '='
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  bilateral:
+    clinergy: bilateral
+    preferred: Right and left
+    opengalen:
+      verified: false
+      note: No Bilateral or RightAndLeft class in the verified OpenGALEN extract.
+    snomed:
+      code: '51440002'
+      fsn: Right and left (qualifier value)
+      preferred: Right and left
+      match: '='
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+    expression: Archetype laterality at0083 is 'Right and left', not a separate 'bilateral' code. 261665006
+      is Unknown, not bilateral.
+  achingPain:
+    clinergy: achingPain
+    preferred: Aching
+    opengalen:
+      verified: false
+      note: achingPain is not in the verified OpenGALEN extract.
+    snomed:
+      code: '27635008'
+      fsn: Aching pain (finding)
+      preferred: Aching pain
+      match: '~'
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  piercingPain:
+    clinergy: piercingPain
+    preferred: Piercing
+    opengalen:
+      verified: false
+      note: piercingPain is not in the verified OpenGALEN extract.
+    snomed:
+      verified: false
+      note: No SNOMED finding whose FSN is piercing pain. 55145008 |Stabbing pain| was not accepted as
+        equal.
+  dullPain:
+    clinergy: dullPain
+    preferred: Dull
+    opengalen:
+      verified: false
+      note: dullPain is not in the verified OpenGALEN extract.
+    snomed:
+      code: '83644001'
+      fsn: Dull pain (finding)
+      preferred: Dull pain
+      match: '~'
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  throbbingPain:
+    clinergy: throbbingPain
+    preferred: Throbbing
+    opengalen:
+      verified: false
+      note: throbbingPain is not in the verified OpenGALEN extract.
+    snomed:
+      code: '29695002'
+      fsn: Throbbing pain (finding)
+      preferred: Throbbing pain
+      match: '~'
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  pressingPain:
+    clinergy: pressingPain
+    preferred: Pressing
+    opengalen:
+      verified: false
+      note: pressingPain is not in the verified OpenGALEN extract.
+    snomed:
+      verified: false
+      note: No SNOMED finding whose FSN is pressing pain.
+  burningPain:
+    clinergy: burningPain
+    preferred: Burning
+    opengalen:
+      name: BurningPain
+      match: '~'
+      verified: true
+      needsHumanReview: true
+      note: OpenGALEN 8 class name from the verified Clinergy mapping extract (IRI http://www.opengalen.org/owl/opengalen.owl#BurningPain).
+        That extract was produced against the OpenGALEN 8 release published in https://erik-sundvalls-bots.github.io/opengalen-browser/.
+    snomed:
+      code: '36349006'
+      fsn: Burning pain (finding)
+      preferred: Burning pain
+      match: '~'
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  mild:
+    clinergy: mild
+    preferred: Mild
+    opengalen:
+      verified: false
+      note: mild is not in the verified OpenGALEN extract.
+    snomed:
+      code: '255604002'
+      fsn: Mild (qualifier value)
+      preferred: Mild
+      match: '='
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  moderate:
+    clinergy: moderate
+    preferred: Moderate
+    opengalen:
+      verified: false
+      note: moderate is not in the verified OpenGALEN extract.
+    snomed:
+      code: '6736007'
+      fsn: Moderate (severity modifier) (qualifier value)
+      preferred: Moderate
+      match: '='
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  severe:
+    clinergy: severe
+    preferred: Severe
+    opengalen:
+      verified: false
+      note: severe is not in the verified OpenGALEN extract.
+    snomed:
+      code: '24484000'
+      fsn: Severe (severity modifier) (qualifier value)
+      preferred: Severe
+      match: '='
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  infrequent:
+    clinergy: infrequent
+    preferred: Infrequent
+    opengalen:
+      name: Infrequent
+      match: '~'
+      verified: true
+      needsHumanReview: true
+      note: OpenGALEN 8 class name from the verified Clinergy mapping extract (IRI http://www.opengalen.org/owl/opengalen.owl#Infrequent).
+        That extract was produced against the OpenGALEN 8 release published in https://erik-sundvalls-bots.github.io/opengalen-browser/.
+    snomed:
+      code: '27789000'
+      fsn: Infrequent (qualifier value)
+      preferred: Infrequent
+      match: '='
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  occasional:
+    clinergy: occasional
+    preferred: Occasional
+    opengalen:
+      name: Occasional
+      match: '~'
+      verified: true
+      needsHumanReview: true
+      note: OpenGALEN 8 class name from the verified Clinergy mapping extract (IRI http://www.opengalen.org/owl/opengalen.owl#Occasional).
+        That extract was produced against the OpenGALEN 8 release published in https://erik-sundvalls-bots.github.io/opengalen-browser/.
+    snomed:
+      code: '84638005'
+      fsn: Occasional (qualifier value)
+      preferred: Occasional
+      match: '='
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  frequent:
+    clinergy: frequent
+    preferred: Frequent
+    opengalen:
+      verified: false
+      note: frequent is not in the verified OpenGALEN extract.
+    snomed:
+      code: '70232002'
+      fsn: Frequent (qualifier value)
+      preferred: Frequent
+      match: '='
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  gradual:
+    clinergy: gradual
+    preferred: Gradual
+    opengalen:
+      name: gradual
+      match: '='
+      verified: true
+      needsHumanReview: false
+      note: OpenGALEN 8 class name from the verified Clinergy mapping extract (IRI http://www.opengalen.org/owl/opengalen.owl#gradual).
+        That extract was produced against the OpenGALEN 8 release published in https://erik-sundvalls-bots.github.io/opengalen-browser/.
+    snomed:
+      code: '61751001'
+      fsn: Gradual onset (qualifier value)
+      preferred: Gradual onset
+      match: '~'
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  rapid:
+    clinergy: rapid
+    preferred: Rapid
+    opengalen:
+      verified: false
+      note: rapid is not in the verified OpenGALEN extract.
+    snomed:
+      code: '1384228004'
+      fsn: Rapid onset (qualifier value)
+      preferred: Rapid onset
+      match: '~'
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  sudden:
+    clinergy: sudden
+    preferred: Sudden
+    opengalen:
+      name: sudden
+      match: '='
+      verified: true
+      needsHumanReview: false
+      note: OpenGALEN 8 class name from the verified Clinergy mapping extract (IRI http://www.opengalen.org/owl/opengalen.owl#sudden).
+        That extract was produced against the OpenGALEN 8 release published in https://erik-sundvalls-bots.github.io/opengalen-browser/.
+    snomed:
+      code: '385315009'
+      fsn: Sudden onset (qualifier value)
+      preferred: Sudden onset
+      match: '~'
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  better:
+    clinergy: better
+    preferred: Better
+    opengalen:
+      verified: false
+      note: better is not in the verified OpenGALEN extract.
+    snomed:
+      code: '3442003'
+      fsn: Better (qualifier value)
+      preferred: Better
+      match: '='
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  same:
+    clinergy: same
+    preferred: Same
+    opengalen:
+      verified: false
+      note: same is not in the verified OpenGALEN extract.
+    snomed:
+      code: '260388006'
+      fsn: No status change (qualifier value)
+      preferred: No change
+      match: '~'
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  worse:
+    clinergy: worse
+    preferred: Worse
+    opengalen:
+      verified: false
+      note: worse is not in the verified OpenGALEN extract.
+    snomed:
+      code: '231877006'
+      fsn: Worse (qualifier value)
+      preferred: Worse
+      match: '='
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  single:
+    clinergy: single
+    preferred: Single
+    opengalen:
+      name: single
+      match: '='
+      verified: true
+      needsHumanReview: false
+      note: OpenGALEN 8 class name from the verified Clinergy mapping extract (IRI http://www.opengalen.org/owl/opengalen.owl#single).
+        That extract was produced against the OpenGALEN 8 release published in https://erik-sundvalls-bots.github.io/opengalen-browser/.
+    snomed:
+      code: '229803000'
+      fsn: Single episode (qualifier value)
+      preferred: Single episode
+      match: '~'
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  intermittant:
+    clinergy: intermittant
+    preferred: Intermittent
+    opengalen:
+      name: intermittent
+      match: '~'
+      verified: true
+      needsHumanReview: true
+      note: OpenGALEN 8 class name from the verified Clinergy mapping extract (IRI http://www.opengalen.org/owl/opengalen.owl#intermittent).
+        That extract was produced against the OpenGALEN 8 release published in https://erik-sundvalls-bots.github.io/opengalen-browser/.
+    snomed:
+      code: '7087005'
+      fsn: Intermittent (qualifier value)
+      preferred: Intermittent
+      match: '='
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  persistant:
+    clinergy: persistant
+    preferred: Persistent
+    opengalen:
+      verified: false
+      note: persistant/persistent is not in the verified OpenGALEN extract.
+    snomed:
+      verified: false
+      note: 255222005 and 86639004, both FSN Persistent, are inactive in this edition. No active replacement
+        was verified.
+  continuous:
+    clinergy: continuous
+    preferred: Continuous
+    opengalen:
+      name: continuous
+      match: '='
+      verified: true
+      needsHumanReview: false
+      note: OpenGALEN 8 class name from the verified Clinergy mapping extract (IRI http://www.opengalen.org/owl/opengalen.owl#continuous).
+        That extract was produced against the OpenGALEN 8 release published in https://erik-sundvalls-bots.github.io/opengalen-browser/.
+    snomed:
+      code: '255238004'
+      fsn: Continuous (qualifier value)
+      preferred: Continuous
+      match: '='
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  soft:
+    clinergy: soft
+    preferred: Soft
+    opengalen:
+      name: soft
+      match: '='
+      verified: true
+      needsHumanReview: false
+      note: OpenGALEN 8 class name from the verified Clinergy mapping extract (IRI http://www.opengalen.org/owl/opengalen.owl#soft).
+        That extract was produced against the OpenGALEN 8 release published in https://erik-sundvalls-bots.github.io/opengalen-browser/.
+    snomed:
+      code: '37378003'
+      fsn: Soft (qualifier value)
+      preferred: Soft
+      match: '='
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  firm:
+    clinergy: firm
+    preferred: Firm
+    opengalen:
+      name: firm
+      match: '='
+      verified: true
+      needsHumanReview: false
+      note: OpenGALEN 8 class name from the verified Clinergy mapping extract (IRI http://www.opengalen.org/owl/opengalen.owl#firm).
+        That extract was produced against the OpenGALEN 8 release published in https://erik-sundvalls-bots.github.io/opengalen-browser/.
+    snomed:
+      code: '20583004'
+      fsn: Firm (qualifier value)
+      preferred: Firm
+      match: '='
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  hard:
+    clinergy: hard
+    preferred: Hard
+    opengalen:
+      name: hard
+      match: '='
+      verified: true
+      needsHumanReview: false
+      note: OpenGALEN 8 class name from the verified Clinergy mapping extract (IRI http://www.opengalen.org/owl/opengalen.owl#hard).
+        That extract was produced against the OpenGALEN 8 release published in https://erik-sundvalls-bots.github.io/opengalen-browser/.
+    snomed:
+      code: '72505002'
+      fsn: Hard (qualifier value)
+      preferred: Hard
+      match: '='
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  fluctuant:
+    clinergy: fluctuant
+    preferred: Fluctuant
+    opengalen:
+      name: fluctuant
+      match: '='
+      verified: true
+      needsHumanReview: false
+      note: OpenGALEN 8 class name from the verified Clinergy mapping extract (IRI http://www.opengalen.org/owl/opengalen.owl#fluctuant).
+        That extract was produced against the OpenGALEN 8 release published in https://erik-sundvalls-bots.github.io/opengalen-browser/.
+    snomed:
+      code: '300583006'
+      fsn: Fluctuant (finding)
+      preferred: Fluctuant
+      match: '~'
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  rough:
+    clinergy: rough
+    preferred: Rough
+    opengalen:
+      name: rough
+      match: '='
+      verified: true
+      needsHumanReview: false
+      note: OpenGALEN 8 class name from the verified Clinergy mapping extract (IRI http://www.opengalen.org/owl/opengalen.owl#rough).
+        That extract was produced against the OpenGALEN 8 release published in https://erik-sundvalls-bots.github.io/opengalen-browser/.
+    snomed:
+      verified: false
+      note: No SNOMED qualifier FSN Rough. 816995008 |Rough skin| is a finding, not this texture value.
+  smooth:
+    clinergy: smooth
+    preferred: Smooth
+    opengalen:
+      name: smooth
+      match: '='
+      verified: true
+      needsHumanReview: false
+      note: OpenGALEN 8 class name from the verified Clinergy mapping extract (IRI http://www.opengalen.org/owl/opengalen.owl#smooth).
+        That extract was produced against the OpenGALEN 8 release published in https://erik-sundvalls-bots.github.io/opengalen-browser/.
+    snomed:
+      code: '82280004'
+      fsn: Smooth (qualifier value)
+      preferred: Smooth
+      match: '='
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  nodular:
+    clinergy: nodular
+    preferred: Nodular
+    opengalen:
+      name: nodular
+      match: '='
+      verified: true
+      needsHumanReview: false
+      note: OpenGALEN 8 class name from the verified Clinergy mapping extract (IRI http://www.opengalen.org/owl/opengalen.owl#nodular).
+        That extract was produced against the OpenGALEN 8 release published in https://erik-sundvalls-bots.github.io/opengalen-browser/.
+    snomed:
+      code: '255288007'
+      fsn: Nodular (qualifier value)
+      preferred: Nodular
+      match: '='
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  irregular:
+    clinergy: irregular
+    preferred: Irregular
+    opengalen:
+      verified: false
+      note: irregular is not in the verified OpenGALEN extract.
+    snomed:
+      code: '49608001'
+      fsn: Irregular (qualifier value)
+      preferred: Irregular
+      match: '='
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  second:
+    clinergy: second
+    preferred: second
+    opengalen:
+      verified: false
+      note: second as a duration unit is not in the verified OpenGALEN extract (the class 'second' exists
+        but is not this unit).
+    snomed:
+      code: '257997001'
+      fsn: Seconds (qualifier value)
+      preferred: Second
+      match: '='
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  minute:
+    clinergy: minute
+    preferred: minute
+    opengalen:
+      verified: false
+      note: minute as a duration unit is not in the verified OpenGALEN extract (the class 'second' exists
+        but is not this unit).
+    snomed:
+      code: '1156209001'
+      fsn: minute (qualifier value)
+      preferred: minute
+      match: '='
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  hour:
+    clinergy: hour
+    preferred: hour
+    opengalen:
+      verified: false
+      note: hour as a duration unit is not in the verified OpenGALEN extract (the class 'second' exists
+        but is not this unit).
+    snomed:
+      code: '258702006'
+      fsn: hour (qualifier value)
+      preferred: hour
+      match: '='
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  day:
+    clinergy: day
+    preferred: day
+    opengalen:
+      verified: false
+      note: day as a duration unit is not in the verified OpenGALEN extract (the class 'second' exists
+        but is not this unit).
+    snomed:
+      code: '264721006'
+      fsn: day (qualifier value)
+      preferred: day
+      match: '='
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  week:
+    clinergy: week
+    preferred: week
+    opengalen:
+      verified: false
+      note: week as a duration unit is not in the verified OpenGALEN extract (the class 'second' exists
+        but is not this unit).
+    snomed:
+      code: '258705008'
+      fsn: week (qualifier value)
+      preferred: week
+      match: '='
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  month:
+    clinergy: month
+    preferred: month
+    opengalen:
+      verified: false
+      note: month as a duration unit is not in the verified OpenGALEN extract (the class 'second' exists
+        but is not this unit).
+    snomed:
+      code: '258706009'
+      fsn: month (qualifier value)
+      preferred: month
+      match: '='
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  year:
+    clinergy: year
+    preferred: year
+    opengalen:
+      verified: false
+      note: year as a duration unit is not in the verified OpenGALEN extract (the class 'second' exists
+        but is not this unit).
+    snomed:
+      code: '258707000'
+      fsn: year (qualifier value)
+      preferred: year
+      match: '='
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  presence:
+    clinergy: presence
+    preferred: Present
+    opengalen:
+      name: presence
+      match: '='
+      verified: true
+      needsHumanReview: false
+      note: OpenGALEN 8 class name from the verified Clinergy mapping extract (IRI http://www.opengalen.org/owl/opengalen.owl#presence).
+        That extract was produced against the OpenGALEN 8 release published in https://erik-sundvalls-bots.github.io/opengalen-browser/.
+    snomed:
+      code: '52101004'
+      fsn: Present (qualifier value)
+      preferred: Present
+      match: '='
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  absence:
+    clinergy: absence
+    preferred: Absent
+    opengalen:
+      name: absence
+      match: '='
+      verified: true
+      needsHumanReview: false
+      note: OpenGALEN 8 class name from the verified Clinergy mapping extract (IRI http://www.opengalen.org/owl/opengalen.owl#absence).
+        That extract was produced against the OpenGALEN 8 release published in https://erik-sundvalls-bots.github.io/opengalen-browser/.
+    snomed:
+      code: '2667000'
+      fsn: Absent (qualifier value)
+      preferred: Absent
+      match: '='
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  ThumbSprain:
+    clinergy: ThumbSprain
+    preferred: Sprain of thumb
+    opengalen:
+      verified: false
+      note: ThumbSprain is not in the verified OpenGALEN extract.
+    snomed:
+      code: '263130004'
+      fsn: Sprain of ligament of thumb (disorder)
+      preferred: Sprain of thumb
+      match: '~'
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  ThumbJointDislocation:
+    clinergy: ThumbJointDislocation
+    preferred: Dislocation of thumb joint
+    opengalen:
+      verified: false
+      note: ThumbJointDislocation is not in the verified OpenGALEN extract.
+    snomed:
+      code: '1279684002'
+      fsn: Dislocation of joint of thumb (disorder)
+      preferred: Dislocation of joint of thumb
+      match: '='
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  ThumbFracture:
+    clinergy: ThumbFracture
+    preferred: Fracture of thumb
+    opengalen:
+      verified: false
+      note: ThumbFracture is not in the verified OpenGALEN extract.
+    snomed:
+      code: '704213001'
+      fsn: Closed fracture of phalanx of thumb (disorder)
+      preferred: Closed fracture of phalanx of thumb
+      match: '>'
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+    expression: 208496009 and 263213009, both FSN Fracture of thumb, are inactive. 704213001 is narrower
+      (closed fracture of a phalanx).
+  SubcutaneousInfection:
+    clinergy: SubcutaneousInfection
+    preferred: Subcutaneous infection of thumb
+    opengalen:
+      verified: false
+      note: SubcutaneousInfection is not in the verified OpenGALEN extract.
+    snomed:
+      code: '449825003'
+      fsn: Cellulitis of thumb (disorder)
+      preferred: Cellulitis of thumb
+      match: '~'
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  Whitlow:
+    clinergy: Whitlow
+    preferred: Whitlow
+    opengalen:
+      verified: false
+      note: Whitlow is not in the verified OpenGALEN extract.
+    snomed:
+      code: '32021005'
+      fsn: Pulp abscess of finger (disorder)
+      preferred: Pulp abscess of finger
+      match: '~'
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+    expression: 32021005 |Pulp abscess of finger|:363698007 |Finding site|=76505004 |Thumb structure|
+  Paronychia:
+    clinergy: Paronychia
+    preferred: Paronychia
+    opengalen:
+      name: Paronychia
+      match: '='
+      verified: true
+      needsHumanReview: false
+      note: OpenGALEN 8 class name from the verified Clinergy mapping extract (IRI http://www.opengalen.org/owl/opengalen.owl#Paronychia).
+        That extract was produced against the OpenGALEN 8 release published in https://erik-sundvalls-bots.github.io/opengalen-browser/.
+    snomed:
+      code: '71906005'
+      fsn: Paronychia (disorder)
+      preferred: Paronychia
+      match: '~'
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+    expression: 71906005 |Paronychia|:363698007 |Finding site|=76505004 |Thumb structure|
+  Osteoarthritis:
+    clinergy: Osteoarthritis
+    preferred: Osteoarthritis of thumb
+    opengalen:
+      name: Osteoarthritis
+      match: '='
+      verified: true
+      needsHumanReview: false
+      note: OpenGALEN 8 class name from the verified Clinergy mapping extract (IRI http://www.opengalen.org/owl/opengalen.owl#Osteoarthritis).
+        That extract was produced against the OpenGALEN 8 release published in https://erik-sundvalls-bots.github.io/opengalen-browser/.
+    snomed:
+      code: '37895003'
+      fsn: Osteoarthrosis of the carpometacarpal joint of the thumb (disorder)
+      preferred: Osteoarthrosis of the carpometacarpal joint of the thumb
+      match: '>'
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+    expression: The active thumb-specific concept is CMC osteoarthrosis, narrower than osteoarthritis
+      of the thumb.
+  RheumatoidArthritis:
+    clinergy: RheumatoidArthritis
+    preferred: Rheumatoid arthritis of thumb
+    opengalen:
+      name: RheumatoidArthritis
+      match: '='
+      verified: true
+      needsHumanReview: false
+      note: OpenGALEN 8 class name from the verified Clinergy mapping extract (IRI http://www.opengalen.org/owl/opengalen.owl#RheumatoidArthritis).
+        That extract was produced against the OpenGALEN 8 release published in https://erik-sundvalls-bots.github.io/opengalen-browser/.
+    snomed:
+      code: '69896004'
+      fsn: Rheumatoid arthritis (disorder)
+      preferred: Rheumatoid arthritis
+      match: '~'
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+    expression: 69896004 |Rheumatoid arthritis|:363698007 |Finding site|=76505004 |Thumb structure|
+  TendernessSign:
+    clinergy: TendernessSign
+    preferred: Tenderness
+    opengalen:
+      name: Tenderness
+      match: '='
+      verified: true
+      needsHumanReview: false
+      note: OpenGALEN 8 class name from the verified Clinergy mapping extract (IRI http://www.opengalen.org/owl/opengalen.owl#Tenderness).
+        That extract was produced against the OpenGALEN 8 release published in https://erik-sundvalls-bots.github.io/opengalen-browser/.
+    snomed:
+      code: '247348008'
+      fsn: Tenderness (finding)
+      preferred: Tenderness
+      match: '='
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  FlexionSign:
+    clinergy: FlexionSign
+    preferred: Flexion
+    opengalen:
+      name: Flexion
+      match: '='
+      verified: true
+      needsHumanReview: false
+      note: OpenGALEN 8 class name from the verified Clinergy mapping extract (IRI http://www.opengalen.org/owl/opengalen.owl#Flexion).
+        That extract was produced against the OpenGALEN 8 release published in https://erik-sundvalls-bots.github.io/opengalen-browser/.
+    snomed:
+      code: '9964006'
+      fsn: Flexion, function (observable entity)
+      preferred: Flexion
+      match: '~'
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  ExtensionSign:
+    clinergy: ExtensionSign
+    preferred: Extension
+    opengalen:
+      name: Extension
+      match: '='
+      verified: true
+      needsHumanReview: false
+      note: OpenGALEN 8 class name from the verified Clinergy mapping extract (IRI http://www.opengalen.org/owl/opengalen.owl#Extension).
+        That extract was produced against the OpenGALEN 8 release published in https://erik-sundvalls-bots.github.io/opengalen-browser/.
+    snomed:
+      code: '24154002'
+      fsn: Musculoskeletal extension, function (observable entity)
+      preferred: Musculoskeletal extension
+      match: '~'
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  AbductionSign:
+    clinergy: AbductionSign
+    preferred: Abduction
+    opengalen:
+      name: Abduction
+      match: '='
+      verified: true
+      needsHumanReview: false
+      note: OpenGALEN 8 class name from the verified Clinergy mapping extract (IRI http://www.opengalen.org/owl/opengalen.owl#Abduction).
+        That extract was produced against the OpenGALEN 8 release published in https://erik-sundvalls-bots.github.io/opengalen-browser/.
+    snomed:
+      code: '60074003'
+      fsn: Abduction, function (observable entity)
+      preferred: Abduction
+      match: '~'
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  AdductionSign:
+    clinergy: AdductionSign
+    preferred: Adduction
+    opengalen:
+      name: Adduction
+      match: '='
+      verified: true
+      needsHumanReview: false
+      note: OpenGALEN 8 class name from the verified Clinergy mapping extract (IRI http://www.opengalen.org/owl/opengalen.owl#Adduction).
+        That extract was produced against the OpenGALEN 8 release published in https://erik-sundvalls-bots.github.io/opengalen-browser/.
+    snomed:
+      code: '11554009'
+      fsn: Adduction, function (observable entity)
+      preferred: Adduction
+      match: '~'
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  full:
+    clinergy: full
+    preferred: Full
+    opengalen:
+      verified: false
+      note: No OpenGALEN class verified for this range word.
+    snomed:
+      code: '277972004'
+      fsn: Full movement (qualifier value)
+      preferred: Full movement
+      match: '~'
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  reduced:
+    clinergy: reduced
+    preferred: Reduced
+    opengalen:
+      verified: false
+      note: No OpenGALEN class verified for this range word.
+    snomed:
+      code: '260400001'
+      fsn: Reduced (qualifier value)
+      preferred: Reduced
+      match: '='
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  limited:
+    clinergy: limited
+    preferred: Limited
+    opengalen:
+      verified: false
+      note: No OpenGALEN class verified for this range word.
+    snomed:
+      code: '255469002'
+      fsn: Limited (qualifier value)
+      preferred: Limited
+      match: '='
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  minimal:
+    clinergy: minimal
+    preferred: Minimal
+    opengalen:
+      verified: false
+      note: No OpenGALEN class verified for this range word.
+    snomed:
+      code: '255605001'
+      fsn: Minimal (qualifier value)
+      preferred: Minimal
+      match: '='
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+  normal:
+    clinergy: normal
+    preferred: Normal
+    opengalen:
+      verified: false
+      note: No OpenGALEN class verified for examination normal.
+    snomed:
+      verified: false
+      note: No single SNOMED qualifier was accepted as the examination result 'normal'.
+  notExamined:
+    clinergy: notExamined
+    preferred: Not examined
+    opengalen:
+      verified: false
+      note: No OpenGALEN class verified for examination not done.
+    snomed:
+      verified: false
+      note: Recorded with CLUSTER.exclusion_exam (boolean), not a SNOMED code.
+  painOnMovement:
+    clinergy: painOnMovement
+    preferred: Pain on movement
+    opengalen:
+      verified: false
+      note: No OpenGALEN class verified for pain on movement.
+    snomed:
+      code: '298255009'
+      fsn: Pain on joint movement (finding)
+      preferred: Pain on joint movement
+      match: '~'
+      verified: true
+      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
+        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.

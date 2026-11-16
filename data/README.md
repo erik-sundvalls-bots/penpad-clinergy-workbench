@@ -14,5 +14,7 @@ A small extract of the 1998 Clinergy / PEN&PAD thumb pain and thumb swelling for
 | `concepts.yaml` | Displays the sentence generator needs. Topic lines are copied from the form files. `PainSymptom` and `SwellingSymptom` are the grammatical heads implied by "thumb pain" / "thumb swelling" and by those five sentences; the ancestor records were not in the attached extract. Button words that are not a plain de-camelcase are the labels from the [public walkthrough](https://pen-pad-revival.github.io/docs/clinergy-thumb-pain-demo/). |
 | `concept-links.yaml` | Prepositions for the five sentences (`in` thumb pain, `of` thumb swelling) and the prepositions written on the diagnosis links. The extractor's `concept-links.yaml` was not in the attached extract. |
 | `Mus_hand.png` | Hand drawing supplied with the extract, shown beside the form. |
+| `forms/` | Thumb examination excerpt and the thumb sign and diagnosis forms from the same extract. |
+| `mappings/thumb-pain-terms.yaml` | Reviewed Clinergy to OpenGALEN 8 and SNOMED CT bindings. `verified: false` is not written into the composition. |
 
 The summary-sentence generator, the Swedish word list, and the openEHR template are code from [clinergy-extractor](https://github.com/erik-sundvalls-bots/clinergy-extractor), not Clinergy content. See `vendor/README.md`.

@@ -1,0 +1,48 @@
+# Small Clinergy extract published with the owner's approval for this demonstration.
+# Content (c) 1997-8 Semantic Technologies Ltd / Victoria University of Manchester. All rights reserved.
+# See data/README.md.
+# Excerpt of exams.yaml (Clinergy, (c) 1997-8 Semantic Technologies Ltd / Victoria University of Manchester). Small extract approved for the workbench.
+ThumbExam:
+  name: ThumbExam
+  group: location
+  lateral: true
+  super: ''
+  level: 1
+  baseSign: ThumbSign
+  baseLocation: Thumb
+  signs0:
+  - TendernessSign
+  signs1:
+  - TendernessSign
+  subExams:
+  - ThumbMovementExam
+  symptomLinks:
+  - Thumb
+  - ThumbLumpSymptom
+  - ThumbPainSymptom
+  - ThumbSwellingSymptom
+  - ThumbSprain
+  - ThumbFracture
+  - Tenovaginitis
+  - ThumbStrain
+  - ThumbJointDislocation
+ThumbMovementExam:
+  name: ThumbMovementExam
+  group: sub
+  lateral: true
+  super: ThumbExam
+  level: 2
+  baseSign: ThumbJointSign
+  baseLocation: ThumbJoint
+  signs0:
+  - FlexionSign
+  - ExtensionSign
+  - AbductionSign
+  - AdductionSign
+  signs1:
+  - FlexionSign
+  - ExtensionSign
+  - AbductionSign
+  - AdductionSign
+  subExams: []
+  symptomLinks: []

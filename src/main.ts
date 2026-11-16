@@ -1,13 +1,8 @@
 import "./style.css";
 import handUrl from "../data/Mus_hand.png";
-import optUrl from "../templates/thumb-pain.opt?url";
-import webTemplateUrl from "../templates/thumb-pain.webtemplate.json?url";
 import {
   conceptLabel,
-  descriptorMap,
-  galenRows,
   knowledge,
-  openGalenBindings,
   painForm,
   swellingForm,
   swedish,
@@ -23,7 +18,11 @@ import {
   type FindingForm,
   type WorkbenchState,
 } from "./model.ts";
-import { buildOpenEhr } from "../vendor/openehr.ts";
+import { buildThumbEncounter } from "./openehr/compose.ts";
+import { validateFlat } from "./openehr/validate.ts";
+import { term } from "./openehr/terms.ts";
+import optUrl from "../templates/thumb-pain.opt?url";
+import webTemplateUrl from "../templates/thumb-pain.webtemplate.json?url";
 import { render, renderReport, type Finding } from "../vendor/sentence.ts";
 
 const FEATURE_LABEL: Record<string, string> = {
@@ -113,7 +112,7 @@ function page(): string {
         </section>
         <section class="panel">
           <h2>OpenGALEN</h2>
-          <p class="note">Bindings for the concepts you have selected. OpenGALEN is fully open. A review flag means the name matched only after normalisation.</p>
+          <p class="note">Reviewed bindings for the values you have selected. Unverified means the code was not confirmed and is not written into the composition.</p>
           <div id="galen"></div>
         </section>
         <section class="panel">
@@ -127,8 +126,9 @@ function page(): string {
             <button type="button" id="tab-flat" aria-pressed="false">FLAT</button>
             <button type="button" id="copy-ehr">Copy</button>
           </div>
+          <p id="ehr-badge" class="note"></p>
           <pre id="ehr" class="json"></pre>
-          <p id="ehr-unmapped" class="missing"></p>
+          <p id="ehr-errors" class="missing"></p>
         </section>
         <section class="panel" id="exam-note">
           <h2>On Examination</h2>
@@ -149,6 +149,12 @@ function descriptors(first: { feature?: string; values: unknown[]; multiple?: bo
   return `<fieldset class="group">
     <h2>Descriptors</h2>
     <div class="hand"><img src="${handUrl}" alt="Line drawing of a hand, palm up, thumb on the left" /><span>Location: thumb</span></div>
+    <div class="field">
+      <span class="field-name">Thumb pain</span>
+      <button type="button" class="choice" data-group="pain" data-feature="summary" data-value="presence" aria-pressed="false">present</button>
+      <button type="button" class="choice" data-group="pain" data-feature="summary" data-value="absence" aria-pressed="false">absent</button>
+      <span class="note" id="pain-answer">Not answered</span>
+    </div>
     ${rows}
     <button type="button" class="choice" id="pain-more" aria-expanded="false">more &gt;&gt;</button>
     <div id="pain-more-layer" hidden>${moreRows}</div>
@@ -187,6 +193,7 @@ function associated(): string {
       <button type="button" class="choice" data-group="swelling" data-feature="summary" data-value="absence" aria-pressed="false">absent</button>
       <button type="button" class="choice" data-group="swelling" data-feature="summary" data-value="presence" aria-pressed="false">present</button>
       <button type="button" class="choice" id="open-swelling">more…</button>
+      <span class="note" id="swelling-answer">Not answered</span>
     </div>
   </fieldset>`;
 }
@@ -529,6 +536,22 @@ function paintOutputs(): void {
   if (missingEl) {
     missingEl.textContent = missing.length ? `Swedish pack has no word for: ${missing.join(", ")}` : "";
   }
+  const swellingAnswer = document.querySelector("#swelling-answer");
+  if (swellingAnswer) {
+    swellingAnswer.textContent = state.swelling.summary === "presence"
+      ? "Answered: present"
+      : state.swelling.summary === "absence"
+      ? "Answered: absent"
+      : "Not answered";
+  }
+  const painAnswer = document.querySelector("#pain-answer");
+  if (painAnswer) {
+    painAnswer.textContent = state.pain.summary === "presence"
+      ? "Answered: present"
+      : state.pain.summary === "absence"
+      ? "Answered: absent"
+      : "Not answered";
+  }
   paintGalen(findings);
   paintEhr(findings, english);
   paintExam();
@@ -547,25 +570,25 @@ function paintGalen(findings: Finding[]): void {
   if (!host) return;
   const keys = selectedConceptKeys(findings);
   if (!keys.length) {
-    host.innerHTML = "<p class='note'>Select a value to see its OpenGALEN binding.</p>";
+    host.innerHTML = "<p class='note'>Select a value to see its bindings.</p>";
     return;
   }
   const rows = keys.map((key) => {
-    const row = galenRows[key];
-    if (!row?.opengalen) {
-      return `<tr><td><code>${escapeText(key)}</code></td><td>No verified mapping</td><td></td><td></td></tr>`;
-    }
-    const href = GALEN_BROWSER + encodeURIComponent(row.opengalen);
-    const review = row.needsHumanReview ? `<span class="badge">needs review</span>` : "";
-    return `<tr><td><code>${escapeText(key)}</code></td><td><a href="${href}">${escapeText(row.opengalen)}</a></td><td>${
-      escapeText(row.method)
-    }</td><td>${review}</td></tr>`;
+    const row = term(key);
+    const og = row?.opengalen.verified && row.opengalen.name
+      ? `<a href="${GALEN_BROWSER}${encodeURIComponent(row.opengalen.name)}">${escapeText(row.opengalen.name)}</a>`
+      : "unverified";
+    const snomed = row?.snomed.verified && row.snomed.code
+      ? `<a href="https://browser.ihtsdotools.org/?perspective=full&conceptId1=${row.snomed.code}&edition=MAIN">${escapeText(row.snomed.code)}</a>`
+      : "unverified";
+    return `<tr><td><code>${escapeText(key)}</code></td><td>${og}</td><td>${snomed}</td></tr>`;
   }).join("");
-  host.innerHTML = `<table class="bindings"><thead><tr><th>Clinergy</th><th>OpenGALEN</th><th>Method</th><th></th></tr></thead><tbody>${rows}</tbody></table>`;
+  host.innerHTML = `<table class="bindings"><thead><tr><th>Clinergy</th><th>OpenGALEN</th><th>SNOMED CT</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
-function paintEhr(findings: Finding[], english: string[]): void {
-  const result = buildOpenEhr(findings, knowledge, descriptorMap, openGalenBindings);
+function paintEhr(_findings: Finding[], english: string[]): void {
+  const result = buildThumbEncounter(state, english.join("\n"));
+  const checked = validateFlat(result.flat);
   const pre = document.querySelector("#ehr");
   if (pre) {
     pre.textContent = flatMode
@@ -574,12 +597,16 @@ function paintEhr(findings: Finding[], english: string[]): void {
   }
   document.querySelector("#tab-canonical")?.setAttribute("aria-pressed", flatMode ? "false" : "true");
   document.querySelector("#tab-flat")?.setAttribute("aria-pressed", flatMode ? "true" : "false");
-  const unmapped = document.querySelector("#ehr-unmapped");
-  if (unmapped) {
-    const lines = result.unmapped.map((item) => `${item.key}: ${item.reason}`);
-    unmapped.textContent = lines.length
-      ? `Not placed in the template: ${lines.join(" · ")}`
-      : `Story lines: ${english.join(" | ")}`;
+  const badge = document.querySelector("#ehr-badge");
+  if (badge) {
+    badge.textContent = checked.valid
+      ? `ehrtslib: valid (${checked.warnings.length} warnings)`
+      : `ehrtslib: invalid (${checked.errors.length} errors)`;
+  }
+  const errors = document.querySelector("#ehr-errors");
+  if (errors) {
+    const lines = checked.errors.concat(checked.warnings).map((issue) => `${issue.severity}: ${issue.path} — ${issue.message}`);
+    errors.textContent = lines.join("\n");
   }
 }
 

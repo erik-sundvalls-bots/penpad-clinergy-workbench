@@ -1,31 +1,73 @@
 {
-  "templateId": "thumb-pain-encounter.v1",
-  "version": "2.3",
+  "templateId": "thumb-pain-encounter.v2",
+  "version": "2.0",
   "defaultLanguage": "en",
   "tree": {
-    "id": "encounter",
+    "id": "thumb-pain-encounter.v2",
     "name": "Encounter",
     "rmType": "COMPOSITION",
     "nodeId": "openEHR-EHR-COMPOSITION.encounter.v1",
-    "aqlPath": "",
     "min": 1,
     "max": 1,
     "children": [
       {
-        "id": "story",
-        "name": "Story/History",
-        "rmType": "OBSERVATION",
-        "nodeId": "openEHR-EHR-OBSERVATION.story.v1",
-        "aqlPath": "/content[openEHR-EHR-OBSERVATION.story.v1]",
+        "id": "category",
+        "name": "Category",
+        "rmType": "DV_CODED_TEXT",
+        "nodeId": "at0000",
+        "aqlPath": "/category",
         "min": 0,
-        "max": -1,
+        "max": 1
+      },
+      {
+        "id": "context",
+        "name": "Context",
+        "rmType": "EVENT_CONTEXT",
+        "min": 1,
+        "max": 1,
         "children": [
           {
-            "id": "event_series",
-            "name": "Event Series",
-            "rmType": "HISTORY",
-            "nodeId": "at0001",
-            "aqlPath": "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]",
+            "id": "start_time",
+            "name": "Start time",
+            "rmType": "DV_DATE_TIME",
+            "min": 1,
+            "max": 1,
+            "aqlPath": "/context/start_time"
+          },
+          {
+            "id": "setting",
+            "name": "Setting",
+            "rmType": "DV_CODED_TEXT",
+            "nodeId": "at0000",
+            "aqlPath": "/context/setting",
+            "min": 0,
+            "max": 1
+          }
+        ],
+        "aqlPath": ""
+      },
+      {
+        "id": "composer",
+        "name": "Composer",
+        "rmType": "PARTY_IDENTIFIED",
+        "min": 1,
+        "max": 1,
+        "aqlPath": "/composer"
+      },
+      {
+        "id": "history",
+        "name": "History",
+        "rmType": "SECTION",
+        "nodeId": "openEHR-EHR-SECTION.adhoc.v1",
+        "min": 1,
+        "max": 1,
+        "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1]",
+        "children": [
+          {
+            "id": "story",
+            "name": "Story/History",
+            "rmType": "OBSERVATION",
+            "nodeId": "openEHR-EHR-OBSERVATION.story.v1",
             "min": 1,
             "max": 1,
             "children": [
@@ -34,149 +76,575 @@
                 "name": "Any event",
                 "rmType": "EVENT",
                 "nodeId": "at0002",
-                "aqlPath": "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]",
-                "min": 0,
-                "max": -1,
+                "min": 1,
+                "max": 1,
                 "children": [
                   {
-                    "id": "tree",
-                    "name": "Tree",
-                    "rmType": "ITEM_TREE",
-                    "nodeId": "at0003",
-                    "aqlPath": "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]",
-                    "min": 1,
+                    "id": "story_text",
+                    "name": "Story",
+                    "rmType": "DV_TEXT",
+                    "nodeId": "at0004",
+                    "min": 0,
                     "max": 1,
+                    "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1]/items[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0004]"
+                  },
+                  {
+                    "id": "symptom",
+                    "name": "Symptom/Sign",
+                    "rmType": "CLUSTER",
+                    "nodeId": "openEHR-EHR-CLUSTER.symptom_sign.v2",
+                    "min": 0,
+                    "max": -1,
+                    "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1]/items[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0006]",
                     "children": [
                       {
-                        "id": "story_text",
-                        "name": "Story",
-                        "rmType": "ELEMENT",
-                        "nodeId": "at0004",
-                        "aqlPath": "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0004]",
+                        "id": "name",
+                        "name": "Symptom/Sign name",
+                        "rmType": "DV_CODED_TEXT",
+                        "nodeId": "at0001",
+                        "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1]/items[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0006]/items[at0001]",
+                        "min": 0,
+                        "max": 1
+                      },
+                      {
+                        "id": "body_site",
+                        "name": "Anatomical location",
+                        "rmType": "CLUSTER",
+                        "nodeId": "openEHR-EHR-CLUSTER.anatomical_location.v1",
+                        "min": 0,
+                        "max": 1,
+                        "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1]/items[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0006]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]",
+                        "children": [
+                          {
+                            "id": "site_name",
+                            "name": "Body site name",
+                            "rmType": "DV_CODED_TEXT",
+                            "nodeId": "at0001",
+                            "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1]/items[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0006]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]/items[at0001]",
+                            "min": 0,
+                            "max": 1
+                          },
+                          {
+                            "id": "specific_site",
+                            "name": "Specific site",
+                            "rmType": "DV_CODED_TEXT",
+                            "nodeId": "at0065",
+                            "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1]/items[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0006]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]/items[at0065]",
+                            "min": 0,
+                            "max": 1
+                          },
+                          {
+                            "id": "laterality",
+                            "name": "Laterality",
+                            "rmType": "DV_CODED_TEXT",
+                            "nodeId": "at0002",
+                            "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1]/items[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0006]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]/items[at0002]",
+                            "min": 0,
+                            "max": 1
+                          }
+                        ]
+                      },
+                      {
+                        "id": "onset",
+                        "name": "Onset timing",
+                        "rmType": "DV_CODED_TEXT",
+                        "nodeId": "at0164",
+                        "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1]/items[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0006]/items[at0164]",
+                        "min": 0,
+                        "max": 1
+                      },
+                      {
+                        "id": "duration",
+                        "name": "Episode duration",
+                        "rmType": "DV_DURATION",
+                        "nodeId": "at0028",
+                        "min": 0,
+                        "max": 1,
+                        "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1]/items[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0006]/items[at0028]"
+                      },
+                      {
+                        "id": "severity",
+                        "name": "Severity category",
+                        "rmType": "DV_CODED_TEXT",
+                        "nodeId": "at0021",
+                        "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1]/items[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0006]/items[at0021]",
+                        "min": 0,
+                        "max": 1
+                      },
+                      {
+                        "id": "character",
+                        "name": "Character",
+                        "rmType": "DV_CODED_TEXT",
+                        "nodeId": "at0189",
+                        "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1]/items[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0006]/items[at0189]",
                         "min": 0,
                         "max": -1
                       },
                       {
-                        "id": "symptom_sign",
-                        "name": "Symptom/Sign",
-                        "rmType": "CLUSTER",
-                        "nodeId": "openEHR-EHR-CLUSTER.symptom_sign.v2",
-                        "aqlPath": "/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v2]",
+                        "id": "progression",
+                        "name": "Progression",
+                        "rmType": "DV_CODED_TEXT",
+                        "nodeId": "at0180",
+                        "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1]/items[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0006]/items[at0180]",
                         "min": 0,
-                        "max": -1,
+                        "max": 1
+                      },
+                      {
+                        "id": "pattern",
+                        "name": "Pattern",
+                        "rmType": "DV_CODED_TEXT",
+                        "nodeId": "at0003",
+                        "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1]/items[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0006]/items[at0003]",
+                        "min": 0,
+                        "max": 1
+                      },
+                      {
+                        "id": "descriptor",
+                        "name": "Clinergy descriptor",
+                        "rmType": "CLUSTER",
+                        "nodeId": "openEHR-EHR-CLUSTER.clinergy_descriptor.v0",
+                        "min": 0,
+                        "max": 1,
+                        "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1]/items[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0006]/items[openEHR-EHR-CLUSTER.clinergy_descriptor.v0]",
                         "children": [
                           {
-                            "id": "symptom_name",
-                            "name": "Symptom/Sign name",
-                            "rmType": "ELEMENT",
+                            "id": "frequency",
+                            "name": "Frequency",
+                            "rmType": "DV_CODED_TEXT",
                             "nodeId": "at0001",
-                            "aqlPath": "/items[at0001]",
-                            "min": 1,
-                            "max": 1
-                          },
-                          {
-                            "id": "anatomical_location",
-                            "name": "Anatomical location",
-                            "rmType": "CLUSTER",
-                            "nodeId": "openEHR-EHR-CLUSTER.anatomical_location.v1",
-                            "aqlPath": "/items[openEHR-EHR-CLUSTER.anatomical_location.v1]",
-                            "min": 0,
-                            "max": -1,
-                            "children": [
-                              {
-                                "id": "body_site_name",
-                                "name": "Body site name",
-                                "rmType": "ELEMENT",
-                                "nodeId": "at0001",
-                                "aqlPath": "/items[at0001]",
-                                "min": 1,
-                                "max": 1
-                              },
-                              {
-                                "id": "specific_site",
-                                "name": "Specific site",
-                                "rmType": "ELEMENT",
-                                "nodeId": "at0065",
-                                "aqlPath": "/items[at0065]",
-                                "min": 0,
-                                "max": -1
-                              },
-                              {
-                                "id": "laterality",
-                                "name": "Laterality",
-                                "rmType": "ELEMENT",
-                                "nodeId": "at0002",
-                                "aqlPath": "/items[at0002]",
-                                "min": 0,
-                                "max": 1,
-                                "inputs": [
-                                  {
-                                    "type": "CODED_TEXT",
-                                    "list": [
-                                      { "value": "at0004", "label": "Right" },
-                                      { "value": "at0003", "label": "Left" }
-                                    ]
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "id": "severity",
-                            "name": "Severity category",
-                            "rmType": "ELEMENT",
-                            "nodeId": "at0021",
-                            "aqlPath": "/items[at0021]",
-                            "min": 0,
-                            "max": 1,
-                            "inputs": [
-                              {
-                                "type": "CODED_TEXT",
-                                "list": [
-                                  { "value": "at0023", "label": "Mild" },
-                                  { "value": "at0024", "label": "Moderate" },
-                                  { "value": "at0025", "label": "Severe" }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "id": "onset_timing",
-                            "name": "Onset timing",
-                            "rmType": "ELEMENT",
-                            "nodeId": "at0164",
-                            "aqlPath": "/items[at0164]",
+                            "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1]/items[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0006]/items[openEHR-EHR-CLUSTER.clinergy_descriptor.v0]/items[at0001]",
                             "min": 0,
                             "max": 1
                           },
                           {
-                            "id": "episode_duration",
-                            "name": "Episode duration",
-                            "rmType": "ELEMENT",
-                            "nodeId": "at0028",
-                            "aqlPath": "/items[at0028]",
+                            "id": "consistency",
+                            "name": "Consistency",
+                            "rmType": "DV_CODED_TEXT",
+                            "nodeId": "at0002",
+                            "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1]/items[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0006]/items[openEHR-EHR-CLUSTER.clinergy_descriptor.v0]/items[at0002]",
                             "min": 0,
                             "max": 1
                           },
                           {
-                            "id": "character",
-                            "name": "Character",
-                            "rmType": "ELEMENT",
-                            "nodeId": "at0189",
-                            "aqlPath": "/items[at0189]",
+                            "id": "texture",
+                            "name": "Texture",
+                            "rmType": "DV_CODED_TEXT",
+                            "nodeId": "at0003",
+                            "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1]/items[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0006]/items[openEHR-EHR-CLUSTER.clinergy_descriptor.v0]/items[at0003]",
                             "min": 0,
-                            "max": -1
+                            "max": 1
+                          },
+                          {
+                            "id": "duration_unit",
+                            "name": "Duration unit",
+                            "rmType": "DV_CODED_TEXT",
+                            "nodeId": "at0005",
+                            "aqlPath": "/content[openEHR-EHR-SECTION.adhoc.v1]/items[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0006]/items[openEHR-EHR-CLUSTER.clinergy_descriptor.v0]/items[at0005]",
+                            "min": 0,
+                            "max": 1
                           }
                         ]
                       }
                     ]
                   }
-                ]
+                ],
+                "aqlPath": ""
               }
-            ]
+            ],
+            "aqlPath": ""
+          },
+          {
+            "id": "screening",
+            "name": "Symptom/sign screening",
+            "rmType": "OBSERVATION",
+            "nodeId": "openEHR-EHR-OBSERVATION.symptom_sign_screening.v1",
+            "min": 0,
+            "max": 1,
+            "children": [
+              {
+                "id": "any_event",
+                "name": "Any event",
+                "rmType": "EVENT",
+                "nodeId": "at0002",
+                "min": 0,
+                "max": 1,
+                "children": [
+                  {
+                    "id": "screened",
+                    "name": "Specific symptom/sign",
+                    "rmType": "CLUSTER",
+                    "nodeId": "at0022",
+                    "min": 0,
+                    "max": -1,
+                    "children": [
+                      {
+                        "id": "name",
+                        "name": "Symptom/sign name",
+                        "rmType": "DV_CODED_TEXT",
+                        "nodeId": "at0004",
+                        "aqlPath": "",
+                        "min": 0,
+                        "max": 1
+                      },
+                      {
+                        "id": "presence",
+                        "name": "Presence",
+                        "rmType": "DV_CODED_TEXT",
+                        "nodeId": "at0005",
+                        "aqlPath": "",
+                        "min": 0,
+                        "max": 1
+                      }
+                    ],
+                    "aqlPath": ""
+                  }
+                ],
+                "aqlPath": ""
+              }
+            ],
+            "aqlPath": ""
           }
         ]
+      },
+      {
+        "id": "examination",
+        "name": "Examination",
+        "rmType": "SECTION",
+        "nodeId": "openEHR-EHR-SECTION.adhoc.v1",
+        "min": 0,
+        "max": 1,
+        "children": [
+          {
+            "id": "exam",
+            "name": "Physical examination",
+            "rmType": "OBSERVATION",
+            "nodeId": "openEHR-EHR-OBSERVATION.exam.v1",
+            "min": 0,
+            "max": -1,
+            "children": [
+              {
+                "id": "any_event",
+                "name": "Any event",
+                "rmType": "EVENT",
+                "nodeId": "at0002",
+                "min": 1,
+                "max": 1,
+                "children": [
+                  {
+                    "id": "detail",
+                    "name": "Examination findings",
+                    "rmType": "CLUSTER",
+                    "nodeId": "openEHR-EHR-CLUSTER.exam.v2",
+                    "min": 0,
+                    "max": 1,
+                    "children": [
+                      {
+                        "id": "structure",
+                        "name": "System or structure examined",
+                        "rmType": "DV_CODED_TEXT",
+                        "nodeId": "at0001",
+                        "aqlPath": "",
+                        "min": 0,
+                        "max": 1
+                      },
+                      {
+                        "id": "body_site",
+                        "name": "Anatomical location",
+                        "rmType": "CLUSTER",
+                        "nodeId": "openEHR-EHR-CLUSTER.anatomical_location.v1",
+                        "min": 0,
+                        "max": 1,
+                        "aqlPath": "/items[openEHR-EHR-CLUSTER.anatomical_location.v1]",
+                        "children": [
+                          {
+                            "id": "site_name",
+                            "name": "Body site name",
+                            "rmType": "DV_CODED_TEXT",
+                            "nodeId": "at0001",
+                            "aqlPath": "/items[openEHR-EHR-CLUSTER.anatomical_location.v1]/items[at0001]",
+                            "min": 0,
+                            "max": 1
+                          },
+                          {
+                            "id": "specific_site",
+                            "name": "Specific site",
+                            "rmType": "DV_CODED_TEXT",
+                            "nodeId": "at0065",
+                            "aqlPath": "/items[openEHR-EHR-CLUSTER.anatomical_location.v1]/items[at0065]",
+                            "min": 0,
+                            "max": 1
+                          },
+                          {
+                            "id": "laterality",
+                            "name": "Laterality",
+                            "rmType": "DV_CODED_TEXT",
+                            "nodeId": "at0002",
+                            "aqlPath": "/items[openEHR-EHR-CLUSTER.anatomical_location.v1]/items[at0002]",
+                            "min": 0,
+                            "max": 1
+                          }
+                        ]
+                      },
+                      {
+                        "id": "interpretation",
+                        "name": "Clinical interpretation",
+                        "rmType": "DV_CODED_TEXT",
+                        "nodeId": "at0006",
+                        "aqlPath": "",
+                        "min": 0,
+                        "max": 1
+                      },
+                      {
+                        "id": "tenderness",
+                        "name": "Tenderness",
+                        "rmType": "CLUSTER",
+                        "nodeId": "openEHR-EHR-CLUSTER.symptom_sign.v2",
+                        "min": 0,
+                        "max": 1,
+                        "children": [
+                          {
+                            "id": "name",
+                            "name": "Symptom/Sign name",
+                            "rmType": "DV_CODED_TEXT",
+                            "nodeId": "at0001",
+                            "aqlPath": "",
+                            "min": 0,
+                            "max": 1
+                          }
+                        ],
+                        "aqlPath": ""
+                      },
+                      {
+                        "id": "movement",
+                        "name": "Range of motion",
+                        "rmType": "CLUSTER",
+                        "nodeId": "openEHR-EHR-CLUSTER.range_of_motion.v1",
+                        "min": 0,
+                        "max": -1,
+                        "children": [
+                          {
+                            "id": "movement",
+                            "name": "Movement",
+                            "rmType": "DV_CODED_TEXT",
+                            "nodeId": "at0002",
+                            "aqlPath": "",
+                            "min": 0,
+                            "max": 1
+                          },
+                          {
+                            "id": "interpretation",
+                            "name": "Clinical interpretation",
+                            "rmType": "DV_CODED_TEXT",
+                            "nodeId": "at0035",
+                            "aqlPath": "",
+                            "min": 0,
+                            "max": 1
+                          },
+                          {
+                            "id": "descriptor",
+                            "name": "Pain on movement",
+                            "rmType": "CLUSTER",
+                            "nodeId": "openEHR-EHR-CLUSTER.clinergy_descriptor.v0",
+                            "min": 0,
+                            "max": 1,
+                            "children": [
+                              {
+                                "id": "pain_on_movement",
+                                "name": "Pain on movement",
+                                "rmType": "DV_CODED_TEXT",
+                                "nodeId": "at0004",
+                                "aqlPath": "",
+                                "min": 0,
+                                "max": 1
+                              }
+                            ],
+                            "aqlPath": ""
+                          }
+                        ],
+                        "aqlPath": ""
+                      },
+                      {
+                        "id": "not_done",
+                        "name": "Exclusion of examination",
+                        "rmType": "CLUSTER",
+                        "nodeId": "openEHR-EHR-CLUSTER.exclusion_exam.v1",
+                        "min": 0,
+                        "max": 1,
+                        "children": [
+                          {
+                            "id": "flag",
+                            "name": "Examination not done",
+                            "rmType": "DV_BOOLEAN",
+                            "nodeId": "at0001",
+                            "min": 1,
+                            "max": 1,
+                            "aqlPath": ""
+                          }
+                        ],
+                        "aqlPath": ""
+                      }
+                    ],
+                    "aqlPath": ""
+                  }
+                ],
+                "aqlPath": ""
+              }
+            ],
+            "aqlPath": ""
+          },
+          {
+            "id": "screening",
+            "name": "Absent tenderness",
+            "rmType": "OBSERVATION",
+            "nodeId": "openEHR-EHR-OBSERVATION.symptom_sign_screening.v1",
+            "min": 0,
+            "max": 1,
+            "children": [
+              {
+                "id": "any_event",
+                "name": "Any event",
+                "rmType": "EVENT",
+                "nodeId": "at0002",
+                "min": 0,
+                "max": 1,
+                "children": [
+                  {
+                    "id": "screened",
+                    "name": "Specific symptom/sign",
+                    "rmType": "CLUSTER",
+                    "nodeId": "at0022",
+                    "min": 0,
+                    "max": -1,
+                    "children": [
+                      {
+                        "id": "name",
+                        "name": "Symptom/sign name",
+                        "rmType": "DV_CODED_TEXT",
+                        "nodeId": "at0004",
+                        "aqlPath": "",
+                        "min": 0,
+                        "max": 1
+                      },
+                      {
+                        "id": "presence",
+                        "name": "Presence",
+                        "rmType": "DV_CODED_TEXT",
+                        "nodeId": "at0005",
+                        "aqlPath": "",
+                        "min": 0,
+                        "max": 1
+                      }
+                    ],
+                    "aqlPath": ""
+                  }
+                ],
+                "aqlPath": ""
+              }
+            ],
+            "aqlPath": ""
+          }
+        ],
+        "aqlPath": ""
+      },
+      {
+        "id": "assessment",
+        "name": "Assessment",
+        "rmType": "SECTION",
+        "nodeId": "openEHR-EHR-SECTION.adhoc.v1",
+        "min": 0,
+        "max": 1,
+        "children": [
+          {
+            "id": "problem",
+            "name": "Problem/Diagnosis",
+            "rmType": "EVALUATION",
+            "nodeId": "openEHR-EHR-EVALUATION.problem_diagnosis.v1",
+            "min": 0,
+            "max": -1,
+            "children": [
+              {
+                "id": "name",
+                "name": "Problem/Diagnosis name",
+                "rmType": "DV_CODED_TEXT",
+                "nodeId": "at0002",
+                "aqlPath": "",
+                "min": 0,
+                "max": 1
+              },
+              {
+                "id": "body_site",
+                "name": "Anatomical location",
+                "rmType": "CLUSTER",
+                "nodeId": "openEHR-EHR-CLUSTER.anatomical_location.v1",
+                "min": 0,
+                "max": 1,
+                "aqlPath": "/items[openEHR-EHR-CLUSTER.anatomical_location.v1]",
+                "children": [
+                  {
+                    "id": "site_name",
+                    "name": "Body site name",
+                    "rmType": "DV_CODED_TEXT",
+                    "nodeId": "at0001",
+                    "aqlPath": "/items[openEHR-EHR-CLUSTER.anatomical_location.v1]/items[at0001]",
+                    "min": 0,
+                    "max": 1
+                  },
+                  {
+                    "id": "specific_site",
+                    "name": "Specific site",
+                    "rmType": "DV_CODED_TEXT",
+                    "nodeId": "at0065",
+                    "aqlPath": "/items[openEHR-EHR-CLUSTER.anatomical_location.v1]/items[at0065]",
+                    "min": 0,
+                    "max": 1
+                  },
+                  {
+                    "id": "laterality",
+                    "name": "Laterality",
+                    "rmType": "DV_CODED_TEXT",
+                    "nodeId": "at0002",
+                    "aqlPath": "/items[openEHR-EHR-CLUSTER.anatomical_location.v1]/items[at0002]",
+                    "min": 0,
+                    "max": 1
+                  }
+                ]
+              },
+              {
+                "id": "certainty",
+                "name": "Diagnostic certainty",
+                "rmType": "DV_CODED_TEXT",
+                "nodeId": "at0073",
+                "aqlPath": "",
+                "min": 0,
+                "max": 1
+              }
+            ],
+            "aqlPath": ""
+          },
+          {
+            "id": "exclusion",
+            "name": "Exclusion - specific",
+            "rmType": "EVALUATION",
+            "nodeId": "openEHR-EHR-EVALUATION.exclusion_specific.v1",
+            "min": 0,
+            "max": -1,
+            "children": [
+              {
+                "id": "concept",
+                "name": "Excluded concept",
+                "rmType": "DV_CODED_TEXT",
+                "nodeId": "at0003",
+                "aqlPath": "",
+                "min": 0,
+                "max": 1
+              }
+            ],
+            "aqlPath": ""
+          }
+        ],
+        "aqlPath": ""
       }
-    ]
+    ],
+    "aqlPath": ""
   }
 }

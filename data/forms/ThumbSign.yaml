@@ -1,0 +1,31 @@
+# Small Clinergy extract published with the owner's approval for this demonstration.
+# Content (c) 1997-8 Semantic Technologies Ltd / Victoria University of Manchester. All rights reserved.
+# See data/README.md.
+# Data-entry form for "thumb" (ThumbSign)
+# Source: ClinergyDemo.zip (sha256 f138c38b24de630c...), model k_20_00
+# Extracted by clinergy-extractor 0.1.0 on 2026-11-15.
+# Content (c) 1997-8 Semantic Technologies Ltd / Victoria University of Manchester. All rights reserved.
+# Private study copy: do not redistribute or publish. Field guide: README.md at the top of this folder.
+# firstLayer = items shown when the form opens; moreLayer = items behind the '>>' button.
+# inheritance compares each row with visibilityAncestor (nearest supertype with its own rows).
+# concept: key into concepts.yaml at the top of this folder; exam names are keys into exams.yaml.
+# summaryType names the value set of the topic's own present/absent style control (sentence-rules.yaml).
+topic: ThumbSign
+display: thumb
+category: sign
+summaryType: NormalNotEx
+location: null
+supers: [Thumb, FingerSign]
+concept: "concepts.yaml#ThumbSign"
+visibilityAncestor: null
+firstLayer: []
+moreLayer: []
+associatedSymptomsAndSigns: []
+diagnoses: []
+otherLinks: []
+examinations: []
+# --- OpenGALEN 8 mappings (added by clinergy-to-opengalen: verified or reviewed only) ---
+opengalen:
+  topic: null
+  items: {}
+  values: {}
