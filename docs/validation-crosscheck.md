@@ -1,11 +1,13 @@
 # Validation cross-check
 
-ehrtslib 0.12.0 (`validateFlatPayload` and `RMSpecificationValidator`) accepts the demo composition: no flat errors and no RM specification errors.
+FerroEHR 5.5.0 rejected the seven generated compositions. Two causes were in the data: a SECTION with no items, and `TERM_MAPPING.match` of `~`. After those were removed, FerroEHR returned 201 for every canonical composition. The FLAT root FerroEHR accepts is `encounter/`, with the node ids in `templates/thumb-pain.webtemplate.json`.
 
-`InvariantEvaluator.validateInvariants` throws `TypeError: invariants is not iterable` before it looks at the composition. That is inside ehrtslib 0.12.0. It did not report an invariant failure in this data.
+The page checks a composition with ehrtslib 0.12.0 in three ways:
 
-EHRbase was not run. This environment has no Docker, so the OPT was not uploaded and the composition was not posted.
+- `serialization.validateFlatPayload` against the web template built from the coded OPT
+- `RMSpecificationValidator.validateInstance(rm, "COMPOSITION")`, which walks the whole composition. `validate(rm)` with one argument does not.
+- `TemplateValidator` against `templates/thumb-pain.opt`, with invariant checking left off. The OPT carries no invariant list, and calling `InvariantEvaluator.validateInvariants` without one throws inside ehrtslib.
 
-Archie was not run. Java 21 is installed, Maven is not, and the Archie ADL validator was not assembled. The RM specification check above is the check that did run.
+`Match_valid` is not implemented in ehrtslib 0.12.0. The page rejects a match code other than `=`, `<`, `>` or `?` itself.
 
-Nothing in the generated demo composition was shown to be invalid by the checks that completed.
+The exported OPT constrains `DV_DURATION.value` as an integer and the examination-not-done boolean value as the string `True`. FerroEHR accepted the ISO-8601 duration and the boolean `true`, so the badge does not treat those two primitive mismatches as errors.

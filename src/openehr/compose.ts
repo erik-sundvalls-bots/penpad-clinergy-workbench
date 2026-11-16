@@ -1,7 +1,7 @@
 import type { WorkbenchState } from "../model.ts";
 import { painForm } from "../knowledge.ts";
 import { term, type Term } from "./terms.ts";
-import { TEMPLATE_ID, webTemplate } from "./webtemplate.ts";
+import { FLAT_ROOT, TEMPLATE_ID } from "./webtemplate.ts";
 
 export interface CoverageRow {
   key: string;
@@ -40,7 +40,7 @@ export function buildThumbEncounter(state: WorkbenchState, narrative: string): T
   const flat: Record<string, string> = {};
   const used = new Set<string>();
   const put = (chain: string, suffix: string, value: string) => {
-    flat[`${TEMPLATE_ID}/${chain}|${suffix}`] = value;
+    flat[`${FLAT_ROOT}/${chain}|${suffix}`] = value;
   };
   const touch = (key: string) => used.add(key);
 
@@ -52,11 +52,11 @@ export function buildThumbEncounter(state: WorkbenchState, narrative: string): T
   put("context/setting", "value", "primary medical care");
   put("context/setting", "terminology", "openehr");
   put("composer", "name", "Dr J Brown");
-  put("history/story/any_event/story_text", "value", narrative);
+  put("history/story_history/any_event/story", "value", narrative);
 
   const historyItems: Record<string, unknown>[] = [storyObservation(narrative, state, put, touch)];
   const absent = absentSymptoms(state);
-  if (absent.length) historyItems.push(screeningObservation(absent, "history/screening", put, touch));
+  if (absent.length) historyItems.push(screeningObservation(absent, "history/symptom_sign_screening_questionnaire", put, touch));
 
   const examItems: Record<string, unknown>[] = [];
   const absentTenderness: string[] = [];
@@ -71,7 +71,7 @@ export function buildThumbEncounter(state: WorkbenchState, narrative: string): T
   if (absentTenderness.length) {
     examItems.push(screeningObservation(
       absentTenderness.map((name) => ({ key: "TendernessSign", label: name })),
-      "examination/screening",
+      "examination/symptom_sign_screening_questionnaire",
       put,
       touch,
     ));
@@ -100,7 +100,7 @@ export function buildThumbEncounter(state: WorkbenchState, narrative: string): T
     section("History", historyItems),
     section("Examination", examItems),
     section("Assessment", [...problems, ...exclusions]),
-  ];
+  ].filter((entry) => Array.isArray(entry.items) && entry.items.length > 0);
 
   return {
     canonical: composition(content),
@@ -119,7 +119,7 @@ function storyObservation(
   const symptoms: Record<string, unknown>[] = [];
   let index = 0;
   if (positiveSymptom(state.pain)) {
-    symptoms.push(symptomCluster("ThumbPainSymptom", "Thumb", state.pain, index, "history/story/any_event/symptom", put, touch));
+    symptoms.push(symptomCluster("ThumbPainSymptom", "Thumb", state.pain, index, "history/story_history/any_event/symptom_sign", put, touch));
     index += 1;
   }
   if (positiveSymptom(state.swelling)) {
@@ -128,7 +128,7 @@ function storyObservation(
       "Thumb",
       state.swelling,
       index,
-      "history/story/any_event/symptom",
+      "history/story_history/any_event/symptom_sign",
       put,
       touch,
     ));
@@ -168,31 +168,31 @@ function symptomCluster(
 ): Record<string, unknown> {
   const base = `${chain}:${index}`;
   const items: Record<string, unknown>[] = [];
-  items.push(element("at0001", "Symptom/Sign name", writeCoded(nameKey, `${base}/name`, put, touch)));
-  items.push(locationCluster(siteKey, form, `${base}/body_site`, put, touch));
+  items.push(element("at0001", "Symptom/Sign name", writeCoded(nameKey, `${base}/symptom_sign_name`, put, touch)));
+  items.push(locationCluster(siteKey, form, `${base}/anatomical_location`, put, touch));
   const onset = form.choices.AbsoluteOnset;
-  if (onset) items.push(element("at0164", "Onset timing", writeCoded(onset, `${base}/onset`, put, touch)));
+  if (onset) items.push(element("at0164", "Onset timing", writeCoded(onset, `${base}/onset_timing/coded_text_value`, put, touch)));
   if (form.durationNumber != null && form.durationNumber > 0) {
     const iso = isoDuration(form.durationNumber, form.durationUnit);
-    put(`${base}/duration`, "value", iso);
+    put(`${base}/episode_duration/duration_value`, "value", iso);
     items.push(element("at0028", "Episode duration", { _type: "DV_DURATION", value: iso }));
     touch(form.durationUnit);
-    items.push(descriptorCluster({ duration_unit: form.durationUnit, ...descriptorValues(form) }, `${base}/descriptor`, put, touch));
+    items.push(descriptorCluster({ duration_unit: form.durationUnit, ...descriptorValues(form) }, `${base}/clinergy_descriptor`, put, touch));
   } else {
     const extra = descriptorValues(form);
-    if (Object.keys(extra).length) items.push(descriptorCluster(extra, `${base}/descriptor`, put, touch));
+    if (Object.keys(extra).length) items.push(descriptorCluster(extra, `${base}/clinergy_descriptor`, put, touch));
   }
   const severity = form.choices.AbsoluteSeverity;
   if (severity && SEVERITY[severity]) {
     const [code, text] = SEVERITY[severity];
-    items.push(element("at0021", "Severity category", writeLocal(code, text, severity, `${base}/severity`, put, touch)));
+    items.push(element("at0021", "Severity category", writeLocal(code, text, severity, `${base}/severity_category`, put, touch)));
   }
   const character = form.choices.AbsolutePainDescriptor;
   if (character) items.push(element("at0189", "Character", writeCoded(character, `${base}/character:0`, put, touch)));
   const progress = form.choices.AbsoluteProgress;
   if (progress && PROGRESS[progress]) {
     const [code, text] = PROGRESS[progress];
-    items.push(element("at0180", "Progression", writeLocal(code, text, progress, `${base}/progression`, put, touch)));
+    items.push(element("at0180", "Progression", writeLocal(code, text, progress, `${base}/progression:0`, put, touch)));
   }
   const pattern = form.choices.AbsoluteProcessPattern;
   if (pattern) items.push(element("at0003", "Pattern", writeCoded(pattern, `${base}/pattern`, put, touch)));
@@ -234,7 +234,7 @@ function locationCluster(
   put: (chain: string, suffix: string, value: string) => void,
   touch: (key: string) => void,
 ): Record<string, unknown> {
-  const items = [element("at0001", "Body site name", writeCoded(siteKey, `${chain}/site_name`, put, touch))];
+  const items = [element("at0001", "Body site name", writeCoded(siteKey, `${chain}/body_site_name`, put, touch))];
   if (form.sublocation) {
     items.push(element("at0065", "Specific site", writeCoded(form.sublocation, `${chain}/specific_site`, put, touch)));
   }
@@ -267,8 +267,8 @@ function screeningObservation(
   touch: (key: string) => void,
 ): Record<string, unknown> {
   const items = rows.map((row, index) => cluster("at0022", "Specific symptom/sign", [
-    element("at0004", "Symptom/sign name", writeCoded(row.key, `${chain}/any_event/screened:${index}/name`, put, touch)),
-    element("at0005", "Presence", writeLocal("at0024", "No", "absence", `${chain}/any_event/screened:${index}/presence`, put, touch)),
+    element("at0004", "Symptom/sign name", writeCoded(row.key, `${chain}/any_event/specific_symptom_sign:${index}/symptom_sign_name`, put, touch)),
+    element("at0005", "Presence?", writeLocal("at0024", "No", "absence", `${chain}/any_event/specific_symptom_sign:${index}/presence/coded_text_value`, put, touch)),
   ]));
   return observation("openEHR-EHR-OBSERVATION.symptom_sign_screening.v1", "Symptom/sign screening questionnaire", items);
 }
@@ -281,17 +281,17 @@ function examObservation(
   touch: (key: string) => void,
   absentTenderness: string[],
 ): Record<string, unknown> {
-  const base = `examination/exam:${index}/any_event/detail`;
+  const base = `examination/physical_examination_findings:${index}/any_event/physical_examination_findings`;
   const items: Record<string, unknown>[] = [
-    element("at0001", "System or structure examined", writeCoded("Thumb", `${base}/structure`, put, touch)),
-    locationCluster("Thumb", { laterality: [side], sublocation: null }, `${base}/body_site`, put, touch),
+    element("at0001", "System or structure examined", writeCoded("Thumb", `${base}/system_or_structure_examined`, put, touch)),
+    locationCluster("Thumb", { laterality: [side], sublocation: null }, `${base}/anatomical_location`, put, touch),
   ];
   if (exam.status === "normal") {
-    items.push(element("at0006", "Clinical interpretation", writeCoded("normal", `${base}/interpretation`, put, touch)));
+    items.push(element("at0006", "Clinical interpretation", writeCoded("normal", `${base}/clinical_interpretation`, put, touch)));
   }
   if (exam.tenderness === "presence") {
-    items.push(cluster("openEHR-EHR-CLUSTER.symptom_sign.v2", "Tenderness", [
-      element("at0001", "Symptom/Sign name", writeCoded("TendernessSign", `${base}/tenderness/name`, put, touch)),
+    items.push(cluster("openEHR-EHR-CLUSTER.symptom_sign.v2", "Symptom/Sign", [
+      element("at0001", "Symptom/Sign name", writeCoded("TendernessSign", `${base}/symptom_sign/symptom_sign_name`, put, touch)),
     ]));
   }
   if (exam.tenderness === "absence") absentTenderness.push(`${side} thumb`);
@@ -305,19 +305,19 @@ function examObservation(
     const range = exam[rangeKey];
     const pain = exam[painKey];
     if (!range && !pain) continue;
-    const move = `${base}/movement:${movementIndex}`;
+    const move = `${base}/range_of_motion_of_a_joint:${movementIndex}`;
     movementIndex += 1;
     const moveItems: Record<string, unknown>[] = [
       element("at0002", "Movement", writeLocal(MOVEMENT[name][0], MOVEMENT[name][1], `${name[0].toUpperCase()}${name.slice(1)}Sign`, move + "/movement", put, touch)),
     ];
-    if (range) moveItems.push(element("at0035", "Clinical interpretation", writeCoded(range, move + "/interpretation", put, touch)));
+    if (range) moveItems.push(element("at0035", "Clinical interpretation", writeCoded(range, move + "/clinical_interpretation", put, touch)));
     if (pain) {
-      moveItems.push(descriptorCluster({ pain_on_movement: pain === "absence" ? "absence" : pain }, move + "/descriptor", put, touch));
+      moveItems.push(descriptorCluster({ pain_on_movement: pain === "absence" ? "absence" : pain }, move + "/clinergy_descriptor", put, touch));
     }
     items.push(cluster("openEHR-EHR-CLUSTER.range_of_motion.v1", "Range of motion of a joint", moveItems));
   }
   if (exam.status === "notExamined") {
-    put(`${base}/not_done/flag`, "value", "true");
+    put(`${base}/exclusion_of_examination/examination_not_done`, "value", "true");
     touch("notExamined");
     items.push(cluster("openEHR-EHR-CLUSTER.exclusion_exam.v1", "Exclusion of examination", [
       element("at0001", "Examination not done", { _type: "DV_BOOLEAN", value: true }),
@@ -336,13 +336,13 @@ function problemEvaluation(
   put: (chain: string, suffix: string, value: string) => void,
   touch: (key: string) => void,
 ): Record<string, unknown> {
-  const base = `assessment/problem:${index}`;
+  const base = `assessment/problem_diagnosis:${index}`;
   const items = [
-    element("at0002", "Problem/Diagnosis name", writeCoded(key, `${base}/name`, put, touch)),
-    locationCluster(location ?? "Thumb", { laterality: [], sublocation: null }, `${base}/body_site`, put, touch),
+    element("at0002", "Problem/Diagnosis name", writeCoded(key, `${base}/problem_diagnosis_name`, put, touch)),
+    locationCluster(location ?? "Thumb", { laterality: [], sublocation: null }, `${base}/anatomical_location`, put, touch),
   ];
   if (suspected) {
-    items.push(element("at0073", "Diagnostic certainty", writeLocal("at0074", "Suspected", "possible", `${base}/certainty`, put, () => {})));
+    items.push(element("at0073", "Diagnostic certainty", writeLocal("at0074", "Suspected", "possible", `${base}/diagnostic_certainty`, put, () => {})));
   }
   return evaluation("openEHR-EHR-EVALUATION.problem_diagnosis.v1", "Problem/Diagnosis", items);
 }
@@ -352,9 +352,11 @@ function exclusionEvaluation(
   index: number,
   put: (chain: string, suffix: string, value: string) => void,
 ): Record<string, unknown> {
-  const base = `assessment/exclusion:${index}`;
+  const text = term(key)?.preferred ?? key;
+  const base = `assessment/exclusion_-_specific:${index}`;
+  put(`${base}/excluded_concept`, "value", text);
   return evaluation("openEHR-EHR-EVALUATION.exclusion_specific.v1", "Exclusion - specific", [
-    element("at0003", dvLocalName("at0004", "Problem/diagnosis"), writeCoded(key, `${base}/concept`, put, () => {})),
+    element("at0003", dvLocalName("at0004", "Problem/diagnosis"), dvText(text)),
   ]);
 }
 
@@ -392,10 +394,10 @@ function mappingList(row: Term | undefined): Record<string, unknown>[] {
   if (!row) return [];
   const out: Record<string, unknown>[] = [];
   if (row.opengalen.verified && row.opengalen.name) {
-    out.push(termMapping(row.opengalen.match ?? "~", "OpenGALEN", row.opengalen.name));
+    out.push(termMapping(openEhrMatch(row.opengalen.match), "OpenGALEN", row.opengalen.name));
   }
   if (row.snomed.verified && row.snomed.code) {
-    out.push(termMapping(row.snomed.match ?? "~", "SNOMED-CT", row.snomed.code));
+    out.push(termMapping(openEhrMatch(row.snomed.match), "SNOMED-CT", row.snomed.code));
   }
   return out;
 }
@@ -510,6 +512,11 @@ function dvCoded(value: string, terminology: string, code: string, mappings: Rec
 function dvLocalName(at: string, text: string): Record<string, unknown> {
   return dvCoded(text, "local", at);
 }
+function openEhrMatch(match: string | undefined): string {
+  if (match === "=" || match === "<" || match === ">") return match;
+  return "?";
+}
+
 function termMapping(match: string, terminology: string, code: string): Record<string, unknown> {
   return { _type: "TERM_MAPPING", match, target: codePhrase(terminology, code) };
 }
@@ -528,5 +535,3 @@ function isoDuration(n: number, unit: string): string {
   };
   return (designator[unit] ?? "P{n}D").replace("{n}", String(n));
 }
-
-export { webTemplate };

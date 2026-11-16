@@ -2,7 +2,8 @@
 # Clinergy names: (c) 1997-8 Semantic Technologies Ltd / Victoria University of Manchester.
 # OpenGALEN names: GALEN Open Source License. SNOMED CT: IHTSDO / SNOMED International.
 # verified: false means the code was not confirmed. Do not treat those rows as bindings.
-# match: = equivalent, ~ inexact, > Clinergy concept is broader than the target, < Clinergy concept is narrower.
+# match: = equivalent, ? inexact, > Clinergy concept is broader than the target, < Clinergy concept is narrower.
+# openEHR TERM_MAPPING.match accepts '=', '<', '>' and '?'. The reviewed file used '~' for inexact; that symbol is stored as '?'.
 # SNOMED CT rechecked 2026-11-16 on HL7 Nordics https://tx-nordics.fhir.org/fhir/r4
 # (CodeSystem/$lookup, CodeSystem/$validate-code, ValueSet/$expand). Edition
 # http://snomed.info/sct/900000000000207008/version/20260801 (SNOMED CT International).
@@ -104,7 +105,7 @@ terms:
     preferred: Distal phalanx of thumb
     opengalen:
       name: DistalPhalanx
-      match: '~'
+      match: '?'
       verified: true
       needsHumanReview: true
       note: OpenGALEN 8 class name from the verified Clinergy mapping extract (IRI http://www.opengalen.org/owl/opengalen.owl#DistalPhalanx).
@@ -113,7 +114,7 @@ terms:
       code: '182007006'
       fsn: Entire distal phalanx of thumb (body structure)
       preferred: Entire distal phalanx of thumb
-      match: '~'
+      match: '?'
       verified: true
       source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
         (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
@@ -125,7 +126,7 @@ terms:
     preferred: Proximal phalanx of thumb
     opengalen:
       name: ProximalPhalanx
-      match: '~'
+      match: '?'
       verified: true
       needsHumanReview: true
       note: OpenGALEN 8 class name from the verified Clinergy mapping extract (IRI http://www.opengalen.org/owl/opengalen.owl#ProximalPhalanx).
@@ -153,7 +154,7 @@ terms:
       code: '770819009'
       fsn: Entire nail unit of thumb (body structure)
       preferred: Entire nail unit of thumb
-      match: '~'
+      match: '?'
       verified: true
       source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
         (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
@@ -292,7 +293,7 @@ terms:
       code: '27635008'
       fsn: Aching pain (finding)
       preferred: Aching pain
-      match: '~'
+      match: '?'
       verified: true
       source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
         (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
@@ -317,7 +318,7 @@ terms:
       code: '83644001'
       fsn: Dull pain (finding)
       preferred: Dull pain
-      match: '~'
+      match: '?'
       verified: true
       source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
         (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
@@ -332,7 +333,7 @@ terms:
       code: '29695002'
       fsn: Throbbing pain (finding)
       preferred: Throbbing pain
-      match: '~'
+      match: '?'
       verified: true
       source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
         (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
@@ -352,7 +353,7 @@ terms:
     preferred: Burning
     opengalen:
       name: BurningPain
-      match: '~'
+      match: '?'
       verified: true
       needsHumanReview: true
       note: OpenGALEN 8 class name from the verified Clinergy mapping extract (IRI http://www.opengalen.org/owl/opengalen.owl#BurningPain).
@@ -361,7 +362,7 @@ terms:
       code: '36349006'
       fsn: Burning pain (finding)
       preferred: Burning pain
-      match: '~'
+      match: '?'
       verified: true
       source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
         (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
@@ -416,7 +417,7 @@ terms:
     preferred: Infrequent
     opengalen:
       name: Infrequent
-      match: '~'
+      match: '?'
       verified: true
       needsHumanReview: true
       note: OpenGALEN 8 class name from the verified Clinergy mapping extract (IRI http://www.opengalen.org/owl/opengalen.owl#Infrequent).
@@ -435,7 +436,7 @@ terms:
     preferred: Occasional
     opengalen:
       name: Occasional
-      match: '~'
+      match: '?'
       verified: true
       needsHumanReview: true
       note: OpenGALEN 8 class name from the verified Clinergy mapping extract (IRI http://www.opengalen.org/owl/opengalen.owl#Occasional).
@@ -478,7 +479,7 @@ terms:
       code: '61751001'
       fsn: Gradual onset (qualifier value)
       preferred: Gradual onset
-      match: '~'
+      match: '?'
       verified: true
       source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
         (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
@@ -493,7 +494,7 @@ terms:
       code: '1384228004'
       fsn: Rapid onset (qualifier value)
       preferred: Rapid onset
-      match: '~'
+      match: '?'
       verified: true
       source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
         (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
@@ -512,7 +513,7 @@ terms:
       code: '385315009'
       fsn: Sudden onset (qualifier value)
       preferred: Sudden onset
-      match: '~'
+      match: '?'
       verified: true
       source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
         (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
@@ -542,7 +543,7 @@ terms:
       code: '260388006'
       fsn: No status change (qualifier value)
       preferred: No status change
-      match: '~'
+      match: '?'
       verified: true
       source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
         (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
@@ -576,7 +577,7 @@ terms:
       code: '229803000'
       fsn: Single episode (qualifier value)
       preferred: Single episode
-      match: '~'
+      match: '?'
       verified: true
       source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
         (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
@@ -586,7 +587,7 @@ terms:
     preferred: Intermittent
     opengalen:
       name: intermittent
-      match: '~'
+      match: '?'
       verified: true
       needsHumanReview: true
       note: OpenGALEN 8 class name from the verified Clinergy mapping extract (IRI http://www.opengalen.org/owl/opengalen.owl#intermittent).
@@ -701,7 +702,7 @@ terms:
       code: '300583006'
       fsn: Fluctuant (finding)
       preferred: Fluctuant
-      match: '~'
+      match: '?'
       verified: true
       source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
         (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
@@ -937,7 +938,7 @@ terms:
       code: '263130004'
       fsn: Sprain of ligament of thumb (disorder)
       preferred: Sprain of thumb
-      match: '~'
+      match: '?'
       verified: true
       source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
         (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
@@ -984,7 +985,7 @@ terms:
       code: '449825003'
       fsn: Cellulitis of thumb (disorder)
       preferred: Cellulitis of thumb
-      match: '~'
+      match: '?'
       verified: true
       source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
         (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
@@ -999,7 +1000,7 @@ terms:
       code: '32021005'
       fsn: Pulp abscess of finger (disorder)
       preferred: Pulp abscess of finger
-      match: '~'
+      match: '?'
       verified: true
       source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
         (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
@@ -1019,7 +1020,7 @@ terms:
       code: '71906005'
       fsn: Paronychia (disorder)
       preferred: Paronychia
-      match: '~'
+      match: '?'
       verified: true
       source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
         (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
@@ -1060,7 +1061,7 @@ terms:
       code: '69896004'
       fsn: Rheumatoid arthritis (disorder)
       preferred: Rheumatoid arthritis
-      match: '~'
+      match: '?'
       verified: true
       source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
         (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
@@ -1099,7 +1100,7 @@ terms:
       code: '9964006'
       fsn: Flexion, function (observable entity)
       preferred: Flexion
-      match: '~'
+      match: '?'
       verified: true
       source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
         (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
@@ -1118,7 +1119,7 @@ terms:
       code: '24154002'
       fsn: Musculoskeletal extension, function (observable entity)
       preferred: Musculoskeletal extension
-      match: '~'
+      match: '?'
       verified: true
       source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
         (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
@@ -1137,7 +1138,7 @@ terms:
       code: '60074003'
       fsn: Abduction, function (observable entity)
       preferred: Abduction
-      match: '~'
+      match: '?'
       verified: true
       source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
         (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
@@ -1156,7 +1157,7 @@ terms:
       code: '11554009'
       fsn: Adduction, function (observable entity)
       preferred: Adduction
-      match: '~'
+      match: '?'
       verified: true
       source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
         (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
@@ -1171,7 +1172,7 @@ terms:
       code: '277972004'
       fsn: Full movement (qualifier value)
       preferred: Full movement
-      match: '~'
+      match: '?'
       verified: true
       source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
         (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
@@ -1231,7 +1232,7 @@ terms:
       code: '280413001'
       fsn: Normal result (qualifier value)
       preferred: Normal result
-      match: '~'
+      match: '?'
       verified: true
       source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
         (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
@@ -1259,7 +1260,7 @@ terms:
       code: '298255009'
       fsn: Pain on joint movement (finding)
       preferred: Pain on joint movement
-      match: '~'
+      match: '?'
       verified: true
       source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
         (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition

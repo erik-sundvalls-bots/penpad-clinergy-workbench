@@ -19,9 +19,10 @@ import {
   type WorkbenchState,
 } from "./model.ts";
 import { buildThumbEncounter } from "./openehr/compose.ts";
-import { validateFlat } from "./openehr/validate.ts";
+import { validateComposition } from "./openehr/validate.ts";
 import { term } from "./openehr/terms.ts";
 import optUrl from "../templates/thumb-pain.opt?url";
+import optPlainUrl from "../templates/thumb-pain-encounter.v2.opt?url";
 import webTemplateUrl from "../templates/thumb-pain.webtemplate.json?url";
 import { render, renderReport, type Finding } from "../vendor/sentence.ts";
 
@@ -118,7 +119,8 @@ function page(): string {
         <section class="panel">
           <h2>openEHR</h2>
           <div class="downloads">
-            <a href="${optUrl}" download="thumb-pain.opt">Thumb pain OPT</a>
+            <a href="${optUrl}" download="thumb-pain-encounter.v2-coded.opt">Thumb pain OPT</a>
+            <a href="${optPlainUrl}" download="thumb-pain-encounter.v2.opt">Uncoded OPT</a>
             <a href="${webTemplateUrl}" download="thumb-pain.webtemplate.json">Web template</a>
           </div>
           <div class="tabs-mini">
@@ -588,7 +590,7 @@ function paintGalen(findings: Finding[]): void {
 
 function paintEhr(_findings: Finding[], english: string[]): void {
   const result = buildThumbEncounter(state, english.join("\n"));
-  const checked = validateFlat(result.flat);
+  const checked = validateComposition(result.canonical, result.flat);
   const pre = document.querySelector("#ehr");
   if (pre) {
     pre.textContent = flatMode
