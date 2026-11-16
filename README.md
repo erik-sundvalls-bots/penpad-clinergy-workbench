@@ -1,6 +1,13 @@
 # PEN&PAD + Clinergy experimental workbench
 
-A static page for hackathon participants. Fill a Clinergy-like thumb pain form in the browser and watch English and Swedish summary sentences, OpenGALEN bindings, and openEHR canonical JSON and FLAT update as you click.
+A static page for hackathon participants. Fill a Clinergy-like thumb pain form in the browser and watch English and Swedish summary sentences, OpenGALEN bindings, openEHR canonical JSON and FLAT, and FHIR exports update as you click.
+
+The FHIR panel (generated at runtime from the approved public thumb-pain extract only) offers:
+
+- a FHIR R4 Questionnaire and a live QuestionnaireResponse (SDC-style), with the English summary as the Response narrative — see [clinergy-extractor #7](https://github.com/erik-sundvalls-bots/clinergy-extractor/issues/7);
+- a [Symptoms IG Symptom Logical Model](https://build.fhir.org/ig/HL7/fhir-symptoms-ig/en/StructureDefinition-SymptomLogicalModel.html) export of the current finding, with the English sentence as `symptomDescription` — see [clinergy-extractor #8](https://github.com/erik-sundvalls-bots/clinergy-extractor/issues/8). Unmapped elements are listed rather than guessed.
+
+Shape checks run in the page and in `tests/fhir-export.test.ts`. No extra Clinergy forms are added. The extractor itself is unchanged; this workbench consumes the published extract.
 
 **Live site:** https://erik-sundvalls-bots.github.io/penpad-clinergy-workbench/
 
