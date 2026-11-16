@@ -3,6 +3,11 @@
 # OpenGALEN names: GALEN Open Source License. SNOMED CT: IHTSDO / SNOMED International.
 # verified: false means the code was not confirmed. Do not treat those rows as bindings.
 # match: = equivalent, ~ inexact, > Clinergy concept is broader than the target, < Clinergy concept is narrower.
+# SNOMED CT rechecked 2026-11-16 on HL7 Nordics https://tx-nordics.fhir.org/fhir/r4
+# (CodeSystem/$lookup, CodeSystem/$validate-code, ValueSet/$expand). Edition
+# http://snomed.info/sct/900000000000207008/version/20260801 (SNOMED CT International).
+# Each concept id inside a post-coordinated expression was looked up and validated. The expression
+# itself was not submitted as a code.
 terms:
   ThumbPainSymptom:
     clinergy: ThumbPainSymptom
@@ -17,8 +22,9 @@ terms:
       preferred: Pain in thumb
       match: '='
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
     expression: 'Alternative post-coordination: 22253000 |Pain|:363698007 |Finding site|=76505004 |Thumb
       structure|'
   Pain:
@@ -37,8 +43,9 @@ terms:
       preferred: Pain
       match: '='
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   ThumbSwellingSymptom:
     clinergy: ThumbSwellingSymptom
     preferred: Swelling of thumb
@@ -47,8 +54,11 @@ terms:
       note: No precoordinated thumb swelling class. OpenGALEN SwellingSymptom is verified separately.
     snomed:
       verified: false
-      note: No active precoordinated 'swelling of thumb' finding. Bony/joint-only swelling concepts were
-        rejected as too narrow.
+      note: No active precoordinated swelling of thumb. ValueSet/$expand filter "swelling thumb", and an
+        ECL search for a clinical finding whose finding site is the thumb, returned only narrower
+        findings (299133001 bony swelling, 299132006 swelling of thumb joint, 299135008 synovial
+        swelling, 299134007 soft tissue swelling, and localized left, right or bilateral swelling).
+        Expression concepts 65124004, 363698007 and 76505004 were looked up and validated, and are active.
     expression: '65124004 |Swelling|:363698007 |Finding site|=76505004 |Thumb structure|. OpenGALEN: SwellingSymptom
       which isLocatumOf Thumb.'
   SwellingSymptom:
@@ -67,8 +77,9 @@ terms:
       preferred: Swelling
       match: '='
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   Thumb:
     clinergy: Thumb
     preferred: Thumb
@@ -85,8 +96,9 @@ terms:
       preferred: Thumb structure
       match: '='
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   distalPhalanx:
     clinergy: distalPhalanx
     preferred: Distal phalanx of thumb
@@ -103,8 +115,9 @@ terms:
       preferred: Entire distal phalanx of thumb
       match: '~'
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
     expression: 182007006 is the entire phalanx. 13829006 |Bone structure of distal phalanx of thumb|
       is the bone only.
   proximalPhalanx:
@@ -123,8 +136,9 @@ terms:
       preferred: Entire proximal phalanx of thumb
       match: '='
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   ThumbNail:
     clinergy: ThumbNail
     preferred: Thumb nail
@@ -141,8 +155,9 @@ terms:
       preferred: Entire nail unit of thumb
       match: '~'
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   InterphalangealJoint:
     clinergy: InterphalangealJoint
     preferred: Interphalangeal joint of thumb
@@ -159,8 +174,9 @@ terms:
       preferred: Structure of interphalangeal joint of thumb
       match: '='
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   MetacarpoPhalangealJoint:
     clinergy: MetacarpoPhalangealJoint
     preferred: Metacarpophalangeal joint of thumb
@@ -174,11 +190,12 @@ terms:
     snomed:
       code: '56310002'
       fsn: Metacarpophalangeal joint structure of thumb (body structure)
-      preferred: Structure of metacarpophalangeal joint structure of thumb
+      preferred: Metacarpophalangeal joint structure of thumb
       match: '='
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   ThenarEminence:
     clinergy: ThenarEminence
     preferred: Thenar eminence
@@ -191,8 +208,10 @@ terms:
         That extract was produced against the OpenGALEN 8 release published in https://erik-sundvalls-bots.github.io/opengalen-browser/.
     snomed:
       verified: false
-      note: No SNOMED body structure whose FSN is the thenar eminence. Thenar muscle and skin-of-thenar
-        were not accepted as equal.
+      note: No body structure whose FSN is Thenar eminence. A text search for thenar under body structures
+        did not find the eminence. Not accepted as equal are 73077005 Thenar region structure, 731987001
+        Entire thenar region, 410815007 Structure of thenar muscle, and 244160006 Entire skin of thenar
+        region of palm.
   ThumbJoint:
     clinergy: ThumbJoint
     preferred: Thumb joint
@@ -202,11 +221,12 @@ terms:
     snomed:
       code: '125684003'
       fsn: Thumb joint structure (body structure)
-      preferred: Structure of thumb joint
+      preferred: Thumb joint structure
       match: '='
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   leftSelection:
     clinergy: leftSelection
     preferred: Left
@@ -223,8 +243,9 @@ terms:
       preferred: Left
       match: '='
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   rightSelection:
     clinergy: rightSelection
     preferred: Right
@@ -241,8 +262,9 @@ terms:
       preferred: Right
       match: '='
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   bilateral:
     clinergy: bilateral
     preferred: Right and left
@@ -255,8 +277,9 @@ terms:
       preferred: Right and left
       match: '='
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
     expression: Archetype laterality at0083 is 'Right and left', not a separate 'bilateral' code. 261665006
       is Unknown, not bilateral.
   achingPain:
@@ -271,8 +294,9 @@ terms:
       preferred: Aching pain
       match: '~'
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   piercingPain:
     clinergy: piercingPain
     preferred: Piercing
@@ -281,8 +305,8 @@ terms:
       note: piercingPain is not in the verified OpenGALEN extract.
     snomed:
       verified: false
-      note: No SNOMED finding whose FSN is piercing pain. 55145008 |Stabbing pain| was not accepted as
-        equal.
+      note: $expand filter 'piercing pain', and ECL <<22253000 filter piercing, returned no concept.
+        55145008 |Stabbing pain (finding)| is active and was not accepted as equal.
   dullPain:
     clinergy: dullPain
     preferred: Dull
@@ -295,8 +319,9 @@ terms:
       preferred: Dull pain
       match: '~'
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   throbbingPain:
     clinergy: throbbingPain
     preferred: Throbbing
@@ -309,8 +334,9 @@ terms:
       preferred: Throbbing pain
       match: '~'
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   pressingPain:
     clinergy: pressingPain
     preferred: Pressing
@@ -319,7 +345,8 @@ terms:
       note: pressingPain is not in the verified OpenGALEN extract.
     snomed:
       verified: false
-      note: No SNOMED finding whose FSN is pressing pain.
+      note: $expand filter 'pressing pain', and ECL <<22253000 filter pressing, returned no concept.
+        279098001 |Crushing pain (finding)| is a different character and was not accepted.
   burningPain:
     clinergy: burningPain
     preferred: Burning
@@ -336,8 +363,9 @@ terms:
       preferred: Burning pain
       match: '~'
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   mild:
     clinergy: mild
     preferred: Mild
@@ -350,8 +378,9 @@ terms:
       preferred: Mild
       match: '='
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   moderate:
     clinergy: moderate
     preferred: Moderate
@@ -361,11 +390,12 @@ terms:
     snomed:
       code: '6736007'
       fsn: Moderate (severity modifier) (qualifier value)
-      preferred: Moderate
+      preferred: Moderate severity
       match: '='
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   severe:
     clinergy: severe
     preferred: Severe
@@ -378,8 +408,9 @@ terms:
       preferred: Severe
       match: '='
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   infrequent:
     clinergy: infrequent
     preferred: Infrequent
@@ -396,8 +427,9 @@ terms:
       preferred: Infrequent
       match: '='
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   occasional:
     clinergy: occasional
     preferred: Occasional
@@ -414,8 +446,9 @@ terms:
       preferred: Occasional
       match: '='
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   frequent:
     clinergy: frequent
     preferred: Frequent
@@ -428,8 +461,9 @@ terms:
       preferred: Frequent
       match: '='
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   gradual:
     clinergy: gradual
     preferred: Gradual
@@ -446,8 +480,9 @@ terms:
       preferred: Gradual onset
       match: '~'
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   rapid:
     clinergy: rapid
     preferred: Rapid
@@ -460,8 +495,9 @@ terms:
       preferred: Rapid onset
       match: '~'
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   sudden:
     clinergy: sudden
     preferred: Sudden
@@ -478,8 +514,9 @@ terms:
       preferred: Sudden onset
       match: '~'
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   better:
     clinergy: better
     preferred: Better
@@ -492,8 +529,9 @@ terms:
       preferred: Better
       match: '='
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   same:
     clinergy: same
     preferred: Same
@@ -503,11 +541,12 @@ terms:
     snomed:
       code: '260388006'
       fsn: No status change (qualifier value)
-      preferred: No change
+      preferred: No status change
       match: '~'
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   worse:
     clinergy: worse
     preferred: Worse
@@ -520,8 +559,9 @@ terms:
       preferred: Worse
       match: '='
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   single:
     clinergy: single
     preferred: Single
@@ -538,8 +578,9 @@ terms:
       preferred: Single episode
       match: '~'
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   intermittant:
     clinergy: intermittant
     preferred: Intermittent
@@ -556,8 +597,9 @@ terms:
       preferred: Intermittent
       match: '='
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   persistant:
     clinergy: persistant
     preferred: Persistent
@@ -566,8 +608,9 @@ terms:
       note: persistant/persistent is not in the verified OpenGALEN extract.
     snomed:
       verified: false
-      note: 255222005 and 86639004, both FSN Persistent, are inactive in this edition. No active replacement
-        was verified.
+      note: 255222005 |Persistent (qualifier value)| and 86639004 |Persistent (modifier) (qualifier value)|
+        are inactive. $validate-code warns that their use should be reviewed. Qualifier $expand returned
+        62459000 |Chronic persistent (qualifier value)|, which is not this pattern. No active replacement.
   continuous:
     clinergy: continuous
     preferred: Continuous
@@ -584,8 +627,9 @@ terms:
       preferred: Continuous
       match: '='
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   soft:
     clinergy: soft
     preferred: Soft
@@ -602,8 +646,9 @@ terms:
       preferred: Soft
       match: '='
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   firm:
     clinergy: firm
     preferred: Firm
@@ -620,8 +665,9 @@ terms:
       preferred: Firm
       match: '='
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   hard:
     clinergy: hard
     preferred: Hard
@@ -638,8 +684,9 @@ terms:
       preferred: Hard
       match: '='
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   fluctuant:
     clinergy: fluctuant
     preferred: Fluctuant
@@ -656,8 +703,9 @@ terms:
       preferred: Fluctuant
       match: '~'
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   rough:
     clinergy: rough
     preferred: Rough
@@ -670,7 +718,8 @@ terms:
         That extract was produced against the OpenGALEN 8 release published in https://erik-sundvalls-bots.github.io/opengalen-browser/.
     snomed:
       verified: false
-      note: No SNOMED qualifier FSN Rough. 816995008 |Rough skin| is a finding, not this texture value.
+      note: $expand filter rough under <<362981000 returned no qualifier. 816995008 |Rough skin (finding)|
+        is active and is a finding, not this texture value.
   smooth:
     clinergy: smooth
     preferred: Smooth
@@ -687,8 +736,9 @@ terms:
       preferred: Smooth
       match: '='
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   nodular:
     clinergy: nodular
     preferred: Nodular
@@ -705,8 +755,9 @@ terms:
       preferred: Nodular
       match: '='
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   irregular:
     clinergy: irregular
     preferred: Irregular
@@ -719,8 +770,9 @@ terms:
       preferred: Irregular
       match: '='
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   second:
     clinergy: second
     preferred: second
@@ -731,11 +783,12 @@ terms:
     snomed:
       code: '257997001'
       fsn: Seconds (qualifier value)
-      preferred: Second
+      preferred: Seconds
       match: '='
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   minute:
     clinergy: minute
     preferred: minute
@@ -749,8 +802,9 @@ terms:
       preferred: minute
       match: '='
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   hour:
     clinergy: hour
     preferred: hour
@@ -764,8 +818,9 @@ terms:
       preferred: hour
       match: '='
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   day:
     clinergy: day
     preferred: day
@@ -774,13 +829,18 @@ terms:
       note: day as a duration unit is not in the verified OpenGALEN extract (the class 'second' exists
         but is not this unit).
     snomed:
-      code: '264721006'
+      code: '258703001'
       fsn: day (qualifier value)
       preferred: day
       match: '='
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      note: 264721006, FSN day (qualifier value), is inactive on this edition (effectiveTime 20020131)
+        and $validate-code warns that its use should be reviewed. The earlier CSIRO Ontoserver check
+        on Australian edition 20261031 recorded 264721006 as active. 258703001 is the active concept
+        with the same FSN and display day.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   week:
     clinergy: week
     preferred: week
@@ -794,8 +854,9 @@ terms:
       preferred: week
       match: '='
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   month:
     clinergy: month
     preferred: month
@@ -809,8 +870,9 @@ terms:
       preferred: month
       match: '='
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   year:
     clinergy: year
     preferred: year
@@ -824,8 +886,9 @@ terms:
       preferred: year
       match: '='
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   presence:
     clinergy: presence
     preferred: Present
@@ -842,8 +905,9 @@ terms:
       preferred: Present
       match: '='
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   absence:
     clinergy: absence
     preferred: Absent
@@ -860,8 +924,9 @@ terms:
       preferred: Absent
       match: '='
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   ThumbSprain:
     clinergy: ThumbSprain
     preferred: Sprain of thumb
@@ -874,8 +939,9 @@ terms:
       preferred: Sprain of thumb
       match: '~'
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   ThumbJointDislocation:
     clinergy: ThumbJointDislocation
     preferred: Dislocation of thumb joint
@@ -888,8 +954,9 @@ terms:
       preferred: Dislocation of joint of thumb
       match: '='
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   ThumbFracture:
     clinergy: ThumbFracture
     preferred: Fracture of thumb
@@ -902,8 +969,9 @@ terms:
       preferred: Closed fracture of phalanx of thumb
       match: '>'
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
     expression: 208496009 and 263213009, both FSN Fracture of thumb, are inactive. 704213001 is narrower
       (closed fracture of a phalanx).
   SubcutaneousInfection:
@@ -918,8 +986,9 @@ terms:
       preferred: Cellulitis of thumb
       match: '~'
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   Whitlow:
     clinergy: Whitlow
     preferred: Whitlow
@@ -932,8 +1001,9 @@ terms:
       preferred: Pulp abscess of finger
       match: '~'
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
     expression: 32021005 |Pulp abscess of finger|:363698007 |Finding site|=76505004 |Thumb structure|
   Paronychia:
     clinergy: Paronychia
@@ -951,8 +1021,9 @@ terms:
       preferred: Paronychia
       match: '~'
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
     expression: 71906005 |Paronychia|:363698007 |Finding site|=76505004 |Thumb structure|
   Osteoarthritis:
     clinergy: Osteoarthritis
@@ -970,8 +1041,9 @@ terms:
       preferred: Osteoarthrosis of the carpometacarpal joint of the thumb
       match: '>'
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
     expression: The active thumb-specific concept is CMC osteoarthrosis, narrower than osteoarthritis
       of the thumb.
   RheumatoidArthritis:
@@ -990,8 +1062,9 @@ terms:
       preferred: Rheumatoid arthritis
       match: '~'
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
     expression: 69896004 |Rheumatoid arthritis|:363698007 |Finding site|=76505004 |Thumb structure|
   TendernessSign:
     clinergy: TendernessSign
@@ -1009,8 +1082,9 @@ terms:
       preferred: Tenderness
       match: '='
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   FlexionSign:
     clinergy: FlexionSign
     preferred: Flexion
@@ -1027,8 +1101,9 @@ terms:
       preferred: Flexion
       match: '~'
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   ExtensionSign:
     clinergy: ExtensionSign
     preferred: Extension
@@ -1045,8 +1120,9 @@ terms:
       preferred: Musculoskeletal extension
       match: '~'
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   AbductionSign:
     clinergy: AbductionSign
     preferred: Abduction
@@ -1063,8 +1139,9 @@ terms:
       preferred: Abduction
       match: '~'
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   AdductionSign:
     clinergy: AdductionSign
     preferred: Adduction
@@ -1081,8 +1158,9 @@ terms:
       preferred: Adduction
       match: '~'
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   full:
     clinergy: full
     preferred: Full
@@ -1095,8 +1173,9 @@ terms:
       preferred: Full movement
       match: '~'
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   reduced:
     clinergy: reduced
     preferred: Reduced
@@ -1109,8 +1188,9 @@ terms:
       preferred: Reduced
       match: '='
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   limited:
     clinergy: limited
     preferred: Limited
@@ -1123,8 +1203,9 @@ terms:
       preferred: Limited
       match: '='
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   minimal:
     clinergy: minimal
     preferred: Minimal
@@ -1137,8 +1218,9 @@ terms:
       preferred: Minimal
       match: '='
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
   normal:
     clinergy: normal
     preferred: Normal
@@ -1146,8 +1228,16 @@ terms:
       verified: false
       note: No OpenGALEN class verified for examination normal.
     snomed:
-      verified: false
-      note: No single SNOMED qualifier was accepted as the examination result 'normal'.
+      code: '280413001'
+      fsn: Normal result (qualifier value)
+      preferred: Normal result
+      match: '~'
+      verified: true
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
+      note: Examination interpretation. 17621005 |Normal (qualifier value)| is the bare word and was not
+        used. $expand found no thumb-examination-normal finding.
   notExamined:
     clinergy: notExamined
     preferred: Not examined
@@ -1156,7 +1246,9 @@ terms:
       note: No OpenGALEN class verified for examination not done.
     snomed:
       verified: false
-      note: Recorded with CLUSTER.exclusion_exam (boolean), not a SNOMED code.
+      note: The composition records CLUSTER.exclusion_exam Examination not done = true, so this row stays
+        unbound. Closest active concept is 162650008 |Examination not done on subject of record (situation)|,
+        display Patient not examined. 75134009 |Not examined for (contextual qualifier)| is a different meaning.
   painOnMovement:
     clinergy: painOnMovement
     preferred: Pain on movement
@@ -1169,5 +1261,6 @@ terms:
       preferred: Pain on joint movement
       match: '~'
       verified: true
-      source: SNOMED CT via CSIRO Ontoserver CodeSystem/$lookup and ValueSet/$expand designations on http://snomed.info/sct
-        (Australian edition 20261031, international core). Checked inactive=false on 2026-11-16.
+      source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
+        (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
+        http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
