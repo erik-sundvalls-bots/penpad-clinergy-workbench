@@ -77,7 +77,10 @@ export function buildThumbEncounter(state: WorkbenchState, narrative: string): T
     section("Assessment", [...problems, ...exclusions]),
   ].filter((entry) => Array.isArray(entry.items) && entry.items.length > 0);
   const canonical = composition(content);
-  const flat = serialization.serializeToFlat(canonical, webTemplate, { locatableName: "omit" }) as Record<string, string | boolean>;
+  const flat = serialization.serializeToFlat(canonical, webTemplate, {
+    locatableName: "omit",
+    flavor: "input",
+  }) as Record<string, string | boolean>;
 
   return {
     canonical,

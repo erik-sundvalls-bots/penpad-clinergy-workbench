@@ -16,7 +16,7 @@ export const serialization: {
   serializeToFlat(
     instance: unknown,
     webTemplate: unknown,
-    options?: { locatableName?: "omit" | "include" },
+    options?: { locatableName?: "omit" | "include"; flavor?: "input" },
   ): Record<string, string | boolean>;
   buildWebTemplate(opt: unknown): { templateId?: string; tree: { id: string; children?: unknown[] } };
 };

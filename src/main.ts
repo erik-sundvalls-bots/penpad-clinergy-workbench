@@ -23,7 +23,7 @@ import { validateComposition } from "./openehr/validate.ts";
 import { term } from "./openehr/terms.ts";
 import optUrl from "../templates/thumb-pain.opt?url";
 import optPlainUrl from "../templates/thumb-pain-encounter.v2.opt?url";
-import webTemplateUrl from "../templates/thumb-pain.webtemplate.json?url";
+import webTemplateUrl from "../templates/thumb-pain-encounter.v2.web-template.json?url";
 import { render, renderReport, type Finding } from "../vendor/sentence.ts";
 
 const FEATURE_LABEL: Record<string, string> = {
@@ -121,7 +121,7 @@ function page(): string {
           <div class="downloads">
             <a href="${optUrl}" download="thumb-pain-encounter.v2-coded.opt">Thumb pain OPT</a>
             <a href="${optPlainUrl}" download="thumb-pain-encounter.v2.opt">Uncoded OPT</a>
-            <a href="${webTemplateUrl}" download="thumb-pain.webtemplate.json">Web template</a>
+            <a href="${webTemplateUrl}" download="thumb-pain-encounter.v2.web-template.json">Web template</a>
           </div>
           <div class="tabs-mini">
             <button type="button" id="tab-canonical" aria-pressed="true">Canonical JSON</button>
