@@ -1,12 +1,9 @@
 import webTemplateJson from "../../templates/thumb-pain.webtemplate.json";
 
-/** Composition template id requested for this workbench. The coded OPT file's registered id is thumb-pain-encounter.v2-coded. */
+/** Same id as templates/thumb-pain.opt and the web template root. */
 export const TEMPLATE_ID = "thumb-pain-encounter.v2";
 
-/**
- * CDR simplified-format root. FerroEHR rejects the template id as a FLAT root.
- * ehrtslib treats webTemplate.templateId as that root, so the generated file uses "encounter".
- */
-export const FLAT_ROOT = "encounter";
+/** FLAT keys use this root. It is the web template id, which matches TEMPLATE_ID. */
+export const FLAT_ROOT = TEMPLATE_ID;
 
 export const webTemplate = webTemplateJson;

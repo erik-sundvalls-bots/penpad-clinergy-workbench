@@ -88,7 +88,7 @@ export function buildThumbEncounter(state: WorkbenchState, narrative: string): T
     touch(key);
     if (link.location) touch(link.location);
     if (status === "excluded") {
-      exclusions.push(exclusionEvaluation(key, exclusionIndex, put));
+      exclusions.push(exclusionEvaluation(key, exclusionIndex, put, touch));
       exclusionIndex += 1;
     } else {
       problems.push(problemEvaluation(key, link.location, status === "possible", problemIndex, put, touch));
@@ -351,12 +351,11 @@ function exclusionEvaluation(
   key: string,
   index: number,
   put: (chain: string, suffix: string, value: string) => void,
+  touch: (key: string) => void,
 ): Record<string, unknown> {
-  const text = term(key)?.preferred ?? key;
-  const base = `assessment/exclusion_-_specific:${index}`;
-  put(`${base}/excluded_concept`, "value", text);
+  const base = `assessment/exclusion_-_specific:${index}/excluded_concept`;
   return evaluation("openEHR-EHR-EVALUATION.exclusion_specific.v1", "Exclusion - specific", [
-    element("at0003", dvLocalName("at0004", "Problem/diagnosis"), dvText(text)),
+    element("at0003", dvLocalName("at0004", "Problem/diagnosis"), writeCoded(key, base, put, touch)),
   ]);
 }
 

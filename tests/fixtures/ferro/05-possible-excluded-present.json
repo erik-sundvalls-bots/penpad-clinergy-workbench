@@ -562,8 +562,30 @@
                 },
                 "archetype_node_id": "at0003",
                 "value": {
-                  "_type": "DV_TEXT",
-                  "value": "Fracture of thumb"
+                  "_type": "DV_CODED_TEXT",
+                  "value": "Fracture of thumb",
+                  "defining_code": {
+                    "_type": "CODE_PHRASE",
+                    "terminology_id": {
+                      "_type": "TERMINOLOGY_ID",
+                      "value": "Clinergy"
+                    },
+                    "code_string": "ThumbFracture"
+                  },
+                  "mappings": [
+                    {
+                      "_type": "TERM_MAPPING",
+                      "match": ">",
+                      "target": {
+                        "_type": "CODE_PHRASE",
+                        "terminology_id": {
+                          "_type": "TERMINOLOGY_ID",
+                          "value": "SNOMED-CT"
+                        },
+                        "code_string": "704213001"
+                      }
+                    }
+                  ]
                 }
               }
             ]
