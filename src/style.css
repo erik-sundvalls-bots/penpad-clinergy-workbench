@@ -103,9 +103,6 @@ a:hover { text-decoration: none; }
 }
 
 .form-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(180px, 0.7fr);
-  gap: 8px;
   padding: 8px;
 }
 

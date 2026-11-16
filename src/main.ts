@@ -91,10 +91,6 @@ function page(): string {
             ${associated()}
             ${historyAndExam()}
             ${diagnoses()}
-          </div>
-          <div>
-            <h2 class="side-label">Summary</h2>
-            <div id="summary-en" class="summary-box" aria-live="polite">Thumb pain</div>
             <h2 class="side-label">Comment</h2>
             <textarea class="comment-box" aria-label="Comment" placeholder="Not part of the generated sentence"></textarea>
           </div>
@@ -107,7 +103,11 @@ function page(): string {
       </section>
       <aside>
         <section class="panel">
-          <h2>Svenska</h2>
+          <h2>Summary</h2>
+          <p id="summary-en" class="sv-sentence" aria-live="polite">Thumb pain</p>
+        </section>
+        <section class="panel">
+          <h2>Svenska (Swedish)</h2>
           <p id="summary-sv" class="sv-sentence" lang="sv" aria-live="polite"></p>
           <p id="sv-missing" class="missing"></p>
         </section>
