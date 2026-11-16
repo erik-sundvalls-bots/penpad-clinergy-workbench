@@ -13,12 +13,17 @@ export const serialization: {
     warnings: { path: string; message: string; severity: string }[];
   };
   toTypedRm(value: unknown): unknown;
+  serializeToFlat(
+    instance: unknown,
+    webTemplate: unknown,
+    options?: { locatableName?: "omit" | "include" },
+  ): Record<string, string | boolean>;
   buildWebTemplate(opt: unknown): { templateId?: string; tree: { id: string; children?: unknown[] } };
 };
 export const validation: {
   RMSpecificationValidator: new () => {
-    validate(value: unknown, rmTypeName?: string, attributeName?: string, path?: string): unknown[];
-    validateInstance(value: unknown, rmType: string, path?: string): unknown[];
+    validate(value: unknown): { path?: string; message?: string; severity?: string }[];
+    validateInstance(value: unknown, rmType?: string, path?: string): unknown[];
   };
   TemplateValidator: new (config?: {
     validateUnits?: boolean;
@@ -30,5 +35,8 @@ export const validation: {
       errors?: unknown[];
       warnings?: unknown[];
     };
+  };
+  InvariantEvaluator: new () => {
+    validateInvariants(value: unknown, invariants?: unknown): unknown[];
   };
 };

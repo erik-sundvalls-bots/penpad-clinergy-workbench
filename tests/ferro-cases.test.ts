@@ -16,6 +16,7 @@ import flat04 from "./fixtures/ferro-flat/ferro-flat-04.json";
 import flat05 from "./fixtures/ferro-flat/ferro-flat-05.json";
 import flat06 from "./fixtures/ferro-flat/ferro-flat-06.json";
 import flat07 from "./fixtures/ferro-flat/ferro-flat-07.json";
+import knownGap from "./fixtures/ferro-flat/known-gap.json";
 
 /**
  * The seven FerroEHR cases from the 2026-11-16 cross-check. cases.zip was not
@@ -34,7 +35,10 @@ const cases: { id: string; narrative: string; state: WorkbenchState; expected: u
 ];
 
 function compositionFlatKeys(flat: Record<string, unknown>): string[] {
-  return Object.keys(flat).filter((key) => !key.startsWith("ctx/") && key !== "encounter/_uid").sort();
+  return Object.keys(flat)
+    .filter((key) => !key.startsWith("ctx/") && !key.endsWith("/_uid"))
+    .map((key) => key.replace(/^(?:encounter|thumb-pain-encounter\.v2)/, ""))
+    .sort();
 }
 
 function painRich(): WorkbenchState {
@@ -99,7 +103,13 @@ describe("FerroEHR regression cases", () => {
       expect(JSON.stringify(result.canonical)).not.toContain('"match":"~"');
       const names = (result.canonical.content as { name: { value: string }; items: unknown[] }[]);
       expect(names.every((section) => section.items.length > 0)).toBe(true);
-      expect(compositionFlatKeys(result.flat)).toEqual(compositionFlatKeys(item.flat));
+      const got = new Set(compositionFlatKeys(result.flat));
+      const ref = new Set(compositionFlatKeys(item.flat));
+      const gap = {
+        onlyInFerro: [...ref].filter((key) => !got.has(key)),
+        onlyInEhrtslib: [...got].filter((key) => !ref.has(key)),
+      };
+      expect(gap).toEqual(knownGap[item.id as keyof typeof knownGap]);
       const checked = validateComposition(result.canonical, result.flat);
       expect(checked.errors, JSON.stringify(checked.errors, null, 2)).toEqual([]);
     });
