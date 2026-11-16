@@ -9,6 +9,13 @@ import case04 from "./fixtures/ferro/04-absent-swelling-chosen.json";
 import case05 from "./fixtures/ferro/05-possible-excluded-present.json";
 import case06 from "./fixtures/ferro/06-exam-per-side.json";
 import case07 from "./fixtures/ferro/07-exam-normal-absent-tenderness.json";
+import flat01 from "./fixtures/ferro-flat/ferro-flat-01.json";
+import flat02 from "./fixtures/ferro-flat/ferro-flat-02.json";
+import flat03 from "./fixtures/ferro-flat/ferro-flat-03.json";
+import flat04 from "./fixtures/ferro-flat/ferro-flat-04.json";
+import flat05 from "./fixtures/ferro-flat/ferro-flat-05.json";
+import flat06 from "./fixtures/ferro-flat/ferro-flat-06.json";
+import flat07 from "./fixtures/ferro-flat/ferro-flat-07.json";
 
 /**
  * The seven FerroEHR cases from the 2026-11-16 cross-check. cases.zip was not
@@ -16,15 +23,19 @@ import case07 from "./fixtures/ferro/07-exam-normal-absent-tenderness.json";
  * committed JSON is the canonical composition after empty sections are omitted
  * and inexact matches are '?'.
  */
-const cases: { id: string; narrative: string; state: WorkbenchState; expected: unknown }[] = [
-  { id: "01-demo-1998", narrative: "Pain in right thumb\nGradual onset, moderately severe swelling of distal phalanx of left thumb for 2 weeks, present", state: demoState(), expected: case01 },
-  { id: "02-pain-rich", narrative: "Aching, infrequent, gradual onset, moderately severe pain in right thumb for 3 days, worse, single", state: painRich(), expected: case02 },
-  { id: "03-bilateral-pain", narrative: "Pain in left and right thumbs", state: bilateral(), expected: case03 },
-  { id: "04-absent-swelling-chosen", narrative: "Absent thumb swelling", state: absentSwelling(), expected: case04 },
-  { id: "05-possible-excluded-present", narrative: "Possible thumb sprain\nThumb fracture excluded\nParonychia of thumb present", state: diagnoses(), expected: case05 },
-  { id: "06-exam-per-side", narrative: "Thumb pain", state: examPerSide(), expected: case06 },
-  { id: "07-exam-normal-absent-tenderness", narrative: "Thumb pain", state: examNormal(), expected: case07 },
+const cases: { id: string; narrative: string; state: WorkbenchState; expected: unknown; flat: Record<string, unknown> }[] = [
+  { id: "01-demo-1998", narrative: "Pain in right thumb\nGradual onset, moderately severe swelling of distal phalanx of left thumb for 2 weeks, present", state: demoState(), expected: case01, flat: flat01 },
+  { id: "02-pain-rich", narrative: "Aching, infrequent, gradual onset, moderately severe pain in right thumb for 3 days, worse, single", state: painRich(), expected: case02, flat: flat02 },
+  { id: "03-bilateral-pain", narrative: "Pain in left and right thumbs", state: bilateral(), expected: case03, flat: flat03 },
+  { id: "04-absent-swelling-chosen", narrative: "Absent thumb swelling", state: absentSwelling(), expected: case04, flat: flat04 },
+  { id: "05-possible-excluded-present", narrative: "Possible thumb sprain\nThumb fracture excluded\nParonychia of thumb present", state: diagnoses(), expected: case05, flat: flat05 },
+  { id: "06-exam-per-side", narrative: "Thumb pain", state: examPerSide(), expected: case06, flat: flat06 },
+  { id: "07-exam-normal-absent-tenderness", narrative: "Thumb pain", state: examNormal(), expected: case07, flat: flat07 },
 ];
+
+function compositionFlatKeys(flat: Record<string, unknown>): string[] {
+  return Object.keys(flat).filter((key) => !key.startsWith("ctx/") && key !== "encounter/_uid").sort();
+}
 
 function painRich(): WorkbenchState {
   const state = emptyState();
@@ -88,6 +99,7 @@ describe("FerroEHR regression cases", () => {
       expect(JSON.stringify(result.canonical)).not.toContain('"match":"~"');
       const names = (result.canonical.content as { name: { value: string }; items: unknown[] }[]);
       expect(names.every((section) => section.items.length > 0)).toBe(true);
+      expect(compositionFlatKeys(result.flat)).toEqual(compositionFlatKeys(item.flat));
       const checked = validateComposition(result.canonical, result.flat);
       expect(checked.errors, JSON.stringify(checked.errors, null, 2)).toEqual([]);
     });

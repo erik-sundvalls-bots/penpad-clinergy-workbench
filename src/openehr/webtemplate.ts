@@ -1,9 +1,12 @@
 import webTemplateJson from "../../templates/thumb-pain.webtemplate.json";
 
-/** Same id as templates/thumb-pain.opt and the web template root. */
+/** Registered id of templates/thumb-pain.opt and of archetype_details.template_id. */
 export const TEMPLATE_ID = "thumb-pain-encounter.v2";
 
-/** FLAT keys use this root. It is the web template id, which matches TEMPLATE_ID. */
-export const FLAT_ROOT = TEMPLATE_ID;
+/**
+ * FLAT root is the web-template tree id, not the template id.
+ * ehrtslib using the template id as the root is https://github.com/ErikSundvall/ehrtslib/issues/312.
+ */
+export const FLAT_ROOT = "encounter";
 
 export const webTemplate = webTemplateJson;

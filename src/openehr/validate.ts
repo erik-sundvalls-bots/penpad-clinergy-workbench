@@ -33,6 +33,16 @@ const templateValidator = new validation.TemplateValidator({
  * DV_BOOLEAN.value on examination-not-done is constrained as the string "True".
  * The compositions keep the RM values (ISO-8601 duration, boolean true).
  */
+/**
+ * ehrtslib 0.12.0 counts a `_mapping` key as another instance of the coded node,
+ * and it does not recognise `history_origin` even though FerroEHR exports and
+ * accepts that key. Neither is a fault in the FLAT.
+ */
+function ehrtslibFlatFalsePositive(issue: ValidationIssue): boolean {
+  if (issue.message.startsWith("instance count ")) return true;
+  return issue.message === "Unknown flat key for template" && issue.path.includes("history_origin");
+}
+
 function knownOptExporterMismatch(issue: ValidationIssue): boolean {
   if (!issue.path.endsWith("/value/value/")) return false;
   return issue.message === "Expected integer, got string" || issue.message === "Expected string, got boolean";
@@ -76,15 +86,17 @@ function walk(value: unknown, path: string, errors: ValidationIssue[]): void {
 
 export function validateComposition(
   canonical: Record<string, unknown>,
-  flat: Record<string, string>,
+  flat: Record<string, string | boolean>,
 ): CompositionValidation {
   const errors: ValidationIssue[] = [];
   const warnings: ValidationIssue[] = [];
-  const flatResult = serialization.validateFlatPayload(flat, webTemplate, { strictUnknownKeys: true }) as {
+  const flatTemplate = structuredClone(webTemplate) as { templateId?: string; tree?: { id?: string } };
+  if (flatTemplate.tree?.id) flatTemplate.templateId = flatTemplate.tree.id;
+  const flatResult = serialization.validateFlatPayload(flat as Record<string, string>, flatTemplate, { strictUnknownKeys: true }) as {
     errors?: unknown[];
     warnings?: unknown[];
   };
-  errors.push(...asIssues(flatResult.errors, "error"));
+  errors.push(...asIssues(flatResult.errors, "error").filter((issue) => !ehrtslibFlatFalsePositive(issue)));
   warnings.push(...asIssues(flatResult.warnings, "warning"));
 
   const typed = serialization.toTypedRm(canonical);
