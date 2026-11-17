@@ -295,3 +295,80 @@ entries:
   JointStiffnessSymptom:
     noun: ledstelhet
     gender: en
+  FlexionSign:
+    noun: flexion
+    gender: en
+  ExtensionSign:
+    noun: extension
+    gender: en
+  AbductionSign:
+    noun: abduktion
+    gender: en
+  AdductionSign:
+    noun: adduktion
+    gender: en
+  ThumbJoint:
+    noun: tumled
+    gender: en
+    definite: tumleden
+    plural: tumleder
+  ThumbJointSign:
+    noun: tumled
+    gender: en
+    definite: tumleden
+    plural: tumleder
+  TendernessSign:
+    noun: ömhet
+    gender: en
+    definite: ömheten
+  rangeOfMotion:
+    noun: rörlighet
+    gender: en
+    definite: rörligheten
+  # Clinical status words for the examination block. "ua" and "ej undersökt"
+  # are the forms used in Swedish GP notes; they do not inflect.
+  normal:
+    noun: ua
+    indeclinable: true
+  notExamined:
+    noun: ej undersökt
+    indeclinable: true
+
+# Grammar for the examination block and the visit plan. The sentence-rule
+# engine does not read this section. Heading is "Status", the usual heading
+# in a Swedish GP note (status presens), rather than "Undersökning".
+examination:
+  heading: Status
+  rangeNoun: rörlighet
+  normal: ua
+  notExamined: ej undersökt
+  joint: tumled
+  sides:
+    left: Vänster
+    right: Höger
+  site:
+    Thumb: tumme
+  movements:
+    FlexionSign: flexion
+    ExtensionSign: extension
+    AbductionSign: abduktion
+    AdductionSign: adduktion
+  # en-form, agreeing with rörlighet (en-word, singular, indefinite).
+  range:
+    full: full
+    reduced: nedsatt
+    limited: begränsad
+    minimal: minimal
+  # Degree + smärtsam. smärtsam is the en-form (flexion/extension/abduktion
+  # are en-words). lätt / måttligt / kraftigt are the degree words.
+  pain:
+    absence: ej smärtsam
+    mild: lätt smärtsam
+    moderate: måttligt smärtsam
+    severe: kraftigt smärtsam
+  signs:
+    TendernessSign:
+      presence: ömhet föreligger
+      absence: ömhet frånvarande
+  plans:
+    "Review the right thumb in one week if the pain is no better.": "Återbesök om en vecka om smärtan i höger tumme inte är bättre."

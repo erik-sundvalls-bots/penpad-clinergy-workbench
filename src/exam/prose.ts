@@ -1,5 +1,8 @@
+import { examPhrases, type ExamPhrases, type NoteLanguage } from "./phrases.ts";
 import { examsByName, examinationsOf, displayOf, type ExamDefinition } from "../forms/catalog.ts";
 import type { ExamSide, WorkbenchState } from "../model.ts";
+
+export type { NoteLanguage };
 
 /**
  * On Examination block, in the shape of the 1998 summary:
@@ -11,31 +14,31 @@ import type { ExamSide, WorkbenchState } from "../model.ts";
  * "flexion full range, mildly painful".
  */
 
-const PAIN_WORD: Record<string, string> = {
-  absence: "not painful",
-  mild: "mildly painful",
-  moderate: "moderately painful",
-  severe: "severely painful",
-};
-
-function sideWord(side: string): string {
-  return side === "left" ? "Left" : side === "right" ? "Right" : side;
+function phrase(book: ExamPhrases, group: "movements" | "range" | "pain" | "sides" | "site", key: string): string {
+  const table = book[group] as Record<string, string>;
+  return table[key] ?? key;
 }
 
-function presencePhrase(sign: string, value: string): string {
+function presencePhrase(sign: string, value: string, book: ExamPhrases): string {
+  const row = book.signs[sign];
+  if (row && (value === "presence" || value === "absence") && row[value]) return row[value];
   const name = displayOf(sign).toLowerCase();
   if (value === "presence") return `${name} present`;
   if (value === "absence") return `${name} absent`;
   return `${name} ${value}`;
 }
 
-function movementPhrase(sign: string, range: string | null, pain: string | null): string | null {
+function movementPhrase(
+  sign: string,
+  range: string | null,
+  pain: string | null,
+  book: ExamPhrases,
+): string | null {
   if (!range && !pain) return null;
-  const name = displayOf(sign).replace(/ sign$/i, "").toLowerCase();
+  const name = book.movements[sign] ?? displayOf(sign).replace(/ sign$/i, "").toLowerCase();
   const bits: string[] = [];
-  if (range) bits.push(`${range} range`);
-  if (pain && PAIN_WORD[pain]) bits.push(PAIN_WORD[pain]);
-  else if (pain) bits.push(pain);
+  if (range) bits.push(`${phrase(book, "range", range)} ${book.rangeNoun}`.trim());
+  if (pain) bits.push(book.pain[pain] ?? pain);
   return `${name} ${bits.join(", ")}`;
 }
 
@@ -88,19 +91,25 @@ export interface SideExamination {
   movements: ExamMovement[];
 }
 
-function examineSide(side: string, exam: ExamSide, definition: ExamDefinition): SideExamination | null {
-  const place = displayOf(definition.baseLocation).toLowerCase();
-  const header = `${sideWord(side)} ${place}`;
+function examineSide(
+  side: string,
+  exam: ExamSide,
+  definition: ExamDefinition,
+  book: ExamPhrases,
+): SideExamination | null {
+  const place = book.site[definition.baseLocation] ?? displayOf(definition.baseLocation).toLowerCase();
+  const sideLabel = book.sides[side] ?? side;
+  const header = `${sideLabel} ${place}`;
   const bits: string[] = [];
   const signs: { sign: string; value: string }[] = [];
-  if (exam.status === "normal") bits.push("normal");
-  if (exam.status === "notExamined") bits.push("not examined");
+  if (exam.status === "normal") bits.push(book.normal);
+  if (exam.status === "notExamined") bits.push(book.notExamined);
   for (const sign of definition.signs0 ?? []) {
     const key = presenceKey(sign);
     if (!key) continue;
     const value = exam[key];
     if (!value) continue;
-    bits.push(presencePhrase(sign, value));
+    bits.push(presencePhrase(sign, value, book));
     signs.push({ sign, value });
   }
   const movements: ExamMovement[] = [];
@@ -109,15 +118,15 @@ function examineSide(side: string, exam: ExamSide, definition: ExamDefinition): 
   for (const subName of definition.subExams ?? []) {
     const sub = examsByName[subName];
     if (!sub) continue;
-    jointLabel = `${sideWord(side)} ${displayOf(sub.baseSign).toLowerCase()}`;
+    jointLabel = `${sideLabel} ${book.joint}`;
     for (const sign of sub.signs0 ?? []) {
       const keys = movementKeys(sign);
       if (!keys) continue;
       const range = fieldOn(exam, keys.range);
       const pain = fieldOn(exam, keys.pain);
-      const phrase = movementPhrase(sign, range, pain);
-      if (!phrase) continue;
-      jointParts.push(phrase);
+      const line = movementPhrase(sign, range, pain, book);
+      if (!line) continue;
+      jointParts.push(line);
       movements.push({ sign, range, pain });
     }
   }
@@ -148,22 +157,27 @@ function activeExam(state: WorkbenchState): { definition: ExamDefinition; perSid
 }
 
 /** Structured examination for each answered side. */
-export function sideExaminations(state: WorkbenchState): SideExamination[] {
+export function sideExaminations(state: WorkbenchState, language: NoteLanguage = "en"): SideExamination[] {
   const active = activeExam(state);
   if (!active) return [];
+  const book = examPhrases(language);
   return active.perSide
-    .map((side) => examineSide(side, state.exam[side as "left" | "right"], active.definition))
+    .map((side) => examineSide(side, state.exam[side as "left" | "right"], active.definition, book))
     .filter((block): block is SideExamination => Boolean(block));
 }
 
 /** One side's examination prose, or "" when that side has no answers. */
-export function examinationProseForSide(state: WorkbenchState, side: "left" | "right"): string {
-  return sideExaminations(state).find((block) => block.side === side)?.prose ?? "";
+export function examinationProseForSide(
+  state: WorkbenchState,
+  side: "left" | "right",
+  language: NoteLanguage = "en",
+): string {
+  return sideExaminations(state, language).find((block) => block.side === side)?.prose ?? "";
 }
 
-/** The whole On Examination block, or "" when nothing was examined. */
-export function onExamination(state: WorkbenchState): string {
-  const blocks = sideExaminations(state);
+/** The whole examination block, or "" when nothing was examined. */
+export function onExamination(state: WorkbenchState, language: NoteLanguage = "en"): string {
+  const blocks = sideExaminations(state, language);
   if (!blocks.length) return "";
-  return ["On Examination", ...blocks.map((block) => block.prose)].join("\n");
+  return [examPhrases(language).heading, ...blocks.map((block) => block.prose)].join("\n");
 }

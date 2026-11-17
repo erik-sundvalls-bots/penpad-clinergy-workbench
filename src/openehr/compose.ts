@@ -1,6 +1,7 @@
-import { examinationProseForSide, movementKeys, presenceKey } from "../exam/prose.ts";
+import { examinationProseForSide, movementKeys, presenceKey, type NoteLanguage } from "../exam/prose.ts";
+import { localizePlan } from "../exam/phrases.ts";
 import { examsByName, formOf } from "../forms/catalog.ts";
-import { knowledge, painForm, swellingForm, type FormLink } from "../knowledge.ts";
+import { knowledge, painForm, swedish, swellingForm, type FormLink } from "../knowledge.ts";
 import { render, type Finding } from "../../vendor/sentence.ts";
 import { emptyExam, emptyFinding, type ExamSide, type FindingForm, type WorkbenchState } from "../model.ts";
 import { term, type Term } from "./terms.ts";
@@ -51,6 +52,8 @@ export interface ComposeOptions {
   clinicalDescription?: boolean;
   /** Write each present or possible diagnosis sentence onto problem/diagnosis Clinical description at0009. */
   embedDiagnosisText?: boolean;
+  /** Language of the narrative fields (story is supplied by the caller in this language). */
+  language?: NoteLanguage;
 }
 
 export function buildThumbEncounter(
@@ -67,11 +70,12 @@ export function buildThumbEncounter(
 
   const examItems: Record<string, unknown>[] = [];
   const absentTenderness: string[] = [];
+  const language = options?.language ?? "en";
   let commentLeft = state.comment?.trim() ?? "";
   for (const side of examSides(state)) {
     const exam = state.exam[side];
     if (!Object.values(exam).some((value) => value)) continue;
-    const prose = options?.clinicalDescription ? examinationProseForSide(state, side) : "";
+    const prose = options?.clinicalDescription ? examinationProseForSide(state, side, language) : "";
     const comment = commentLeft;
     commentLeft = "";
     examItems.push(examObservation(side, exam, touch, absentTenderness, prose, comment));
@@ -93,13 +97,13 @@ export function buildThumbEncounter(
     if (link.location) touch(link.location);
     const answer = diseaseAnswer(state, link);
     const sentence = options?.embedDiagnosisText && status !== "excluded"
-      ? diagnosisSentence(link, status)
+      ? diagnosisSentence(link, status, language)
       : "";
     if (status === "excluded") exclusions.push(exclusionEvaluation(key, touch));
     else problems.push(problemEvaluation(key, link.location, status === "possible", touch, answer, sentence));
   }
 
-  const planText = state.plan?.trim() ?? "";
+  const planText = localizePlan(state.plan?.trim() ?? "", language);
   const planItems = planText ? [recommendationEvaluation(planText, touch)] : [];
   const content = [
     section("History", historyItems),
@@ -107,7 +111,7 @@ export function buildThumbEncounter(
     section("Assessment", [...problems, ...exclusions]),
     section("Plan", planItems),
   ].filter((entry) => Array.isArray(entry.items) && entry.items.length > 0);
-  const canonical = composition(content, planText ? GP_TEMPLATE_ID : TEMPLATE_ID);
+  const canonical = composition(content, planText ? GP_TEMPLATE_ID : TEMPLATE_ID, language);
 
   return {
     canonical,
@@ -323,11 +327,11 @@ function examObservation(
   ]);
 }
 
-function diagnosisSentence(link: FormLink, status: string): string {
+function diagnosisSentence(link: FormLink, status: string, language: NoteLanguage): string {
   const finding: Finding = link.preCoordinated
     ? { topic: link.preCoordinated, summary: status, qualifiers: [] }
     : { topic: link.concept, location: link.location ?? undefined, summary: status, qualifiers: [] };
-  return render(finding, knowledge);
+  return render(finding, knowledge, language === "sv" ? swedish : undefined);
 }
 
 function problemEvaluation(
@@ -404,13 +408,17 @@ function coverageOf(key: string): CoverageRow {
   return { key, opengalen: side(row?.opengalen), snomed: side(row?.snomed) };
 }
 
-function composition(content: Record<string, unknown>[], templateId: string = TEMPLATE_ID): Record<string, unknown> {
+function composition(
+  content: Record<string, unknown>[],
+  templateId: string = TEMPLATE_ID,
+  language: NoteLanguage = "en",
+): Record<string, unknown> {
   return {
     _type: "COMPOSITION",
     name: dvText("Encounter"),
     archetype_node_id: "openEHR-EHR-COMPOSITION.encounter.v1",
     archetype_details: archetyped("openEHR-EHR-COMPOSITION.encounter.v1", templateId),
-    language: codePhrase("ISO_639-1", "en"),
+    language: codePhrase("ISO_639-1", language),
     territory: codePhrase("ISO_3166-1", "GB"),
     category: dvCoded("event", "openehr", "433"),
     composer: { _type: "PARTY_IDENTIFIED", name: "Dr J Brown" },
@@ -572,7 +580,11 @@ function unmappedDiseaseText(answer: FindingForm | undefined): string | null {
  * exam cluster. A non-empty plan becomes a Plan section. Symptom and exam
  * forms that are not selected are left out.
  */
-export function buildVisit(state: WorkbenchState, narrative: string): ThumbComposition {
+export function buildVisit(
+  state: WorkbenchState,
+  narrative: string,
+  language: NoteLanguage = "en",
+): ThumbComposition {
   const selected = state.selectedForms ?? [];
   const view: WorkbenchState = {
     ...state,
@@ -584,7 +596,7 @@ export function buildVisit(state: WorkbenchState, narrative: string): ThumbCompo
       ? { left: emptyExam(), right: emptyExam() }
       : state.exam,
   };
-  return buildThumbEncounter(view, narrative, { clinicalDescription: true, embedDiagnosisText: true });
+  return buildThumbEncounter(view, narrative, { clinicalDescription: true, embedDiagnosisText: true, language });
 }
 
 function isoDuration(n: number, unit: string): string {

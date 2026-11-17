@@ -1,5 +1,5 @@
 import { displayOf } from "../forms/catalog.ts";
-import { sideExaminations, type ExamMovement, type SideExamination } from "../exam/prose.ts";
+import { sideExaminations, type ExamMovement, type NoteLanguage, type SideExamination } from "../exam/prose.ts";
 import type { WorkbenchState } from "../model.ts";
 import { term } from "../openehr/terms.ts";
 
@@ -26,6 +26,11 @@ export function snomedOf(key: string): FhirCoding | null {
     code: row.snomed.code,
     display: row.snomed.preferred || row.snomed.fsn || row.preferred,
   };
+}
+
+function compositionLanguage(canonical: Record<string, unknown>): NoteLanguage {
+  const code = (canonical.language as { code_string?: string } | undefined)?.code_string;
+  return code === "sv" ? "sv" : "en";
 }
 
 function conceptText(key: string): string {
@@ -209,7 +214,8 @@ export function buildFhirBundle(
     }
   }
 
-  for (const examined of sideExaminations(state)) {
+  const noteLanguage = compositionLanguage(canonical);
+  for (const examined of sideExaminations(state, noteLanguage)) {
     resources.push(examObservationResource(examined, encounterId));
   }
 

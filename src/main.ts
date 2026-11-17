@@ -1,6 +1,7 @@
 import "./style.css";
 import handUrl from "../data/Mus_hand.png";
 import { onExamination } from "./exam/prose.ts";
+import { localizePlan } from "./exam/phrases.ts";
 import { buildFhirBundle } from "./fhir/bundle.ts";
 import { validateFhirBundle } from "./fhir/validate.ts";
 import { formOf, visitPicks } from "./forms/catalog.ts";
@@ -842,7 +843,7 @@ function paintOutputs(): void {
   const enBox = document.querySelector("#summary-en");
   const svBox = document.querySelector("#summary-sv");
   if (enBox) enBox.textContent = englishNote(english);
-  if (svBox) svBox.textContent = swedishLines.map((line) => line.sentence).join("\n");
+  if (svBox) svBox.textContent = swedishNote(swedishLines.map((line) => line.sentence));
   const missing = [...new Set(swedishLines.flatMap((line) => line.missing))];
   const missingEl = document.querySelector("#sv-missing");
   if (missingEl) {
@@ -874,8 +875,14 @@ function currentFindings(): Finding[] {
 }
 
 function englishNote(lines: string[]): string {
-  const exam = onExamination(state);
+  const exam = onExamination(state, "en");
   return [lines.join("\n"), exam].filter((part) => part.length > 0).join("\n\n");
+}
+
+function swedishNote(lines: string[]): string {
+  const exam = onExamination(state, "sv");
+  const plan = localizePlan(state.plan, "sv");
+  return [lines.join("\n"), exam, plan].filter((part) => part.length > 0).join("\n\n");
 }
 
 function englishText(): string {
