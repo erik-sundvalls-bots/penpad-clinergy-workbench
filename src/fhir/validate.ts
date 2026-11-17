@@ -66,8 +66,11 @@ function checkObservation(issues: FhirIssue[], path: string, resource: Record<st
   need(issues, `${path}.code`, Boolean(code?.text) || (Array.isArray(code?.coding) && code.coding.length > 0), "Observation.code is required");
   const subject = asRecord(resource.subject);
   need(issues, `${path}.subject`, typeof subject?.reference === "string", "Observation.subject is required");
-  const hasValue = typeof resource.valueString === "string" || asRecord(resource.valueCodeableConcept);
-  need(issues, `${path}.value[x]`, Boolean(hasValue), "Observation.value[x] is required");
+  const hasValue = typeof resource.valueString === "string"
+    || Boolean(asRecord(resource.valueCodeableConcept))
+    || (Array.isArray(resource.component) && resource.component.length > 0);
+  const hasNote = Array.isArray(resource.note) && resource.note.length > 0;
+  need(issues, `${path}.value[x]`, hasValue || hasNote, "Observation needs value[x], component, or note");
   const categories = Array.isArray(resource.category) ? resource.category : [];
   for (const category of categories) {
     const codings = asRecord(category)?.coding;

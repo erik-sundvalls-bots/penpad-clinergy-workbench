@@ -1,4 +1,5 @@
-import { onExamination, examinationProseForSide } from "../exam/prose.ts";
+import { displayOf } from "../forms/catalog.ts";
+import { sideExaminations, type ExamMovement, type SideExamination } from "../exam/prose.ts";
 import type { WorkbenchState } from "../model.ts";
 import { term } from "../openehr/terms.ts";
 
@@ -25,6 +26,10 @@ export function snomedOf(key: string): FhirCoding | null {
     code: row.snomed.code,
     display: row.snomed.preferred || row.snomed.fsn || row.preferred,
   };
+}
+
+function conceptText(key: string): string {
+  return displayOf(key).replace(/ sign$/i, "");
 }
 
 function codeable(key: string, text: string): Record<string, unknown> {
@@ -68,6 +73,68 @@ function sectionItems(canonical: Record<string, unknown>, name: string): Record<
   const content = Array.isArray(canonical.content) ? canonical.content as Record<string, unknown>[] : [];
   const section = content.find((item) => (item.name as { value?: string })?.value === name);
   return Array.isArray(section?.items) ? section.items as Record<string, unknown>[] : [];
+}
+
+function examObservationResource(examined: SideExamination, encounterId: string): Record<string, unknown> {
+  const site = snomedOf(examined.siteKey);
+  const sideLabel = examined.side === "left" ? "Left" : "Right";
+  const components: Record<string, unknown>[] = [];
+  if (examined.status) {
+    components.push({
+      code: { text: "Clinical interpretation" },
+      valueCodeableConcept: codeable(examined.status, conceptText(examined.status)),
+    });
+  }
+  for (const sign of examined.signs) {
+    components.push({
+      code: codeable(sign.sign, conceptText(sign.sign)),
+      valueCodeableConcept: codeable(sign.value, conceptText(sign.value)),
+    });
+  }
+  for (const movement of examined.movements) {
+    components.push(...movementComponents(movement));
+  }
+  return {
+    resourceType: "Observation",
+    id: `exam-${examined.side}`,
+    status: "final",
+    category: [{
+      coding: [{ system: OBS_CATEGORY, code: "exam", display: "Exam" }],
+      text: "Exam",
+    }],
+    code: { text: "Physical examination findings" },
+    bodySite: {
+      ...(site ? { coding: [site] } : {}),
+      text: `${sideLabel} ${conceptText(examined.siteKey).toLowerCase()}`,
+    },
+    subject: { reference: `Patient/${DEMO_PATIENT_ID}` },
+    encounter: { reference: `Encounter/${encounterId}` },
+    effectiveDateTime: TIME,
+    note: [{ text: examined.prose }],
+    ...(components.length ? { component: components } : {}),
+  };
+}
+
+function movementComponents(movement: ExamMovement): Record<string, unknown>[] {
+  const name = conceptText(movement.sign);
+  const out: Record<string, unknown>[] = [];
+  if (movement.range) {
+    out.push({
+      code: codeable(movement.sign, name),
+      valueCodeableConcept: codeable(movement.range, `${movement.range} range`),
+    });
+  }
+  if (movement.pain) {
+    const pain = snomedOf("painOnMovement");
+    out.push({
+      code: {
+        ...(pain ? { coding: [pain] } : {}),
+        text: `${name} pain on movement`,
+      },
+      valueCodeableConcept: codeable(movement.pain, conceptText(movement.pain)),
+    });
+  }
+  return out;
 }
 
 function textOf(node: Record<string, unknown> | undefined): string {
@@ -142,42 +209,8 @@ export function buildFhirBundle(
     }
   }
 
-  for (const side of ["left", "right"] as const) {
-    const prose = examinationProseForSide(state, side);
-    if (!prose) continue;
-    const thumb = snomedOf("Thumb");
-    resources.push({
-      resourceType: "Observation",
-      id: `exam-${side}`,
-      status: "final",
-      category: [{
-        coding: [{ system: OBS_CATEGORY, code: "exam", display: "Exam" }],
-        text: "Exam",
-      }],
-      code: thumb
-        ? { coding: [thumb], text: `${side} thumb examination` }
-        : { text: `${side} thumb examination` },
-      subject: { reference: `Patient/${DEMO_PATIENT_ID}` },
-      encounter: { reference: `Encounter/${encounterId}` },
-      effectiveDateTime: TIME,
-      valueString: prose,
-    });
-  }
-  const block = onExamination(state);
-  if (block && !resources.some((resource) => String(resource.id).startsWith("exam-"))) {
-    resources.push({
-      resourceType: "Observation",
-      id: "exam-note",
-      status: "final",
-      category: [{
-        coding: [{ system: OBS_CATEGORY, code: "exam", display: "Exam" }],
-      }],
-      code: { text: "Physical examination findings" },
-      subject: { reference: `Patient/${DEMO_PATIENT_ID}` },
-      encounter: { reference: `Encounter/${encounterId}` },
-      effectiveDateTime: TIME,
-      valueString: block,
-    });
+  for (const examined of sideExaminations(state)) {
+    resources.push(examObservationResource(examined, encounterId));
   }
 
   const assessment = sectionItems(canonical, "Assessment");

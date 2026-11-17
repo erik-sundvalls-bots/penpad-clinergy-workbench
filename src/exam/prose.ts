@@ -72,6 +72,22 @@ export function presenceKey(sign: string): keyof ExamSide | null {
   return null;
 }
 
+export interface ExamMovement {
+  sign: string;
+  range: string | null;
+  pain: string | null;
+}
+
+export interface SideExamination {
+  side: "left" | "right";
+  /** Body-site key, for example Thumb. */
+  siteKey: string;
+  prose: string;
+  status: string | null;
+  signs: { sign: string; value: string }[];
+  movements: ExamMovement[];
+}
+
 export interface SideProse {
   side: string;
   /** Lines for this side, without the "On Examination" heading. */
@@ -79,18 +95,22 @@ export interface SideProse {
   text: string;
 }
 
-function sideProse(side: string, exam: ExamSide, definition: ExamDefinition): SideProse | null {
+function examineSide(side: string, exam: ExamSide, definition: ExamDefinition): SideExamination | null {
   const place = displayOf(definition.baseLocation).toLowerCase();
   const header = `${sideWord(side)} ${place}`;
   const bits: string[] = [];
+  const signs: { sign: string; value: string }[] = [];
   if (exam.status === "normal") bits.push("normal");
   if (exam.status === "notExamined") bits.push("not examined");
   for (const sign of definition.signs0 ?? []) {
     const key = presenceKey(sign);
     if (!key) continue;
     const value = exam[key];
-    if (value) bits.push(presencePhrase(sign, value));
+    if (!value) continue;
+    bits.push(presencePhrase(sign, value));
+    signs.push({ sign, value });
   }
+  const movements: ExamMovement[] = [];
   const jointParts: string[] = [];
   let jointLabel = "";
   for (const subName of definition.subExams ?? []) {
@@ -100,15 +120,27 @@ function sideProse(side: string, exam: ExamSide, definition: ExamDefinition): Si
     for (const sign of sub.signs0 ?? []) {
       const keys = movementKeys(sign);
       if (!keys) continue;
-      const phrase = movementPhrase(sign, fieldOn(exam, keys.range), fieldOn(exam, keys.pain));
-      if (phrase) jointParts.push(phrase);
+      const range = fieldOn(exam, keys.range);
+      const pain = fieldOn(exam, keys.pain);
+      const phrase = movementPhrase(sign, range, pain);
+      if (!phrase) continue;
+      jointParts.push(phrase);
+      movements.push({ sign, range, pain });
     }
   }
   if (!bits.length && !jointParts.length) return null;
   const lines: string[] = [];
   lines.push(bits.length ? `${header}: ${bits.join(", ")}` : `${header}:`);
   if (jointParts.length && jointLabel) lines.push(` ${jointLabel}: ${jointParts.join("; ")}`);
-  return { side, lines, text: lines.join("\n") };
+  const typedSide = side === "left" ? "left" : "right";
+  return {
+    side: typedSide,
+    siteKey: definition.baseLocation,
+    prose: lines.join("\n"),
+    status: exam.status,
+    signs,
+    movements,
+  };
 }
 
 function activeExam(state: WorkbenchState): { definition: ExamDefinition; perSide: string[] } | null {
@@ -122,20 +154,23 @@ function activeExam(state: WorkbenchState): { definition: ExamDefinition; perSid
   return { definition, perSide };
 }
 
+/** Structured examination for each answered side. */
+export function sideExaminations(state: WorkbenchState): SideExamination[] {
+  const active = activeExam(state);
+  if (!active) return [];
+  return active.perSide
+    .map((side) => examineSide(side, state.exam[side as "left" | "right"], active.definition))
+    .filter((block): block is SideExamination => Boolean(block));
+}
+
 /** One side's examination prose, or "" when that side has no answers. */
 export function examinationProseForSide(state: WorkbenchState, side: "left" | "right"): string {
-  const active = activeExam(state);
-  if (!active) return "";
-  return sideProse(side, state.exam[side], active.definition)?.text ?? "";
+  return sideExaminations(state).find((block) => block.side === side)?.prose ?? "";
 }
 
 /** The whole On Examination block, or "" when nothing was examined. */
 export function onExamination(state: WorkbenchState): string {
-  const active = activeExam(state);
-  if (!active) return "";
-  const blocks = active.perSide
-    .map((side) => sideProse(side, state.exam[side as "left" | "right"], active.definition))
-    .filter((block): block is SideProse => Boolean(block));
+  const blocks = sideExaminations(state);
   if (!blocks.length) return "";
-  return ["On Examination", ...blocks.flatMap((block) => block.lines)].join("\n");
+  return ["On Examination", ...blocks.map((block) => block.prose)].join("\n");
 }

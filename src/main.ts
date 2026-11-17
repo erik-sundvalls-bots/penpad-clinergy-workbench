@@ -915,8 +915,21 @@ function paintGalen(findings: Finding[]): void {
   host.innerHTML = `<table class="bindings"><thead><tr><th>Clinergy</th><th>OpenGALEN</th><th>SNOMED CT</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
-function paintEhr(_findings: Finding[], english: string[]): void {
-  const result = buildVisit(state, englishNote(english));
+function historyNarrative(findings: Finding[]): string {
+  return findings
+    .filter((finding) => !isAssessmentTopic(finding.topic))
+    .map((finding) => render(finding, knowledge))
+    .join("\n");
+}
+
+function isAssessmentTopic(topic: string): boolean {
+  return painForm.diagnoses.some((link) =>
+    topic === link.item || topic === link.preCoordinated || topic === link.concept
+  );
+}
+
+function paintEhr(findings: Finding[], _english: string[]): void {
+  const result = buildVisit(state, historyNarrative(findings));
   canonicalForSimplified = result.canonical;
   const checked = validateComposition(result.canonical);
   const jsonText = JSON.stringify(result.canonical, null, 2);

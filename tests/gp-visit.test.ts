@@ -6,10 +6,10 @@ import { gpVisitState, demoState, emptyFinding, emptyState } from "../src/model.
 import { buildThumbEncounter, buildVisit } from "../src/openehr/compose.ts";
 import { canonicalToXml, xmlToCanonicalRecord } from "../src/openehr/serialization-views.ts";
 import { validateComposition } from "../src/openehr/validate.ts";
-import { knowledge } from "../src/knowledge.ts";
+import { knowledge, painForm } from "../src/knowledge.ts";
 import { render } from "../vendor/sentence.ts";
 import { findingsFromState } from "../src/model.ts";
-import { painForm } from "../src/knowledge.ts";
+import { historyStoryText } from "./canonical-helpers.ts";
 
 const WALKTHROUGH_EXAM = [
   "On Examination",
@@ -42,21 +42,34 @@ describe("general practice visit", () => {
     expect(buildVisit(demoState(), narrative).canonical).toEqual(buildThumbEncounter(demoState(), narrative).canonical);
   });
 
-  it("records the examination prose on the exam cluster and in the story", () => {
+  it("keeps Story to the history narrative", () => {
     const state = gpVisitState();
     const findings = findingsFromState(state, painForm.diagnoses);
-    const sentences = findings.map((finding) => render(finding, knowledge));
-    const narrative = [sentences.join("\n"), onExamination(state)].join("\n\n");
-    const built = buildVisit(state, narrative);
-    expect(JSON.stringify(built.canonical)).toContain("flexion full range, mildly painful");
-    expect(JSON.stringify(built.canonical)).toContain("openEHR-EHR-OBSERVATION.exam.v1");
-    expect(JSON.stringify(built.canonical)).toContain("openEHR-EHR-EVALUATION.recommendation.v2");
+    const history = findings
+      .filter((finding) => finding.topic === "ThumbPainSymptom" || finding.topic === "ThumbSwellingSymptom")
+      .map((finding) => render(finding, knowledge))
+      .join("\n");
+    const built = buildVisit(state, history);
+    const story = historyStoryText(built.canonical) ?? "";
+    expect(story).toContain("Pain in right thumb");
+    expect(story).toContain("swelling");
+    expect(story).not.toContain("On Examination");
+    expect(story).not.toContain("flexion");
+    expect(story).not.toContain("Thumb sprain");
+    expect(story).not.toContain("sprain");
+    const coded = JSON.stringify(built.canonical);
+    expect(coded).toContain("flexion full range, mildly painful");
+    expect(coded).toContain("Thumb sprain present");
+    expect(coded).toContain("openEHR-EHR-OBSERVATION.exam.v1");
+    expect(coded).toContain("openEHR-EHR-CLUSTER.range_of_motion.v1");
+    expect(coded).toContain("openEHR-EHR-EVALUATION.problem_diagnosis.v1");
+    expect(coded).toContain("openEHR-EHR-EVALUATION.recommendation.v2");
     assertValid(built.canonical, "gp visit");
   });
 
   it("round-trips the visit through canonical XML", async () => {
     const state = gpVisitState();
-    const narrative = ["Pain in right thumb", onExamination(state)].join("\n\n");
+    const narrative = "Pain in right thumb";
     const built = buildVisit(state, narrative);
     const xml = await canonicalToXml(built.canonical);
     expect(xml).toContain("composition");
@@ -82,7 +95,7 @@ describe("general practice visit", () => {
     const state = emptyState();
     state.exam.right.status = "normal";
     state.comment = "Patient is right-handed.";
-    const built = buildVisit(state, onExamination(state));
+    const built = buildVisit(state, "Thumb pain");
     expect(JSON.stringify(built.canonical)).toContain("Patient is right-handed.");
     assertValid(built.canonical, "comment");
   });
@@ -107,7 +120,10 @@ describe("general practice visit", () => {
     const exam = emptyState();
     exam.exam.left.status = "normal";
     exam.exam.left.tenderness = "absence";
-    assertValid(buildVisit(exam, onExamination(exam)).canonical, "exam");
+    const examined = buildVisit(exam, "Thumb pain");
+    expect(historyStoryText(examined.canonical)).toBe("Thumb pain");
+    expect(historyStoryText(examined.canonical)).not.toContain("normal");
+    assertValid(examined.canonical, "exam");
 
     const sprain = emptyState();
     sprain.selectedForms = ["ThumbPainSymptom", "ThumbSprain"];
@@ -119,8 +135,7 @@ describe("general practice visit", () => {
 describe("FHIR visit bundle", () => {
   it("is valid and keeps examination observations in category exam", () => {
     const state = gpVisitState();
-    const narrative = ["Pain in right thumb", onExamination(state)].join("\n\n");
-    const built = buildVisit(state, narrative);
+    const built = buildVisit(state, "Pain in right thumb");
     const bundle = buildFhirBundle(state, built.canonical);
     const issues = validateFhirBundle(bundle);
     expect(issues, JSON.stringify(issues, null, 2)).toEqual([]);
@@ -128,10 +143,18 @@ describe("FHIR visit bundle", () => {
     const exams = resources.filter((resource) => resource.resourceType === "Observation" && String(resource.id).startsWith("exam-"));
     expect(exams.length).toBeGreaterThan(0);
     for (const exam of exams) {
-      const category = JSON.stringify(exam.category);
-      expect(category).toContain('"code":"exam"');
-      expect(String(exam.valueString)).toContain("flexion full range, mildly painful");
+      expect(JSON.stringify(exam.category)).toContain('"code":"exam"');
+      expect(exam.valueString).toBeUndefined();
+      const note = (exam.note as { text: string }[])[0]?.text ?? "";
+      expect(note).toContain("flexion full range, mildly painful");
+      const components = exam.component as { code: { text?: string }; valueCodeableConcept: { text?: string } }[];
+      expect(components.some((row) => row.code.text === "Flexion" && row.valueCodeableConcept.text === "full range")).toBe(true);
+      expect(components.some((row) => row.code.text === "Extension" && row.valueCodeableConcept.text === "reduced range")).toBe(true);
+      expect(components.some((row) => row.code.text === "Flexion pain on movement")).toBe(true);
+      expect((exam.bodySite as { text?: string }).text).toContain("thumb");
     }
+    expect(historyStoryText(built.canonical)).not.toContain("On Examination");
+    expect(historyStoryText(built.canonical)).not.toContain("sprain");
     const plan = resources.find((resource) => resource.resourceType === "CarePlan");
     expect(plan?.description).toBe(state.plan);
     const conditions = resources.filter((resource) => resource.resourceType === "Condition");

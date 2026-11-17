@@ -1,7 +1,7 @@
 import { examinationProseForSide, movementKeys, presenceKey } from "../exam/prose.ts";
 import { examsByName, formOf } from "../forms/catalog.ts";
-import type { FormLink } from "../knowledge.ts";
-import { painForm, swellingForm } from "../knowledge.ts";
+import { knowledge, painForm, swellingForm, type FormLink } from "../knowledge.ts";
+import { render, type Finding } from "../../vendor/sentence.ts";
 import { emptyExam, emptyFinding, type ExamSide, type FindingForm, type WorkbenchState } from "../model.ts";
 import { term, type Term } from "./terms.ts";
 import { GP_TEMPLATE_ID, TEMPLATE_ID } from "./template.ts";
@@ -49,6 +49,8 @@ const PROBLEM_SEVERITY: Record<string, [string, string]> = {
 export interface ComposeOptions {
   /** Write each side's On Examination prose onto CLUSTER.exam Clinical description at0003. */
   clinicalDescription?: boolean;
+  /** Write each present or possible diagnosis sentence onto problem/diagnosis Clinical description at0009. */
+  embedDiagnosisText?: boolean;
 }
 
 export function buildThumbEncounter(
@@ -90,8 +92,11 @@ export function buildThumbEncounter(
     touch(key);
     if (link.location) touch(link.location);
     const answer = diseaseAnswer(state, link);
+    const sentence = options?.embedDiagnosisText && status !== "excluded"
+      ? diagnosisSentence(link, status)
+      : "";
     if (status === "excluded") exclusions.push(exclusionEvaluation(key, touch));
-    else problems.push(problemEvaluation(key, link.location, status === "possible", touch, answer));
+    else problems.push(problemEvaluation(key, link.location, status === "possible", touch, answer, sentence));
   }
 
   const planText = state.plan?.trim() ?? "";
@@ -318,12 +323,20 @@ function examObservation(
   ]);
 }
 
+function diagnosisSentence(link: FormLink, status: string): string {
+  const finding: Finding = link.preCoordinated
+    ? { topic: link.preCoordinated, summary: status, qualifiers: [] }
+    : { topic: link.concept, location: link.location ?? undefined, summary: status, qualifiers: [] };
+  return render(finding, knowledge);
+}
+
 function problemEvaluation(
   key: string,
   location: string | null,
   suspected: boolean,
   touch: (key: string) => void,
   answer?: FindingForm,
+  sentence = "",
 ): Record<string, unknown> {
   const laterality = answer?.laterality?.length ? answer.laterality : [];
   const items = [
@@ -335,7 +348,7 @@ function problemEvaluation(
     const [code, text] = PROBLEM_SEVERITY[severity];
     items.push(element("at0005", "Severity", writeLocal(code, text, severity, touch)));
   }
-  const note = unmappedDiseaseText(answer);
+  const note = [sentence, unmappedDiseaseText(answer)].filter((part) => part && part.length > 0).join(". ");
   if (note) items.push(element("at0009", "Clinical description", dvText(note)));
   if (suspected) {
     items.push(element("at0073", "Diagnostic certainty", writeLocal("at0074", "Suspected", "possible", () => {})));
@@ -571,7 +584,7 @@ export function buildVisit(state: WorkbenchState, narrative: string): ThumbCompo
       ? { left: emptyExam(), right: emptyExam() }
       : state.exam,
   };
-  return buildThumbEncounter(view, narrative, { clinicalDescription: true });
+  return buildThumbEncounter(view, narrative, { clinicalDescription: true, embedDiagnosisText: true });
 }
 
 function isoDuration(n: number, unit: string): string {
