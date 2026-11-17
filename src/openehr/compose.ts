@@ -1,8 +1,9 @@
 import { examinationProseForSide, movementKeys, presenceKey, type NoteLanguage } from "../exam/prose.ts";
 import { localizePlan } from "../exam/phrases.ts";
 import { examsByName, formOf } from "../forms/catalog.ts";
-import { knowledge, painForm, swedish, swellingForm, type FormLink } from "../knowledge.ts";
+import { knowledge, painForm, swellingForm, type FormLink } from "../knowledge.ts";
 import { render, type Finding } from "../../vendor/sentence.ts";
+import { renderSwedishGp } from "../sv/gp-sentence.ts";
 import { emptyExam, emptyFinding, type ExamSide, type FindingForm, type WorkbenchState } from "../model.ts";
 import { term, type Term } from "./terms.ts";
 import { GP_TEMPLATE_ID, TEMPLATE_ID } from "./template.ts";
@@ -97,7 +98,7 @@ export function buildThumbEncounter(
     if (link.location) touch(link.location);
     const answer = diseaseAnswer(state, link);
     const sentence = options?.embedDiagnosisText && status !== "excluded"
-      ? diagnosisSentence(link, status, language)
+      ? diagnosisSentence(link, status, language, answer?.laterality ?? [])
       : "";
     if (status === "excluded") exclusions.push(exclusionEvaluation(key, touch));
     else problems.push(problemEvaluation(key, link.location, status === "possible", touch, answer, sentence));
@@ -327,11 +328,22 @@ function examObservation(
   ]);
 }
 
-function diagnosisSentence(link: FormLink, status: string, language: NoteLanguage): string {
-  const finding: Finding = link.preCoordinated
-    ? { topic: link.preCoordinated, summary: status, qualifiers: [] }
-    : { topic: link.concept, location: link.location ?? undefined, summary: status, qualifiers: [] };
-  return render(finding, knowledge, language === "sv" ? swedish : undefined);
+function diagnosisSentence(
+  link: FormLink,
+  status: string,
+  language: NoteLanguage,
+  laterality: Array<"left" | "right">,
+): string {
+  const side = laterality.length > 1 ? "both" as const : laterality[0];
+  const finding: Finding = {
+    topic: link.preCoordinated ?? link.concept,
+    location: link.location ?? (side ? "Thumb" : undefined),
+    laterality: side,
+    summary: status,
+    qualifiers: [],
+  };
+  if (language === "sv") return renderSwedishGp(finding);
+  return render(finding, knowledge);
 }
 
 function problemEvaluation(

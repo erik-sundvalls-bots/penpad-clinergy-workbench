@@ -8,7 +8,8 @@ import { canonicalToXml, xmlToCanonicalRecord } from "../src/openehr/serializati
 import { canonicalToZipehrHtml5, zipehrHtml5ToCanonicalRecord } from "../src/openehr/zipehr.ts";
 import { validateComposition } from "../src/openehr/validate.ts";
 import { knowledge, painForm, swedish } from "../src/knowledge.ts";
-import { render, renderReport } from "../vendor/sentence.ts";
+import { render } from "../vendor/sentence.ts";
+import { renderSwedishGp } from "../src/sv/gp-sentence.ts";
 import { localizePlan } from "../src/exam/phrases.ts";
 import { findingsFromState } from "../src/model.ts";
 import { historyStoryText } from "./canonical-helpers.ts";
@@ -61,7 +62,7 @@ describe("general practice visit", () => {
     expect(story).not.toContain("sprain");
     const coded = JSON.stringify(built.canonical);
     expect(coded).toContain("flexion full range, mildly painful");
-    expect(coded).toContain("Thumb sprain present");
+    expect(coded).toContain("right thumb");
     expect(coded).toContain("openEHR-EHR-OBSERVATION.exam.v1");
     expect(coded).toContain("openEHR-EHR-CLUSTER.range_of_motion.v1");
     expect(coded).toContain("openEHR-EHR-EVALUATION.problem_diagnosis.v1");
@@ -145,9 +146,9 @@ describe("general practice visit", () => {
 });
 
 const SWEDISH_NOTE = [
-  "Smärta i höger tumme",
-  "Gradvis debut, måttligt svår svullnad av ytterfalang av vänster tumme i 2 veckor, föreligger",
-  "Tumstukning föreligger",
+  "Smärta i höger tumme.",
+  "Måttlig svullnad av ytterfalangen på höger tumme sedan 2 veckor, gradvis debut.",
+  "Tumstukning i höger tumme.",
   "",
   "Status",
   "Höger tumme:",
@@ -169,9 +170,7 @@ const ENGLISH_LEAK = [
 
 function swedishGpNote(state: ReturnType<typeof gpVisitState>): string {
   swedish.missing.length = 0;
-  const lines = findingsFromState(state, painForm.diagnoses).map((finding) =>
-    renderReport(finding, knowledge, swedish).sentence
-  );
+  const lines = findingsFromState(state, painForm.diagnoses).map((finding) => renderSwedishGp(finding));
   const exam = onExamination(state, "sv");
   const plan = localizePlan(state.plan, "sv");
   return [lines.join("\n"), exam, plan].filter((part) => part.length > 0).join("\n\n");
@@ -195,7 +194,7 @@ describe("Swedish GP visit note", () => {
     const findings = findingsFromState(state, painForm.diagnoses);
     const history = findings
       .filter((finding) => finding.topic === "ThumbPainSymptom" || finding.topic === "ThumbSwellingSymptom")
-      .map((finding) => render(finding, knowledge, swedish))
+      .map((finding) => renderSwedishGp(finding))
       .join("\n");
     const built = buildVisit(state, history, "sv");
     assertValid(built.canonical, "swedish visit");
@@ -206,7 +205,7 @@ describe("Swedish GP visit note", () => {
     expect(story).not.toContain("Tumstukning");
     const coded = JSON.stringify(built.canonical);
     expect(coded).toContain("Höger tumled: flexion full rörlighet, lätt smärtsam");
-    expect(coded).toContain("Tumstukning föreligger");
+    expect(coded).toContain("Tumstukning i höger tumme.");
     expect(coded).toContain("Återbesök om en vecka om smärtan i höger tumme inte är bättre.");
     expect((built.canonical.language as { code_string: string }).code_string).toBe("sv");
     for (const fragment of ENGLISH_LEAK) {
@@ -221,12 +220,70 @@ describe("Swedish GP visit note", () => {
     expect(note).not.toContain("mildly painful");
     const plan = resources.find((resource) => resource.resourceType === "CarePlan");
     expect(plan?.description).toBe("Återbesök om en vecka om smärtan i höger tumme inte är bättre.");
-    const joined = [story, note, String(plan?.description ?? ""), coded.match(/Tumstukning föreligger/)?.[0] ?? ""].join("\n");
+    const joined = [story, note, String(plan?.description ?? ""), "Tumstukning i höger tumme."].join("\n");
     for (const fragment of ENGLISH_LEAK) {
       expect(joined, fragment).not.toContain(fragment);
     }
     const html = await canonicalToZipehrHtml5(built.canonical);
     expect(zipehrHtml5ToCanonicalRecord(html)).toEqual(built.canonical);
+  });
+});
+
+function lateralityValues(node: unknown, out: string[] = []): string[] {
+  if (!node || typeof node !== "object") return out;
+  if (Array.isArray(node)) {
+    for (const child of node) lateralityValues(child, out);
+    return out;
+  }
+  const record = node as Record<string, unknown>;
+  const name = (record.name as { value?: string } | undefined)?.value;
+  if (name === "Laterality" && record.value && typeof record.value === "object") {
+    const value = record.value as { value?: string; defining_code?: { code_string?: string } };
+    out.push(`${value.defining_code?.code_string ?? ""}:${value.value ?? ""}`);
+  }
+  for (const child of Object.values(record)) lateralityValues(child, out);
+  return out;
+}
+
+describe("GP visit laterality", () => {
+  it("uses the right thumb everywhere the side is recorded", () => {
+    const state = gpVisitState();
+    const failures: string[] = [];
+    const sameSide = (label: string, value: string) => {
+      const text = value.toLowerCase();
+      const saysRight = text.includes("right") || text.includes("höger");
+      const saysLeft = /\bleft\b/.test(text) || text.includes("vänster");
+      if (!saysRight) failures.push(`${label} does not say right: ${value}`);
+      if (saysLeft) failures.push(`${label} also says left: ${value}`);
+    };
+    expect(state.pain.laterality, "pain form").toEqual(["right"]);
+    expect(state.swelling.laterality, "swelling form").toEqual(["right"]);
+    expect(state.formAnswers.ThumbSprain?.laterality, "sprain form").toEqual(["right"]);
+    expect(Object.values(state.exam.left).some(Boolean), "left examination").toBe(false);
+    expect(Object.values(state.exam.right).some(Boolean), "right examination").toBe(true);
+
+    const findings = findingsFromState(state, painForm.diagnoses);
+    sameSide("English note", findings.map((finding) => render(finding, knowledge)).join("\n"));
+    sameSide("Swedish note", swedishGpNote(state));
+
+    const history = findings
+      .filter((finding) => finding.topic === "ThumbPainSymptom" || finding.topic === "ThumbSwellingSymptom")
+      .map((finding) => render(finding, knowledge))
+      .join("\n");
+    const built = buildVisit(state, history);
+    const sides = lateralityValues(built.canonical);
+    expect(sides.length, "openEHR laterality values").toBeGreaterThan(0);
+    for (const side of sides) {
+      if (side !== "at0004:Right") failures.push(`openEHR laterality ${side}`);
+    }
+    const bundle = buildFhirBundle(state, built.canonical);
+    const resources = (bundle.entry as { resource: Record<string, unknown> }[]).map((entry) => entry.resource);
+    const sites = resources
+      .map((resource) => (resource.bodySite as { text?: string } | undefined)?.text)
+      .filter((text): text is string => Boolean(text));
+    expect(sites.length, "FHIR body sites").toBeGreaterThan(0);
+    for (const site of sites) sameSide("FHIR bodySite", site);
+    expect(failures, failures.join("\n")).toEqual([]);
   });
 });
 

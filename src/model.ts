@@ -109,11 +109,14 @@ export function emptyState(): WorkbenchState {
 }
 
 /**
- * A general-practice visit: the 1998 thumb-pain demo, plus the examination
- * the walkthrough recorded (right thumb joint) and a present thumb sprain.
+ * A general-practice visit about one thumb. The 1998 demo leaves swelling on
+ * the left because that control is separate from the pain laterality clicked
+ * afterwards. Here swelling follows the painful side, which is the right thumb,
+ * together with the examination and the sprain.
  */
 export function gpVisitState(): WorkbenchState {
   const state = demoState();
+  state.swelling.laterality = ["right"];
   state.exam.right.flexionRange = "full";
   state.exam.right.flexionPain = "mild";
   state.exam.right.extensionRange = "reduced";
@@ -204,9 +207,16 @@ export function findingsFromState(state: WorkbenchState, diagnoses: FormLink[]):
   for (const link of diagnoses) {
     const summary = state.diagnoses[link.item];
     if (!summary) continue;
-    findings.push(link.preCoordinated
-      ? { topic: link.preCoordinated, summary, qualifiers: [] }
-      : { topic: link.concept, location: link.location ?? undefined, summary, qualifiers: [] });
+    const topic = link.preCoordinated ?? link.concept;
+    const answer = state.formAnswers?.[topic] ?? state.formAnswers?.[link.item];
+    const laterality = lateralityOf(answer?.laterality ?? []);
+    findings.push({
+      topic,
+      location: link.location ?? (laterality ? "Thumb" : undefined),
+      laterality,
+      summary,
+      qualifiers: [],
+    });
   }
   return findings;
 }

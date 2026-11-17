@@ -47,7 +47,8 @@ import { term } from "./openehr/terms.ts";
 import gpOptUrl from "../templates/gp-encounter.opt?url";
 import optUrl from "../templates/thumb-pain.opt?url";
 import optPlainUrl from "../templates/thumb-pain-encounter.v2.opt?url";
-import { render, renderReport, type Finding } from "../vendor/sentence.ts";
+import { renderSwedishGp } from "./sv/gp-sentence.ts";
+import { render, type Finding } from "../vendor/sentence.ts";
 
 const FEATURE_LABEL: Record<string, string> = {
   laterality: "Laterality",
@@ -839,12 +840,12 @@ function paintOutputs(): void {
   swedish.missing.length = 0;
   const findings = currentFindings();
   const english = findings.map((finding) => render(finding, knowledge));
-  const swedishLines = findings.map((finding) => renderReport(finding, knowledge, swedish));
+  const swedishLines = findings.map((finding) => renderSwedishGp(finding));
   const enBox = document.querySelector("#summary-en");
   const svBox = document.querySelector("#summary-sv");
   if (enBox) enBox.textContent = englishNote(english);
-  if (svBox) svBox.textContent = swedishNote(swedishLines.map((line) => line.sentence));
-  const missing = [...new Set(swedishLines.flatMap((line) => line.missing))];
+  if (svBox) svBox.textContent = swedishNote(swedishLines);
+  const missing = [...swedish.missing];
   const missingEl = document.querySelector("#sv-missing");
   if (missingEl) {
     missingEl.textContent = missing.length ? `Swedish pack has no word for: ${missing.join(", ")}` : "";

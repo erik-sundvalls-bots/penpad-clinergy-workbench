@@ -28,6 +28,22 @@ export function snomedOf(key: string): FhirCoding | null {
   };
 }
 
+/** Laterality at-codes from CLUSTER.anatomical_location.v1. */
+function bodySiteFrom(hits: CodedHit[]): { bodySite?: Record<string, unknown> } {
+  const right = hits.some((hit) => hit.code === "at0004");
+  const left = hits.some((hit) => hit.code === "at0003");
+  const both = hits.some((hit) => hit.code === "at0083") || (left && right);
+  const side = both ? "right and left" : right ? "right" : left ? "left" : "";
+  if (!side) return {};
+  const thumb = snomedOf("Thumb");
+  return {
+    bodySite: {
+      ...(thumb ? { coding: [thumb] } : {}),
+      text: `${side} thumb`,
+    },
+  };
+}
+
 function compositionLanguage(canonical: Record<string, unknown>): NoteLanguage {
   const code = (canonical.language as { code_string?: string } | undefined)?.code_string;
   return code === "sv" ? "sv" : "en";
@@ -69,7 +85,9 @@ function walkCoded(node: unknown, hits: CodedHit[]): void {
   if (record._type === "DV_CODED_TEXT") {
     const code = (record.defining_code as { code_string?: string; terminology_id?: { value?: string } })?.code_string;
     const terminology = (record.defining_code as { terminology_id?: { value?: string } })?.terminology_id?.value;
-    if (code && terminology === "Clinergy") hits.push({ code, text: String(record.value ?? code) });
+    if (code && (terminology === "Clinergy" || terminology === "local")) {
+      hits.push({ code, text: String(record.value ?? code) });
+    }
   }
   for (const value of Object.values(record)) walkCoded(value, hits);
 }
@@ -206,6 +224,7 @@ export function buildFhirBundle(
         id: `symptom-${symptomIndex}`,
         status: "final",
         code: codeable(name.code, name.text),
+        ...bodySiteFrom(hits),
         subject: { reference: `Patient/${DEMO_PATIENT_ID}` },
         encounter: { reference: `Encounter/${encounterId}` },
         effectiveDateTime: TIME,
@@ -242,6 +261,7 @@ export function buildFhirBundle(
         coding: [{ system: CONDITION_VER, code: verification, display: verification }],
       },
       code: codeable(name.code, name.text),
+      ...bodySiteFrom(hits),
       subject: { reference: `Patient/${DEMO_PATIENT_ID}` },
       encounter: { reference: `Encounter/${encounterId}` },
     });
