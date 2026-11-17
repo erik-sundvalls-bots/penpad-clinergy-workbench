@@ -88,13 +88,6 @@ export interface SideExamination {
   movements: ExamMovement[];
 }
 
-export interface SideProse {
-  side: string;
-  /** Lines for this side, without the "On Examination" heading. */
-  lines: string[];
-  text: string;
-}
-
 function examineSide(side: string, exam: ExamSide, definition: ExamDefinition): SideExamination | null {
   const place = displayOf(definition.baseLocation).toLowerCase();
   const header = `${sideWord(side)} ${place}`;
