@@ -30,6 +30,7 @@ describe("FerroEHR regression cases (canonical)", () => {
       expect(names.every((section) => section.items.length > 0)).toBe(true);
       const checked = validateComposition(result.canonical);
       expect(checked.errors, JSON.stringify(checked.errors, null, 2)).toEqual([]);
+      expect(checked.warnings, JSON.stringify(checked.warnings, null, 2)).toEqual([]);
     });
   }
 });

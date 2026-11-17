@@ -14,6 +14,10 @@ Until PR #322 merges the html5 fixes on that branch, the rebuild applies the sam
 
 **ITS-XML (workbench bundle patches on the same ehrtslib checkout):** `serialization/xml/xml_deserializer.ts` — repeating RM list tags via `isArray`, `parseTagValue: false`, and DV_BOOLEAN text-value handling; `serialization/xml/xml_serializer.ts` — DV_BOOLEAN as element text (avoids nested `<value>` under ELEMENT `value`). Reapply on rebuild until upstream absorbs them.
 
+**Template rubric (`lookupTemplateRubric`):** archetype-scoped lookup for `local::at*` codes (see `docs/ehrtslib-validation-rubric.md`). Patch lives in `validation/template_validator.ts` on the PR #322 branch checkout until upstream merges.
+
+**ZipEHR quiet CSS:** workbench `public/zipehr-css/zipehr-html5-short-quiet.css` — align with ehrtslib demo when PR #322 adds the upstream quiet sheet; keep `mergeZipehrQuietStylesheet` for iframe `srcdoc`.
+
 **Quiet stylesheet:** `public/zipehr-css/zipehr-html5-short-quiet.css` is workbench-local until upstream adds an equivalent under `examples/demo-app/public/zipehr-css/`; align filenames when it lands.
 
 Apache-2.0. The workbench uses validators and ZipEHR html5 for display only; it does not post FLAT from the UI.

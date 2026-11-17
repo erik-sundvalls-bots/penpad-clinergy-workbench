@@ -1,9 +1,17 @@
 /**
- * ZipEHR html5 short — quiet structural headings (workbench; align with ehrtslib PR #322 when merged).
- * Loaded together with zipehr-html5-short.css (see loadZipehrStylesheet in main.ts); do not rely on @import in iframe srcdoc.
+ * ZipEHR html5 short — quiet structural headings (workbench).
+ * Reconcile with ehrtslib PR #322 `zipehr-html5-short-quiet.css` when it lands.
  */
 
-/* Tooltip for structure tags whose leading label was removed in the preview script */
+/* Hide technical RM noise (encoding, territory context leaves). */
+o-cph.zipehr-tech-quiet,
+o-cnt.zipehr-tech-quiet {
+  display: none !important;
+}
+
+/* Structure wrappers: tooltip on hover / keyboard / tap (see preview script). */
+o-se.zipehr-struct-quiet[title],
+o-ob.zipehr-struct-quiet[title],
 o-hi.zipehr-struct-quiet[title],
 o-pe.zipehr-struct-quiet[title],
 o-ie.zipehr-struct-quiet[title],
@@ -15,6 +23,36 @@ o-ta.zipehr-struct-quiet[title] {
   cursor: help;
 }
 
+o-se.zipehr-struct-quiet[title]::after,
+o-ob.zipehr-struct-quiet[title]::after,
+o-hi.zipehr-struct-quiet[title]::after,
+o-pe.zipehr-struct-quiet[title]::after,
+o-ie.zipehr-struct-quiet[title]::after,
+o-tr.zipehr-struct-quiet[title]::after,
+o-il.zipehr-struct-quiet[title]::after,
+o-is.zipehr-struct-quiet[title]::after,
+o-ta.zipehr-struct-quiet[title]::after {
+  content: "Structure: " attr(title);
+  display: none;
+  position: absolute;
+  left: 0;
+  top: calc(100% + 4px);
+  padding: 0.35rem 0.55rem;
+  font-size: 0.84rem;
+  line-height: 1.3;
+  font-weight: 600;
+  color: var(--zs-ink);
+  background: #fff8e8;
+  border: 1px solid #c9a227;
+  border-radius: 0.3rem;
+  box-shadow: 0 4px 14px rgba(31, 78, 121, 0.18);
+  white-space: nowrap;
+  z-index: 50;
+  pointer-events: none;
+}
+
+o-se.zipehr-struct-quiet[title]:hover::after,
+o-ob.zipehr-struct-quiet[title]:hover::after,
 o-hi.zipehr-struct-quiet[title]:hover::after,
 o-pe.zipehr-struct-quiet[title]:hover::after,
 o-ie.zipehr-struct-quiet[title]:hover::after,
@@ -22,27 +60,34 @@ o-tr.zipehr-struct-quiet[title]:hover::after,
 o-il.zipehr-struct-quiet[title]:hover::after,
 o-is.zipehr-struct-quiet[title]:hover::after,
 o-ta.zipehr-struct-quiet[title]:hover::after,
-o-hi.zipehr-struct-quiet[title]:focus-within::after,
-o-pe.zipehr-struct-quiet[title]:focus-within::after,
-o-ie.zipehr-struct-quiet[title]:focus-within::after,
-o-tr.zipehr-struct-quiet[title]:focus-within::after,
-o-il.zipehr-struct-quiet[title]:focus-within::after,
-o-is.zipehr-struct-quiet[title]:focus-within::after,
-o-ta.zipehr-struct-quiet[title]:focus-within::after {
-  content: "Structure: " attr(title);
-  position: absolute;
-  left: 0;
-  top: calc(100% + 2px);
-  padding: 0.2rem 0.45rem;
-  font-size: 0.82rem;
-  line-height: 1.3;
-  font-weight: 500;
-  color: var(--zs-muted);
-  background: var(--zs-card);
-  border: 1px solid var(--zs-line);
-  border-radius: 0.25rem;
-  box-shadow: 0 2px 6px rgba(31, 78, 121, 0.12);
-  white-space: nowrap;
-  z-index: 20;
-  pointer-events: none;
+o-se.zipehr-struct-quiet[title]:focus-visible::after,
+o-ob.zipehr-struct-quiet[title]:focus-visible::after,
+o-hi.zipehr-struct-quiet[title]:focus-visible::after,
+o-pe.zipehr-struct-quiet[title]:focus-visible::after,
+o-ie.zipehr-struct-quiet[title]:focus-visible::after,
+o-tr.zipehr-struct-quiet[title]:focus-visible::after,
+o-il.zipehr-struct-quiet[title]:focus-visible::after,
+o-is.zipehr-struct-quiet[title]:focus-visible::after,
+o-ta.zipehr-struct-quiet[title]:focus-visible::after,
+o-se.zipehr-struct-quiet.zipehr-tip-pinned[title]::after,
+o-ob.zipehr-struct-quiet.zipehr-tip-pinned[title]::after,
+o-hi.zipehr-struct-quiet.zipehr-tip-pinned[title]::after,
+o-pe.zipehr-struct-quiet.zipehr-tip-pinned[title]::after,
+o-ie.zipehr-struct-quiet.zipehr-tip-pinned[title]::after,
+o-tr.zipehr-struct-quiet.zipehr-tip-pinned[title]::after,
+o-il.zipehr-struct-quiet.zipehr-tip-pinned[title]::after,
+o-is.zipehr-struct-quiet.zipehr-tip-pinned[title]::after,
+o-ta.zipehr-struct-quiet.zipehr-tip-pinned[title]::after {
+  display: block;
+}
+
+o-co,
+o-se,
+o-ob,
+o-hi,
+o-pe,
+o-tr,
+o-cl,
+o-il {
+  overflow: visible;
 }

@@ -10,7 +10,8 @@ const outDir = "/opt/cursor/artifacts";
 mkdirSync(outDir, { recursive: true });
 
 const browser = await chromium.launch();
-const page = await browser.newPage({ viewport: { width: 1480, height: 1100 } });
+const desktop = await browser.newContext({ viewport: { width: 1480, height: 1100 } });
+const page = await desktop.newPage();
 await page.goto(baseUrl, { waitUntil: "networkidle" });
 await page.locator("#load-demo").click();
 await page.waitForTimeout(800);
@@ -78,15 +79,42 @@ await shot("zipehr-quiet-document-view.png", async () => {
   await frame.locator("o-e").filter({ hasText: "Pain" }).first().waitFor({ timeout: 15_000 });
 });
 
-await shot("zipehr-quiet-tooltip-hover.png", async () => {
-  await page.getByRole("tab", { name: "ZipEHR" }).click();
-  await page.locator("#zipehr-css-select").selectOption("zipehr-html5-short-quiet.css");
-  await page.waitForTimeout(1200);
-  const frame = page.frameLocator("#zipehr-document");
-  const quiet = frame.locator("o-hi.zipehr-struct-quiet[title]").first();
-  await quiet.waitFor({ timeout: 15_000 });
-  await quiet.hover();
-  await page.waitForTimeout(400);
+await page.getByRole("tab", { name: "ZipEHR" }).click();
+await page.locator("#zipehr-css-select").selectOption("zipehr-html5-short-quiet.css");
+await page.waitForTimeout(1200);
+const deskFrame = page.frameLocator("#zipehr-document");
+const quiet = deskFrame.locator("o-hi.zipehr-struct-quiet[title]").first();
+await quiet.waitFor({ timeout: 15_000 });
+await quiet.evaluate((el) => {
+  el.classList.add("zipehr-tip-pinned");
+  el.scrollIntoView({ block: "center" });
 });
+await page.waitForTimeout(400);
+await page.locator("#zipehr-document").screenshot({
+  path: `${outDir}/zipehr-quiet-tooltip-hover.png`,
+});
+console.log(`${outDir}/zipehr-quiet-tooltip-hover.png`);
 
+// Mobile tap tooltip (separate viewport)
+const touch = await browser.newContext({ viewport: { width: 390, height: 844 }, hasTouch: true });
+const mobile = await touch.newPage();
+await mobile.goto(baseUrl, { waitUntil: "networkidle" });
+await mobile.locator("#load-demo").click();
+await mobile.waitForTimeout(800);
+await mobile.getByRole("tab", { name: "ZipEHR" }).click();
+await mobile.locator("#zipehr-css-select").selectOption("zipehr-html5-short-quiet.css");
+await mobile.waitForTimeout(1200);
+const mobPanel = mobile.locator("#openehr-panel");
+await mobPanel.scrollIntoViewIfNeeded();
+const mobFrame = mobile.frameLocator("#zipehr-document");
+const tapTarget = mobFrame.locator("o-hi.zipehr-struct-quiet[title]").first();
+await tapTarget.waitFor({ timeout: 15_000 });
+await tapTarget.tap();
+await tapTarget.evaluate((el) => el.classList.add("zipehr-tip-pinned"));
+await mobile.waitForTimeout(400);
+await mobile.locator("#zipehr-document").screenshot({
+  path: `${outDir}/zipehr-quiet-tooltip-mobile-tap.png`,
+});
+console.log(`${outDir}/zipehr-quiet-tooltip-mobile-tap.png`);
+await mobile.close();
 await browser.close();

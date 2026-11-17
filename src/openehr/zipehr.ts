@@ -25,12 +25,25 @@ export const ZIP_CSS_SELECT_OPTIONS: { value: string; label: string }[] = [
   { value: "zipehr-html5-emoji.css", label: "zipehr-html5-emoji.css" },
 ];
 
-const ZIP_QUIET_STRUCTURE_TAGS = ["o-hi", "o-pe", "o-ie", "o-tr", "o-il", "o-is", "o-ta"];
+const ZIP_QUIET_STRUCTURE_TAGS = [
+  "o-se",
+  "o-ob",
+  "o-hi",
+  "o-pe",
+  "o-ie",
+  "o-tr",
+  "o-il",
+  "o-is",
+  "o-ta",
+];
 
-/** Strip leading LOCATABLE name text; clinical children keep default short.css styling. */
+const ZIP_QUIET_TECH_TAGS = ["o-cph", "o-cnt"];
+
+/** Strip meaningless structure labels; hide encoding/territory noise. */
 export const ZIP_QUIET_PREVIEW_SCRIPT = `(() => {
-  const tags = ${JSON.stringify(ZIP_QUIET_STRUCTURE_TAGS)};
-  for (const tag of tags) {
+  const structureTags = ${JSON.stringify(ZIP_QUIET_STRUCTURE_TAGS)};
+  const techTags = ${JSON.stringify(ZIP_QUIET_TECH_TAGS)};
+  for (const tag of structureTags) {
     for (const el of document.querySelectorAll(tag)) {
       let label = "";
       for (const node of [...el.childNodes]) {
@@ -43,8 +56,17 @@ export const ZIP_QUIET_PREVIEW_SCRIPT = `(() => {
       }
       if (label) {
         el.setAttribute("title", label);
+        el.setAttribute("tabindex", "0");
         el.classList.add("zipehr-struct-quiet");
       }
+    }
+  }
+  for (const tag of techTags) {
+    for (const el of document.querySelectorAll(tag)) {
+      const text = (el.textContent || "").trim();
+      if (!text && !el.querySelector("*")) continue;
+      el.classList.add("zipehr-tech-quiet");
+      el.setAttribute("aria-hidden", "true");
     }
   }
 })();`;
