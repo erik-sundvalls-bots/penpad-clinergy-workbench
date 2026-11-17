@@ -24,18 +24,15 @@ import {
   downloadBasenameForTab,
   type EhrFormatTab,
 } from "./openehr/ehr-format-tabs.ts";
-import {
-  canonicalToSimplifiedJson,
-  canonicalToXml,
-  type CdrProfile,
-  type SimplifiedViewFlavour,
-} from "./openehr/serialization-views.ts";
+import type { CdrProfile, SimplifiedViewFlavour } from "./openehr/view-types.ts";
 import { validateComposition } from "./openehr/validate.ts";
 import {
   ZIP_CSS_SELECT_OPTIONS,
   buildZipehrPreviewDocument,
   canonicalToZipehrHtml5,
+  mergeZipehrQuietStylesheet,
   resolveZipehrCssFile,
+  ZIP_DEFAULT_CSS,
   ZIP_QUIET_CSS,
   zipehrTextStats,
 } from "./openehr/zipehr.ts";
@@ -92,6 +89,7 @@ let cachedXml = "";
 let cachedSimplified = "";
 let cachedZipehrHtml = "";
 let cachedZipehrCss = "";
+let canonicalForSimplified: Record<string, unknown> | null = null;
 root.innerHTML = page();
 wire();
 paint();
@@ -142,7 +140,7 @@ function page(): string {
           <p class="note">Reviewed bindings for the values you have selected. Unverified means the code was not confirmed and is not written into the composition.</p>
           <div id="galen"></div>
         </section>
-        <section class="panel">
+        <section class="panel" id="openehr-panel">
           <h2>openEHR</h2>
           <div class="downloads">
             <a href="${optUrl}" download="thumb-pain-encounter.v2-coded.opt">Thumb pain OPT</a>
@@ -609,27 +607,28 @@ function setSimplifiedFlavour(flavour: SimplifiedViewFlavour): void {
   refreshSimplifiedOutput();
 }
 
-let canonicalForSimplified: Record<string, unknown> | null = null;
-
 function refreshSimplifiedOutput(): void {
   if (!canonicalForSimplified) return;
-  try {
-    cachedSimplified = canonicalToSimplifiedJson(
-      canonicalForSimplified,
-      simplifiedCdrProfile,
-      simplifiedFlavour,
-    );
-  } catch (error) {
-    const message = error instanceof Error ? error.message : String(error);
-    cachedSimplified = `/* Simplified serialize failed: ${message} */`;
-  }
-  const pre = document.querySelector("#ehr-simplified");
-  if (pre) pre.textContent = cachedSimplified;
-  const stats = document.querySelector("#ehr-simplified-stats");
-  if (stats) {
-    const lineStats = zipehrTextStats(cachedSimplified);
-    stats.textContent = `${lineStats.characters.toLocaleString()} characters · ${lineStats.lines.toLocaleString()} lines`;
-  }
+  void (async () => {
+    try {
+      const { canonicalToSimplifiedJson } = await import("./openehr/serialization-views.ts");
+      cachedSimplified = await canonicalToSimplifiedJson(
+        canonicalForSimplified!,
+        simplifiedCdrProfile,
+        simplifiedFlavour,
+      );
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      cachedSimplified = `/* Simplified serialize failed: ${message} */`;
+    }
+    const pre = document.querySelector("#ehr-simplified");
+    if (pre) pre.textContent = cachedSimplified;
+    const stats = document.querySelector("#ehr-simplified-stats");
+    if (stats) {
+      const lineStats = zipehrTextStats(cachedSimplified);
+      stats.textContent = `${lineStats.characters.toLocaleString()} characters · ${lineStats.lines.toLocaleString()} lines`;
+    }
+  })();
 }
 
 function setZipehrViewMode(mode: "code" | "document"): void {
@@ -649,9 +648,16 @@ async function loadZipehrStylesheet(): Promise<string> {
   const file = resolveZipehrCssFile(zipehrStylesheet);
   if (!file) return "";
   const baseUrl = import.meta.env.BASE_URL || "/";
-  const res = await fetch(`${baseUrl}zipehr-css/${file}`);
-  if (!res.ok) throw new Error(`ZipEHR stylesheet ${file}: HTTP ${res.status}`);
-  return res.text();
+  const fetchCss = async (name: string) => {
+    const res = await fetch(`${baseUrl}zipehr-css/${name}`);
+    if (!res.ok) throw new Error(`ZipEHR stylesheet ${name}: HTTP ${res.status}`);
+    return res.text();
+  };
+  if (file === ZIP_QUIET_CSS) {
+    const [base, quiet] = await Promise.all([fetchCss(ZIP_DEFAULT_CSS), fetchCss(ZIP_QUIET_CSS)]);
+    return mergeZipehrQuietStylesheet(base, quiet);
+  }
+  return fetchCss(file);
 }
 
 async function refreshZipehrDocument(): Promise<void> {
@@ -824,19 +830,6 @@ function paintEhr(_findings: Finding[], english: string[]): void {
   cachedCanonicalJson = jsonText;
   const pre = document.querySelector("#ehr");
   if (pre) pre.textContent = jsonText;
-  try {
-    cachedXml = canonicalToXml(result.canonical);
-  } catch (error) {
-    const message = error instanceof Error ? error.message : String(error);
-    cachedXml = `<!-- XML serialize failed: ${message} -->`;
-  }
-  const xmlPre = document.querySelector("#ehr-xml");
-  if (xmlPre) xmlPre.textContent = cachedXml;
-  const xmlStats = document.querySelector("#ehr-xml-stats");
-  if (xmlStats) {
-    const stats = zipehrTextStats(cachedXml);
-    xmlStats.textContent = `${stats.characters.toLocaleString()} characters · ${stats.lines.toLocaleString()} lines`;
-  }
   refreshSimplifiedOutput();
   const canonicalStats = document.querySelector("#ehr-canonical-stats");
   if (canonicalStats) {
@@ -855,6 +848,20 @@ function paintEhr(_findings: Finding[], english: string[]): void {
     errors.textContent = lines.join("\n");
   }
   void (async () => {
+    try {
+      const { canonicalToXml } = await import("./openehr/serialization-views.ts");
+      cachedXml = await canonicalToXml(result.canonical);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      cachedXml = `<!-- XML serialize failed: ${message} -->`;
+    }
+    const xmlPre = document.querySelector("#ehr-xml");
+    if (xmlPre) xmlPre.textContent = cachedXml;
+    const xmlStats = document.querySelector("#ehr-xml-stats");
+    if (xmlStats) {
+      const stats = zipehrTextStats(cachedXml);
+      xmlStats.textContent = `${stats.characters.toLocaleString()} characters · ${stats.lines.toLocaleString()} lines`;
+    }
     try {
       cachedZipehrHtml = await canonicalToZipehrHtml5(result.canonical);
     } catch (error) {

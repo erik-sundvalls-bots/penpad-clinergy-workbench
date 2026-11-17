@@ -5,13 +5,13 @@ import { ferroRegressionCases } from "./ferro-cases-data.ts";
 
 describe("Canonical XML (ehrtslib XmlSerializer)", () => {
   for (const item of ferroRegressionCases) {
-    it(`${item.id} round-trips to the same canonical JSON`, () => {
+    it(`${item.id} round-trips to the same canonical JSON`, async () => {
       const built = buildThumbEncounter(item.state, item.narrative);
-      const xml = canonicalToXml(built.canonical);
+      const xml = await canonicalToXml(built.canonical);
       expect(xml.length, "XML should not be empty").toBeGreaterThan(80);
       expect(xml).toMatch(/<\?xml/);
       expect(xml.toLowerCase()).toContain("composition");
-      const roundTrip = xmlToCanonicalRecord(xml);
+      const roundTrip = await xmlToCanonicalRecord(xml);
       expect(roundTrip).toEqual(built.canonical);
     });
   }

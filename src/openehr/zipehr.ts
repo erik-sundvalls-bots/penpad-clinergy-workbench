@@ -27,25 +27,33 @@ export const ZIP_CSS_SELECT_OPTIONS: { value: string; label: string }[] = [
 
 const ZIP_QUIET_STRUCTURE_TAGS = ["o-hi", "o-pe", "o-ie", "o-tr", "o-il", "o-is", "o-ta"];
 
+/** Strip leading LOCATABLE name text; clinical children keep default short.css styling. */
 export const ZIP_QUIET_PREVIEW_SCRIPT = `(() => {
   const tags = ${JSON.stringify(ZIP_QUIET_STRUCTURE_TAGS)};
   for (const tag of tags) {
     for (const el of document.querySelectorAll(tag)) {
       let label = "";
-      for (const node of el.childNodes) {
-        if (node.nodeType === Node.TEXT_NODE) {
-          const text = (node.textContent || "").trim();
-          if (text) {
-            label = text;
-            break;
-          }
-        }
+      for (const node of [...el.childNodes]) {
+        if (node.nodeType !== Node.TEXT_NODE) continue;
+        const text = (node.textContent || "").trim();
+        if (!text) continue;
+        label = text;
+        node.remove();
+        break;
       }
-      if (label) el.setAttribute("title", label);
-      el.classList.add("zipehr-struct-quiet");
+      if (label) {
+        el.setAttribute("title", label);
+        el.classList.add("zipehr-struct-quiet");
+      }
     }
   }
 })();`;
+
+/** Inline base + quiet overlay (iframe srcdoc cannot resolve @import). */
+export function mergeZipehrQuietStylesheet(baseCss: string, quietOverlayCss: string): string {
+  const overlay = quietOverlayCss.replace(/@import[^;]+;\s*/g, "").trim();
+  return `${baseCss}\n\n/* --- quiet structural overlay --- */\n${overlay}`;
+}
 
 export function resolveZipehrCssFile(selectValue: string): string | null {
   if (selectValue === "none" || selectValue === "custom") return null;

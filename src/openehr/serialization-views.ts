@@ -1,65 +1,87 @@
 import optXml from "../../templates/thumb-pain.opt?raw";
-import {
-  XmlDeserializer,
-  XmlSerializer,
-  parser,
-  resolveCdrProfile,
-  serialization,
-} from "../../vendor/ehrtslib/ehrtslib-0.13.0.min.js";
+import type { CdrProfile, SimplifiedViewFlavour } from "./view-types.ts";
 
-export type CdrProfile = "better" | "ehrbase" | "ferroehr";
+export type { CdrProfile, SimplifiedViewFlavour };
 
-const operationalTemplate = parser.parseOptXml(optXml).operationalTemplate;
+type Vendor = typeof import("../../vendor/ehrtslib/ehrtslib-0.13.0.min.js");
 
-export type SimplifiedViewFlavour = "flat" | "structured";
-
-const xmlSerializer = new XmlSerializer({
-  prettyPrint: true,
-  includeDeclaration: true,
-});
-const xmlDeserializer = new XmlDeserializer();
-const jsonDeserializer = new serialization.JsonConfigurableDeserializer(
-  serialization.CANONICAL_JSON_DESERIALIZE_CONFIG,
-);
-const jsonSerializer = new serialization.JsonConfigurableSerializer(
-  serialization.CANONICAL_JSON_CONFIG,
-);
-
-function webTemplateForProfile(profile: CdrProfile) {
-  const resolved = resolveCdrProfile({ cdrProfile: profile });
-  return serialization.buildWebTemplate(operationalTemplate, resolved.webTemplate);
+interface SerializationDeps {
+  vendor: Vendor;
+  operationalTemplate: unknown;
+  xmlSerializer: InstanceType<Vendor["XmlSerializer"]>;
+  xmlDeserializer: InstanceType<Vendor["XmlDeserializer"]>;
+  jsonDeserializer: InstanceType<Vendor["serialization"]["JsonConfigurableDeserializer"]>;
+  jsonSerializer: InstanceType<Vendor["serialization"]["JsonConfigurableSerializer"]>;
 }
 
-function typedInstance(canonical: Record<string, unknown>): unknown {
-  return jsonDeserializer.deserialize(JSON.stringify(canonical));
+let depsPromise: Promise<SerializationDeps> | null = null;
+
+function loadDeps(): Promise<SerializationDeps> {
+  if (!depsPromise) {
+    depsPromise = import("../../vendor/ehrtslib/ehrtslib-0.13.0.min.js").then((vendor) => {
+      const operationalTemplate = vendor.parser.parseOptXml(optXml).operationalTemplate;
+      const xmlSerializer = new vendor.XmlSerializer({
+        prettyPrint: true,
+        includeDeclaration: true,
+      });
+      const xmlDeserializer = new vendor.XmlDeserializer();
+      const jsonDeserializer = new vendor.serialization.JsonConfigurableDeserializer(
+        vendor.serialization.CANONICAL_JSON_DESERIALIZE_CONFIG,
+      );
+      const jsonSerializer = new vendor.serialization.JsonConfigurableSerializer(
+        vendor.serialization.CANONICAL_JSON_CONFIG,
+      );
+      return {
+        vendor,
+        operationalTemplate,
+        xmlSerializer,
+        xmlDeserializer,
+        jsonDeserializer,
+        jsonSerializer,
+      };
+    });
+  }
+  return depsPromise;
 }
 
-export function canonicalToXml(canonical: Record<string, unknown>): string {
-  const instance = typedInstance(canonical);
-  return xmlSerializer.serialize(instance);
+function webTemplateForProfile(deps: SerializationDeps, profile: CdrProfile) {
+  const resolved = deps.vendor.resolveCdrProfile({ cdrProfile: profile });
+  return deps.vendor.serialization.buildWebTemplate(deps.operationalTemplate, resolved.webTemplate);
 }
 
-export function xmlToCanonicalRecord(xml: string): Record<string, unknown> {
-  const instance = xmlDeserializer.deserialize(xml);
-  const json = jsonSerializer.serialize(instance);
+function typedInstance(deps: SerializationDeps, canonical: Record<string, unknown>): unknown {
+  return deps.jsonDeserializer.deserialize(JSON.stringify(canonical));
+}
+
+export async function canonicalToXml(canonical: Record<string, unknown>): Promise<string> {
+  const deps = await loadDeps();
+  const instance = typedInstance(deps, canonical);
+  return deps.xmlSerializer.serialize(instance);
+}
+
+export async function xmlToCanonicalRecord(xml: string): Promise<Record<string, unknown>> {
+  const deps = await loadDeps();
+  const instance = deps.xmlDeserializer.deserialize(xml);
+  const json = deps.jsonSerializer.serialize(instance);
   return JSON.parse(json) as Record<string, unknown>;
 }
 
-export function canonicalToSimplifiedJson(
+export async function canonicalToSimplifiedJson(
   canonical: Record<string, unknown>,
   profile: CdrProfile,
   flavour: SimplifiedViewFlavour,
-): string {
-  const resolved = resolveCdrProfile({ cdrProfile: profile });
-  const webTemplate = webTemplateForProfile(profile);
-  const instance = typedInstance(canonical);
+): Promise<string> {
+  const deps = await loadDeps();
+  const resolved = deps.vendor.resolveCdrProfile({ cdrProfile: profile });
+  const webTemplate = webTemplateForProfile(deps, profile);
+  const instance = typedInstance(deps, canonical);
   if (flavour === "flat") {
-    return serialization.serializeToFlatJson(instance, webTemplate, {
+    return deps.vendor.serialization.serializeToFlatJson(instance, webTemplate, {
       ...resolved.flat,
       prettyPrint: true,
     });
   }
-  return serialization.serializeToStructuredJson(instance, webTemplate, {
+  return deps.vendor.serialization.serializeToStructuredJson(instance, webTemplate, {
     prettyPrint: true,
     flavor: resolved.flat.flavor ?? "output",
   });

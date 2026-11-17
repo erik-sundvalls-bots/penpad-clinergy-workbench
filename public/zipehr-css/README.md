@@ -1,1 +1,3 @@
 Stylesheets copied from [ehrtslib `examples/demo-app/public/zipehr-css`](https://github.com/ErikSundvall/ehrtslib/tree/main/examples/demo-app/public/zipehr-css) (v0.13), except `zipehr-html5-short-quiet.css` (workbench-local; to be replaced when [ehrtslib PR #322](https://github.com/ErikSundvall/ehrtslib/pull/322) adds the upstream quiet sheet). Used by the ZipEHR **Document** view.
+
+**Quiet mode:** the app inlines `zipehr-html5-short.css` plus the quiet overlay (not `@import`), then runs a small iframe script that removes meaningless structure labels (`Event Series`, `Any event`, `Tree`, …) and exposes them via hover tooltip.

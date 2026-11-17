@@ -1,31 +1,48 @@
 /**
  * ZipEHR html5 short — quiet structural headings (workbench; align with ehrtslib PR #322 when merged).
- * Based on examples/demo-app/public/zipehr-css/zipehr-html5-short.css from ErikSundvall/ehrtslib.
+ * Loaded together with zipehr-html5-short.css (see loadZipehrStylesheet in main.ts); do not rely on @import in iframe srcdoc.
  */
-@import url("zipehr-html5-short.css");
 
-/* Collapse clinically meaningless structure wrappers (labels move to native title tooltips via preview script). */
-.zipehr-struct-quiet {
-  margin: 0 !important;
-  padding: 0 !important;
-  border: none !important;
-  box-shadow: none !important;
-  background: transparent !important;
-  max-width: none !important;
-  font-size: 0 !important;
-  line-height: 0 !important;
-  color: transparent !important;
+/* Tooltip for structure tags whose leading label was removed in the preview script */
+o-hi.zipehr-struct-quiet[title],
+o-pe.zipehr-struct-quiet[title],
+o-ie.zipehr-struct-quiet[title],
+o-tr.zipehr-struct-quiet[title],
+o-il.zipehr-struct-quiet[title],
+o-is.zipehr-struct-quiet[title],
+o-ta.zipehr-struct-quiet[title] {
+  position: relative;
   cursor: help;
 }
 
-.zipehr-struct-quiet > * {
-  font-size: 1rem;
-  line-height: 1.55;
-  color: var(--zs-ink);
-}
-
-.zipehr-struct-quiet:hover,
-.zipehr-struct-quiet:focus-within {
-  outline: 1px dotted var(--zs-line);
-  outline-offset: 2px;
+o-hi.zipehr-struct-quiet[title]:hover::after,
+o-pe.zipehr-struct-quiet[title]:hover::after,
+o-ie.zipehr-struct-quiet[title]:hover::after,
+o-tr.zipehr-struct-quiet[title]:hover::after,
+o-il.zipehr-struct-quiet[title]:hover::after,
+o-is.zipehr-struct-quiet[title]:hover::after,
+o-ta.zipehr-struct-quiet[title]:hover::after,
+o-hi.zipehr-struct-quiet[title]:focus-within::after,
+o-pe.zipehr-struct-quiet[title]:focus-within::after,
+o-ie.zipehr-struct-quiet[title]:focus-within::after,
+o-tr.zipehr-struct-quiet[title]:focus-within::after,
+o-il.zipehr-struct-quiet[title]:focus-within::after,
+o-is.zipehr-struct-quiet[title]:focus-within::after,
+o-ta.zipehr-struct-quiet[title]:focus-within::after {
+  content: "Structure: " attr(title);
+  position: absolute;
+  left: 0;
+  top: calc(100% + 2px);
+  padding: 0.2rem 0.45rem;
+  font-size: 0.82rem;
+  line-height: 1.3;
+  font-weight: 500;
+  color: var(--zs-muted);
+  background: var(--zs-card);
+  border: 1px solid var(--zs-line);
+  border-radius: 0.25rem;
+  box-shadow: 0 2px 6px rgba(31, 78, 121, 0.12);
+  white-space: nowrap;
+  z-index: 20;
+  pointer-events: none;
 }
