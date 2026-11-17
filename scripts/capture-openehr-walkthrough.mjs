@@ -83,7 +83,7 @@ await page.getByRole("tab", { name: "ZipEHR" }).click();
 await page.locator("#zipehr-css-select").selectOption("zipehr-html5-short-quiet.css");
 await page.waitForTimeout(1200);
 const deskFrame = page.frameLocator("#zipehr-document");
-const quiet = deskFrame.locator("o-hi.zipehr-struct-quiet[title]").first();
+const quiet = deskFrame.locator("o-se.zipehr-struct-quiet[title]").first();
 await quiet.waitFor({ timeout: 15_000 });
 await quiet.evaluate((el) => {
   el.classList.add("zipehr-tip-pinned");
@@ -107,7 +107,7 @@ await mobile.waitForTimeout(1200);
 const mobPanel = mobile.locator("#openehr-panel");
 await mobPanel.scrollIntoViewIfNeeded();
 const mobFrame = mobile.frameLocator("#zipehr-document");
-const tapTarget = mobFrame.locator("o-hi.zipehr-struct-quiet[title]").first();
+const tapTarget = mobFrame.locator("o-se.zipehr-struct-quiet[title]").first();
 await tapTarget.waitFor({ timeout: 15_000 });
 await tapTarget.tap();
 await tapTarget.evaluate((el) => el.classList.add("zipehr-tip-pinned"));

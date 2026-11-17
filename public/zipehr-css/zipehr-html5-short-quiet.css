@@ -23,16 +23,7 @@ o-ta.zipehr-struct-quiet[title] {
   cursor: help;
 }
 
-o-se.zipehr-struct-quiet[title]::after,
-o-ob.zipehr-struct-quiet[title]::after,
-o-hi.zipehr-struct-quiet[title]::after,
-o-pe.zipehr-struct-quiet[title]::after,
-o-ie.zipehr-struct-quiet[title]::after,
-o-tr.zipehr-struct-quiet[title]::after,
-o-il.zipehr-struct-quiet[title]::after,
-o-is.zipehr-struct-quiet[title]::after,
-o-ta.zipehr-struct-quiet[title]::after {
-  content: "Structure: " attr(title);
+.zipehr-structure-tip {
   display: none;
   position: absolute;
   left: 0;
@@ -51,33 +42,25 @@ o-ta.zipehr-struct-quiet[title]::after {
   pointer-events: none;
 }
 
-o-se.zipehr-struct-quiet[title]:hover::after,
-o-ob.zipehr-struct-quiet[title]:hover::after,
-o-hi.zipehr-struct-quiet[title]:hover::after,
-o-pe.zipehr-struct-quiet[title]:hover::after,
-o-ie.zipehr-struct-quiet[title]:hover::after,
-o-tr.zipehr-struct-quiet[title]:hover::after,
-o-il.zipehr-struct-quiet[title]:hover::after,
-o-is.zipehr-struct-quiet[title]:hover::after,
-o-ta.zipehr-struct-quiet[title]:hover::after,
-o-se.zipehr-struct-quiet[title]:focus-visible::after,
-o-ob.zipehr-struct-quiet[title]:focus-visible::after,
-o-hi.zipehr-struct-quiet[title]:focus-visible::after,
-o-pe.zipehr-struct-quiet[title]:focus-visible::after,
-o-ie.zipehr-struct-quiet[title]:focus-visible::after,
-o-tr.zipehr-struct-quiet[title]:focus-visible::after,
-o-il.zipehr-struct-quiet[title]:focus-visible::after,
-o-is.zipehr-struct-quiet[title]:focus-visible::after,
-o-ta.zipehr-struct-quiet[title]:focus-visible::after,
-o-se.zipehr-struct-quiet.zipehr-tip-pinned[title]::after,
-o-ob.zipehr-struct-quiet.zipehr-tip-pinned[title]::after,
-o-hi.zipehr-struct-quiet.zipehr-tip-pinned[title]::after,
-o-pe.zipehr-struct-quiet.zipehr-tip-pinned[title]::after,
-o-ie.zipehr-struct-quiet.zipehr-tip-pinned[title]::after,
-o-tr.zipehr-struct-quiet.zipehr-tip-pinned[title]::after,
-o-il.zipehr-struct-quiet.zipehr-tip-pinned[title]::after,
-o-is.zipehr-struct-quiet.zipehr-tip-pinned[title]::after,
-o-ta.zipehr-struct-quiet.zipehr-tip-pinned[title]::after {
+o-se.zipehr-struct-quiet:hover .zipehr-structure-tip,
+o-ob.zipehr-struct-quiet:hover .zipehr-structure-tip,
+o-hi.zipehr-struct-quiet:hover .zipehr-structure-tip,
+o-pe.zipehr-struct-quiet:hover .zipehr-structure-tip,
+o-ie.zipehr-struct-quiet:hover .zipehr-structure-tip,
+o-tr.zipehr-struct-quiet:hover .zipehr-structure-tip,
+o-il.zipehr-struct-quiet:hover .zipehr-structure-tip,
+o-is.zipehr-struct-quiet:hover .zipehr-structure-tip,
+o-ta.zipehr-struct-quiet:hover .zipehr-structure-tip,
+o-se.zipehr-struct-quiet:focus-within .zipehr-structure-tip,
+o-ob.zipehr-struct-quiet:focus-within .zipehr-structure-tip,
+o-hi.zipehr-struct-quiet:focus-within .zipehr-structure-tip,
+o-pe.zipehr-struct-quiet:focus-within .zipehr-structure-tip,
+o-ie.zipehr-struct-quiet:focus-within .zipehr-structure-tip,
+o-tr.zipehr-struct-quiet:focus-within .zipehr-structure-tip,
+o-il.zipehr-struct-quiet:focus-within .zipehr-structure-tip,
+o-is.zipehr-struct-quiet:focus-within .zipehr-structure-tip,
+o-ta.zipehr-struct-quiet:focus-within .zipehr-structure-tip,
+.zipehr-struct-quiet.zipehr-tip-pinned .zipehr-structure-tip {
   display: block;
 }
 

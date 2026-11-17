@@ -58,6 +58,10 @@ export const ZIP_QUIET_PREVIEW_SCRIPT = `(() => {
         el.setAttribute("title", label);
         el.setAttribute("tabindex", "0");
         el.classList.add("zipehr-struct-quiet");
+        const tip = document.createElement("span");
+        tip.className = "zipehr-structure-tip";
+        tip.textContent = "Structure: " + label;
+        el.appendChild(tip);
       }
     }
   }
