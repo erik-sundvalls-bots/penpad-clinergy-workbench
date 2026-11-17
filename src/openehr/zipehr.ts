@@ -55,13 +55,26 @@ export const ZIP_QUIET_PREVIEW_SCRIPT = `(() => {
         break;
       }
       if (label) {
-        el.setAttribute("title", label);
-        el.setAttribute("tabindex", "0");
         el.classList.add("zipehr-struct-quiet");
+        const anchor = document.createElement("button");
+        anchor.type = "button";
+        anchor.className = "zipehr-structure-anchor";
+        anchor.setAttribute("aria-label", "Structure: " + label);
         const tip = document.createElement("span");
         tip.className = "zipehr-structure-tip";
         tip.textContent = "Structure: " + label;
-        el.appendChild(tip);
+        anchor.appendChild(tip);
+        el.insertBefore(anchor, el.firstChild);
+        const show = () => anchor.classList.add("zipehr-tip-open");
+        const hide = () => anchor.classList.remove("zipehr-tip-open");
+        anchor.addEventListener("mouseenter", show);
+        anchor.addEventListener("mouseleave", hide);
+        anchor.addEventListener("focus", show);
+        anchor.addEventListener("blur", hide);
+        anchor.addEventListener("click", (e) => {
+          e.preventDefault();
+          anchor.classList.toggle("zipehr-tip-pinned");
+        });
       }
     }
   }

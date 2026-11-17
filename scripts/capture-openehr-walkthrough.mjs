@@ -83,16 +83,51 @@ await page.getByRole("tab", { name: "ZipEHR" }).click();
 await page.locator("#zipehr-css-select").selectOption("zipehr-html5-short-quiet.css");
 await page.waitForTimeout(1200);
 const deskFrame = page.frameLocator("#zipehr-document");
-const quiet = deskFrame.locator("o-se.zipehr-struct-quiet[title]").first();
-await quiet.waitFor({ timeout: 15_000 });
-await quiet.evaluate((el) => {
-  el.classList.add("zipehr-tip-pinned");
-  el.scrollIntoView({ block: "center" });
+const hoverAnchor = deskFrame
+  .locator('button.zipehr-structure-anchor[aria-label="Structure: History"]')
+  .first();
+await hoverAnchor.waitFor({ timeout: 15_000 });
+await hoverAnchor.scrollIntoViewIfNeeded();
+const box = await hoverAnchor.boundingBox();
+if (box) {
+  await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+}
+await page.waitForFunction(
+  () => {
+    const tip = document
+      .querySelector("#zipehr-document")
+      ?.contentDocument?.querySelector(
+        'button.zipehr-structure-anchor[aria-label="Structure: History"] .zipehr-structure-tip',
+      );
+    if (!tip) return false;
+    const st = tip.ownerDocument.defaultView?.getComputedStyle(tip);
+    return st?.display === "block" && tip.getBoundingClientRect().height > 0;
+  },
+  { timeout: 10_000 },
+);
+await page.waitForTimeout(200);
+const hoverClip = await hoverAnchor.evaluate((anchor) => {
+  const tip = anchor.querySelector(".zipehr-structure-tip");
+  const rects = [anchor.getBoundingClientRect(), tip?.getBoundingClientRect()].filter(Boolean);
+  const left = Math.min(...rects.map((r) => r.left)) - 12;
+  const top = Math.min(...rects.map((r) => r.top)) - 12;
+  const right = Math.max(...rects.map((r) => r.right)) + 12;
+  const bottom = Math.max(...rects.map((r) => r.bottom)) + 12;
+  return { x: left, y: top, width: right - left, height: bottom - top };
 });
-await page.waitForTimeout(400);
-await panel.screenshot({
-  path: `${outDir}/zipehr-quiet-tooltip-hover.png`,
-});
+const iframeBox = await page.locator("#zipehr-document").boundingBox();
+if (iframeBox) {
+  await page.screenshot({
+    path: `${outDir}/zipehr-quiet-tooltip-hover.png`,
+    animations: "disabled",
+    clip: {
+      x: iframeBox.x + hoverClip.x,
+      y: iframeBox.y + hoverClip.y,
+      width: hoverClip.width,
+      height: hoverClip.height,
+    },
+  });
+}
 console.log(`${outDir}/zipehr-quiet-tooltip-hover.png`);
 
 // Mobile tap tooltip (separate viewport)
@@ -107,14 +142,48 @@ await mobile.waitForTimeout(1200);
 const mobPanel = mobile.locator("#openehr-panel");
 await mobPanel.scrollIntoViewIfNeeded();
 const mobFrame = mobile.frameLocator("#zipehr-document");
-const tapTarget = mobFrame.locator("o-se.zipehr-struct-quiet[title]").first();
-await tapTarget.waitFor({ timeout: 15_000 });
-await tapTarget.tap();
-await tapTarget.evaluate((el) => el.classList.add("zipehr-tip-pinned"));
-await mobile.waitForTimeout(400);
-await mobPanel.screenshot({
-  path: `${outDir}/zipehr-quiet-tooltip-mobile-tap.png`,
+const tapAnchor = mobFrame
+  .locator('button.zipehr-structure-anchor[aria-label="Structure: History"]')
+  .first();
+await tapAnchor.waitFor({ timeout: 15_000 });
+await tapAnchor.scrollIntoViewIfNeeded();
+await tapAnchor.tap();
+await mobile.waitForFunction(
+  () => {
+    const tip = document
+      .querySelector("#zipehr-document")
+      ?.contentDocument?.querySelector(
+        'button.zipehr-structure-anchor.zipehr-tip-pinned .zipehr-structure-tip',
+      );
+    if (!tip) return false;
+    const st = tip.ownerDocument.defaultView?.getComputedStyle(tip);
+    return st?.display === "block" && tip.getBoundingClientRect().height > 0;
+  },
+  { timeout: 10_000 },
+);
+await mobile.waitForTimeout(200);
+const tapClip = await tapAnchor.evaluate((anchor) => {
+  const tip = anchor.querySelector(".zipehr-structure-tip");
+  const rects = [anchor.getBoundingClientRect(), tip?.getBoundingClientRect()].filter(Boolean);
+  const left = Math.min(...rects.map((r) => r.left)) - 12;
+  const top = Math.min(...rects.map((r) => r.top)) - 12;
+  const right = Math.max(...rects.map((r) => r.right)) + 12;
+  const bottom = Math.max(...rects.map((r) => r.bottom)) + 12;
+  return { x: left, y: top, width: right - left, height: bottom - top };
 });
+const mobIframeBox = await mobile.locator("#zipehr-document").boundingBox();
+if (mobIframeBox) {
+  await mobile.screenshot({
+    path: `${outDir}/zipehr-quiet-tooltip-mobile-tap.png`,
+    animations: "disabled",
+    clip: {
+      x: mobIframeBox.x + tapClip.x,
+      y: mobIframeBox.y + tapClip.y,
+      width: tapClip.width,
+      height: tapClip.height,
+    },
+  });
+}
 console.log(`${outDir}/zipehr-quiet-tooltip-mobile-tap.png`);
 await mobile.close();
 await browser.close();
