@@ -82,6 +82,20 @@ a:hover { text-decoration: none; }
   font-size: 0.82rem;
 }
 
+.picks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 8px 10px 0;
+}
+
+.pick .kind {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 500;
+  opacity: 0.8;
+}
+
 .tabs {
   display: flex;
   gap: 4px;

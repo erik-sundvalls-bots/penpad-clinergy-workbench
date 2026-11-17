@@ -1,7 +1,12 @@
-import type { WorkbenchState } from "../model.ts";
-import { painForm } from "../knowledge.ts";
+import { examinationProseForSide, movementKeys, presenceKey, type NoteLanguage } from "../exam/prose.ts";
+import { localizePlan } from "../exam/phrases.ts";
+import { examsByName, formOf } from "../forms/catalog.ts";
+import { knowledge, painForm, swellingForm, type FormLink } from "../knowledge.ts";
+import { render, type Finding } from "../../vendor/sentence.ts";
+import { renderSwedishGp } from "../sv/gp-sentence.ts";
+import { emptyExam, emptyFinding, type ExamSide, type FindingForm, type WorkbenchState } from "../model.ts";
 import { term, type Term } from "./terms.ts";
-import { TEMPLATE_ID } from "./template.ts";
+import { GP_TEMPLATE_ID, TEMPLATE_ID } from "./template.ts";
 
 export interface CoverageRow {
   key: string;
@@ -28,14 +33,35 @@ const PROGRESS: Record<string, [string, string]> = {
   same: ["at0182", "Unchanged"],
   worse: ["at0183", "Worsening"],
 };
+/** Local codes on CLUSTER.range_of_motion.v1 (revision 1.0.2) Movement at0002. */
 const MOVEMENT: Record<string, [string, string]> = {
-  flexion: ["at0006", "Flexion"],
-  extension: ["at0005", "Extension"],
-  abduction: ["at0003", "Abduction"],
-  adduction: ["at0004", "Adduction"],
+  FlexionSign: ["at0006", "Flexion"],
+  ExtensionSign: ["at0005", "Extension"],
+  AbductionSign: ["at0003", "Abduction"],
+  AdductionSign: ["at0004", "Adduction"],
 };
 
-export function buildThumbEncounter(state: WorkbenchState, narrative: string): ThumbComposition {
+/** Local codes on EVALUATION.problem_diagnosis.v1 Severity at0005. */
+const PROBLEM_SEVERITY: Record<string, [string, string]> = {
+  mild: ["at0047", "Mild"],
+  moderate: ["at0048", "Moderate"],
+  severe: ["at0049", "Severe"],
+};
+
+export interface ComposeOptions {
+  /** Write each side's On Examination prose onto CLUSTER.exam Clinical description at0003. */
+  clinicalDescription?: boolean;
+  /** Write each present or possible diagnosis sentence onto problem/diagnosis Clinical description at0009. */
+  embedDiagnosisText?: boolean;
+  /** Language of the narrative fields (story is supplied by the caller in this language). */
+  language?: NoteLanguage;
+}
+
+export function buildThumbEncounter(
+  state: WorkbenchState,
+  narrative: string,
+  options?: ComposeOptions,
+): ThumbComposition {
   const used = new Set<string>();
   const touch = (key: string) => used.add(key);
 
@@ -45,10 +71,15 @@ export function buildThumbEncounter(state: WorkbenchState, narrative: string): T
 
   const examItems: Record<string, unknown>[] = [];
   const absentTenderness: string[] = [];
-  for (const side of ["left", "right"] as const) {
+  const language = options?.language ?? "en";
+  let commentLeft = state.comment?.trim() ?? "";
+  for (const side of examSides(state)) {
     const exam = state.exam[side];
     if (!Object.values(exam).some((value) => value)) continue;
-    examItems.push(examObservation(side, exam, touch, absentTenderness));
+    const prose = options?.clinicalDescription ? examinationProseForSide(state, side, language) : "";
+    const comment = commentLeft;
+    commentLeft = "";
+    examItems.push(examObservation(side, exam, touch, absentTenderness, prose, comment));
   }
   if (absentTenderness.length) {
     examItems.push(screeningObservation(
@@ -59,22 +90,29 @@ export function buildThumbEncounter(state: WorkbenchState, narrative: string): T
 
   const problems: Record<string, unknown>[] = [];
   const exclusions: Record<string, unknown>[] = [];
-  for (const link of painForm.diagnoses) {
+  for (const link of diagnosisLinks(state)) {
     const status = state.diagnoses[link.item];
     if (!status) continue;
     const key = link.preCoordinated ?? link.concept;
     touch(key);
     if (link.location) touch(link.location);
+    const answer = diseaseAnswer(state, link);
+    const sentence = options?.embedDiagnosisText && status !== "excluded"
+      ? diagnosisSentence(link, status, language, answer?.laterality ?? [])
+      : "";
     if (status === "excluded") exclusions.push(exclusionEvaluation(key, touch));
-    else problems.push(problemEvaluation(key, link.location, status === "possible", touch));
+    else problems.push(problemEvaluation(key, link.location, status === "possible", touch, answer, sentence));
   }
 
+  const planText = localizePlan(state.plan?.trim() ?? "", language);
+  const planItems = planText ? [recommendationEvaluation(planText, touch)] : [];
   const content = [
     section("History", historyItems),
     section("Examination", examItems),
     section("Assessment", [...problems, ...exclusions]),
+    section("Plan", planItems),
   ].filter((entry) => Array.isArray(entry.items) && entry.items.length > 0);
-  const canonical = composition(content);
+  const canonical = composition(content, planText ? GP_TEMPLATE_ID : TEMPLATE_ID, language);
 
   return {
     canonical,
@@ -89,8 +127,18 @@ function storyObservation(
   touch: (key: string) => void,
 ): Record<string, unknown> {
   const symptoms: Record<string, unknown>[] = [];
-  if (positiveSymptom(state.pain)) symptoms.push(symptomCluster("ThumbPainSymptom", "Thumb", state.pain, touch));
-  if (positiveSymptom(state.swelling)) symptoms.push(symptomCluster("ThumbSwellingSymptom", "Thumb", state.swelling, touch));
+  if (positiveSymptom(state.pain)) {
+    symptoms.push(symptomCluster(painForm.topic, painForm.location ?? "Thumb", state.pain, touch));
+  }
+  if (positiveSymptom(state.swelling)) {
+    symptoms.push(symptomCluster(swellingForm.topic, swellingForm.location ?? "Thumb", state.swelling, touch));
+  }
+  if (state.stiffness === "presence") {
+    symptoms.push(symptomCluster("JointStiffnessSymptom", null, emptyFinding(), touch));
+  }
+  for (const row of consequenceRows(state)) {
+    if (row.value === "presence") symptoms.push(symptomCluster(row.key, null, emptyFinding(), touch));
+  }
   return observation("openEHR-EHR-OBSERVATION.story.v1", "Story/History", [
     element("at0004", "Story", dvText(narrative)),
     ...symptoms,
@@ -110,21 +158,37 @@ function positiveSymptom(form: WorkbenchState["pain"]): boolean {
 
 function absentSymptoms(state: WorkbenchState): { key: string; label: string }[] {
   const rows: { key: string; label: string }[] = [];
-  if (state.pain.summary === "absence") rows.push({ key: "ThumbPainSymptom", label: "thumb pain" });
-  if (state.swelling.summary === "absence") rows.push({ key: "ThumbSwellingSymptom", label: "thumb swelling" });
+  if (state.pain.summary === "absence") rows.push({ key: painForm.topic, label: painForm.display });
+  if (state.swelling.summary === "absence") rows.push({ key: swellingForm.topic, label: swellingForm.display });
+  if (state.stiffness === "absence") rows.push({ key: "JointStiffnessSymptom", label: "joint stiffness" });
+  for (const row of consequenceRows(state)) {
+    if (row.value === "absence") rows.push({ key: row.key, label: row.key });
+  }
+  return rows;
+}
+
+function consequenceRows(state: WorkbenchState): { key: string; value: string }[] {
+  const rows: { key: string; value: string }[] = [];
+  for (const layer of [...(swellingForm.firstLayer ?? []), ...(swellingForm.moreLayer ?? [])]) {
+    const key = layer.criterialLink;
+    if (!key) continue;
+    const value = state.consequences?.[key];
+    if (!value) continue;
+    rows.push({ key, value });
+  }
   return rows;
 }
 
 function symptomCluster(
   nameKey: string,
-  siteKey: string,
-  form: WorkbenchState["pain"],
+  siteKey: string | null,
+  form: FindingForm,
   touch: (key: string) => void,
 ): Record<string, unknown> {
   const items: Record<string, unknown>[] = [
     element("at0001", "Symptom/Sign name", writeCoded(nameKey, touch)),
-    locationCluster(siteKey, form, touch),
   ];
+  if (siteKey) items.push(locationCluster(siteKey, form, touch));
   const onset = form.choices.AbsoluteOnset;
   if (onset) items.push(element("at0164", "Onset timing", writeCoded(onset, touch)));
   if (form.durationNumber != null && form.durationNumber > 0) {
@@ -211,39 +275,48 @@ function screeningObservation(
 
 function examObservation(
   side: "left" | "right",
-  exam: WorkbenchState["exam"]["left"],
+  exam: ExamSide,
   touch: (key: string) => void,
   absentTenderness: string[],
+  prose: string,
+  comment: string,
 ): Record<string, unknown> {
+  const definition = examsByName.ThumbExam;
+  const site = definition?.baseLocation ?? "Thumb";
   const items: Record<string, unknown>[] = [
-    element("at0001", "System or structure examined", writeCoded("Thumb", touch)),
-    locationCluster("Thumb", { laterality: [side], sublocation: null }, touch),
+    element("at0001", "System or structure examined", writeCoded(site, touch)),
+    locationCluster(site, { laterality: [side], sublocation: null }, touch),
   ];
   if (exam.status === "normal") {
     items.push(element("at0006", "Clinical interpretation", writeCoded("normal", touch)));
   }
-  if (exam.tenderness === "presence") {
-    items.push(cluster("openEHR-EHR-CLUSTER.symptom_sign.v2", "Symptom/Sign", [
-      element("at0001", "Symptom/Sign name", writeCoded("TendernessSign", touch)),
-    ]));
+  for (const sign of definition?.signs0 ?? ["TendernessSign"]) {
+    const key = presenceKey(sign);
+    if (!key) continue;
+    if (exam[key] === "presence") {
+      items.push(cluster("openEHR-EHR-CLUSTER.symptom_sign.v2", "Symptom/Sign", [
+        element("at0001", "Symptom/Sign name", writeCoded(sign, touch)),
+      ]));
+    }
+    if (exam[key] === "absence") absentTenderness.push(`${side} thumb`);
   }
-  if (exam.tenderness === "absence") absentTenderness.push(`${side} thumb`);
-  for (const [name, rangeKey, painKey] of [
-    ["flexion", "flexionRange", "flexionPain"],
-    ["extension", "extensionRange", "extensionPain"],
-    ["abduction", "abductionRange", "abductionPain"],
-    ["adduction", "adductionRange", "adductionPain"],
-  ] as const) {
-    const range = exam[rangeKey];
-    const pain = exam[painKey];
+  const sub = examsByName[definition?.subExams[0] ?? "ThumbMovementExam"];
+  for (const sign of sub?.signs0 ?? []) {
+    const keys = movementKeys(sign);
+    const coded = MOVEMENT[sign];
+    if (!keys || !coded) continue;
+    const range = exam[keys.range as keyof ExamSide];
+    const pain = exam[keys.pain as keyof ExamSide];
     if (!range && !pain) continue;
     const moveItems: Record<string, unknown>[] = [
-      element("at0002", "Movement", writeLocal(MOVEMENT[name][0], MOVEMENT[name][1], `${name[0].toUpperCase()}${name.slice(1)}Sign`, touch)),
+      element("at0002", "Movement", writeLocal(coded[0], coded[1], sign, touch)),
     ];
     if (range) moveItems.push(element("at0035", "Clinical interpretation", writeCoded(range, touch)));
     if (pain) moveItems.push(descriptorCluster({ pain_on_movement: pain === "absence" ? "absence" : pain }, touch));
     items.push(cluster("openEHR-EHR-CLUSTER.range_of_motion.v1", "Range of motion of a joint", moveItems));
   }
+  if (prose) items.push(element("at0003", "Clinical description", dvText(prose)));
+  if (comment) items.push(element("at0007", "Comment", dvText(comment)));
   if (exam.status === "notExamined") {
     touch("notExamined");
     items.push(cluster("openEHR-EHR-CLUSTER.exclusion_exam.v1", "Exclusion of examination", [
@@ -255,20 +328,59 @@ function examObservation(
   ]);
 }
 
+function diagnosisSentence(
+  link: FormLink,
+  status: string,
+  language: NoteLanguage,
+  laterality: Array<"left" | "right">,
+): string {
+  const side = laterality.length > 1 ? "both" as const : laterality[0];
+  const finding: Finding = {
+    topic: link.preCoordinated ?? link.concept,
+    location: link.location ?? (side ? "Thumb" : undefined),
+    laterality: side,
+    summary: status,
+    qualifiers: [],
+  };
+  if (language === "sv") return renderSwedishGp(finding);
+  return render(finding, knowledge);
+}
+
 function problemEvaluation(
   key: string,
   location: string | null,
   suspected: boolean,
   touch: (key: string) => void,
+  answer?: FindingForm,
+  sentence = "",
 ): Record<string, unknown> {
+  const laterality = answer?.laterality?.length ? answer.laterality : [];
   const items = [
     element("at0002", "Problem/Diagnosis name", writeCoded(key, touch)),
-    locationCluster(location ?? "Thumb", { laterality: [], sublocation: null }, touch),
+    locationCluster(location ?? "Thumb", { laterality, sublocation: null }, touch),
   ];
+  const severity = answer?.choices.AbsoluteSeverity;
+  if (severity && PROBLEM_SEVERITY[severity]) {
+    const [code, text] = PROBLEM_SEVERITY[severity];
+    items.push(element("at0005", "Severity", writeLocal(code, text, severity, touch)));
+  }
+  const note = [sentence, unmappedDiseaseText(answer)].filter((part) => part && part.length > 0).join(". ");
+  if (note) items.push(element("at0009", "Clinical description", dvText(note)));
   if (suspected) {
     items.push(element("at0073", "Diagnostic certainty", writeLocal("at0074", "Suspected", "possible", () => {})));
   }
   return evaluation("openEHR-EHR-EVALUATION.problem_diagnosis.v1", "Problem/Diagnosis", items);
+}
+
+/**
+ * EVALUATION.recommendation.v2 (CKM revision 2.0.5).
+ * at0002 Recommendation is required. at0006 Topic names the subject.
+ */
+function recommendationEvaluation(text: string, _touch: (key: string) => void): Record<string, unknown> {
+  return evaluation("openEHR-EHR-EVALUATION.recommendation.v2", "Recommendation", [
+    element("at0006", "Topic", dvText("Clinical management")),
+    element("at0002", "Recommendation", dvText(text)),
+  ]);
 }
 
 function exclusionEvaluation(key: string, touch: (key: string) => void): Record<string, unknown> {
@@ -308,13 +420,17 @@ function coverageOf(key: string): CoverageRow {
   return { key, opengalen: side(row?.opengalen), snomed: side(row?.snomed) };
 }
 
-function composition(content: Record<string, unknown>[]): Record<string, unknown> {
+function composition(
+  content: Record<string, unknown>[],
+  templateId: string = TEMPLATE_ID,
+  language: NoteLanguage = "en",
+): Record<string, unknown> {
   return {
     _type: "COMPOSITION",
     name: dvText("Encounter"),
     archetype_node_id: "openEHR-EHR-COMPOSITION.encounter.v1",
-    archetype_details: archetyped("openEHR-EHR-COMPOSITION.encounter.v1", TEMPLATE_ID),
-    language: codePhrase("ISO_639-1", "en"),
+    archetype_details: archetyped("openEHR-EHR-COMPOSITION.encounter.v1", templateId),
+    language: codePhrase("ISO_639-1", language),
     territory: codePhrase("ISO_3166-1", "GB"),
     category: dvCoded("event", "openehr", "433"),
     composer: { _type: "PARTY_IDENTIFIED", name: "Dr J Brown" },
@@ -425,6 +541,76 @@ function archetyped(archetype: string, templateId?: string): Record<string, unkn
     rm_version: "1.1.0",
   };
 }
+function examSides(state: WorkbenchState): Array<"left" | "right"> {
+  const entry = painForm.examinations?.[0];
+  const sides = (entry?.perSide ?? ["left", "right"]).filter(
+    (side): side is "left" | "right" => side === "left" || side === "right",
+  );
+  return sides.length ? sides : ["left", "right"];
+}
+
+function diagnosisLinks(state: WorkbenchState): FormLink[] {
+  const selected = state.selectedForms?.length ? state.selectedForms : ["ThumbPainSymptom"];
+  const topics = selected.includes("ThumbPainSymptom")
+    ? ["ThumbPainSymptom", ...selected.filter((topic) => topic !== "ThumbPainSymptom")]
+    : selected;
+  const links: FormLink[] = [];
+  const seen = new Set<string>();
+  for (const topic of topics) {
+    const form = topic === "ThumbPainSymptom" ? painForm : formOf(topic);
+    if (!form?.diagnoses) continue;
+    for (const link of form.diagnoses) {
+      if (seen.has(link.item)) continue;
+      seen.add(link.item);
+      links.push(link);
+    }
+  }
+  return links;
+}
+
+function diseaseAnswer(state: WorkbenchState, link: FormLink): FindingForm | undefined {
+  const key = link.preCoordinated ?? link.item;
+  return state.formAnswers?.[key] ?? state.formAnswers?.[link.item];
+}
+
+/** Disease-form values that problem_diagnosis has no element for. */
+function unmappedDiseaseText(answer: FindingForm | undefined): string | null {
+  if (!answer) return null;
+  const bits: string[] = [];
+  if (answer.durationNumber != null && answer.durationNumber > 0) {
+    bits.push(`duration ${answer.durationNumber} ${answer.durationUnit}`);
+  }
+  const progress = answer.choices?.AbsoluteProgress;
+  if (progress) bits.push(`progress ${progress}`);
+  const healing = answer.choices?.AbsoluteHealingCharacter;
+  if (healing) bits.push(healing);
+  return bits.length ? bits.join("; ") : null;
+}
+
+/**
+ * The visit builder used by the page. Examination prose is stored on the
+ * exam cluster. A non-empty plan becomes a Plan section. Symptom and exam
+ * forms that are not selected are left out.
+ */
+export function buildVisit(
+  state: WorkbenchState,
+  narrative: string,
+  language: NoteLanguage = "en",
+): ThumbComposition {
+  const selected = state.selectedForms ?? [];
+  const view: WorkbenchState = {
+    ...state,
+    pain: selected.length && !selected.includes("ThumbPainSymptom") ? emptyFinding() : state.pain,
+    swelling: selected.length && !selected.includes("ThumbSwellingSymptom") ? emptyFinding() : state.swelling,
+    stiffness: selected.length && !selected.includes("ThumbSwellingSymptom") ? null : state.stiffness,
+    consequences: selected.length && !selected.includes("ThumbSwellingSymptom") ? {} : state.consequences,
+    exam: selected.length && !selected.includes("ThumbExam")
+      ? { left: emptyExam(), right: emptyExam() }
+      : state.exam,
+  };
+  return buildThumbEncounter(view, narrative, { clinicalDescription: true, embedDiagnosisText: true, language });
+}
+
 function isoDuration(n: number, unit: string): string {
   const designator: Record<string, string> = {
     second: "PT{n}S", minute: "PT{n}M", hour: "PT{n}H", day: "P{n}D",

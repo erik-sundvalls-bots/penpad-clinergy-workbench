@@ -20,6 +20,7 @@ Checked against the published Clinical Knowledge Manager archetypes on 16 Novemb
 | openEHR-EHR-CLUSTER.range_of_motion.v1 | 1.0.2 | Flexion at0006, extension at0005, abduction at0003, adduction at0004 |
 | openEHR-EHR-CLUSTER.exclusion_exam.v1 | 1.1.2 | "Not examined" as Examination not done = true |
 | openEHR-EHR-CLUSTER.clinergy_descriptor.v0 | local 0.0.1 | Frequency, consistency, texture, pain on movement, duration unit |
+| openEHR-EHR-EVALUATION.recommendation.v2 | 2.0.5 | Optional Plan section. Topic at0006, Recommendation at0002 (required). CKM CID 1013.1.5755, checked 17 November 2026 |
 
 `CLUSTER.exam-hand.v0` and `CLUSTER.exam-finger.v0` are draft (0.0.1-alpha), so the published `CLUSTER.exam.v2` is used and the thumb is named in System or structure examined.
 

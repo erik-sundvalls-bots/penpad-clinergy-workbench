@@ -3,7 +3,8 @@ import { describe, expect, it } from "vitest";
 import expectationsRaw from "../data/expectations.yaml?raw";
 import { knowledge, painForm, swedish } from "../src/knowledge.ts";
 import { demoState, findingsFromState } from "../src/model.ts";
-import { findingsFromParsed, render, renderReport, type Finding } from "../vendor/sentence.ts";
+import { renderSwedishGp } from "../src/sv/gp-sentence.ts";
+import { findingsFromParsed, render, type Finding } from "../vendor/sentence.ts";
 
 const rows = parse(expectationsRaw) as { expected: string; finding: unknown }[];
 
@@ -18,17 +19,17 @@ describe("five known-good English sentences", () => {
 
 describe("Swedish for the same five findings", () => {
   const expected = [
-    "Svullnad av vänster tumme föreligger",
-    "Svullnad av ytterfalang av vänster tumme i 2 veckor, föreligger",
-    "Gradvis debut, måttligt svår svullnad av ytterfalang av vänster tumme i 2 veckor, föreligger",
-    "Smärta i höger tumme",
-    "Måttligt svår smärta i höger tumme",
+    "Svullnad på vänster tumme.",
+    "Svullnad av ytterfalangen på vänster tumme sedan 2 veckor.",
+    "Måttlig svullnad av ytterfalangen på vänster tumme sedan 2 veckor, gradvis debut.",
+    "Smärta i höger tumme.",
+    "Måttlig smärta i höger tumme.",
   ];
   it("matches the five Swedish lines", () => {
     swedish.missing.length = 0;
     const sentences = rows.map((row) => {
       const [finding] = findingsFromParsed(row.finding);
-      return renderReport(finding, knowledge, swedish).sentence;
+      return renderSwedishGp(finding);
     });
     expect(swedish.missing).toEqual([]);
     expect(sentences).toEqual(expected);
