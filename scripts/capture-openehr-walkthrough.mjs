@@ -72,7 +72,7 @@ await shot("zipehr-default-document-view.png", async () => {
 
 await shot("zipehr-quiet-document-view.png", async () => {
   await page.getByRole("tab", { name: "ZipEHR" }).click();
-  await page.locator("#zipehr-css-select").selectOption("zipehr-html5-short-quiet.css");
+  await page.locator("#zipehr-css-select").selectOption("zipehr-html5-quiet-structure.css");
   await page.waitForTimeout(1200);
   const frame = page.frameLocator("#zipehr-document");
   await frame.locator("o-co").waitFor({ timeout: 15_000 });
@@ -80,12 +80,10 @@ await shot("zipehr-quiet-document-view.png", async () => {
 });
 
 await page.getByRole("tab", { name: "ZipEHR" }).click();
-await page.locator("#zipehr-css-select").selectOption("zipehr-html5-short-quiet.css");
+await page.locator("#zipehr-css-select").selectOption("zipehr-html5-quiet-structure.css");
 await page.waitForTimeout(1200);
 const deskFrame = page.frameLocator("#zipehr-document");
-const hoverAnchor = deskFrame
-  .locator('button.zipehr-structure-anchor[aria-label="Structure: History"]')
-  .first();
+const hoverAnchor = deskFrame.locator("button.zipehr-structure-anchor").first();
 await hoverAnchor.waitFor({ timeout: 15_000 });
 await hoverAnchor.scrollIntoViewIfNeeded();
 const box = await hoverAnchor.boundingBox();
@@ -97,7 +95,7 @@ await page.waitForFunction(
     const tip = document
       .querySelector("#zipehr-document")
       ?.contentDocument?.querySelector(
-        'button.zipehr-structure-anchor[aria-label="Structure: History"] .zipehr-structure-tip',
+        "button.zipehr-structure-anchor .zipehr-structure-tip",
       );
     if (!tip) return false;
     const st = tip.ownerDocument.defaultView?.getComputedStyle(tip);
@@ -137,14 +135,12 @@ await mobile.goto(baseUrl, { waitUntil: "networkidle" });
 await mobile.locator("#load-demo").click();
 await mobile.waitForTimeout(800);
 await mobile.getByRole("tab", { name: "ZipEHR" }).click();
-await mobile.locator("#zipehr-css-select").selectOption("zipehr-html5-short-quiet.css");
+await mobile.locator("#zipehr-css-select").selectOption("zipehr-html5-quiet-structure.css");
 await mobile.waitForTimeout(1200);
 const mobPanel = mobile.locator("#openehr-panel");
 await mobPanel.scrollIntoViewIfNeeded();
 const mobFrame = mobile.frameLocator("#zipehr-document");
-const tapAnchor = mobFrame
-  .locator('button.zipehr-structure-anchor[aria-label="Structure: History"]')
-  .first();
+const tapAnchor = mobFrame.locator("button.zipehr-structure-anchor").first();
 await tapAnchor.waitFor({ timeout: 15_000 });
 await tapAnchor.scrollIntoViewIfNeeded();
 await tapAnchor.tap();

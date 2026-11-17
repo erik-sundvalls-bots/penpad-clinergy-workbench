@@ -14,8 +14,6 @@ Ferro-accepted canonical fixtures and the workbench composer use the correct cod
 
 `lookupTemplateRubric()` in `validation/template_validator.ts` scans **all** template term tables and returns the **first** rubric for an `at` code. Archetype-local codes such as `at0003` / `at0004` / `at0024` are reused across archetypes in the same OPT, so a laterality value can be checked against a rubric from problem diagnosis or screening.
 
-## Workbench bundle patch (until PR #322)
+## Status (ehrtslib `afa9901`, PR #322)
 
-While validating inside an `C_ARCHETYPE_ROOT`, the vendored bundle keeps an archetype HRID stack and resolves rubrics from `archetype_term_definitions[activeArchetype]` (then template ontology only), not from unrelated archetype tables.
-
-**Upstream:** contribute the same fix to [ehrtslib PR #322](https://github.com/ErikSundvall/ehrtslib/pull/322) and drop the local patch on rebundle.
+Fixed upstream in `validation/template_validator.ts` (`3025e5e`). The workbench vendored bundle at `afa9901` includes the fix; no local patch at rebuild.

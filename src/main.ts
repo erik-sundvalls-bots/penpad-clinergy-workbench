@@ -30,7 +30,7 @@ import {
   ZIP_CSS_SELECT_OPTIONS,
   buildZipehrPreviewDocument,
   canonicalToZipehrHtml5,
-  mergeZipehrQuietStylesheet,
+  composeQuietStructureCss,
   resolveZipehrCssFile,
   ZIP_DEFAULT_CSS,
   ZIP_QUIET_CSS,
@@ -655,7 +655,7 @@ async function loadZipehrStylesheet(): Promise<string> {
   };
   if (file === ZIP_QUIET_CSS) {
     const [base, quiet] = await Promise.all([fetchCss(ZIP_DEFAULT_CSS), fetchCss(ZIP_QUIET_CSS)]);
-    return mergeZipehrQuietStylesheet(base, quiet);
+    return composeQuietStructureCss(base, quiet);
   }
   return fetchCss(file);
 }

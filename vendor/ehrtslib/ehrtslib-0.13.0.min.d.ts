@@ -10,6 +10,19 @@ export function serializeToHtml5Variant(
 
 export function zipehrHtml5ToCanonical(html: string): unknown;
 
+export const ZIP_QUIET_STRUCTURE_CSS: "zipehr-html5-quiet-structure.css";
+
+export function composeQuietStructureCss(
+  baseCss: string,
+  quietOverridesCss: string,
+): string;
+
+export function buildZipehrPreviewDocument(
+  markup: string,
+  css: string,
+  options?: { quietStructureTooltips?: boolean },
+): string;
+
 export class XmlSerializer {
   constructor(config?: {
     prettyPrint?: boolean;
