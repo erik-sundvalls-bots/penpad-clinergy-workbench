@@ -14,13 +14,38 @@ export const ZIP_EHR_SERIALIZE_OPTIONS = {
 
 export const ZIP_DEFAULT_CSS = "zipehr-html5-short.css";
 
+export const ZIP_QUIET_CSS = "zipehr-html5-short-quiet.css";
+
 export const ZIP_CSS_SELECT_OPTIONS: { value: string; label: string }[] = [
   { value: "default", label: "Default for dialect" },
+  { value: ZIP_QUIET_CSS, label: "Quiet (structure in tooltip)" },
   { value: "zipehr-xhtml.css", label: "zipehr-xhtml.css" },
   { value: "zipehr-html5-short.css", label: "zipehr-html5-short.css" },
   { value: "zipehr-html5-full.css", label: "zipehr-html5-full.css" },
   { value: "zipehr-html5-emoji.css", label: "zipehr-html5-emoji.css" },
 ];
+
+const ZIP_QUIET_STRUCTURE_TAGS = ["o-hi", "o-pe", "o-ie", "o-tr", "o-il", "o-is", "o-ta"];
+
+export const ZIP_QUIET_PREVIEW_SCRIPT = `(() => {
+  const tags = ${JSON.stringify(ZIP_QUIET_STRUCTURE_TAGS)};
+  for (const tag of tags) {
+    for (const el of document.querySelectorAll(tag)) {
+      let label = "";
+      for (const node of el.childNodes) {
+        if (node.nodeType === Node.TEXT_NODE) {
+          const text = (node.textContent || "").trim();
+          if (text) {
+            label = text;
+            break;
+          }
+        }
+      }
+      if (label) el.setAttribute("title", label);
+      el.classList.add("zipehr-struct-quiet");
+    }
+  }
+})();`;
 
 export function resolveZipehrCssFile(selectValue: string): string | null {
   if (selectValue === "none" || selectValue === "custom") return null;
@@ -28,8 +53,15 @@ export function resolveZipehrCssFile(selectValue: string): string | null {
   return selectValue;
 }
 
-export function buildZipehrPreviewDocument(markup: string, css: string): string {
+export function buildZipehrPreviewDocument(
+  markup: string,
+  css: string,
+  options?: { quietStructureTooltips?: boolean },
+): string {
   const body = markup.trim() || "<!-- empty ZipEHR markup -->";
+  const quietScript = options?.quietStructureTooltips
+    ? `<script>${ZIP_QUIET_PREVIEW_SCRIPT}</script>`
+    : "";
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,6 +74,7 @@ ${css}
 </head>
 <body>
 ${body}
+${quietScript}
 </body>
 </html>`;
 }

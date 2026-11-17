@@ -12,3 +12,8 @@ export {
   type Html5Dialect,
   type ZipehrSymbolVariant,
 } from "./serialization/zipehr/mod.ts";
+export { XmlSerializer, XmlDeserializer } from "./serialization/xml/mod.ts";
+export {
+  resolveCdrProfile,
+  type CdrProfile,
+} from "./serialization/simplified/cdr_profiles.ts";

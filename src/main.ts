@@ -19,12 +19,24 @@ import {
   type WorkbenchState,
 } from "./model.ts";
 import { buildThumbEncounter } from "./openehr/compose.ts";
+import {
+  applyEhrFormatTab,
+  downloadBasenameForTab,
+  type EhrFormatTab,
+} from "./openehr/ehr-format-tabs.ts";
+import {
+  canonicalToSimplifiedJson,
+  canonicalToXml,
+  type CdrProfile,
+  type SimplifiedViewFlavour,
+} from "./openehr/serialization-views.ts";
 import { validateComposition } from "./openehr/validate.ts";
 import {
   ZIP_CSS_SELECT_OPTIONS,
   buildZipehrPreviewDocument,
   canonicalToZipehrHtml5,
   resolveZipehrCssFile,
+  ZIP_QUIET_CSS,
   zipehrTextStats,
 } from "./openehr/zipehr.ts";
 import { term } from "./openehr/terms.ts";
@@ -70,9 +82,14 @@ if (!app) throw new Error("missing #app");
 const root: HTMLElement = app;
 
 let state = emptyState();
-let ehrFormatTab: "canonical" | "zipehr" = "canonical";
+let ehrFormatTab: EhrFormatTab = "canonical";
+let simplifiedCdrProfile: CdrProfile = "better";
+let simplifiedFlavour: SimplifiedViewFlavour = "structured";
 let zipehrViewMode: "code" | "document" = "document";
 let zipehrStylesheet = "default";
+let cachedCanonicalJson = "";
+let cachedXml = "";
+let cachedSimplified = "";
 let cachedZipehrHtml = "";
 let cachedZipehrCss = "";
 root.innerHTML = page();
@@ -133,6 +150,8 @@ function page(): string {
           </div>
           <div class="ehr-format-tabs" role="tablist" aria-label="openEHR representation">
             <button type="button" class="ehr-format-tab active" data-ehr-format="canonical" role="tab" aria-selected="true">Canonical JSON</button>
+            <button type="button" class="ehr-format-tab" data-ehr-format="xml" role="tab" aria-selected="false">Canonical XML</button>
+            <button type="button" class="ehr-format-tab" data-ehr-format="simplified" role="tab" aria-selected="false">Simplified</button>
             <button type="button" class="ehr-format-tab" data-ehr-format="zipehr" role="tab" aria-selected="false">ZipEHR</button>
           </div>
           <div id="ehr-canonical-pane">
@@ -142,6 +161,34 @@ function page(): string {
               <span id="ehr-canonical-stats" class="output-stats"></span>
             </div>
             <pre id="ehr" class="json"></pre>
+          </div>
+          <div id="ehr-xml-pane" hidden>
+            <div class="tabs-mini">
+              <button type="button" id="copy-ehr-xml">Copy</button>
+              <button type="button" id="download-ehr-xml">Download</button>
+              <span id="ehr-xml-stats" class="output-stats"></span>
+            </div>
+            <pre id="ehr-xml" class="json xml-output"></pre>
+          </div>
+          <div id="ehr-simplified-pane" hidden>
+            <div id="ehr-simplified-controls" class="ehr-simplified-controls" hidden>
+              <label class="ehr-simplified-label" for="ehr-cdr-profile">CDR dialect:</label>
+              <select id="ehr-cdr-profile" class="ehr-simplified-select" aria-label="CDR vendor dialect for simplified view">
+                <option value="better">Better</option>
+                <option value="ehrbase">EHRbase</option>
+                <option value="ferroehr">FerroEHR</option>
+              </select>
+              <span class="ehr-simplified-label">Format:</span>
+              <button type="button" class="ehr-simplified-flavour active" data-simplified-flavour="structured" aria-pressed="true">Structured</button>
+              <button type="button" class="ehr-simplified-flavour" data-simplified-flavour="flat" aria-pressed="false">Flat</button>
+              <p class="note ehr-simplified-note">View and export only — CDR posting uses Canonical JSON.</p>
+            </div>
+            <div class="tabs-mini">
+              <button type="button" id="copy-ehr-simplified">Copy</button>
+              <button type="button" id="download-ehr-simplified">Download</button>
+              <span id="ehr-simplified-stats" class="output-stats"></span>
+            </div>
+            <pre id="ehr-simplified" class="json"></pre>
           </div>
           <div id="ehr-zipehr-pane" hidden>
             <div class="zipehr-view-tabs" role="tablist" aria-label="ZipEHR view">
@@ -403,12 +450,35 @@ function wire(): void {
       return;
     }
     if (button.id === "copy-ehr") {
-      void navigator.clipboard?.writeText(document.querySelector("#ehr")?.textContent ?? "");
+      void navigator.clipboard?.writeText(cachedCanonicalJson);
       return;
     }
     if (button.id === "download-ehr") {
-      const text = document.querySelector("#ehr")?.textContent ?? "";
-      downloadTextFile("thumb-encounter.canonical.json", text, "application/json");
+      downloadTextFile(
+        downloadBasenameForTab("canonical"),
+        cachedCanonicalJson,
+        "application/json",
+      );
+      return;
+    }
+    if (button.id === "copy-ehr-xml") {
+      void navigator.clipboard?.writeText(cachedXml);
+      return;
+    }
+    if (button.id === "download-ehr-xml") {
+      downloadTextFile(downloadBasenameForTab("xml"), cachedXml, "application/xml");
+      return;
+    }
+    if (button.id === "copy-ehr-simplified") {
+      void navigator.clipboard?.writeText(cachedSimplified);
+      return;
+    }
+    if (button.id === "download-ehr-simplified") {
+      downloadTextFile(
+        downloadBasenameForTab("simplified", simplifiedFlavour),
+        cachedSimplified,
+        "application/json",
+      );
       return;
     }
     if (button.id === "copy-zipehr") {
@@ -419,8 +489,17 @@ function wire(): void {
       downloadTextFile("thumb-encounter.zipehr.html5", cachedZipehrHtml, "text/html");
       return;
     }
-    if (button.dataset.ehrFormat === "canonical" || button.dataset.ehrFormat === "zipehr") {
+    if (
+      button.dataset.ehrFormat === "canonical" ||
+      button.dataset.ehrFormat === "xml" ||
+      button.dataset.ehrFormat === "simplified" ||
+      button.dataset.ehrFormat === "zipehr"
+    ) {
       setEhrFormatTab(button.dataset.ehrFormat);
+      return;
+    }
+    if (button.dataset.simplifiedFlavour === "flat" || button.dataset.simplifiedFlavour === "structured") {
+      setSimplifiedFlavour(button.dataset.simplifiedFlavour);
       return;
     }
     if (button.dataset.zipehrView === "code" || button.dataset.zipehrView === "document") {
@@ -489,6 +568,14 @@ function wire(): void {
       void refreshZipehrDocument();
       return;
     }
+    if (target instanceof HTMLSelectElement && target.id === "ehr-cdr-profile") {
+      const value = target.value;
+      if (value === "better" || value === "ehrbase" || value === "ferroehr") {
+        simplifiedCdrProfile = value;
+        refreshSimplifiedOutput();
+      }
+      return;
+    }
     if (!(target instanceof HTMLSelectElement) || !target.dataset.unit) return;
     const form = target.dataset.unit === "swelling" ? state.swelling : state.pain;
     form.durationUnit = target.value;
@@ -506,18 +593,43 @@ function downloadTextFile(filename: string, text: string, mime: string): void {
   URL.revokeObjectURL(url);
 }
 
-function setEhrFormatTab(tab: "canonical" | "zipehr"): void {
+function setEhrFormatTab(tab: EhrFormatTab): void {
   ehrFormatTab = tab;
-  const canonicalPane = document.querySelector<HTMLElement>("#ehr-canonical-pane");
-  const zipehrPane = document.querySelector<HTMLElement>("#ehr-zipehr-pane");
-  if (canonicalPane) canonicalPane.hidden = tab !== "canonical";
-  if (zipehrPane) zipehrPane.hidden = tab !== "zipehr";
-  for (const button of document.querySelectorAll<HTMLButtonElement>("[data-ehr-format]")) {
-    const on = button.dataset.ehrFormat === tab;
-    button.classList.toggle("active", on);
-    button.setAttribute("aria-selected", on ? "true" : "false");
-  }
+  applyEhrFormatTab(document, tab);
   if (tab === "zipehr") void refreshZipehrDocument();
+}
+
+function setSimplifiedFlavour(flavour: SimplifiedViewFlavour): void {
+  simplifiedFlavour = flavour;
+  for (const button of document.querySelectorAll<HTMLButtonElement>("[data-simplified-flavour]")) {
+    const on = button.dataset.simplifiedFlavour === flavour;
+    button.classList.toggle("active", on);
+    button.setAttribute("aria-pressed", on ? "true" : "false");
+  }
+  refreshSimplifiedOutput();
+}
+
+let canonicalForSimplified: Record<string, unknown> | null = null;
+
+function refreshSimplifiedOutput(): void {
+  if (!canonicalForSimplified) return;
+  try {
+    cachedSimplified = canonicalToSimplifiedJson(
+      canonicalForSimplified,
+      simplifiedCdrProfile,
+      simplifiedFlavour,
+    );
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    cachedSimplified = `/* Simplified serialize failed: ${message} */`;
+  }
+  const pre = document.querySelector("#ehr-simplified");
+  if (pre) pre.textContent = cachedSimplified;
+  const stats = document.querySelector("#ehr-simplified-stats");
+  if (stats) {
+    const lineStats = zipehrTextStats(cachedSimplified);
+    stats.textContent = `${lineStats.characters.toLocaleString()} characters · ${lineStats.lines.toLocaleString()} lines`;
+  }
 }
 
 function setZipehrViewMode(mode: "code" | "document"): void {
@@ -545,10 +657,15 @@ async function loadZipehrStylesheet(): Promise<string> {
 async function refreshZipehrDocument(): Promise<void> {
   const frame = document.querySelector<HTMLIFrameElement>("#zipehr-document");
   if (!frame || !cachedZipehrHtml) return;
+  const cssFile = resolveZipehrCssFile(zipehrStylesheet);
+  const quiet = cssFile === ZIP_QUIET_CSS;
+  frame.sandbox = quiet ? "allow-same-origin allow-scripts" : "allow-same-origin";
   try {
     const css = await loadZipehrStylesheet();
     cachedZipehrCss = css;
-    frame.srcdoc = buildZipehrPreviewDocument(cachedZipehrHtml, css);
+    frame.srcdoc = buildZipehrPreviewDocument(cachedZipehrHtml, css, {
+      quietStructureTooltips: quiet,
+    });
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     frame.srcdoc = buildZipehrPreviewDocument(
@@ -701,10 +818,26 @@ function paintGalen(findings: Finding[]): void {
 
 function paintEhr(_findings: Finding[], english: string[]): void {
   const result = buildThumbEncounter(state, english.join("\n"));
+  canonicalForSimplified = result.canonical;
   const checked = validateComposition(result.canonical);
   const jsonText = JSON.stringify(result.canonical, null, 2);
+  cachedCanonicalJson = jsonText;
   const pre = document.querySelector("#ehr");
   if (pre) pre.textContent = jsonText;
+  try {
+    cachedXml = canonicalToXml(result.canonical);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    cachedXml = `<!-- XML serialize failed: ${message} -->`;
+  }
+  const xmlPre = document.querySelector("#ehr-xml");
+  if (xmlPre) xmlPre.textContent = cachedXml;
+  const xmlStats = document.querySelector("#ehr-xml-stats");
+  if (xmlStats) {
+    const stats = zipehrTextStats(cachedXml);
+    xmlStats.textContent = `${stats.characters.toLocaleString()} characters · ${stats.lines.toLocaleString()} lines`;
+  }
+  refreshSimplifiedOutput();
   const canonicalStats = document.querySelector("#ehr-canonical-stats");
   if (canonicalStats) {
     const stats = zipehrTextStats(jsonText);

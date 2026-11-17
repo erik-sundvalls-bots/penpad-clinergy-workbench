@@ -1,0 +1,31 @@
+/**
+ * ZipEHR html5 short — quiet structural headings (workbench; align with ehrtslib PR #322 when merged).
+ * Based on examples/demo-app/public/zipehr-css/zipehr-html5-short.css from ErikSundvall/ehrtslib.
+ */
+@import url("zipehr-html5-short.css");
+
+/* Collapse clinically meaningless structure wrappers (labels move to native title tooltips via preview script). */
+.zipehr-struct-quiet {
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  max-width: none !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+  color: transparent !important;
+  cursor: help;
+}
+
+.zipehr-struct-quiet > * {
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--zs-ink);
+}
+
+.zipehr-struct-quiet:hover,
+.zipehr-struct-quiet:focus-within {
+  outline: 1px dotted var(--zs-line);
+  outline-offset: 2px;
+}

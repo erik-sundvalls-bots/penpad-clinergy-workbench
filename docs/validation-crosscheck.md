@@ -4,7 +4,7 @@ FerroEHR 5.5.0 accepts the coded OPT and all seven canonical fixtures under `tes
 
 ## Canonical output and validation
 
-The workbench uses ehrtslib 0.13.0. Compositions are built as **canonical RM JSON** in `src/openehr/compose.ts`. The live page validates with `RMSpecificationValidator` and `TemplateValidator` against `templates/thumb-pain.opt`. The **ZipEHR** tab renders the same composition via `serializeToHtml5Variant` (`zipehr.html5/short`) for reading only; CDR posting uses canonical JSON. There is no FLAT derivation, `validateFlatPayload`, or web-template cross-check in this app.
+The workbench uses ehrtslib 0.13.0. Compositions are built as **canonical RM JSON** in `src/openehr/compose.ts`. The live page validates with `RMSpecificationValidator` and `TemplateValidator` against `templates/thumb-pain.opt`. **Canonical XML**, **Simplified** (FLAT/STRUCTURED with `cdrProfile`), and **ZipEHR** tabs are view/export only (`src/openehr/serialization-views.ts`, `src/openehr/zipehr.ts`); CDR posting uses canonical JSON only. The Simplified tab does not run `validateFlatPayload` or post to a CDR.
 
 `RMSpecificationValidator.validate(instance)` walks the composition and checks `TERM_MAPPING.Match_valid` (`=`, `<`, `>`, `?`). `TemplateValidator` runs with invariant checking on. An empty SECTION fails `SECTION.Items_valid`.
 
@@ -12,7 +12,7 @@ The workbench uses ehrtslib 0.13.0. Compositions are built as **canonical RM JSO
 
 **Posting format:** canonical RM JSON only (`npm run post:cdr`).
 
-**Workbench UI:** FLAT is omitted so participants see canonical JSON (for APIs) and ZipEHR html5 (for humans), not a third wire format.
+**Workbench UI:** Simplified FLAT/STRUCTURED is available for inspection and download only (vendor dialect via `cdrProfile`). It is not posted. ZipEHR html5 is for human reading.
 
 **ehrtslib ↔ Ferro FLAT:** ehrtslib’s FLAT serializer and FerroEHR’s read-back exports still disagree on several conventions ([ehrtslib #316](https://github.com/ErikSundvall/ehrtslib/issues/316), [#317](https://github.com/ErikSundvall/ehrtslib/issues/317), [PR 318](https://github.com/ErikSundvall/ehrtslib/pull/318)). That work is in progress; we do **not** claim FerroEHR rejects ehrtslib FLAT in general, and no live FLAT post with the proposed fixed node ids has been tried yet. Canonical JSON from the workbench is RM-valid and matches the Ferro-accepted fixtures; FerroEHR, EHRbase, and Better accept canonical composition POST on openEHR REST.
 
