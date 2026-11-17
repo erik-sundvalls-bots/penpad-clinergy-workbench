@@ -1,6 +1,6 @@
 # PEN&PAD + Clinergy experimental workbench
 
-A static page for hackathon participants. Fill a Clinergy-like thumb pain form in the browser and watch English and Swedish summary sentences, OpenGALEN bindings, and **canonical openEHR JSON** update as you click.
+A static page for hackathon participants. Combine extracted Clinergy forms (thumb pain, swelling, examination, sprain, fracture) into a general-practice encounter and watch English and Swedish summary sentences, including the On Examination block, OpenGALEN bindings, **canonical openEHR JSON**, and a FHIR R4 collection update as you click.
 
 **Live site:** https://erik-sundvalls-bots.github.io/penpad-clinergy-workbench/
 
