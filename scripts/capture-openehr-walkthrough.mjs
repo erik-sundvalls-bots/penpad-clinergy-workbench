@@ -90,7 +90,7 @@ await quiet.evaluate((el) => {
   el.scrollIntoView({ block: "center" });
 });
 await page.waitForTimeout(400);
-await page.locator("#zipehr-document").screenshot({
+await panel.screenshot({
   path: `${outDir}/zipehr-quiet-tooltip-hover.png`,
 });
 console.log(`${outDir}/zipehr-quiet-tooltip-hover.png`);
@@ -112,7 +112,7 @@ await tapTarget.waitFor({ timeout: 15_000 });
 await tapTarget.tap();
 await tapTarget.evaluate((el) => el.classList.add("zipehr-tip-pinned"));
 await mobile.waitForTimeout(400);
-await mobile.locator("#zipehr-document").screenshot({
+await mobPanel.screenshot({
   path: `${outDir}/zipehr-quiet-tooltip-mobile-tap.png`,
 });
 console.log(`${outDir}/zipehr-quiet-tooltip-mobile-tap.png`);
