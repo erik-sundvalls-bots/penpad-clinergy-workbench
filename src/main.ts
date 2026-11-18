@@ -51,7 +51,7 @@ import { validateQuestionnaire, validateQuestionnaireResponse, validateSymptomEx
 import optUrl from "../templates/thumb-pain.opt?url";
 import optPlainUrl from "../templates/thumb-pain-encounter.v2.opt?url";
 import { renderSwedishGp } from "./sv/gp-sentence.ts";
-import { expressionsFor } from "./snomed/expressions.ts";
+import { expressionsFor, UNMAPPED_INFO } from "./snomed/expressions.ts";
 import { render, type Finding } from "../vendor/sentence.ts";
 
 const FEATURE_LABEL: Record<string, string> = {
@@ -960,9 +960,15 @@ function paintSnomed(findings: Finding[]): void {
       ? `<button type="button" data-copy-snomed="${index}">Copy</button>`
       : "";
     const unmapped = row.unmapped.length
-      ? `<ul class="missing snomed-unmapped">${row.unmapped.map((item) =>
-        `<li><code>${escapeText(item.key)}</code> — ${escapeText(item.reason)}</li>`
-      ).join("")}</ul>`
+      ? `<aside class="snomed-info">
+          <span class="snomed-info-icon" aria-hidden="true">ⓘ</span>
+          <div>
+            <ul class="snomed-unmapped">${row.unmapped.map((item) =>
+              `<li><code>${escapeText(item.key)}</code> — ${escapeText(item.reason)}</li>`
+            ).join("")}</ul>
+            <p>${escapeText(UNMAPPED_INFO)}</p>
+          </div>
+        </aside>`
       : `<p class="note">No unmapped parts.</p>`;
     return `<article class="snomed-block">
       <div class="snomed-head"><h3>${title}</h3>${copy}</div>

@@ -17,6 +17,9 @@ export const DESCRIPTOR_ALIASES: Record<string, string> = {
   QuantityDuration: "Duration",
 };
 
+export const UNMAPPED_INFO =
+  "These values likely fit better in an information model such as openEHR or FHIR.";
+
 export interface FindingExpression extends ExpressionResult {
   topic: string;
 }

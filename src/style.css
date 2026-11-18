@@ -322,8 +322,32 @@ pre.snomed-expr {
 }
 
 ul.snomed-unmapped {
-  margin: 6px 0 0;
+  margin: 0 0 6px;
   padding-left: 1.2rem;
+}
+
+.snomed-info {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  margin: 8px 0 0;
+  background: #e8f1fa;
+  border: 1px solid #8aadcc;
+  padding: 8px 10px;
+  font-size: 0.85rem;
+  color: #1d3a54;
+}
+
+.snomed-info-icon {
+  flex: 0 0 auto;
+  color: #1a5f8f;
+  font-size: 1.05rem;
+  line-height: 1.25;
+}
+
+.snomed-info p {
+  margin: 0;
+  line-height: 1.35;
 }
 
 

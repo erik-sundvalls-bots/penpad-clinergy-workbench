@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { painForm, snomedMap } from "../src/knowledge.ts";
 import { demoState, findingsFromState } from "../src/model.ts";
-import { expressionFor, expressionsFor, findingForExpression } from "../src/snomed/expressions.ts";
+import { expressionFor, expressionsFor, findingForExpression, UNMAPPED_INFO } from "../src/snomed/expressions.ts";
 import type { Finding } from "../vendor/sentence.ts";
 import {
   boundConcept,
@@ -154,6 +154,9 @@ describe("the form's demo state", () => {
     expect(results[1].unmapped[0].key).toBe("Duration");
     expect(results[1].unmapped[0].reason).toContain("no duration attribute");
     expect(results[1].unmapped[0].reason).toContain("2 week");
+    expect(UNMAPPED_INFO).toBe(
+      "These values likely fit better in an information model such as openEHR or FHIR.",
+    );
   });
 
   it("maps Clinergy form descriptor keys onto the reviewed map names", () => {
