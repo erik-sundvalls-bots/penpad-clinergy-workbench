@@ -384,14 +384,14 @@
                           "_type": "CLUSTER",
                           "name": {
                             "_type": "DV_TEXT",
-                            "value": "Clinergy descriptor"
+                            "value": "Symptom/sign frequency"
                           },
-                          "archetype_node_id": "openEHR-EHR-CLUSTER.clinergy_descriptor.v0",
+                          "archetype_node_id": "openEHR-EHR-CLUSTER.symptom_sign_frequency.v0",
                           "archetype_details": {
                             "_type": "ARCHETYPED",
                             "archetype_id": {
                               "_type": "ARCHETYPE_ID",
-                              "value": "openEHR-EHR-CLUSTER.clinergy_descriptor.v0"
+                              "value": "openEHR-EHR-CLUSTER.symptom_sign_frequency.v0"
                             },
                             "rm_version": "1.1.0"
                           },
@@ -400,41 +400,7 @@
                               "_type": "ELEMENT",
                               "name": {
                                 "_type": "DV_TEXT",
-                                "value": "Duration unit"
-                              },
-                              "archetype_node_id": "at0005",
-                              "value": {
-                                "_type": "DV_CODED_TEXT",
-                                "value": "day",
-                                "defining_code": {
-                                  "_type": "CODE_PHRASE",
-                                  "terminology_id": {
-                                    "_type": "TERMINOLOGY_ID",
-                                    "value": "Clinergy"
-                                  },
-                                  "code_string": "day"
-                                },
-                                "mappings": [
-                                  {
-                                    "_type": "TERM_MAPPING",
-                                    "match": "=",
-                                    "target": {
-                                      "_type": "CODE_PHRASE",
-                                      "terminology_id": {
-                                        "_type": "TERMINOLOGY_ID",
-                                        "value": "SNOMED-CT"
-                                      },
-                                      "code_string": "258703001"
-                                    }
-                                  }
-                                ]
-                              }
-                            },
-                            {
-                              "_type": "ELEMENT",
-                              "name": {
-                                "_type": "DV_TEXT",
-                                "value": "Frequency"
+                                "value": "Frequency category"
                               },
                               "archetype_node_id": "at0001",
                               "value": {
@@ -444,9 +410,9 @@
                                   "_type": "CODE_PHRASE",
                                   "terminology_id": {
                                     "_type": "TERMINOLOGY_ID",
-                                    "value": "Clinergy"
+                                    "value": "local"
                                   },
-                                  "code_string": "infrequent"
+                                  "code_string": "at0002"
                                 },
                                 "mappings": [
                                   {

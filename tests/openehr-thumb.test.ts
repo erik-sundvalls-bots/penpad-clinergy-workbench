@@ -138,7 +138,7 @@ describe("reviewed terminology file", () => {
     "ThumbSprain", "ThumbJointDislocation", "ThumbFracture", "SubcutaneousInfection", "Whitlow",
     "Paronychia", "Osteoarthritis", "RheumatoidArthritis",
     "TendernessSign", "FlexionSign", "ExtensionSign", "AbductionSign", "AdductionSign",
-    "full", "reduced", "limited", "minimal", "painOnMovement",
+    "full", "reduced", "limited", "fixed", "painOnMovement",
   ];
 
   it("has a reviewed row for every thumb-form value", () => {

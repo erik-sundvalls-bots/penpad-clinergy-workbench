@@ -8,7 +8,7 @@ import { renderSwedishGp } from "../sv/gp-sentence.ts";
 import { emptyExam, emptyFinding, type ExamSide, type FindingForm, type WorkbenchState } from "../model.ts";
 import { term, type Term } from "./terms.ts";
 import { GP_TEMPLATE_ID, TEMPLATE_ID } from "./template.ts";
-import { clinergyCodedText, localCodedText } from "./coded-text.ts";
+import { clinergyCodedText, localCodedText, painOnMovementRubric } from "./coded-text.ts";
 
 export interface CoverageRow {
   key: string;
@@ -38,6 +38,36 @@ const PROGRESS: Record<string, [string, string]> = {
   better: ["at0181", "Improving"],
   same: ["at0182", "Unchanged"],
   worse: ["at0183", "Worsening"],
+};
+const FREQUENCY: Record<string, [string, string]> = {
+  infrequent: ["at0002", "Infrequent"],
+  occasional: ["at0003", "Occasional"],
+  frequent: ["at0004", "Frequent"],
+};
+const CONSISTENCY: Record<string, [string, string]> = {
+  soft: ["at0002", "Soft"],
+  firm: ["at0003", "Firm"],
+  hard: ["at0004", "Hard"],
+  fluctuant: ["at0005", "Fluctuant"],
+};
+const TEXTURE: Record<string, [string, string]> = {
+  smooth: ["at0007", "Smooth"],
+  rough: ["at0008", "Rough"],
+  nodular: ["at0009", "Nodular"],
+  irregular: ["at0010", "Irregular"],
+};
+const RANGE_QUAL: Record<string, [string, string]> = {
+  full: ["at0.2", "Full"],
+  reduced: ["at0.3", "Reduced"],
+  limited: ["at0.4", "Limited"],
+  minimal: ["at0.5", "Minimal"],
+  fixed: ["at0.6", "Fixed"],
+};
+const PAIN_ON_MOVEMENT: Record<string, [string, string]> = {
+  absence: ["at0.8", "No pain"],
+  mild: ["at0.9", "Mild pain"],
+  moderate: ["at0.10", "Moderate pain"],
+  severe: ["at0.11", "Severe pain"],
 };
 /** Local codes on CLUSTER.range_of_motion.v1 (revision 1.0.2) Movement at0002. */
 const MOVEMENT: Record<string, [string, string]> = {
@@ -206,11 +236,8 @@ function symptomCluster(
     const iso = isoDuration(form.durationNumber, form.durationUnit);
     items.push(element("at0028", rmLabel(language, "Episode duration", "Episodlängd"), { _type: "DV_DURATION", value: iso }));
     touch(form.durationUnit);
-    items.push(descriptorCluster({ duration_unit: form.durationUnit, ...descriptorValues(form) }, touch, language));
-  } else {
-    const extra = descriptorValues(form);
-    if (Object.keys(extra).length) items.push(descriptorCluster(extra, touch, language));
   }
+  items.push(...specificDetailClusters(form, touch, language));
   const severity = form.choices.AbsoluteSeverity;
   if (severity && SEVERITY[severity]) {
     const [code, text] = SEVERITY[severity];
@@ -233,35 +260,62 @@ function symptomCluster(
   return cluster("openEHR-EHR-CLUSTER.symptom_sign.v2", wrapper, items);
 }
 
-function descriptorValues(form: WorkbenchState["pain"]): Record<string, string> {
-  const out: Record<string, string> = {};
-  if (form.choices.AbsoluteFrequency) out.frequency = form.choices.AbsoluteFrequency;
-  if (form.choices.AbsoluteConsistency) out.consistency = form.choices.AbsoluteConsistency;
-  if (form.choices.AbsoluteTexture) out.texture = form.choices.AbsoluteTexture;
-  return out;
-}
-
-function descriptorCluster(
-  values: Record<string, string>,
+function specificDetailClusters(
+  form: FindingForm,
   touch: (key: string) => void,
-  language: NoteLanguage = "en",
-): Record<string, unknown> {
-  const node: Record<string, [string, string]> = {
-    frequency: ["at0001", "Frequency"],
-    consistency: ["at0002", "Consistency"],
-    texture: ["at0003", "Texture"],
-    duration_unit: ["at0005", "Duration unit"],
-    pain_on_movement: ["at0004", "Pain on movement"],
-  };
-  const items = Object.entries(values).filter(([, value]) => value).map(([slot, value]) => {
-    const [at, label] = node[slot];
-    return element(at, label, writeCoded(value, touch, language));
-  });
-  return cluster(
-    "openEHR-EHR-CLUSTER.clinergy_descriptor.v0",
-    language === "sv" ? "Clinergy-beskrivning" : "Clinergy descriptor",
-    items,
-  );
+  language: NoteLanguage,
+): Record<string, unknown>[] {
+  const out: Record<string, unknown>[] = [];
+  const frequency = form.choices.AbsoluteFrequency;
+  if (frequency && FREQUENCY[frequency]) {
+    const [code, text] = FREQUENCY[frequency];
+    out.push(
+      cluster(
+        "openEHR-EHR-CLUSTER.symptom_sign_frequency.v0",
+        rmLabel(language, "Symptom/sign frequency", "Frekvens för symtom/tecken"),
+        [
+          element(
+            "at0001",
+            rmLabel(language, "Frequency category", "Frekvenskategori"),
+            writeLocal(code, text, frequency, touch, language),
+          ),
+        ],
+      ),
+    );
+  }
+  const consistency = form.choices.AbsoluteConsistency;
+  const texture = form.choices.AbsoluteTexture;
+  const palpItems: Record<string, unknown>[] = [];
+  if (consistency && CONSISTENCY[consistency]) {
+    const [code, text] = CONSISTENCY[consistency];
+    palpItems.push(
+      element(
+        "at0001",
+        rmLabel(language, "Consistency", "Konsistens"),
+        writeLocal(code, text, consistency, touch, language),
+      ),
+    );
+  }
+  if (texture && TEXTURE[texture]) {
+    const [code, text] = TEXTURE[texture];
+    palpItems.push(
+      element(
+        "at0006",
+        rmLabel(language, "Surface texture", "Ytstruktur"),
+        writeLocal(code, text, texture, touch, language),
+      ),
+    );
+  }
+  if (palpItems.length) {
+    out.push(
+      cluster(
+        "openEHR-EHR-CLUSTER.palpation_characteristics.v0",
+        rmLabel(language, "Palpation characteristics", "Palpationsfynd"),
+        palpItems,
+      ),
+    );
+  }
+  return out;
 }
 
 function locationCluster(
@@ -357,18 +411,31 @@ function examObservation(
     const moveItems: Record<string, unknown>[] = [
       element("at0002", rmLabel(language, "Movement", "Rörelse"), writeLocal(coded[0], coded[1], sign, touch, language)),
     ];
-    if (range) {
+    if (range && RANGE_QUAL[range]) {
+      const [code, text] = RANGE_QUAL[range];
       moveItems.push(
-        element("at0035", rmLabel(language, "Clinical interpretation", "Klinisk tolkning"), writeCoded(range, touch, language)),
+        element(
+          "at0.1",
+          rmLabel(language, "Qualitative range", "Kvalitativt rörelseomfång"),
+          writeLocal(code, text, range, touch, language),
+        ),
       );
     }
-    if (pain) {
-      moveItems.push(descriptorCluster({ pain_on_movement: pain === "absence" ? "absence" : pain }, touch, language));
+    if (pain && PAIN_ON_MOVEMENT[pain]) {
+      const [code, text] = PAIN_ON_MOVEMENT[pain];
+      const rubric = painOnMovementRubric(pain, text, language);
+      moveItems.push(
+        element(
+          "at0.7",
+          rmLabel(language, "Pain on movement", "Smärta vid rörelse"),
+          writeLocal(code, rubric, `romPain:${pain}`, touch, language),
+        ),
+      );
     }
     items.push(
       cluster(
-        "openEHR-EHR-CLUSTER.range_of_motion.v1",
-        rmLabel(language, "Range of motion of a joint", "Ledrörelse"),
+        "openEHR-EHR-CLUSTER.range_of_motion-qualitative.v0",
+        rmLabel(language, "Qualitative range of motion of a joint", "Kvalitativ rörelseomfång för led"),
         moveItems,
       ),
     );
@@ -498,7 +565,7 @@ function writeLocal(
   language: NoteLanguage = "en",
 ): Record<string, unknown> {
   touch(key);
-  const rubric = localCodedText(at, text, language);
+  const rubric = localCodedText(at, text, language, key);
   return dvCoded(rubric, "local", at, mappingList(term(key)));
 }
 
@@ -713,5 +780,7 @@ function isoDuration(n: number, unit: string): string {
     second: "PT{n}S", minute: "PT{n}M", hour: "PT{n}H", day: "P{n}D",
     week: "P{n}W", month: "P{n}M", year: "P{n}Y",
   };
-  return (designator[unit] ?? "P{n}D").replace("{n}", String(n));
+  const pattern = designator[unit];
+  if (!pattern) throw new Error(`Unknown duration unit: ${unit}`);
+  return pattern.replace("{n}", String(n));
 }

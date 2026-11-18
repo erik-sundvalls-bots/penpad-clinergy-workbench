@@ -364,7 +364,7 @@ examination:
     full: full
     reduced: nedsatt
     limited: begränsad
-    minimal: minimal
+    fixed: fixerad
   # Degree + smärtsam. smärtsam is the en-form (flexion/extension/abduktion
   # are en-words). lätt / måttligt / kraftigt are the degree words.
   pain:

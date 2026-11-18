@@ -64,7 +64,7 @@ describe("general practice visit", () => {
     expect(coded).toContain("flexion full range, mildly painful");
     expect(coded).toContain("right thumb");
     expect(coded).toContain("openEHR-EHR-OBSERVATION.exam.v1");
-    expect(coded).toContain("openEHR-EHR-CLUSTER.range_of_motion.v1");
+    expect(coded).toContain("openEHR-EHR-CLUSTER.range_of_motion-qualitative.v0");
     expect(coded).toContain("openEHR-EHR-EVALUATION.problem_diagnosis.v1");
     expect(coded).not.toMatch(/openEHR-EHR-EVALUATION\.recommendation/);
     await assertValid(built.canonical, "gp visit");

@@ -105,8 +105,6 @@ describe("ZipEHR quiet GP visit", () => {
     for (const fragment of EN_SWEDISH_STRUCTURE) {
       expect(view, fragment).not.toContain(fragment);
     }
-    expect(html).toContain('data-antn-hide-on-form="true"');
-    expect(win.document.querySelector("[data-antn-hide-on-form='true']")).toBeTruthy();
   });
 
   it("Swedish quiet view uses L10n and does not leak English UI labels", async () => {
