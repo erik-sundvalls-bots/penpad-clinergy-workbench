@@ -23,7 +23,7 @@ await page.waitForTimeout(400);
 await page.locator('[data-group="diagnosis"][data-item="ThumbFracture"][data-value="possible"]').click();
 await page.waitForTimeout(400);
 await page.locator(".form-grid").screenshot({ path: join(outDir, "hackathon-fracture-possible-form.png") });
-await page.locator("aside").screenshot({ path: join(outDir, "hackathon-notes-en-sv-gp.png") });
+await page.locator(".layout > aside").screenshot({ path: join(outDir, "hackathon-notes-en-sv-gp.png") });
 
 await page.locator('[data-group="diagnosis"][data-item="ThumbFracture"][data-value="excluded"]').click();
 await page.waitForTimeout(300);
