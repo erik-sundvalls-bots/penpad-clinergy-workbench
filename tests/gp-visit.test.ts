@@ -207,6 +207,8 @@ describe("Swedish GP visit note", () => {
     expect(story).not.toContain("Status");
     expect(story).not.toContain("Tumstukning");
     const coded = JSON.stringify(built.canonical);
+    expect(coded).toContain('"value":"ytterfalang"');
+    expect(coded).not.toContain("Ytterfalang av tummen");
     expect(coded).toContain("Höger tumled: flexion full rörlighet, lätt smärtsam");
     expect(coded).toContain("Stukning av höger tumme.");
     expect(coded).toContain("Återbesök om en vecka om smärtan i höger tumme inte är bättre.");

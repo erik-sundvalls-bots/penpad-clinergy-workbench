@@ -4,7 +4,7 @@ import { term } from "./terms.ts";
 
 const CLINERGY_SV: Record<string, string> = {
   Thumb: "Tumme",
-  distalPhalanx: "Ytterfalang av tummen",
+  distalPhalanx: "ytterfalang",
   ThumbPainSymptom: "Smärta i tumme",
   ThumbSwellingSymptom: "Svullnad av tumme",
   ThumbSprain: "Stukning av tumme",

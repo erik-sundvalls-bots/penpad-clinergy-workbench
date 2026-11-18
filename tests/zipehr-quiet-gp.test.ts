@@ -119,6 +119,8 @@ describe("ZipEHR quiet GP visit", () => {
     expect(view).toContain("Status");
     expect(view).not.toContain("Physical examination findings");
     expect(view).toContain("2 veckor");
+    expect(view).toContain("ytterfalang");
+    expect(view).not.toContain("Ytterfalang av tummen");
     const header = quietCompositionHeaderText(html, "sv");
     expect(header).toContain("Besök Dr J Brown");
     expect(header).not.toMatch(/Möte händelse/i);
