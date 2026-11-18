@@ -460,3 +460,8 @@ dialog .actions { padding: 0 10px 10px; }
   :root { font-size: 18px; }
   .wrap { width: min(1360px, calc(100% - 32px)); }
 }
+
+#fhir-errors, #ehr-errors {
+  white-space: pre-wrap;
+}
+#fhir, #ehr { max-height: 28rem; overflow: auto; }

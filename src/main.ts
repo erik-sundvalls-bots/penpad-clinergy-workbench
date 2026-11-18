@@ -45,6 +45,9 @@ import {
 } from "./openehr/zipehr.ts";
 import { term } from "./openehr/terms.ts";
 import gpOptUrl from "../templates/gp-encounter.opt?url";
+import { buildQuestionnaireExport } from "./fhir/questionnaire.ts";
+import { buildSymptomExport } from "./fhir/symptoms.ts";
+import { validateQuestionnaire, validateQuestionnaireResponse, validateSymptomExport } from "./fhir/validate.ts";
 import optUrl from "../templates/thumb-pain.opt?url";
 import optPlainUrl from "../templates/thumb-pain-encounter.v2.opt?url";
 import { renderSwedishGp } from "./sv/gp-sentence.ts";
@@ -99,6 +102,10 @@ let cachedSimplified = "";
 let cachedZipehrHtml = "";
 let cachedZipehrCss = "";
 let canonicalForSimplified: Record<string, unknown> | null = null;
+let fhirTab: "bundle" | "questionnaire" | "response" | "symptoms" = "bundle";
+let fhirJson = "";
+let fhirCanonical: Record<string, unknown> | null = null;
+let fhirNarrative = "";
 root.innerHTML = page();
 wire();
 paint();
@@ -229,11 +236,16 @@ function page(): string {
         </section>
         <section class="panel" id="fhir-panel">
           <h2>FHIR</h2>
-          <p class="note">R4 collection for the same visit. Examination findings are Observations in category exam. Posting to a CDR still uses canonical openEHR JSON.</p>
+          <p class="note">The Visit bundle is an R4 collection for the same visit; examination findings are Observations in category exam. Posting to a CDR still uses canonical openEHR JSON. The thumb-form exports are generated at runtime from the approved public thumb-pain extract: <a href="https://github.com/erik-sundvalls-bots/clinergy-extractor/issues/7">Questionnaire / QuestionnaireResponse (extractor #7)</a>, SDC-style, and <a href="https://github.com/erik-sundvalls-bots/clinergy-extractor/issues/8">Symptom Logical Model (extractor #8)</a>. Codes are only written when the mapping is verified; gaps are listed with the Symptoms export.</p>
           <div class="tabs-mini">
+            <button type="button" id="tab-fhir-bundle" aria-pressed="true">Visit bundle</button>
+            <button type="button" id="tab-fhir-q" aria-pressed="false">Questionnaire</button>
+            <button type="button" id="tab-fhir-qr" aria-pressed="false">Response</button>
+            <button type="button" id="tab-fhir-symptom" aria-pressed="false">Symptoms IG</button>
             <button type="button" id="copy-fhir">Copy</button>
             <button type="button" id="download-fhir">Download</button>
           </div>
+          <p id="fhir-badge" class="note"></p>
           <pre id="fhir" class="json"></pre>
           <p id="fhir-errors" class="missing"></p>
         </section>
@@ -430,7 +442,8 @@ function about(): string {
     <h2>About</h2>
     <p>This is an experimental workbench for hackathon participants. It is part of the <a href="https://pen-pad-revival.github.io">PEN&amp;PAD revival</a>. The form follows the 1998 Clinergy thumb pain demo, screen by screen, as written up at <a href="https://pen-pad-revival.github.io/docs/clinergy-thumb-pain-demo/">the public walkthrough</a>. The sentence generator is vendored from <a href="https://github.com/erik-sundvalls-bots/clinergy-extractor">clinergy-extractor</a> main. The openEHR encounter is built in this page and checked with <a href="https://github.com/ErikSundvall/ehrtslib">ehrtslib</a>. Examination findings are a separate On Examination block, as in the 1998 summary.</p>
     <p>Clinergy content is © 1997-8 Semantic Technologies Ltd / Victoria University of Manchester. Only a small extract (the thumb pain, swelling, sign and diagnosis forms, the sentence rules those forms need, and the terminology bindings) is included, and only for demonstration.</p>
-    <p>OpenGALEN names link to the <a href="https://erik-sundvalls-bots.github.io/opengalen-browser/">OpenGALEN browser</a> (<code>#concept=Name</code>). SNOMED CT codes link to the public browser. Swedish wording is ours and has not had a native-speaker review. The English summary is the only narrative stored in the composition.</p>
+    <p>OpenGALEN names link to the <a href="https://erik-sundvalls-bots.github.io/opengalen-browser/">OpenGALEN browser</a> (<code>#concept=Name</code>). SNOMED CT codes link to the public browser. Swedish wording is ours and has not had a native-speaker review. The English summary is the only narrative stored in the composition, and it is also the QuestionnaireResponse narrative and the Symptom Logical Model <code>symptomDescription</code>.</p>
+    <p>The FHIR panel exports the whole visit as an R4 collection Bundle, a FHIR R4 Questionnaire and a live QuestionnaireResponse for the published thumb form (<a href="https://github.com/erik-sundvalls-bots/clinergy-extractor/issues/7">clinergy-extractor #7</a>), and a <a href="https://build.fhir.org/ig/HL7/fhir-symptoms-ig/en/StructureDefinition-SymptomLogicalModel.html">Symptoms IG Symptom Logical Model</a> instance for the current finding (<a href="https://github.com/erik-sundvalls-bots/clinergy-extractor/issues/8">#8</a>). Unmapped elements are listed rather than guessed. These are shape-checked in the page; they are not sent to a FHIR server.</p>
   </section>`;
 }
 
@@ -456,14 +469,6 @@ function wire(): void {
         ? state.selectedForms.filter((topic) => topic !== id)
         : [...state.selectedForms, id];
       paint();
-      return;
-    }
-    if (button.id === "copy-fhir") {
-      void navigator.clipboard?.writeText(document.querySelector("#fhir")?.textContent ?? "");
-      return;
-    }
-    if (button.id === "download-fhir") {
-      downloadTextFile("gp-visit.fhir.json", document.querySelector("#fhir")?.textContent ?? "", "application/json");
       return;
     }
     if (button.id === "reset") {
@@ -560,6 +565,32 @@ function wire(): void {
     }
     if (button.dataset.zipehrView === "code" || button.dataset.zipehrView === "document") {
       setZipehrViewMode(button.dataset.zipehrView);
+      return;
+    }
+    if (button.id === "tab-fhir-bundle" || button.id === "tab-fhir-q" || button.id === "tab-fhir-qr" || button.id === "tab-fhir-symptom") {
+      fhirTab = button.id === "tab-fhir-bundle" ? "bundle"
+        : button.id === "tab-fhir-q" ? "questionnaire"
+        : button.id === "tab-fhir-qr" ? "response"
+        : "symptoms";
+      if (fhirCanonical) paintFhir(fhirCanonical, fhirNarrative);
+      return;
+    }
+    if (button.id === "copy-fhir") {
+      void navigator.clipboard?.writeText(fhirJson);
+      return;
+    }
+    if (button.id === "download-fhir") {
+      const name = fhirTab === "bundle" ? "gp-visit.fhir.json"
+        : fhirTab === "questionnaire" ? "thumb-pain-questionnaire.json"
+        : fhirTab === "response" ? "thumb-pain-questionnaireresponse.json"
+        : "thumb-pain-symptom-logical-model.json";
+      const blob = new Blob([fhirJson], { type: "application/fhir+json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = name;
+      a.click();
+      URL.revokeObjectURL(url);
       return;
     }
     if (button.dataset.spin && button.dataset.dir) {
@@ -937,7 +968,8 @@ function isAssessmentTopic(topic: string): boolean {
 }
 
 function paintEhr(findings: Finding[], _english: string[]): void {
-  const result = buildVisit(state, historyNarrative(findings));
+  const narrative = historyNarrative(findings);
+  const result = buildVisit(state, narrative);
   canonicalForSimplified = result.canonical;
   const checked = validateComposition(result.canonical);
   const jsonText = JSON.stringify(result.canonical, null, 2);
@@ -961,7 +993,7 @@ function paintEhr(findings: Finding[], _english: string[]): void {
     const lines = checked.errors.concat(checked.warnings).map((issue) => `${issue.severity}: ${issue.path} — ${issue.message}`);
     errors.textContent = lines.join("\n");
   }
-  paintFhir(result.canonical);
+  paintFhir(result.canonical, narrative);
   void (async () => {
     try {
       const { canonicalToXml } = await import("./openehr/serialization-views.ts");
@@ -994,21 +1026,62 @@ function paintEhr(findings: Finding[], _english: string[]): void {
   })();
 }
 
+function paintFhir(canonical: Record<string, unknown>, narrative: string): void {
+  fhirCanonical = canonical;
+  fhirNarrative = narrative;
+  document.querySelector("#tab-fhir-bundle")?.setAttribute("aria-pressed", fhirTab === "bundle" ? "true" : "false");
+  if (fhirTab === "bundle") {
+    const bundle = buildFhirBundle(state, canonical);
+    const issues = validateFhirBundle(bundle);
+    fhirJson = JSON.stringify(bundle, null, 2);
+    const pre = document.querySelector("#fhir");
+    if (pre) pre.textContent = fhirJson;
+    for (const id of ["#tab-fhir-q", "#tab-fhir-qr", "#tab-fhir-symptom"]) {
+      document.querySelector(id)?.setAttribute("aria-pressed", "false");
+    }
+    const badge = document.querySelector("#fhir-badge");
+    if (badge) badge.textContent = issues.length ? `Visit bundle: shape errors (${issues.length})` : "Visit bundle: shape ok";
+    const errors = document.querySelector("#fhir-errors");
+    if (errors) errors.textContent = issues.map((issue) => `${issue.path}: ${issue.message}`).join("\n");
+    return;
+  }
+  const built = buildQuestionnaireExport(state, narrative);
+  const symptoms = buildSymptomExport(state, narrative);
+  const qCheck = validateQuestionnaire(built.questionnaire);
+  const rCheck = validateQuestionnaireResponse(built.response, built.questionnaire);
+  const sCheck = validateSymptomExport(symptoms);
+  const doc = fhirTab === "questionnaire" ? built.questionnaire
+    : fhirTab === "response" ? built.response
+    : symptoms;
+  fhirJson = JSON.stringify(doc, null, 2);
+  const pre = document.querySelector("#fhir");
+  if (pre) pre.textContent = fhirJson;
+  document.querySelector("#tab-fhir-q")?.setAttribute("aria-pressed", fhirTab === "questionnaire" ? "true" : "false");
+  document.querySelector("#tab-fhir-qr")?.setAttribute("aria-pressed", fhirTab === "response" ? "true" : "false");
+  document.querySelector("#tab-fhir-symptom")?.setAttribute("aria-pressed", fhirTab === "symptoms" ? "true" : "false");
+  const check = fhirTab === "questionnaire" ? qCheck : fhirTab === "response" ? rCheck : sCheck;
+  const badge = document.querySelector("#fhir-badge");
+  if (badge) {
+    const label = fhirTab === "questionnaire" ? "Questionnaire" : fhirTab === "response" ? "QuestionnaireResponse" : "Symptom Logical Model";
+    badge.textContent = check.valid
+      ? `${label}: shape ok (${check.warnings.length} warnings)`
+      : `${label}: shape errors (${check.errors.length})`;
+  }
+  const errors = document.querySelector("#fhir-errors");
+  if (errors) {
+    const extra = fhirTab === "symptoms" && symptoms.gaps.length
+      ? symptoms.gaps.map((gap) => `gap: ${gap.path} — ${gap.reason}`)
+      : [];
+    const lines = check.errors.concat(check.warnings).map((issue) => `${issue.path} — ${issue.message}`).concat(extra);
+    errors.textContent = lines.join("\n");
+  }
+}
+
 function paintExam(): void {
   const host = document.querySelector("#exam-list");
   if (!host) return;
   const block = onExamination(state);
   host.textContent = block || "Nothing selected.";
-}
-
-function paintFhir(canonical: Record<string, unknown>): void {
-  const bundle = buildFhirBundle(state, canonical);
-  const issues = validateFhirBundle(bundle);
-  const text = JSON.stringify(bundle, null, 2);
-  const pre = document.querySelector("#fhir");
-  if (pre) pre.textContent = text;
-  const errors = document.querySelector("#fhir-errors");
-  if (errors) errors.textContent = issues.map((issue) => `${issue.path}: ${issue.message}`).join("\n");
 }
 
 function buttonLabel(value: string): string {
