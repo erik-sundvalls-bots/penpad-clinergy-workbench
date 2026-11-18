@@ -1,7 +1,6 @@
 import "./style.css";
 import handUrl from "../data/Mus_hand.png";
 import { onExamination } from "./exam/prose.ts";
-import { localizePlan } from "./exam/phrases.ts";
 import { buildFhirBundle } from "./fhir/bundle.ts";
 import { validateFhirBundle } from "./fhir/validate.ts";
 import { formOf, visitPicks } from "./forms/catalog.ts";
@@ -60,6 +59,7 @@ import optPlainUrl from "../templates/thumb-pain-encounter.v2.opt?url";
 import { renderSwedishGp } from "./sv/gp-sentence.ts";
 import { expressionsFor, UNMAPPED_INFO } from "./snomed/expressions.ts";
 import { render, type Finding } from "../vendor/sentence.ts";
+import { examMoreFilled, painMoreLayerFilled, swellingMoreFilled } from "./form-fill.ts";
 import { historyNarrativeText, summaryLines } from "./summary.ts";
 
 const FEATURE_LABEL: Record<string, string> = {
@@ -907,6 +907,9 @@ function paint(): void {
   const moreButton = document.querySelector<HTMLButtonElement>("#pain-more");
   if (more) more.hidden = !state.painMore;
   if (moreButton) moreButton.setAttribute("aria-expanded", state.painMore ? "true" : "false");
+  if (moreButton) moreButton.setAttribute("aria-pressed", painMoreLayerFilled(state) ? "true" : "false");
+  const swellingMore = document.querySelector<HTMLButtonElement>("#open-swelling");
+  if (swellingMore) swellingMore.setAttribute("aria-pressed", swellingMoreFilled(state) ? "true" : "false");
   paintPressed();
   paintDurations();
   paintOutputs();
@@ -916,6 +919,10 @@ function paintPressed(): void {
   document.querySelectorAll<HTMLButtonElement>(".choice[data-group]").forEach((button) => {
     button.setAttribute("aria-pressed", pressed(button) ? "true" : "false");
   });
+  for (const side of ["left", "right"] as const) {
+    const opener = document.querySelector<HTMLButtonElement>(`[data-exam-open="${side}"]`);
+    if (opener) opener.setAttribute("aria-pressed", examMoreFilled(examSide(side)) ? "true" : "false");
+  }
   const title = document.querySelector("#exam-title");
   if (title && state.examOpen) title.textContent = `More on ${state.examOpen === "left" ? "Left" : "Right"} thumb`;
 }
@@ -998,13 +1005,15 @@ function currentFindings(): Finding[] {
 
 function englishNote(lines: string[]): string {
   const exam = onExamination(state, "en");
-  return [lines.join("\n"), exam].filter((part) => part.length > 0).join("\n\n");
+  const comment = state.comment.trim();
+  const parts = [lines.join("\n"), exam];
+  if (comment) parts.push(`Comment: ${comment}`);
+  return parts.filter((part) => part.length > 0).join("\n\n");
 }
 
 function swedishNote(lines: string[]): string {
   const exam = onExamination(state, "sv");
-  const plan = localizePlan(state.plan, "sv");
-  return [lines.join("\n"), exam, plan].filter((part) => part.length > 0).join("\n\n");
+  return [lines.join("\n"), exam].filter((part) => part.length > 0).join("\n\n");
 }
 
 function englishText(): string {

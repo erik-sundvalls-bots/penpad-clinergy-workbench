@@ -376,5 +376,3 @@ examination:
     TendernessSign:
       presence: ömhet föreligger
       absence: ömhet frånvarande
-  plans:
-    "Review the right thumb in one week if the pain is no better.": "Återbesök om en vecka om smärtan i höger tumme inte är bättre."

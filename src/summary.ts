@@ -18,6 +18,22 @@ export function formatEnglishSummaryLine(line: string): string {
   return /[.!?]$/.test(trimmed) ? trimmed : `${trimmed}.`;
 }
 
+/** English summary line from one finding (sentence generator + absence polish). */
+export function renderEnglishFinding(finding: Finding): string {
+  const line = formatEnglishSummaryLine(render(finding, knowledge));
+  if (finding.summary !== "absence") return line;
+  if (finding.topic === "ThumbPainSymptom") {
+    return line.replace(/^Absent pain in /i, "No pain in ");
+  }
+  if (finding.topic === "ThumbSwellingSymptom") {
+    return line.replace(/^Absent swelling of /i, "No swelling of ");
+  }
+  if (finding.topic === "JointStiffnessSymptom") {
+    return line.replace(/^Absent /i, "No ");
+  }
+  return line;
+}
+
 export function historyFindings(findings: Finding[]): Finding[] {
   return findings.filter((finding) => !isAssessmentTopic(finding.topic));
 }
@@ -30,10 +46,10 @@ export function historyNarrativeText(
   if (language === "sv") {
     return history.map((finding) => renderSwedishGp(finding)).join("\n");
   }
-  return history.map((finding) => formatEnglishSummaryLine(render(finding, knowledge))).join("\n");
+  return history.map((finding) => renderEnglishFinding(finding)).join("\n");
 }
 
 export function summaryLines(findings: Finding[], language: NoteLanguage = "en"): string[] {
   if (language === "sv") return findings.map((finding) => renderSwedishGp(finding));
-  return findings.map((finding) => formatEnglishSummaryLine(render(finding, knowledge)));
+  return findings.map((finding) => renderEnglishFinding(finding));
 }

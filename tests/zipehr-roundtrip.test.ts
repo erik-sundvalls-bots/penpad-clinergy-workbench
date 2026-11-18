@@ -10,7 +10,9 @@ describe("ZipEHR html5.short (demo options)", () => {
       const html = await canonicalToZipehrHtml5(built.canonical);
       expect(html.length, "ZipEHR markup should not be empty").toBeGreaterThan(80);
       expect(html, "ZipEHR html5 short root tag").toMatch(/<o-co[\s>]/);
-      expect(html).toContain("thumb-pain-encounter.v2");
+      const templateId = (built.canonical.archetype_details as { template_id?: { value?: string } })
+        ?.template_id?.value;
+      expect(html).toContain(templateId ?? "thumb-pain-encounter.v2");
       const roundTrip = zipehrHtml5ToCanonicalRecord(html);
       expect(roundTrip).toEqual(built.canonical);
     });

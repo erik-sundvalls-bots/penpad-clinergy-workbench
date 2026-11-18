@@ -98,7 +98,50 @@ function sectionItems(canonical: Record<string, unknown>, name: string): Record<
   return Array.isArray(section?.items) ? section.items as Record<string, unknown>[] : [];
 }
 
-function examObservationResource(examined: SideExamination, encounterId: string): Record<string, unknown> {
+const ABSENT_SNOMED = "2667000";
+
+function screeningObservations(
+  historyItems: Record<string, unknown>[],
+  encounterId: string,
+): Record<string, unknown>[] {
+  const resources: Record<string, unknown>[] = [];
+  let index = 0;
+  for (const entry of historyItems) {
+    if (entry.archetype_node_id !== "openEHR-EHR-OBSERVATION.symptom_sign_screening.v1") continue;
+    const data = entry.data as { events?: { data?: { items?: Record<string, unknown>[] } }[] };
+    const clusters = data.events?.[0]?.data?.items ?? [];
+    for (const cluster of clusters) {
+      if ((cluster as { _type?: string })._type !== "CLUSTER") continue;
+      const hits: CodedHit[] = [];
+      walkCoded(cluster, hits);
+      const name = hits.find((hit) => hit.code.endsWith("Symptom") || hit.code.startsWith("Conseq"));
+      const absent = hits.some((hit) => hit.code === "at0024");
+      if (!name || !absent) continue;
+      index += 1;
+      resources.push({
+        resourceType: "Observation",
+        id: `screening-${index}`,
+        status: "final",
+        code: codeable(name.code, name.text),
+        ...bodySiteFrom(hits),
+        subject: { reference: `Patient/${DEMO_PATIENT_ID}` },
+        encounter: { reference: `Encounter/${encounterId}` },
+        effectiveDateTime: TIME,
+        valueCodeableConcept: {
+          coding: [{ system: SNOMED, code: ABSENT_SNOMED, display: "Absent" }],
+          text: "Absent",
+        },
+      });
+    }
+  }
+  return resources;
+}
+
+function examObservationResource(
+  examined: SideExamination,
+  encounterId: string,
+  supplementalNote?: string,
+): Record<string, unknown> {
   const site = snomedOf(examined.siteKey);
   const sideLabel = examined.side === "left" ? "Left" : "Right";
   const components: Record<string, unknown>[] = [];
@@ -117,7 +160,7 @@ function examObservationResource(examined: SideExamination, encounterId: string)
   for (const movement of examined.movements) {
     components.push(...movementComponents(movement));
   }
-  return {
+  const resource: Record<string, unknown> = {
     resourceType: "Observation",
     id: `exam-${examined.side}`,
     status: "final",
@@ -133,9 +176,13 @@ function examObservationResource(examined: SideExamination, encounterId: string)
     subject: { reference: `Patient/${DEMO_PATIENT_ID}` },
     encounter: { reference: `Encounter/${encounterId}` },
     effectiveDateTime: TIME,
-    note: [{ text: examined.prose }],
-    ...(components.length ? { component: components } : {}),
   };
+  const notes: { text: string }[] = [];
+  if (examined.prose.trim()) notes.push({ text: examined.prose });
+  if (supplementalNote?.trim()) notes.push({ text: supplementalNote.trim() });
+  if (notes.length) resource.note = notes;
+  if (components.length) resource.component = components;
+  return resource;
 }
 
 function movementComponents(movement: ExamMovement): Record<string, unknown>[] {
@@ -232,10 +279,15 @@ export function buildFhirBundle(
       });
     }
   }
+  resources.push(...screeningObservations(story, encounterId));
 
   const noteLanguage = compositionLanguage(canonical);
+  const examComment = state.comment?.trim() ?? "";
+  let commentAttached = false;
   for (const examined of sideExaminations(state, noteLanguage)) {
-    resources.push(examObservationResource(examined, encounterId));
+    const extra = !commentAttached && examComment ? examComment : undefined;
+    if (extra) commentAttached = true;
+    resources.push(examObservationResource(examined, encounterId, extra));
   }
 
   const assessment = sectionItems(canonical, "Assessment");

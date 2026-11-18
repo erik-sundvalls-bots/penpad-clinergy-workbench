@@ -133,7 +133,6 @@ export function gpVisitState(): WorkbenchState {
   sprain.laterality = ["right"];
   sprain.choices.AbsoluteSeverity = "moderate";
   state.formAnswers.ThumbSprain = sprain;
-  state.plan = "Review the right thumb in one week if the pain is no better.";
   return state;
 }
 
@@ -189,6 +188,7 @@ export function findingsFromState(state: WorkbenchState, diagnoses: FormLink[]):
     topic: "ThumbPainSymptom",
     location: "Thumb",
     laterality: lateralityOf(state.pain.laterality),
+    summary: state.pain.summary ?? undefined,
     qualifiers: qualifiersOf(state.pain, PAIN_FEATURES),
   }];
   if (swellingActive(state.swelling)) {
