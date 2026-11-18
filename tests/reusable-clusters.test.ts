@@ -99,15 +99,19 @@ describe("reusable cluster archetypes", () => {
     state.swelling.choices.AbsoluteTexture = "smooth";
     const enBuilt = buildVisit(state, "Pain in right thumb", "en");
     const svBuilt = buildVisit(state, "Smärta i höger tumme", "sv");
-    for (const [built, lang, needles] of [
-      [enBuilt, "en", ["Occasional", "Firm", "Smooth", "Full", "Mild pain"]] as const,
-      [svBuilt, "sv", ["Ibland", "Fast", "Slät", "Full", "Lätt smärta"]] as const,
+    const enHtml = await canonicalToZipehrHtml5(enBuilt.canonical, { templateRenderLang: "en" });
+    const svHtml = await canonicalToZipehrHtml5(svBuilt.canonical, { templateRenderLang: "sv" });
+    expect(svHtml).not.toEqual(enHtml);
+    const enText = await quietText(enHtml, "en");
+    const svText = await quietText(svHtml, "sv");
+    for (const [text, lang, needles] of [
+      [enText, "en", ["Occasional", "Firm", "Smooth", "Full", "Mild pain"]] as const,
+      [svText, "sv", ["Ibland", "Fast", "Slät", "Fullt", "Lätt smärta"]] as const,
     ]) {
-      const html = await canonicalToZipehrHtml5(built.canonical, { templateRenderLang: lang });
-      const text = await quietText(html, lang);
       for (const needle of needles) {
         expect(text, `${lang}: ${needle}`).toContain(needle);
       }
     }
+    expect(svText, "sv quiet view must not keep English frequency label").not.toContain("Occasional");
   });
 });
