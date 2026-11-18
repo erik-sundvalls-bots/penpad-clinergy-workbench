@@ -1,6 +1,6 @@
-import { defaultSelectedForms } from "./forms/catalog.ts";
 import type { FormLink } from "./knowledge.ts";
 import type { Finding, Qualifier } from "../vendor/sentence.ts";
+import { showsDiseaseDetail } from "./visit-forms.ts";
 
 export interface FindingForm {
   laterality: Array<"left" | "right">;
@@ -39,12 +39,7 @@ export interface WorkbenchState {
   comment: string;
   /** Recommendation narrative for the visit plan. */
   plan: string;
-  /**
-   * Forms included in this visit. Symptom, exam and disease ids from the
-   * extracted YAML. Empty is treated as the thumb-pain shell.
-   */
-  selectedForms: string[];
-  /** Descriptor answers for a disease (or other) form addressed by topic. */
+  /** Descriptor answers for a disease detail form (when diagnosis is present/possible). */
   formAnswers: Record<string, FindingForm>;
 }
 
@@ -103,7 +98,6 @@ export function emptyState(): WorkbenchState {
     examOpen: null,
     comment: "",
     plan: "",
-    selectedForms: [...defaultSelectedForms],
     formAnswers: {},
   };
 }
@@ -122,13 +116,6 @@ export function gpVisitState(): WorkbenchState {
   state.exam.right.extensionRange = "reduced";
   state.exam.right.abductionRange = "reduced";
   state.diagnoses.ThumbSprain = "presence";
-  state.selectedForms = [
-    "ThumbPainSymptom",
-    "ThumbSwellingSymptom",
-    "ThumbExam",
-    "ThumbSprain",
-    "ThumbFracture",
-  ];
   const sprain = emptyFinding();
   sprain.laterality = ["right"];
   sprain.choices.AbsoluteSeverity = "moderate";
@@ -208,7 +195,9 @@ export function findingsFromState(state: WorkbenchState, diagnoses: FormLink[]):
     const summary = state.diagnoses[link.item];
     if (!summary) continue;
     const topic = link.preCoordinated ?? link.concept;
-    const answer = state.formAnswers?.[topic] ?? state.formAnswers?.[link.item];
+    const answer = showsDiseaseDetail(summary)
+      ? (state.formAnswers?.[topic] ?? state.formAnswers?.[link.item])
+      : undefined;
     const laterality = lateralityOf(answer?.laterality ?? []);
     findings.push({
       topic,

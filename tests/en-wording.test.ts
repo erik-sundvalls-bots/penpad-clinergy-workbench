@@ -18,7 +18,6 @@ describe("English body-site wording", () => {
 
   it("uses base noun for excluded fracture on a thumb", () => {
     const state = emptyState();
-    state.selectedForms = ["ThumbFracture"];
     state.diagnoses.ThumbFracture = "excluded";
     const form = state.formAnswers.ThumbFracture ?? {
       laterality: [],
@@ -33,13 +32,12 @@ describe("English body-site wording", () => {
     const finding = findingsFromState(state, painForm.diagnoses).find((f) => f.topic === "ThumbFracture");
     expect(finding).toBeTruthy();
     const line = renderEnglishGp(finding!);
-    expect(line).toMatch(/Fracture in left thumb excluded/i);
+    expect(line).toMatch(/fracture excluded/i);
     expect(englishBodySiteRedundant(line)).toBe(false);
   });
 
   it("renders possible sprain without thumb doubling", () => {
     const state = emptyState();
-    state.selectedForms = ["ThumbSprain"];
     state.diagnoses.ThumbSprain = "possible";
     const form = state.formAnswers.ThumbSprain ?? {
       laterality: [],
@@ -57,7 +55,6 @@ describe("English body-site wording", () => {
 
   it("drops present from swelling while keeping sub-location phrasing", () => {
     const state = emptyState();
-    state.selectedForms = ["ThumbPainSymptom", "ThumbSwellingSymptom"];
     state.swelling.laterality = ["left"];
     state.swelling.sublocation = "distalPhalanx";
     state.swelling.summary = "presence";

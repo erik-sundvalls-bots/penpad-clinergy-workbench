@@ -26,6 +26,24 @@ async function waitForPreview(timeoutMs = 60_000): Promise<void> {
 }
 
 describe("workbench UI (preview)", () => {
+  it("does not render the former topic bar", async () => {
+    const page = await browser.newPage();
+    await page.goto(baseUrl, { waitUntil: "networkidle" });
+    expect(await page.locator(".picks").count()).toBe(0);
+    await page.close();
+  });
+
+  it("shows fracture detail when diagnosis is possible and hides it when excluded", async () => {
+    const page = await browser.newPage({ viewport: { width: 1280, height: 800 } });
+    await page.goto(baseUrl, { waitUntil: "networkidle" });
+    await page.locator('[data-group="diagnosis"][data-item="ThumbFracture"][data-value="possible"]').click();
+    await page.waitForTimeout(300);
+    expect(await page.locator("#disease-details h2", { hasText: /fracture/i }).count()).toBe(1);
+    await page.locator('[data-group="diagnosis"][data-item="ThumbFracture"][data-value="excluded"]').click();
+    await page.waitForTimeout(300);
+    expect(await page.locator("#disease-details h2", { hasText: /fracture/i }).count()).toBe(0);
+    await page.close();
+  });
   beforeAll(async () => {
     execSync("npm run build", { cwd: process.cwd(), stdio: "inherit" });
     preview = spawn("npm", ["run", "preview"], {

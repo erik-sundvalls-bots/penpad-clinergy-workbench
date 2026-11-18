@@ -32,10 +32,8 @@ describe("On Examination prose", () => {
     expect(onExamination(gpVisitState())).toBe(WALKTHROUGH_EXAM);
   });
 
-  it("stays empty when the examination form is not selected", () => {
-    const state = gpVisitState();
-    state.selectedForms = state.selectedForms.filter((topic) => topic !== "ThumbExam");
-    expect(onExamination(state)).toBe("");
+  it("stays empty when no examination answers are recorded", () => {
+    expect(onExamination(emptyState())).toBe("");
   });
 });
 
@@ -93,7 +91,6 @@ describe("general practice visit", () => {
 
   it("validates a fracture recorded only through the disease form", () => {
     const state = emptyState();
-    state.selectedForms = ["ThumbPainSymptom", "ThumbFracture"];
     state.diagnoses.ThumbFracture = "presence";
     const fracture = emptyFinding();
     fracture.choices.AbsoluteHealingCharacter = "partiallyHealed";
@@ -141,7 +138,6 @@ describe("general practice visit", () => {
     assertValid(examined.canonical, "exam");
 
     const sprain = emptyState();
-    sprain.selectedForms = ["ThumbPainSymptom", "ThumbSprain"];
     sprain.diagnoses.ThumbSprain = "possible";
     assertValid(buildVisit(sprain, "Possible thumb sprain").canonical, "sprain");
   });

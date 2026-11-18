@@ -145,10 +145,8 @@ function examineSide(
   };
 }
 
-function activeExam(state: WorkbenchState): { definition: ExamDefinition; perSide: string[] } | null {
-  if (state.selectedForms.length && !state.selectedForms.includes("ThumbExam")) return null;
-  const topics = state.selectedForms.filter((topic) => topic !== "ThumbExam");
-  const declared = examinationsOf(topics.length ? topics : ["ThumbPainSymptom"]);
+function activeExam(_state: WorkbenchState): { definition: ExamDefinition; perSide: string[] } | null {
+  const declared = examinationsOf(["ThumbPainSymptom", "ThumbSwellingSymptom"]);
   const entry = declared[0];
   const definition = examsByName[entry?.exam ?? "ThumbExam"];
   if (!definition) return null;

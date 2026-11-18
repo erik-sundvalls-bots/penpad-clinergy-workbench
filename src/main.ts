@@ -3,7 +3,8 @@ import handUrl from "../data/Mus_hand.png";
 import { onExamination } from "./exam/prose.ts";
 import { buildFhirBundle } from "./fhir/bundle.ts";
 import { validateFhirBundle } from "./fhir/validate.ts";
-import { formOf, visitPicks } from "./forms/catalog.ts";
+import { formOf } from "./forms/catalog.ts";
+import { syncDiseaseFormAnswers, visibleDiseaseDetailTopics } from "./visit-forms.ts";
 import {
   conceptLabel,
   knowledge,
@@ -127,21 +128,12 @@ function page(): string {
   <div class="wrap">
     <header class="mast">
       <h1>PEN&amp;PAD + Clinergy experimental workbench</h1>
-      <p>Fill a Clinergy general-practice visit. Thumb pain, swelling, examination and diagnoses can be combined. Summary sentences, including On Examination, OpenGALEN bindings, SNOMED CT expressions, openEHR and FHIR update as you click. Nothing is installed and nothing is saved on a server.</p>
+      <p>Fill a Clinergy general-practice visit: thumb pain, swelling and examination are always here; use Diagnoses (present/possible) to open sprain or fracture detail. Summary sentences, On Examination, OpenGALEN bindings, SNOMED CT expressions, openEHR and FHIR update as you click. Nothing is installed and nothing is saved on a server.</p>
     </header>
     <div class="layout">
       <section class="window" aria-label="Thumb pain form">
         <div class="titlebar"><span>Clinergy GP</span><span>experimental</span></div>
         <p class="patient">No 13459. Mr John Parsons — demo patient from the public walkthrough</p>
-        <div class="picks" role="group" aria-label="Forms in this visit">
-          ${visitPicks.map((pick) =>
-            `<button type="button" class="choice pick" data-pick="${escapeAttr(pick.id)}" aria-pressed="false">${escapeText(pick.label)} <span class="kind">${escapeText(pick.kind)}</span></button>`
-          ).join("")}
-        </div>
-        <div class="tabs">
-          <button type="button" class="tab" aria-selected="false" disabled>Topics</button>
-          <button type="button" class="tab" aria-selected="true">Visit</button>
-        </div>
         <div class="form-grid">
           <div>
             ${descriptors(painForm.firstLayer, painForm.moreLayer)}
@@ -287,7 +279,7 @@ function page(): string {
 function descriptors(first: { feature?: string; values: unknown[]; multiple?: boolean }[], more: typeof first): string {
   const rows = first.map((row) => featureRow("pain", row)).join("");
   const moreRows = more.map((row) => featureRow("pain", row)).join("");
-  return `<fieldset class="group" data-show="ThumbPainSymptom">
+  return `<fieldset class="group">
     <h2>Descriptors</h2>
     <div class="hand"><img src="${handUrl}" alt="Line drawing of a hand, palm up, thumb on the left" /><span>Location: thumb</span></div>
     <div class="field">
@@ -337,7 +329,7 @@ function featureRow(group: string, row: { feature?: string; values: unknown[]; m
 }
 
 function associated(): string {
-  return `<fieldset class="group" data-show="ThumbSwellingSymptom">
+  return `<fieldset class="group">
     <h2>Associated symptoms</h2>
     <div class="field">
       <span class="field-name">Thumb swelling</span>
@@ -350,7 +342,7 @@ function associated(): string {
 }
 
 function historyAndExam(): string {
-  return `<fieldset class="group" data-show="ThumbExam">
+  return `<fieldset class="group">
     <h2>Examinations</h2>
     <div class="field"><span class="field-name">Left thumb</span>
       ${examStatusButtons("left")}
@@ -382,7 +374,7 @@ function diagnoses(): string {
     ).join("");
     return `<div class="field"><span class="field-name">${escapeText(label)}</span>${buttons}</div>`;
   }).join("");
-  return `<fieldset class="group" data-show="ThumbPainSymptom"><h2>Diagnoses</h2>${rows}</fieldset>`;
+  return `<fieldset class="group"><h2>Diagnoses</h2>${rows}</fieldset>`;
 }
 
 function swellingDialog(): string {
@@ -482,14 +474,6 @@ function wire(): void {
     }
     if (button.id === "load-gp") {
       state = gpVisitState();
-      paint();
-      return;
-    }
-    if (button.dataset.pick) {
-      const id = button.dataset.pick;
-      state.selectedForms = state.selectedForms.includes(id)
-        ? state.selectedForms.filter((topic) => topic !== id)
-        : [...state.selectedForms, id];
       paint();
       return;
     }
@@ -641,7 +625,9 @@ function wire(): void {
       }
     }
     if (button.dataset.group === "diagnosis" && button.dataset.item && button.dataset.value) {
-      state.diagnoses[button.dataset.item] = toggleChoice(state.diagnoses[button.dataset.item] ?? null, button.dataset.value);
+      const item = button.dataset.item;
+      state.diagnoses[item] = toggleChoice(state.diagnoses[item] ?? null, button.dataset.value);
+      syncDiseaseFormAnswers(state, item);
       paint();
       return;
     }
@@ -891,14 +877,6 @@ function examSide(name: string): ExamSide {
 }
 
 function paint(): void {
-  for (const section of document.querySelectorAll<HTMLElement>("[data-show]")) {
-    const id = section.dataset.show ?? "";
-    section.hidden = !state.selectedForms.includes(id);
-  }
-  for (const button of document.querySelectorAll<HTMLButtonElement>("[data-pick]")) {
-    const on = state.selectedForms.includes(button.dataset.pick ?? "");
-    button.setAttribute("aria-pressed", on ? "true" : "false");
-  }
   const details = document.querySelector("#disease-details");
   if (details) details.innerHTML = diseaseDetails();
   const comment = document.querySelector<HTMLTextAreaElement>("#comment");
@@ -1024,7 +1002,7 @@ function englishText(): string {
 }
 
 function diseaseDetails(): string {
-  const topics = ["ThumbSprain", "ThumbFracture"].filter((topic) => state.selectedForms.includes(topic));
+  const topics = visibleDiseaseDetailTopics(state);
   return topics.map((topic) => {
     const form = formOf(topic);
     if (!form) return "";
