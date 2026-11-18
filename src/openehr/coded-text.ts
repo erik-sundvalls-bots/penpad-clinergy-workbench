@@ -22,7 +22,7 @@ const CLINERGY_SV: Record<string, string> = {
   ExtensionSign: "Extension",
   AbductionSign: "Abduktion",
   AdductionSign: "Adduktion",
-  normal: "Ua",
+  normal: "utan anmärkning",
   throbbingPain: "Bultande",
   rightSelection: "Höger",
   leftSelection: "Vänster",
