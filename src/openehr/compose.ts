@@ -73,7 +73,7 @@ export function buildThumbEncounter(
 
   const historyItems: Record<string, unknown>[] = [storyObservation(narrative, state, touch, language)];
   const absent = absentSymptoms(state);
-  if (absent.length) historyItems.push(screeningObservation(absent, touch));
+  if (absent.length) historyItems.push(screeningObservation(absent, touch, language));
 
   const examItems: Record<string, unknown>[] = [];
   const absentTenderness: string[] = [];
@@ -90,6 +90,7 @@ export function buildThumbEncounter(
     examItems.push(screeningObservation(
       absentTenderness.map((name) => ({ key: "TendernessSign", label: name })),
       touch,
+      language,
     ));
   }
 
@@ -110,7 +111,7 @@ export function buildThumbEncounter(
   }
 
   const planText = localizePlan(state.plan?.trim() ?? "", language);
-  const planItems = planText ? [recommendationEvaluation(planText, touch)] : [];
+  const planItems = planText ? [recommendationEvaluation(planText, touch, language)] : [];
   const content = [
     section("History", historyItems),
     section("Examination", examItems),
@@ -149,7 +150,7 @@ function storyObservation(
   return observation("openEHR-EHR-OBSERVATION.story.v1", storyName, [
     element("at0004", rmLabel(language, "Story", "Berättelse"), dvText(narrative)),
     ...symptoms,
-  ]);
+  ], language);
 }
 
 function positiveSymptom(form: WorkbenchState["pain"]): boolean {
@@ -297,12 +298,18 @@ function lateralityCode(sides: Array<"left" | "right">): { at: string; text: str
 function screeningObservation(
   rows: { key: string; label: string }[],
   touch: (key: string) => void,
+  language: NoteLanguage,
 ): Record<string, unknown> {
-  const items = rows.map((row) => cluster("at0022", "Specific symptom/sign", [
-    element("at0004", "Symptom/sign name", writeCoded(row.key, touch)),
-    element("at0005", "Presence?", writeLocal("at0024", "No", "absence", touch)),
+  const items = rows.map((row) => cluster("at0022", rmLabel(language, "Specific symptom/sign", "Specifikt symtom/tecken"), [
+    element("at0004", rmLabel(language, "Symptom/sign name", "Symtom/teckennamn"), writeCoded(row.key, touch, language)),
+    element("at0005", rmLabel(language, "Presence?", "Närvaro?"), writeLocal("at0024", "No", "absence", touch, language)),
   ]));
-  return observation("openEHR-EHR-OBSERVATION.symptom_sign_screening.v1", "Symptom/sign screening questionnaire", items);
+  return observation(
+    "openEHR-EHR-OBSERVATION.symptom_sign_screening.v1",
+    rmLabel(language, "Symptom/sign screening questionnaire", "Symtom-/tecken-screening"),
+    items,
+    language,
+  );
 }
 
 function examObservationTitle(language: NoteLanguage): string {
@@ -356,10 +363,18 @@ function examObservation(
     if (pain) {
       moveItems.push(descriptorCluster({ pain_on_movement: pain === "absence" ? "absence" : pain }, touch, language));
     }
-    items.push(cluster("openEHR-EHR-CLUSTER.range_of_motion.v1", "Range of motion of a joint", moveItems));
+    items.push(
+      cluster(
+        "openEHR-EHR-CLUSTER.range_of_motion.v1",
+        rmLabel(language, "Range of motion of a joint", "Ledrörelse"),
+        moveItems,
+      ),
+    );
   }
-  if (prose) items.push(element("at0003", "Clinical description", dvText(prose)));
-  if (comment) items.push(element("at0007", "Comment", dvText(comment)));
+  if (prose) {
+    items.push(element("at0003", rmLabel(language, "Clinical description", "Klinisk beskrivning"), dvText(prose)));
+  }
+  if (comment) items.push(element("at0007", rmLabel(language, "Comment", "Kommentar"), dvText(comment)));
   if (exam.status === "notExamined") {
     touch("notExamined");
     items.push(cluster("openEHR-EHR-CLUSTER.exclusion_exam.v1", "Exclusion of examination", [
@@ -369,7 +384,7 @@ function examObservation(
   const examTitle = examObservationTitle(language);
   return observation("openEHR-EHR-OBSERVATION.exam.v1", examTitle, [
     cluster("openEHR-EHR-CLUSTER.exam.v2", examTitle, items),
-  ]);
+  ], language);
 }
 
 function diagnosisSentence(
@@ -412,7 +427,9 @@ function problemEvaluation(
     );
   }
   const note = [sentence, unmappedDiseaseText(answer)].filter((part) => part && part.length > 0).join(". ");
-  if (note) items.push(element("at0009", "Clinical description", dvText(note)));
+  if (note) {
+    items.push(element("at0009", rmLabel(language, "Clinical description", "Klinisk beskrivning"), dvText(note)));
+  }
   if (suspected) {
     items.push(
       element(
@@ -422,18 +439,36 @@ function problemEvaluation(
       ),
     );
   }
-  return evaluation("openEHR-EHR-EVALUATION.problem_diagnosis.v1", "Problem/Diagnosis", items);
+  return evaluation(
+    "openEHR-EHR-EVALUATION.problem_diagnosis.v1",
+    rmLabel(language, "Problem/Diagnosis", "Problem/diagnos"),
+    items,
+    language,
+  );
 }
 
 /**
  * EVALUATION.recommendation.v2 (CKM revision 2.0.5).
  * at0002 Recommendation is required. at0006 Topic names the subject.
  */
-function recommendationEvaluation(text: string, _touch: (key: string) => void): Record<string, unknown> {
-  return evaluation("openEHR-EHR-EVALUATION.recommendation.v2", "Recommendation", [
-    element("at0006", "Topic", dvText("Clinical management")),
-    element("at0002", "Recommendation", dvText(text)),
-  ]);
+function recommendationEvaluation(
+  text: string,
+  _touch: (key: string) => void,
+  language: NoteLanguage,
+): Record<string, unknown> {
+  return evaluation(
+    "openEHR-EHR-EVALUATION.recommendation.v2",
+    rmLabel(language, "Recommendation", "Rekommendation"),
+    [
+      element(
+        "at0006",
+        rmLabel(language, "Topic", "Ämne"),
+        dvText(rmLabel(language, "Clinical management", "Klinisk handläggning")),
+      ),
+      element("at0002", rmLabel(language, "Recommendation", "Rekommendation"), dvText(text)),
+    ],
+    language,
+  );
 }
 
 function exclusionEvaluation(key: string, touch: (key: string) => void): Record<string, unknown> {
@@ -491,17 +526,17 @@ function composition(
 ): Record<string, unknown> {
   return {
     _type: "COMPOSITION",
-    name: dvText("Encounter"),
+    name: dvText(rmLabel(language, "Encounter", "Möte")),
     archetype_node_id: "openEHR-EHR-COMPOSITION.encounter.v1",
     archetype_details: archetyped("openEHR-EHR-COMPOSITION.encounter.v1", templateId),
     language: codePhrase("ISO_639-1", language),
     territory: codePhrase("ISO_3166-1", "GB"),
-    category: dvCoded("event", "openehr", "433"),
+    category: dvCoded(rmLabel(language, "event", "händelse"), "openehr", "433"),
     composer: { _type: "PARTY_IDENTIFIED", name: "Dr J Brown" },
     context: {
       _type: "EVENT_CONTEXT",
       start_time: { _type: "DV_DATE_TIME", value: TIME },
-      setting: dvCoded("primary medical care", "openehr", "228"),
+      setting: dvCoded(rmLabel(language, "primary medical care", "primärvård"), "openehr", "228"),
     },
     content,
   };
@@ -517,44 +552,64 @@ function section(name: string, items: Record<string, unknown>[]): Record<string,
   };
 }
 
-function observation(archetype: string, name: string, items: Record<string, unknown>[]): Record<string, unknown> {
+function observation(
+  archetype: string,
+  name: string,
+  items: Record<string, unknown>[],
+  language: NoteLanguage = "en",
+): Record<string, unknown> {
   return {
     _type: "OBSERVATION",
     name: dvText(name),
     archetype_node_id: archetype,
     archetype_details: archetyped(archetype),
-    language: codePhrase("ISO_639-1", "en"),
+    language: codePhrase("ISO_639-1", language),
     encoding: codePhrase("IANA_character-sets", "UTF-8"),
     subject: { _type: "PARTY_SELF" },
-    data: history(items),
+    data: history(items, language),
   };
 }
 
-function evaluation(archetype: string, name: string, items: Record<string, unknown>[]): Record<string, unknown> {
+function evaluation(
+  archetype: string,
+  name: string,
+  items: Record<string, unknown>[],
+  language: NoteLanguage = "en",
+): Record<string, unknown> {
   return {
     _type: "EVALUATION",
     name: dvText(name),
     archetype_node_id: archetype,
     archetype_details: archetyped(archetype),
-    language: codePhrase("ISO_639-1", "en"),
+    language: codePhrase("ISO_639-1", language),
     encoding: codePhrase("IANA_character-sets", "UTF-8"),
     subject: { _type: "PARTY_SELF" },
-    data: { _type: "ITEM_TREE", name: dvText("Tree"), archetype_node_id: "at0001", items },
+    data: {
+      _type: "ITEM_TREE",
+      name: dvText(rmLabel(language, "Tree", "Träd")),
+      archetype_node_id: "at0001",
+      items,
+    },
   };
 }
 
-function history(items: Record<string, unknown>[]): Record<string, unknown> {
+function history(items: Record<string, unknown>[], language: NoteLanguage = "en"): Record<string, unknown> {
   return {
     _type: "HISTORY",
-    name: dvText("Event Series"),
+    name: dvText(rmLabel(language, "Event Series", "Händelseserie")),
     archetype_node_id: "at0001",
     origin: { _type: "DV_DATE_TIME", value: TIME },
     events: [{
       _type: "POINT_EVENT",
-      name: dvText("Any event"),
+      name: dvText(rmLabel(language, "Any event", "Händelse")),
       archetype_node_id: "at0002",
       time: { _type: "DV_DATE_TIME", value: TIME },
-      data: { _type: "ITEM_TREE", name: dvText("Tree"), archetype_node_id: "at0003", items },
+      data: {
+        _type: "ITEM_TREE",
+        name: dvText(rmLabel(language, "Tree", "Träd")),
+        archetype_node_id: "at0003",
+        items,
+      },
     }],
   };
 }

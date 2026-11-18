@@ -42,6 +42,17 @@ const ENGLISH_LEAK = [
   "Progression",
   "2 weeks",
   "weeks",
+  "primary medical care",
+  "Encounter event",
+  "Encounter",
+  "Range of motion of a joint",
+  "Clinical description",
+  "Problem/Diagnosis",
+  "Recommendation",
+  "Topic",
+  "Clinical management",
+  "Clinical interpretation",
+  "21 Oct 2021",
 ];
 
 function quietCompositionHeaderText(
@@ -118,8 +129,8 @@ describe("ZipEHR quiet GP visit", () => {
     expect(view).not.toContain("Physical examination findings");
     expect(view).toContain("2 veckor");
     const header = quietCompositionHeaderText(html, "sv");
-    expect(header).toContain("Encounter event Dr J Brown");
-    expect(header).toContain("21 okt 2021 14:21 primary medical care");
+    expect(header).toContain("Möte händelse Dr J Brown");
+    expect(header).toContain("21 okt 2021 14:21 primärvård");
     expect(view).toContain("21 okt 2021 14:21");
     expect(view).not.toContain("2021-10-21T14:21:00+01:00");
     const svLeak = ENGLISH_LEAK.filter((f) => f !== "Physical examination findings");

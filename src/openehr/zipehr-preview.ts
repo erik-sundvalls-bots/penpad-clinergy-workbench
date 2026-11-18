@@ -1,5 +1,6 @@
 import type { NoteLanguage } from "../exam/phrases.ts";
 import { buildZipehrPreviewDocument } from "../../vendor/ehrtslib/ehrtslib-0.14.0.min.js";
+import { ZIP_SV_QUIET_PHRASES_SORTED } from "./zipehr-sv-quiet-phrases.ts";
 
 const EN_MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const SV_MONTHS = ["jan", "feb", "mar", "apr", "maj", "jun", "jul", "aug", "sep", "okt", "nov", "dec"];
@@ -44,17 +45,18 @@ const zipQuietDomScriptBody = `(() => {
     for (const el of document.querySelectorAll("[" + l10nAttr + "]")) {
       const replacement = el.getAttribute(l10nAttr);
       if (!replacement) continue;
-      const heading = el.querySelector(":scope > .zs-structural-label");
-      if (heading) {
+      const enLabel = el.getAttribute("data-antn-l10n-en");
+      for (const heading of el.querySelectorAll(".zs-structural-label")) {
         heading.textContent = replacement;
-        continue;
       }
-      for (const node of el.childNodes) {
-        if (node.nodeType !== Node.TEXT_NODE) continue;
-        const trimmed = (node.textContent || "").trim();
-        if (!trimmed) continue;
-        node.textContent = (node.textContent || "").replace(trimmed, replacement);
-        break;
+      const twL10n = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+      let nL10n;
+      while ((nL10n = twL10n.nextNode())) {
+        let raw = nL10n.textContent || "";
+        if (!raw.trim()) continue;
+        if (enLabel && raw.includes(enLabel)) raw = raw.split(enLabel).join(replacement);
+        else if (raw.trim() === (enLabel || "")) raw = replacement;
+        nL10n.textContent = raw;
       }
     }
   }
@@ -95,6 +97,28 @@ const zipQuietDomScriptBody = `(() => {
     if (!isoRe.test(isoNode.textContent || "")) continue;
     isoNode.textContent = (isoNode.textContent || "").replace(isoRe, fmtIso);
   }
+  if (lang === "sv") {
+    const phrases = __SV_PHRASES__;
+    const enMonthPattern = new RegExp(
+      "\\\\b(\\\\d{1,2})\\\\s+(" + enM.join("|") + ")\\\\s+(\\\\d{4})\\\\s+(\\\\d{2}:\\\\d{2})\\\\b",
+      "g",
+    );
+    const phraseWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    let phraseNode;
+    while ((phraseNode = phraseWalker.nextNode())) {
+      let raw = phraseNode.textContent || "";
+      let next = raw;
+      for (const pair of phrases) {
+        if (next.includes(pair[0])) next = next.split(pair[0]).join(pair[1]);
+      }
+      next = next.replace(enMonthPattern, (_, day, mon, year, hm) => {
+        const idx = enM.indexOf(mon);
+        const month = idx >= 0 ? svM[idx] : mon;
+        return day + " " + month + " " + year + " " + hm;
+      });
+      if (next !== raw) phraseNode.textContent = next;
+    }
+  }
   const examTitle = lang === "sv" ? "Status" : "Physical examination findings";
   const text = document.body.innerText;
   const matches = text.split(examTitle).length - 1;
@@ -123,7 +147,8 @@ export const ZIP_QUIET_DOM_SCRIPT = zipQuietDomScriptBody
   .replace(
     "__SV_MONTHS__",
     JSON.stringify(SV_MONTHS),
-  );
+  )
+  .replace("__SV_PHRASES__", JSON.stringify(ZIP_SV_QUIET_PHRASES_SORTED));
 
 export type QuietZipehrPreviewOptions = {
   quietStructureTooltips?: boolean;
@@ -141,6 +166,17 @@ function postprocessQuietMarkup(markup: string, lang: NoteLanguage): string {
     out = out.replace(/\bLeft\b/g, "Vänster");
     out = out.replace(/\bModerate\b/g, "Måttlig");
     out = out.replace(/\bAbduction\b/g, "Abduktion");
+    for (const [en, sv] of ZIP_SV_QUIET_PHRASES_SORTED) {
+      if (out.includes(en)) out = out.split(en).join(sv);
+    }
+    const enMonthRe = new RegExp(
+      `\\b(\\d{1,2})\\s+(${EN_MONTHS.join("|")})\\s+(\\d{4})\\s+(\\d{2}:\\d{2})\\b`,
+      "g",
+    );
+    out = out.replace(enMonthRe, (_, day, mon, year, hm) => {
+      const idx = EN_MONTHS.indexOf(mon);
+      return `${day} ${idx >= 0 ? SV_MONTHS[idx] : mon} ${year} ${hm}`;
+    });
   }
   const examTitle = lang === "sv" ? "Status" : "Physical examination findings";
   const first = out.indexOf(examTitle);
