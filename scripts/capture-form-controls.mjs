@@ -28,7 +28,6 @@ await page.screenshot({ path: join(outDir, "form-controls-filled-more.png"), ful
 
 await page.locator("#pain-more").screenshot({ path: join(outDir, "form-controls-more-dark.png") });
 
-await page.locator("#ehr-format").selectOption("canonical");
 await page.locator('[data-ehr-format="canonical"]').click();
 await page.waitForTimeout(300);
 await page.evaluate(() => {
@@ -46,7 +45,6 @@ if (at7) writeFileSync(join(outDir, "form-controls-openEHR-comment-snippet.txt")
 
 await page.locator("aside").first().screenshot({ path: join(outDir, "form-controls-notes-pain-absent.png") });
 
-await page.locator("#fhir-format").selectOption("json");
 await page.waitForTimeout(300);
 const fhirText = await page.locator("#fhir").innerText();
 const noteHit = fhirText.match(/"note"[\s\S]{0,400}Prefers morning appointments[\s\S]{0,200}/);
