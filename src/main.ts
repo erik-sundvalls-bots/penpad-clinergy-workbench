@@ -160,11 +160,6 @@ function page(): string {
           <p id="summary-sv" class="sv-sentence" lang="sv" aria-live="polite"></p>
           <p id="sv-missing" class="missing"></p>
         </section>
-        <section class="panel">
-          <h2>OpenGALEN</h2>
-          <p class="note">Reviewed bindings for the values you have selected. Unverified means the code was not confirmed and is not written into the composition.</p>
-          <div id="galen"></div>
-        </section>
         <section class="panel" id="openehr-panel">
           <h2>openEHR</h2>
           <div class="downloads">
@@ -251,10 +246,10 @@ function page(): string {
           <pre id="fhir" class="json"></pre>
           <p id="fhir-errors" class="missing"></p>
         </section>
-        <section class="panel" id="exam-note">
-          <h2>On Examination</h2>
-          <p class="note">The 1998 summary put examination findings in their own block. That block is part of the English summary, the exam archetype, and the FHIR Observations.</p>
-          <div id="exam-list"></div>
+        <section class="panel">
+          <h2>Possible Terminology system similarities</h2>
+          <p class="note">Reviewed bindings for the values you have selected. Unverified means the code was not confirmed and is not written into the composition.</p>
+          <div id="galen"></div>
         </section>
       </aside>
     </div>
@@ -903,7 +898,6 @@ function paintOutputs(): void {
   }
   paintGalen(findings);
   paintEhr(findings, english);
-  paintExam();
 }
 
 function currentFindings(): Finding[] {
@@ -1082,13 +1076,6 @@ function paintFhir(canonical: Record<string, unknown>, narrative: string): void 
     const lines = check.errors.concat(check.warnings).map((issue) => `${issue.path} — ${issue.message}`).concat(extra);
     errors.textContent = lines.join("\n");
   }
-}
-
-function paintExam(): void {
-  const host = document.querySelector("#exam-list");
-  if (!host) return;
-  const block = onExamination(state);
-  host.textContent = block || "Nothing selected.";
 }
 
 function buttonLabel(value: string): string {

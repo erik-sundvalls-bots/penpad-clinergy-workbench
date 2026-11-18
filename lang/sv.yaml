@@ -262,6 +262,12 @@ entries:
     noun: år
     gender: ett
     plural: år
+  Sprain:
+    noun: stukning
+    gender: en
+  Fracture:
+    noun: fraktur
+    gender: en
   ThumbSprain:
     noun: tumstukning
     gender: en
