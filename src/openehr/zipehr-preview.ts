@@ -3,9 +3,6 @@ import { buildZipehrPreviewDocument } from "../../vendor/ehrtslib/ehrtslib-0.14.
 
 const EN_MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const SV_MONTHS = ["jan", "feb", "mar", "apr", "maj", "jun", "jul", "aug", "sep", "okt", "nov", "dec"];
-const ISO_DATETIME =
-  /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2})?(?:[+-]\d{2}:\d{2}|Z)?/g;
-
 /** Wall-clock date/time from an ISO string (EN: `21 Oct 2021 14:21`, SV: `21 okt 2021 14:21`). */
 export function formatIsoDateTimeFriendly(iso: string, lang: NoteLanguage): string | null {
   const m = iso.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/);
@@ -15,10 +12,6 @@ export function formatIsoDateTimeFriendly(iso: string, lang: NoteLanguage): stri
   if (monthIdx < 0 || monthIdx > 11) return null;
   const month = lang === "sv" ? SV_MONTHS[monthIdx]! : EN_MONTHS[monthIdx]!;
   return `${day} ${month} ${m[1]} ${m[4]}:${m[5]}`;
-}
-
-function replaceIsoDateTimesInText(text: string, lang: NoteLanguage): string {
-  return text.replace(ISO_DATETIME, (iso) => formatIsoDateTimeFriendly(iso, lang) ?? iso);
 }
 
 /** Apply OPT `L10n.*` attrs emitted as `data-antn-l10n-{lang}` onto visible ZipEHR labels. */
