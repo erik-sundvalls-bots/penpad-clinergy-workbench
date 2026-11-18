@@ -1,3 +1,4 @@
+import { findingForSentence } from "../finding-render.ts";
 import { knowledge } from "../knowledge.ts";
 import type { Finding } from "../../vendor/sentence.ts";
 import { englishFromKnowledge, render } from "../../vendor/sentence.ts";
@@ -10,11 +11,18 @@ const INDEFINITE = { gender: "en" as const, definite: false, plural: false };
  * Presence is unmarked (no trailing "present").
  */
 export function renderEnglishGp(finding: Finding): string {
-  const category = knowledge.concepts[finding.topic]?.category;
+  const f = findingForSentence(finding);
+  const category = knowledge.concepts[f.topic]?.category;
   if (category === "disease") {
-    return finishEnglishLine(englishDiseaseLine(finding));
+    return finishEnglishLine(englishDiseaseLine(f));
   }
-  return finishEnglishLine(render(finding, knowledge));
+  const line = finishEnglishLine(render(f, knowledge));
+  if (f.summary === "absence") {
+    if (f.topic === "ThumbPainSymptom") return line.replace(/^Absent pain in /i, "No pain in ");
+    if (f.topic === "ThumbSwellingSymptom") return line.replace(/^Absent swelling of /i, "No swelling of ");
+    if (f.topic === "JointStiffnessSymptom") return line.replace(/^Absent /i, "No ");
+  }
+  return line;
 }
 
 function finishEnglishLine(line: string): string {

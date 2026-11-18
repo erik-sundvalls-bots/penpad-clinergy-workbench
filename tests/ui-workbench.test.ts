@@ -119,4 +119,43 @@ describe("workbench UI (preview)", () => {
 
     await page.close();
   });
+
+  it(
+    "reflects pain absent, more-layer selection, and examination comment",
+    async () => {
+    const page = await browser.newPage({ viewport: { width: 1480, height: 1100 } });
+    await page.goto(baseUrl, { waitUntil: "networkidle" });
+    await page.locator("#load-gp").click();
+    await page.waitForTimeout(400);
+    await page
+      .locator('[data-group="pain"][data-feature="summary"][data-value="absence"]')
+      .click();
+    await page.waitForTimeout(300);
+    const en = await page.locator("#summary-en").innerText();
+    const sv = await page.locator("#summary-sv").innerText();
+    expect(en).toMatch(/No pain in right thumb/i);
+    expect(sv).toMatch(/Ingen smärta i höger tumme/i);
+
+    await page.locator("#pain-more").click();
+    await page
+      .locator('[data-group="pain"][data-feature="AbsoluteOnset"][data-value="gradual"]')
+      .click();
+    await page.waitForTimeout(200);
+    const moreButton = page.locator("#pain-more");
+    expect(await moreButton.getAttribute("aria-pressed")).toBe("true");
+
+    await page.locator("#comment").fill("Prefers morning appointments.");
+    await page.waitForTimeout(400);
+    const enAfterOnset = await page.locator("#summary-en").innerText();
+    expect(enAfterOnset.split("\n")[0]).toMatch(/^No pain in right thumb\.?$/i);
+    const svAfter = await page.locator("#summary-sv").innerText();
+    expect(svAfter).toMatch(/Kommentar:\s*Prefers morning appointments/i);
+    const canonical = await page.locator("#ehr").innerText();
+    expect(canonical).toContain("Prefers morning appointments.");
+    const fhir = await page.locator("#fhir").innerText();
+    expect(fhir).toContain("Prefers morning appointments.");
+
+    await page.close();
+  },
+  60_000);
 });

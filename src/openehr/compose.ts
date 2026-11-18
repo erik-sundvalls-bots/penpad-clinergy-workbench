@@ -1,6 +1,6 @@
 import { examinationProseForSide, movementKeys, presenceKey, type NoteLanguage } from "../exam/prose.ts";
 import { localizePlan } from "../exam/phrases.ts";
-import { examsByName, formOf } from "../forms/catalog.ts";
+import { displayOf, examsByName, formOf } from "../forms/catalog.ts";
 import { knowledge, painForm, swellingForm, type FormLink } from "../knowledge.ts";
 import { render, type Finding } from "../../vendor/sentence.ts";
 import { renderEnglishGp } from "../en/gp-sentence.ts";
@@ -119,7 +119,8 @@ export function buildThumbEncounter(
     section("Assessment", [...problems, ...exclusions]),
     section("Plan", planItems),
   ].filter((entry) => Array.isArray(entry.items) && entry.items.length > 0);
-  const canonical = composition(content, planText ? GP_TEMPLATE_ID : TEMPLATE_ID, language);
+  const useGpTemplate = planItems.length > 0 || problems.length > 0 || exclusions.length > 0;
+  const canonical = composition(content, useGpTemplate ? GP_TEMPLATE_ID : TEMPLATE_ID, language);
 
   return {
     canonical,
@@ -171,7 +172,7 @@ function absentSymptoms(state: WorkbenchState): { key: string; label: string }[]
   if (state.swelling.summary === "absence") rows.push({ key: swellingForm.topic, label: swellingForm.display });
   if (state.stiffness === "absence") rows.push({ key: "JointStiffnessSymptom", label: "joint stiffness" });
   for (const row of consequenceRows(state)) {
-    if (row.value === "absence") rows.push({ key: row.key, label: row.key });
+    if (row.value === "absence") rows.push({ key: row.key, label: displayOf(row.key) });
   }
   return rows;
 }

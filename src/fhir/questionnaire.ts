@@ -174,6 +174,11 @@ export function buildQuestionnaire(): Record<string, unknown> {
         type: "group",
         item: diagnosisItems,
       },
+      {
+        linkId: "comment",
+        text: "Comment",
+        type: "text",
+      },
     ],
   };
 }
@@ -280,6 +285,14 @@ export function buildQuestionnaireResponse(
     if (row) diagnoses.push(row);
   }
   if (diagnoses.length) groups.push({ linkId: "diagnosis", item: diagnoses });
+
+  const comment = state.comment?.trim();
+  if (comment) {
+    groups.push({
+      linkId: "comment",
+      answer: [{ valueString: comment }],
+    });
+  }
 
   const xhtml = escapeHtml(narrative).replace(/\n/g, "<br/>");
   return {

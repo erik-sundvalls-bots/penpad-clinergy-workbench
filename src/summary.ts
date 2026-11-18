@@ -2,8 +2,6 @@ import type { FormLink } from "./knowledge.ts";
 import { painForm } from "./knowledge.ts";
 import type { NoteLanguage } from "./exam/phrases.ts";
 import type { Finding } from "../vendor/sentence.ts";
-import { knowledge } from "./knowledge.ts";
-import { render } from "../vendor/sentence.ts";
 import { renderEnglishGp } from "./en/gp-sentence.ts";
 import { renderSwedishGp } from "./sv/gp-sentence.ts";
 
@@ -17,6 +15,11 @@ export function isAssessmentTopic(topic: string, diagnoses: FormLink[] = painFor
 export function formatEnglishSummaryLine(line: string): string {
   const trimmed = line.replace(/,?\s*present\s*$/i, "").trim();
   return /[.!?]$/.test(trimmed) ? trimmed : `${trimmed}.`;
+}
+
+/** @deprecated Use {@link renderEnglishGp} — kept for tests that assert the helper. */
+export function renderEnglishFinding(finding: Finding): string {
+  return renderEnglishGp(finding);
 }
 
 export function historyFindings(findings: Finding[]): Finding[] {

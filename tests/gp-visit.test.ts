@@ -10,7 +10,6 @@ import { validateComposition } from "../src/openehr/validate.ts";
 import { knowledge, painForm, swedish } from "../src/knowledge.ts";
 import { render } from "../vendor/sentence.ts";
 import { renderSwedishGp } from "../src/sv/gp-sentence.ts";
-import { localizePlan } from "../src/exam/phrases.ts";
 import { findingsFromState } from "../src/model.ts";
 import { historyStoryText } from "./canonical-helpers.ts";
 import { historyNarrativeText } from "../src/summary.ts";
@@ -69,7 +68,7 @@ describe("general practice visit", () => {
     expect(coded).toContain("openEHR-EHR-OBSERVATION.exam.v1");
     expect(coded).toContain("openEHR-EHR-CLUSTER.range_of_motion.v1");
     expect(coded).toContain("openEHR-EHR-EVALUATION.problem_diagnosis.v1");
-    expect(coded).toContain("openEHR-EHR-EVALUATION.recommendation.v2");
+    expect(coded).not.toMatch(/openEHR-EHR-EVALUATION\.recommendation/);
     assertValid(built.canonical, "gp visit");
   });
 
@@ -156,8 +155,6 @@ const SWEDISH_NOTE = [
   "Status",
   "Höger tumme:",
   " Höger tumled: flexion full rörlighet, lätt smärtsam; extension nedsatt rörlighet; abduktion nedsatt rörlighet",
-  "",
-  "Återbesök om en vecka om smärtan i höger tumme inte är bättre.",
 ].join("\n");
 
 const ENGLISH_LEAK = [
@@ -166,7 +163,6 @@ const ENGLISH_LEAK = [
   "full range",
   "mildly painful",
   "Thumb sprain",
-  "Review the right thumb",
   "not examined",
   "not painful",
 ];
@@ -175,8 +171,7 @@ function swedishGpNote(state: ReturnType<typeof gpVisitState>): string {
   swedish.missing.length = 0;
   const lines = findingsFromState(state, painForm.diagnoses).map((finding) => renderSwedishGp(finding));
   const exam = onExamination(state, "sv");
-  const plan = localizePlan(state.plan, "sv");
-  return [lines.join("\n"), exam, plan].filter((part) => part.length > 0).join("\n\n");
+  return [lines.join("\n"), exam].filter((part) => part.length > 0).join("\n\n");
 }
 
 describe("Swedish GP visit note", () => {
@@ -211,7 +206,7 @@ describe("Swedish GP visit note", () => {
     expect(coded).not.toContain("Ytterfalang av tummen");
     expect(coded).toContain("Höger tumled: flexion full rörlighet, lätt smärtsam");
     expect(coded).toContain("Stukning av höger tumme.");
-    expect(coded).toContain("Återbesök om en vecka om smärtan i höger tumme inte är bättre.");
+    expect(coded).not.toContain("Återbesök om en vecka");
     expect((built.canonical.language as { code_string: string }).code_string).toBe("sv");
     for (const fragment of ENGLISH_LEAK) {
       expect(story, fragment).not.toContain(fragment);
@@ -224,8 +219,8 @@ describe("Swedish GP visit note", () => {
     expect(note).toContain("lätt smärtsam");
     expect(note).not.toContain("mildly painful");
     const plan = resources.find((resource) => resource.resourceType === "CarePlan");
-    expect(plan?.description).toBe("Återbesök om en vecka om smärtan i höger tumme inte är bättre.");
-    const joined = [story, note, String(plan?.description ?? ""), "Tumstukning i höger tumme."].join("\n");
+    expect(plan).toBeUndefined();
+    const joined = [story, note, "Tumstukning i höger tumme."].join("\n");
     for (const fragment of ENGLISH_LEAK) {
       expect(joined, fragment).not.toContain(fragment);
     }
@@ -316,7 +311,7 @@ describe("FHIR visit bundle", () => {
     expect(historyStoryText(built.canonical)).not.toContain("On Examination");
     expect(historyStoryText(built.canonical)).not.toContain("sprain");
     const plan = resources.find((resource) => resource.resourceType === "CarePlan");
-    expect(plan?.description).toBe(state.plan);
+    expect(plan).toBeUndefined();
     const conditions = resources.filter((resource) => resource.resourceType === "Condition");
     expect(conditions.length).toBeGreaterThan(0);
     for (const condition of conditions) {
@@ -325,6 +320,6 @@ describe("FHIR visit bundle", () => {
       expect(JSON.stringify(built.canonical)).toContain(text);
     }
     expect(JSON.stringify(built.canonical)).toContain("ThumbSprain");
-    expect(JSON.stringify(built.canonical)).toContain(String(plan?.description));
+    expect(JSON.stringify(built.canonical)).not.toMatch(/EVALUATION\.recommendation/);
   });
 });

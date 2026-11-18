@@ -1,3 +1,4 @@
+import { findingForSentence } from "../finding-render.ts";
 import { knowledge, swedish } from "../knowledge.ts";
 import type { Finding } from "../../vendor/sentence.ts";
 
@@ -20,7 +21,8 @@ const DESCRIPTOR_ORDER = [
  * head noun. A sub-location is definite ("ytterfalangen"). Swelling sits
  * "på" the thumb; pain and a diagnosis sit "i". Duration is "sedan".
  */
-export function renderSwedishGp(finding: Finding): string {
+export function renderSwedishGp(input: Finding): string {
+  const finding = findingForSentence(input);
   const head = headKey(finding);
   const headAgree = agreementFor(head);
   const headNoun = swedish.noun(head, { ...headAgree, definite: false, plural: false });
@@ -39,7 +41,7 @@ export function renderSwedishGp(finding: Finding): string {
 
   if (disease) return diagnosisLine(headNoun, headAgree.gender, finding.summary, place);
   if (finding.summary === "absence") {
-    return capitalise(join(["Ingen", headNoun, sub, place, since])) + ".";
+    return capitalise(join(["Ingen", headNoun, place])) + ".";
   }
   const core = join([...descriptorWords, headNoun, sub, place, since]);
   const sentence = debut ? `${core}, ${debut}` : core;
