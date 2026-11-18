@@ -405,7 +405,7 @@ function swellingDialog(): string {
 }
 
 function examDialog(): string {
-  const ranges = ["full", "reduced", "limited", "minimal"].map((value) =>
+  const ranges = ["full", "reduced", "limited", "fixed"].map((value) =>
     `<button type="button" class="choice" data-group="exam-detail" data-feature="RANGE" data-value="${value}" aria-pressed="false">${value}</button>`
   ).join("");
   const pains = ["absence", "mild", "moderate", "severe"].map((value) =>

@@ -1222,6 +1222,18 @@ terms:
       source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
         (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
         http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
+  fixed:
+    clinergy: fixed
+    preferred: Fixed
+    opengalen:
+      verified: false
+    snomed:
+      code: '261010008'
+      fsn: Fixed (qualifier value)
+      preferred: Fixed
+      match: '='
+      verified: true
+      source: SNOMED CT International via tx.fhir.org $lookup, checked 2026-11-18.
   normal:
     clinergy: normal
     preferred: Normal

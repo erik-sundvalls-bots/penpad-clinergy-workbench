@@ -1,0 +1,215 @@
+archetype (adl_version=1.4; uid=a8611a39-0485-41c2-90f5-6510a60dede8)
+	openEHR-EHR-CLUSTER.palpation_characteristics.v0
+
+concept
+	[at0000]	-- Palpation characteristics
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["sv"] = <
+			language = <[ISO_639-1::sv]>
+			author = <
+				["name"] = <"PEN&PAD workbench draft translation, not yet reviewed by a Swedish clinician">
+			>
+		>
+	>
+
+description
+	original_author = <
+		["name"] = <"PEN&PAD workbench (draft prepared for Erik Sundvall)">
+		["organisation"] = <"erik-sundvalls-bots (PEN&PAD workbench)">
+		["date"] = <"2026-11-18">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To record the consistency and surface texture of a swelling, mass, lesion or organ as felt on palpation.">
+			use = <"Use to record the tactile characteristics of an identified swelling, mass, lesion or organ. This archetype is designed for the 'Specific details' SLOT in CLUSTER.symptom_sign.v2, the 'Examination findings' SLOT in CLUSTER.exam.v2, and the 'Additional details' SLOT in CLUSTER.exam_lesion, but can be used in any other CLUSTER or ENTRY archetype where clinically appropriate. The identity and location of the structure palpated are recorded in the archetype in which this one is nested.">
+			keywords = <"palpation", "consistency", "texture", "surface", "swelling", "lump", "mass", "fluctuant", "nodular">
+			misuse = <"Not to be used for the size, shape or number of lesions - use CLUSTER.exam_lesion or CLUSTER.physical_dimensions. Not to be used for tenderness - use CLUSTER.symptom_sign or a tenderness archetype. Not to be used for oedema - use CLUSTER.oedema. Not to be used for imaging findings - use the CLUSTER.imaging_exam family.">
+			copyright = <"© 2026 Erik Sundvall / erik-sundvalls-bots">
+		>
+		["sv"] = <
+			language = <[ISO_639-1::sv]>
+			purpose = <"Att registrera konsistens och ytstruktur hos en svullnad, resistens, lesion eller ett organ vid palpation.">
+			use = <"Används för att registrera taktila egenskaper hos en angiven svullnad, resistens, lesion eller ett organ. Arketypen är avsedd för SLOT:en 'Specifika detaljer' i CLUSTER.symptom_sign.v2, SLOT:en 'Undersökningsfynd' i CLUSTER.exam.v2 och SLOT:en 'Ytterligare detaljer' i CLUSTER.exam_lesion, men kan användas i andra CLUSTER- eller ENTRY-arketyper där det är kliniskt lämpligt. Vilken struktur som palperats och var den sitter registreras i den arketyp som denna nästlas i.">
+			keywords = <"palpation", "konsistens", "ytstruktur", "yta", "svullnad", "resistens", "fluktuerande", "knottrig">
+			misuse = <"Används inte för storlek, form eller antal lesioner - använd CLUSTER.exam_lesion eller CLUSTER.physical_dimensions. Används inte för ömhet - använd CLUSTER.symptom_sign eller en arketyp för ömhet. Används inte för ödem - använd CLUSTER.oedema. Används inte för fynd vid bilddiagnostik - använd arketyper i familjen CLUSTER.imaging_exam.">
+			copyright = <"© 2026 Erik Sundvall / erik-sundvalls-bots">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <"Drafted with the openEHR Assistant tooling; clinical review pending", ...>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["custodian_organisation"] = <"erik-sundvalls-bots (local draft, not CKM-governed)">
+		["original_namespace"] = <"local">
+		["original_publisher"] = <"erik-sundvalls-bots">
+		["revision"] = <"0.0.1-alpha">
+		["build_uid"] = <"21a8c3ff-3762-424e-92c2-be3ab02d6913">
+		["ip_acknowledgement"] = <"This artefact includes content from SNOMED Clinical Terms (SNOMED CT), which is copyrighted material of SNOMED International. Implementers need an appropriate SNOMED CT Affiliate licence.">
+		["snomed_ct_verification"] = <"SNOMED CT International Edition 20260701 (tx.fhir.org $lookup, checked 2026-11-18). 'Rough' has no SNOMED CT qualifier value and is unbound. 'Fluctuant' binds to a finding (300583006), not a qualifier value.">
+	>
+
+definition
+	CLUSTER[at0000] matches {    -- Palpation characteristics
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0001] occurrences matches {0..1} matches {    -- Consistency
+				value matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0002,    -- Soft
+							at0003,    -- Firm
+							at0004,    -- Hard
+							at0005]    -- Fluctuant
+						}
+					}
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0006] occurrences matches {0..1} matches {    -- Surface texture
+				value matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0007,    -- Smooth
+							at0008,    -- Rough
+							at0009,    -- Nodular
+							at0010]    -- Irregular
+						}
+					}
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0011] occurrences matches {0..1} matches {    -- Comment
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+		}
+	}
+
+ontology
+	terminologies_available = <"SNOMED-CT", ...>
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Palpation characteristics">
+					description = <"Tactile characteristics of a swelling, mass, lesion or organ, as felt on palpation.">
+				>
+				["at0001"] = <
+					text = <"Consistency">
+					description = <"How the swelling, mass, lesion or organ feels on palpation, from soft to hard, or whether it is fluctuant.">
+					comment = <"'Fluctuant' indicates fluid content and is kept in this value set because clinical lump examination traditionally reports it together with consistency.">
+				>
+				["at0002"] = <
+					text = <"Soft">
+					description = <"Yields easily to pressure, like an ear lobe.">
+				>
+				["at0003"] = <
+					text = <"Firm">
+					description = <"Yields slightly to pressure, like the tip of the nose.">
+				>
+				["at0004"] = <
+					text = <"Hard">
+					description = <"Does not yield to pressure, like the chin or bone.">
+				>
+				["at0005"] = <
+					text = <"Fluctuant">
+					description = <"A wave of fluid can be felt when pressure is applied on one side; suggests fluid content.">
+				>
+				["at0006"] = <
+					text = <"Surface texture">
+					description = <"The texture of the surface of the swelling, mass, lesion or organ on palpation.">
+				>
+				["at0007"] = <
+					text = <"Smooth">
+					description = <"The surface is even, without irregularities.">
+				>
+				["at0008"] = <
+					text = <"Rough">
+					description = <"The surface feels uneven or coarse.">
+				>
+				["at0009"] = <
+					text = <"Nodular">
+					description = <"The surface has small, rounded lumps.">
+				>
+				["at0010"] = <
+					text = <"Irregular">
+					description = <"The surface or outline is uneven in shape.">
+				>
+				["at0011"] = <
+					text = <"Comment">
+					description = <"Additional narrative about the palpation characteristics, not captured in other fields.">
+				>
+			>
+		>
+		["sv"] = <
+			items = <
+				["at0000"] = <
+					text = <"Palpationsfynd">
+					description = <"Taktila egenskaper hos en svullnad, resistens, lesion eller ett organ vid palpation.">
+				>
+				["at0001"] = <
+					text = <"Konsistens">
+					description = <"Hur svullnaden, resistensen, lesionen eller organet känns vid palpation, från mjuk till hård, eller om den fluktuerar.">
+					comment = <"'Fluktuerande' tyder på vätskeinnehåll och ingår i värdemängden eftersom det traditionellt anges tillsammans med konsistens vid undersökning av en resistens.">
+				>
+				["at0002"] = <
+					text = <"Mjuk">
+					description = <"Ger lätt efter för tryck, som en örsnibb.">
+				>
+				["at0003"] = <
+					text = <"Fast">
+					description = <"Ger något efter för tryck, som nästippen.">
+				>
+				["at0004"] = <
+					text = <"Hård">
+					description = <"Ger inte efter för tryck, som hakan eller ben.">
+				>
+				["at0005"] = <
+					text = <"Fluktuerande">
+					description = <"En vätskevåg kan kännas när tryck läggs på ena sidan; tyder på vätskeinnehåll.">
+				>
+				["at0006"] = <
+					text = <"Ytstruktur">
+					description = <"Ytans struktur hos svullnaden, resistensen, lesionen eller organet vid palpation.">
+				>
+				["at0007"] = <
+					text = <"Slät">
+					description = <"Ytan är jämn, utan ojämnheter.">
+				>
+				["at0008"] = <
+					text = <"Skrovlig">
+					description = <"Ytan känns ojämn eller grov.">
+				>
+				["at0009"] = <
+					text = <"Knottrig">
+					description = <"Ytan har små, runda knölar.">
+				>
+				["at0010"] = <
+					text = <"Oregelbunden">
+					description = <"Ytan eller konturen är ojämn till formen.">
+				>
+				["at0011"] = <
+					text = <"Kommentar">
+					description = <"Ytterligare fritext om palpationsfynden som inte registrerats i andra fält.">
+				>
+			>
+		>
+	>
+	term_bindings = <
+		["SNOMED-CT"] = <
+			items = <
+				["at0002"] = <[SNOMED-CT::37378003]>
+				["at0003"] = <[SNOMED-CT::20583004]>
+				["at0004"] = <[SNOMED-CT::72505002]>
+				["at0005"] = <[SNOMED-CT::300583006]>
+				["at0007"] = <[SNOMED-CT::82280004]>
+				["at0009"] = <[SNOMED-CT::255288007]>
+				["at0010"] = <[SNOMED-CT::49608001]>
+			>
+		>
+	>

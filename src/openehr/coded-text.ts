@@ -12,10 +12,10 @@ const CLINERGY_SV: Record<string, string> = {
   moderate: "Måttlig",
   mild: "Lätt",
   severe: "Svår",
-  full: "Full",
+  full: "Fullt",
   reduced: "Nedsatt",
   limited: "Begränsad",
-  minimal: "Minimal",
+  fixed: "Fixerad",
   week: "vecka",
   day: "dag",
   FlexionSign: "Flexion",
@@ -26,7 +26,35 @@ const CLINERGY_SV: Record<string, string> = {
   throbbingPain: "Bultande",
   rightSelection: "Höger",
   leftSelection: "Vänster",
+  infrequent: "Sällan",
+  occasional: "Ibland",
+  frequent: "Ofta",
+  soft: "Mjuk",
+  firm: "Fast",
+  hard: "Hård",
+  fluctuant: "Fluktuerande",
+  smooth: "Slät",
+  rough: "Grov",
+  nodular: "Knölig",
+  irregular: "Oregelbunden",
 };
+
+const PAIN_MOVEMENT_SV: Record<string, string> = {
+  absence: "Ingen smärta",
+  mild: "Lätt smärta",
+  moderate: "Måttlig smärta",
+  severe: "Svår smärta",
+};
+
+export function localValueRubric(key: string, english: string, language: NoteLanguage): string {
+  if (language !== "sv") return english;
+  return CLINERGY_SV[key] ?? english;
+}
+
+export function painOnMovementRubric(key: string, english: string, language: NoteLanguage): string {
+  if (language !== "sv") return english;
+  return PAIN_MOVEMENT_SV[key] ?? english;
+}
 
 const LOCAL_LABELS: Record<string, { en: string; sv: string }> = {
   at0006: { en: "Flexion", sv: "Flexion" },
@@ -54,8 +82,18 @@ export function clinergyCodedText(key: string, language: NoteLanguage): string {
   return term(key)?.preferred ?? key;
 }
 
-/** Local terminology rubrics must stay English so the GP OPT validator matches. */
-export function localCodedText(_at: string, text: string, _language: NoteLanguage): string {
+const CLUSTER_VALUE_KEYS = new Set([
+  "infrequent", "occasional", "frequent",
+  "soft", "firm", "hard", "fluctuant",
+  "smooth", "rough", "nodular", "irregular",
+  "full", "reduced", "limited", "minimal", "fixed",
+]);
+
+/** English rubrics for EN compositions; Swedish only for new cluster value sets. */
+export function localCodedText(_at: string, text: string, language: NoteLanguage, clinergyKey?: string): string {
+  if (language === "sv" && clinergyKey && CLUSTER_VALUE_KEYS.has(clinergyKey)) {
+    return localValueRubric(clinergyKey, text, language);
+  }
   return text;
 }
 

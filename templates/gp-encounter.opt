@@ -2388,7 +2388,7 @@
                                   </children>
                                 </attributes>
                               </children>
-                              <children xsi:type="C_ARCHETYPE_ROOT">
+                                                            <children xsi:type="C_ARCHETYPE_ROOT">
                                 <rm_type_name>CLUSTER</rm_type_name>
                                 <occurrences>
                                   <lower_included>true</lower_included>
@@ -2444,6 +2444,51 @@
                                       </children>
                                     </attributes>
                                   </children>
+                                  <cardinality>
+                                    <is_ordered>false</is_ordered>
+                                    <is_unique>false</is_unique>
+                                    <interval>
+                                      <lower_included>true</lower_included>
+                                      <upper_included>false</upper_included>
+                                      <lower_unbounded>false</lower_unbounded>
+                                      <upper_unbounded>true</upper_unbounded>
+                                      <lower>1</lower>
+                                    </interval>
+                                  </cardinality>
+                                </attributes>
+                                <archetype_id>
+                                  <value>openEHR-EHR-CLUSTER.symptom_sign_frequency.v0</value>
+                                </archetype_id>
+                                <term_definitions code="at0000">
+                                  <items id="text">Symptom/sign frequency</items>
+                                  <items id="description">How often episodes of an identified symptom or sign occur.</items>
+                                </term_definitions>
+                                <term_definitions code="at0001">
+                                  <items id="text">Frequency category</items>
+                                  <items id="description">Category describing how often episodes of the symptom or sign occur.</items>
+                                </term_definitions>
+                              </children>
+                              <children xsi:type="C_ARCHETYPE_ROOT">
+                                <rm_type_name>CLUSTER</rm_type_name>
+                                <occurrences>
+                                  <lower_included>true</lower_included>
+                                  <upper_included>true</upper_included>
+                                  <lower_unbounded>false</lower_unbounded>
+                                  <upper_unbounded>false</upper_unbounded>
+                                  <lower>0</lower>
+                                  <upper>1</upper>
+                                </occurrences>
+                                <node_id>at0000</node_id>
+                                <attributes xsi:type="C_MULTIPLE_ATTRIBUTE">
+                                  <rm_attribute_name>items</rm_attribute_name>
+                                  <existence>
+                                    <lower_included>true</lower_included>
+                                    <upper_included>true</upper_included>
+                                    <lower_unbounded>false</lower_unbounded>
+                                    <upper_unbounded>false</upper_unbounded>
+                                    <lower>1</lower>
+                                    <upper>1</upper>
+                                  </existence>
                                   <children xsi:type="C_COMPLEX_OBJECT">
                                     <rm_type_name>ELEMENT</rm_type_name>
                                     <occurrences>
@@ -2454,7 +2499,7 @@
                                       <lower>0</lower>
                                       <upper>1</upper>
                                     </occurrences>
-                                    <node_id>at0002</node_id>
+                                    <node_id>at0001</node_id>
                                     <attributes xsi:type="C_SINGLE_ATTRIBUTE">
                                       <rm_attribute_name>value</rm_attribute_name>
                                       <existence>
@@ -2478,8 +2523,7 @@
                                         <node_id/>
                                       </children>
                                     </attributes>
-                                  </children>
-                                  <children xsi:type="C_COMPLEX_OBJECT">
+                                  </children>                                  <children xsi:type="C_COMPLEX_OBJECT">
                                     <rm_type_name>ELEMENT</rm_type_name>
                                     <occurrences>
                                       <lower_included>true</lower_included>
@@ -2489,77 +2533,7 @@
                                       <lower>0</lower>
                                       <upper>1</upper>
                                     </occurrences>
-                                    <node_id>at0003</node_id>
-                                    <attributes xsi:type="C_SINGLE_ATTRIBUTE">
-                                      <rm_attribute_name>value</rm_attribute_name>
-                                      <existence>
-                                        <lower_included>true</lower_included>
-                                        <upper_included>true</upper_included>
-                                        <lower_unbounded>false</lower_unbounded>
-                                        <upper_unbounded>false</upper_unbounded>
-                                        <lower>0</lower>
-                                        <upper>1</upper>
-                                      </existence>
-                                      <children xsi:type="C_COMPLEX_OBJECT">
-                                        <rm_type_name>DV_CODED_TEXT</rm_type_name>
-                                        <occurrences>
-                                          <lower_included>true</lower_included>
-                                          <upper_included>true</upper_included>
-                                          <lower_unbounded>false</lower_unbounded>
-                                          <upper_unbounded>false</upper_unbounded>
-                                          <lower>1</lower>
-                                          <upper>1</upper>
-                                        </occurrences>
-                                        <node_id/>
-                                      </children>
-                                    </attributes>
-                                  </children>
-                                  <children xsi:type="C_COMPLEX_OBJECT">
-                                    <rm_type_name>ELEMENT</rm_type_name>
-                                    <occurrences>
-                                      <lower_included>true</lower_included>
-                                      <upper_included>true</upper_included>
-                                      <lower_unbounded>false</lower_unbounded>
-                                      <upper_unbounded>false</upper_unbounded>
-                                      <lower>0</lower>
-                                      <upper>1</upper>
-                                    </occurrences>
-                                    <node_id>at0004</node_id>
-                                    <attributes xsi:type="C_SINGLE_ATTRIBUTE">
-                                      <rm_attribute_name>value</rm_attribute_name>
-                                      <existence>
-                                        <lower_included>true</lower_included>
-                                        <upper_included>true</upper_included>
-                                        <lower_unbounded>false</lower_unbounded>
-                                        <upper_unbounded>false</upper_unbounded>
-                                        <lower>0</lower>
-                                        <upper>1</upper>
-                                      </existence>
-                                      <children xsi:type="C_COMPLEX_OBJECT">
-                                        <rm_type_name>DV_CODED_TEXT</rm_type_name>
-                                        <occurrences>
-                                          <lower_included>true</lower_included>
-                                          <upper_included>true</upper_included>
-                                          <lower_unbounded>false</lower_unbounded>
-                                          <upper_unbounded>false</upper_unbounded>
-                                          <lower>1</lower>
-                                          <upper>1</upper>
-                                        </occurrences>
-                                        <node_id/>
-                                      </children>
-                                    </attributes>
-                                  </children>
-                                  <children xsi:type="C_COMPLEX_OBJECT">
-                                    <rm_type_name>ELEMENT</rm_type_name>
-                                    <occurrences>
-                                      <lower_included>true</lower_included>
-                                      <upper_included>true</upper_included>
-                                      <lower_unbounded>false</lower_unbounded>
-                                      <upper_unbounded>false</upper_unbounded>
-                                      <lower>0</lower>
-                                      <upper>1</upper>
-                                    </occurrences>
-                                    <node_id>at0005</node_id>
+                                    <node_id>at0006</node_id>
                                     <attributes xsi:type="C_SINGLE_ATTRIBUTE">
                                       <rm_attribute_name>value</rm_attribute_name>
                                       <existence>
@@ -2597,33 +2571,22 @@
                                   </cardinality>
                                 </attributes>
                                 <archetype_id>
-                                  <value>openEHR-EHR-CLUSTER.clinergy_descriptor.v0</value>
+                                  <value>openEHR-EHR-CLUSTER.palpation_characteristics.v0</value>
                                 </archetype_id>
                                 <term_definitions code="at0000">
-                                  <items id="text">Clinergy descriptor</items>
-                                  <items id="description">Clinergy descriptor</items>
+                                  <items id="text">Palpation characteristics</items>
+                                  <items id="description">Tactile characteristics of a swelling, mass, lesion or organ, as felt on palpation.</items>
                                 </term_definitions>
                                 <term_definitions code="at0001">
-                                  <items id="text">Frequency</items>
-                                  <items id="description">Infrequent, occasional or frequent. symptom_sign and problem_qualifier have no such scale.</items>
-                                </term_definitions>
-                                <term_definitions code="at0002">
                                   <items id="text">Consistency</items>
-                                  <items id="description">Soft, firm, hard or fluctuant swelling.</items>
+                                  <items id="description">How the swelling, mass, lesion or organ feels on palpation.</items>
                                 </term_definitions>
-                                <term_definitions code="at0003">
-                                  <items id="text">Texture</items>
-                                  <items id="description">Rough, smooth, nodular or irregular swelling.</items>
-                                </term_definitions>
-                                <term_definitions code="at0004">
-                                  <items id="text">Pain on movement</items>
-                                  <items id="description">Pain felt during a tested thumb movement.</items>
-                                </term_definitions>
-                                <term_definitions code="at0005">
-                                  <items id="text">Duration unit</items>
-                                  <items id="description">The unit of a duration whose magnitude is stored as DV_DURATION on the symptom.</items>
+                                <term_definitions code="at0006">
+                                  <items id="text">Surface texture</items>
+                                  <items id="description">The texture of the surface on palpation.</items>
                                 </term_definitions>
                               </children>
+                              
                               <children xsi:type="C_COMPLEX_OBJECT">
                                 <rm_type_name>ELEMENT</rm_type_name>
                                 <occurrences>
@@ -2958,7 +2921,7 @@
                               <items id="description">The onset for this episode of the symptom or sign.</items>
                             </term_definitions>
                             <term_definitions code="at0153">
-                              <items id="text">Clinergy descriptor</items>
+                              <items id="text">Specific details</items>
                               <items id="description">Clinergy descriptor</items>
                             </term_definitions>
                             <term_definitions code="at0154">
@@ -7344,8 +7307,8 @@
                                       </children>
                                     </attributes>
                                   </children>
-                                  <children xsi:type="C_ARCHETYPE_ROOT">
-                                    <rm_type_name>CLUSTER</rm_type_name>
+                                                                    <children xsi:type="C_COMPLEX_OBJECT">
+                                    <rm_type_name>ELEMENT</rm_type_name>
                                     <occurrences>
                                       <lower_included>true</lower_included>
                                       <upper_included>true</upper_included>
@@ -7354,232 +7317,66 @@
                                       <lower>0</lower>
                                       <upper>1</upper>
                                     </occurrences>
-                                    <node_id>at0000</node_id>
-                                    <attributes xsi:type="C_MULTIPLE_ATTRIBUTE">
-                                      <rm_attribute_name>items</rm_attribute_name>
+                                    <node_id>at0.1</node_id>
+                                    <attributes xsi:type="C_SINGLE_ATTRIBUTE">
+                                      <rm_attribute_name>value</rm_attribute_name>
                                       <existence>
                                         <lower_included>true</lower_included>
                                         <upper_included>true</upper_included>
                                         <lower_unbounded>false</lower_unbounded>
                                         <upper_unbounded>false</upper_unbounded>
-                                        <lower>1</lower>
+                                        <lower>0</lower>
                                         <upper>1</upper>
                                       </existence>
                                       <children xsi:type="C_COMPLEX_OBJECT">
-                                        <rm_type_name>ELEMENT</rm_type_name>
+                                        <rm_type_name>DV_CODED_TEXT</rm_type_name>
                                         <occurrences>
                                           <lower_included>true</lower_included>
                                           <upper_included>true</upper_included>
                                           <lower_unbounded>false</lower_unbounded>
                                           <upper_unbounded>false</upper_unbounded>
-                                          <lower>0</lower>
-                                          <upper>1</upper>
-                                        </occurrences>
-                                        <node_id>at0001</node_id>
-                                        <attributes xsi:type="C_SINGLE_ATTRIBUTE">
-                                          <rm_attribute_name>value</rm_attribute_name>
-                                          <existence>
-                                            <lower_included>true</lower_included>
-                                            <upper_included>true</upper_included>
-                                            <lower_unbounded>false</lower_unbounded>
-                                            <upper_unbounded>false</upper_unbounded>
-                                            <lower>0</lower>
-                                            <upper>1</upper>
-                                          </existence>
-                                          <children xsi:type="C_COMPLEX_OBJECT">
-                                            <rm_type_name>DV_CODED_TEXT</rm_type_name>
-                                            <occurrences>
-                                              <lower_included>true</lower_included>
-                                              <upper_included>true</upper_included>
-                                              <lower_unbounded>false</lower_unbounded>
-                                              <upper_unbounded>false</upper_unbounded>
-                                              <lower>1</lower>
-                                              <upper>1</upper>
-                                            </occurrences>
-                                            <node_id/>
-                                          </children>
-                                        </attributes>
-                                      </children>
-                                      <children xsi:type="C_COMPLEX_OBJECT">
-                                        <rm_type_name>ELEMENT</rm_type_name>
-                                        <occurrences>
-                                          <lower_included>true</lower_included>
-                                          <upper_included>true</upper_included>
-                                          <lower_unbounded>false</lower_unbounded>
-                                          <upper_unbounded>false</upper_unbounded>
-                                          <lower>0</lower>
-                                          <upper>1</upper>
-                                        </occurrences>
-                                        <node_id>at0002</node_id>
-                                        <attributes xsi:type="C_SINGLE_ATTRIBUTE">
-                                          <rm_attribute_name>value</rm_attribute_name>
-                                          <existence>
-                                            <lower_included>true</lower_included>
-                                            <upper_included>true</upper_included>
-                                            <lower_unbounded>false</lower_unbounded>
-                                            <upper_unbounded>false</upper_unbounded>
-                                            <lower>0</lower>
-                                            <upper>1</upper>
-                                          </existence>
-                                          <children xsi:type="C_COMPLEX_OBJECT">
-                                            <rm_type_name>DV_CODED_TEXT</rm_type_name>
-                                            <occurrences>
-                                              <lower_included>true</lower_included>
-                                              <upper_included>true</upper_included>
-                                              <lower_unbounded>false</lower_unbounded>
-                                              <upper_unbounded>false</upper_unbounded>
-                                              <lower>1</lower>
-                                              <upper>1</upper>
-                                            </occurrences>
-                                            <node_id/>
-                                          </children>
-                                        </attributes>
-                                      </children>
-                                      <children xsi:type="C_COMPLEX_OBJECT">
-                                        <rm_type_name>ELEMENT</rm_type_name>
-                                        <occurrences>
-                                          <lower_included>true</lower_included>
-                                          <upper_included>true</upper_included>
-                                          <lower_unbounded>false</lower_unbounded>
-                                          <upper_unbounded>false</upper_unbounded>
-                                          <lower>0</lower>
-                                          <upper>1</upper>
-                                        </occurrences>
-                                        <node_id>at0003</node_id>
-                                        <attributes xsi:type="C_SINGLE_ATTRIBUTE">
-                                          <rm_attribute_name>value</rm_attribute_name>
-                                          <existence>
-                                            <lower_included>true</lower_included>
-                                            <upper_included>true</upper_included>
-                                            <lower_unbounded>false</lower_unbounded>
-                                            <upper_unbounded>false</upper_unbounded>
-                                            <lower>0</lower>
-                                            <upper>1</upper>
-                                          </existence>
-                                          <children xsi:type="C_COMPLEX_OBJECT">
-                                            <rm_type_name>DV_CODED_TEXT</rm_type_name>
-                                            <occurrences>
-                                              <lower_included>true</lower_included>
-                                              <upper_included>true</upper_included>
-                                              <lower_unbounded>false</lower_unbounded>
-                                              <upper_unbounded>false</upper_unbounded>
-                                              <lower>1</lower>
-                                              <upper>1</upper>
-                                            </occurrences>
-                                            <node_id/>
-                                          </children>
-                                        </attributes>
-                                      </children>
-                                      <children xsi:type="C_COMPLEX_OBJECT">
-                                        <rm_type_name>ELEMENT</rm_type_name>
-                                        <occurrences>
-                                          <lower_included>true</lower_included>
-                                          <upper_included>true</upper_included>
-                                          <lower_unbounded>false</lower_unbounded>
-                                          <upper_unbounded>false</upper_unbounded>
-                                          <lower>0</lower>
-                                          <upper>1</upper>
-                                        </occurrences>
-                                        <node_id>at0004</node_id>
-                                        <attributes xsi:type="C_SINGLE_ATTRIBUTE">
-                                          <rm_attribute_name>value</rm_attribute_name>
-                                          <existence>
-                                            <lower_included>true</lower_included>
-                                            <upper_included>true</upper_included>
-                                            <lower_unbounded>false</lower_unbounded>
-                                            <upper_unbounded>false</upper_unbounded>
-                                            <lower>0</lower>
-                                            <upper>1</upper>
-                                          </existence>
-                                          <children xsi:type="C_COMPLEX_OBJECT">
-                                            <rm_type_name>DV_CODED_TEXT</rm_type_name>
-                                            <occurrences>
-                                              <lower_included>true</lower_included>
-                                              <upper_included>true</upper_included>
-                                              <lower_unbounded>false</lower_unbounded>
-                                              <upper_unbounded>false</upper_unbounded>
-                                              <lower>1</lower>
-                                              <upper>1</upper>
-                                            </occurrences>
-                                            <node_id/>
-                                          </children>
-                                        </attributes>
-                                      </children>
-                                      <children xsi:type="C_COMPLEX_OBJECT">
-                                        <rm_type_name>ELEMENT</rm_type_name>
-                                        <occurrences>
-                                          <lower_included>true</lower_included>
-                                          <upper_included>true</upper_included>
-                                          <lower_unbounded>false</lower_unbounded>
-                                          <upper_unbounded>false</upper_unbounded>
-                                          <lower>0</lower>
-                                          <upper>1</upper>
-                                        </occurrences>
-                                        <node_id>at0005</node_id>
-                                        <attributes xsi:type="C_SINGLE_ATTRIBUTE">
-                                          <rm_attribute_name>value</rm_attribute_name>
-                                          <existence>
-                                            <lower_included>true</lower_included>
-                                            <upper_included>true</upper_included>
-                                            <lower_unbounded>false</lower_unbounded>
-                                            <upper_unbounded>false</upper_unbounded>
-                                            <lower>0</lower>
-                                            <upper>1</upper>
-                                          </existence>
-                                          <children xsi:type="C_COMPLEX_OBJECT">
-                                            <rm_type_name>DV_CODED_TEXT</rm_type_name>
-                                            <occurrences>
-                                              <lower_included>true</lower_included>
-                                              <upper_included>true</upper_included>
-                                              <lower_unbounded>false</lower_unbounded>
-                                              <upper_unbounded>false</upper_unbounded>
-                                              <lower>1</lower>
-                                              <upper>1</upper>
-                                            </occurrences>
-                                            <node_id/>
-                                          </children>
-                                        </attributes>
-                                      </children>
-                                      <cardinality>
-                                        <is_ordered>false</is_ordered>
-                                        <is_unique>false</is_unique>
-                                        <interval>
-                                          <lower_included>true</lower_included>
-                                          <upper_included>false</upper_included>
-                                          <lower_unbounded>false</lower_unbounded>
-                                          <upper_unbounded>true</upper_unbounded>
                                           <lower>1</lower>
-                                        </interval>
-                                      </cardinality>
+                                          <upper>1</upper>
+                                        </occurrences>
+                                        <node_id/>
+                                      </children>
                                     </attributes>
-                                    <archetype_id>
-                                      <value>openEHR-EHR-CLUSTER.clinergy_descriptor.v0</value>
-                                    </archetype_id>
-                                    <term_definitions code="at0000">
-                                      <items id="text">Clinergy descriptor</items>
-                                      <items id="description">Clinergy descriptor</items>
-                                    </term_definitions>
-                                    <term_definitions code="at0001">
-                                      <items id="text">Frequency</items>
-                                      <items id="description">Infrequent, occasional or frequent. symptom_sign and problem_qualifier have no such scale.</items>
-                                    </term_definitions>
-                                    <term_definitions code="at0002">
-                                      <items id="text">Consistency</items>
-                                      <items id="description">Soft, firm, hard or fluctuant swelling.</items>
-                                    </term_definitions>
-                                    <term_definitions code="at0003">
-                                      <items id="text">Texture</items>
-                                      <items id="description">Rough, smooth, nodular or irregular swelling.</items>
-                                    </term_definitions>
-                                    <term_definitions code="at0004">
-                                      <items id="text">Pain on movement</items>
-                                      <items id="description">Pain felt during a tested thumb movement.</items>
-                                    </term_definitions>
-                                    <term_definitions code="at0005">
-                                      <items id="text">Duration unit</items>
-                                      <items id="description">The unit of a duration whose magnitude is stored as DV_DURATION on the symptom.</items>
-                                    </term_definitions>
+                                  </children>                                  <children xsi:type="C_COMPLEX_OBJECT">
+                                    <rm_type_name>ELEMENT</rm_type_name>
+                                    <occurrences>
+                                      <lower_included>true</lower_included>
+                                      <upper_included>true</upper_included>
+                                      <lower_unbounded>false</lower_unbounded>
+                                      <upper_unbounded>false</upper_unbounded>
+                                      <lower>0</lower>
+                                      <upper>1</upper>
+                                    </occurrences>
+                                    <node_id>at0.7</node_id>
+                                    <attributes xsi:type="C_SINGLE_ATTRIBUTE">
+                                      <rm_attribute_name>value</rm_attribute_name>
+                                      <existence>
+                                        <lower_included>true</lower_included>
+                                        <upper_included>true</upper_included>
+                                        <lower_unbounded>false</lower_unbounded>
+                                        <upper_unbounded>false</upper_unbounded>
+                                        <lower>0</lower>
+                                        <upper>1</upper>
+                                      </existence>
+                                      <children xsi:type="C_COMPLEX_OBJECT">
+                                        <rm_type_name>DV_CODED_TEXT</rm_type_name>
+                                        <occurrences>
+                                          <lower_included>true</lower_included>
+                                          <upper_included>true</upper_included>
+                                          <lower_unbounded>false</lower_unbounded>
+                                          <upper_unbounded>false</upper_unbounded>
+                                          <lower>1</lower>
+                                          <upper>1</upper>
+                                        </occurrences>
+                                        <node_id/>
+                                      </children>
+                                    </attributes>
                                   </children>
+                                  
                                   <children xsi:type="C_COMPLEX_OBJECT">
                                     <rm_type_name>ELEMENT</rm_type_name>
                                     <occurrences>
@@ -7628,7 +7425,7 @@
                                   </cardinality>
                                 </attributes>
                                 <archetype_id>
-                                  <value>openEHR-EHR-CLUSTER.range_of_motion.v1</value>
+                                  <value>openEHR-EHR-CLUSTER.range_of_motion-qualitative.v0</value>
                                 </archetype_id>
                                 <term_definitions code="at0000">
                                   <items id="text">Range of motion of a joint</items>
@@ -11797,7 +11594,7 @@
         <items id="description">The onset for this episode of the symptom or sign.</items>
       </items>
       <items code="at0153">
-        <items id="text">Clinergy descriptor</items>
+        <items id="text">Specific details</items>
         <items id="description">Clinergy descriptor</items>
       </items>
       <items code="at0154">
@@ -12162,32 +11959,78 @@
       </items>
     </term_bindings>
   </component_ontologies>
-  <component_ontologies archetype_id="openEHR-EHR-CLUSTER.clinergy_descriptor.v0">
+  <component_ontologies archetype_id="openEHR-EHR-CLUSTER.symptom_sign_frequency.v0">
     <term_definitions language="en">
-      <items code="at0000">
-        <items id="text">Clinergy descriptor</items>
-        <items id="description">Clinergy descriptor</items>
-      </items>
-      <items code="at0001">
-        <items id="text">Frequency</items>
-        <items id="description">Infrequent, occasional or frequent. symptom_sign and problem_qualifier have no such scale.</items>
-      </items>
-      <items code="at0002">
-        <items id="text">Consistency</items>
-        <items id="description">Soft, firm, hard or fluctuant swelling.</items>
-      </items>
-      <items code="at0003">
-        <items id="text">Texture</items>
-        <items id="description">Rough, smooth, nodular or irregular swelling.</items>
-      </items>
-      <items code="at0004">
-        <items id="text">Pain on movement</items>
-        <items id="description">Pain felt during a tested thumb movement.</items>
-      </items>
-      <items code="at0005">
-        <items id="text">Duration unit</items>
-        <items id="description">The unit of a duration whose magnitude is stored as DV_DURATION on the symptom.</items>
-      </items>
+      <items code="at0000"><items id="text">Symptom/sign frequency</items></items>
+      <items code="at0001"><items id="text">Frequency category</items></items>
+      <items code="at0002"><items id="text">Infrequent</items></items>
+      <items code="at0003"><items id="text">Occasional</items></items>
+      <items code="at0004"><items id="text">Frequent</items></items>
+    </term_definitions>
+    <term_definitions language="sv">
+      <items code="at0000"><items id="text">Frekvens för symtom/tecken</items></items>
+      <items code="at0001"><items id="text">Frekvenskategori</items></items>
+      <items code="at0002"><items id="text">Sällan</items></items>
+      <items code="at0003"><items id="text">Ibland</items></items>
+      <items code="at0004"><items id="text">Ofta</items></items>
+    </term_definitions>
+  </component_ontologies>
+  <component_ontologies archetype_id="openEHR-EHR-CLUSTER.palpation_characteristics.v0">
+    <term_definitions language="en">
+      <items code="at0000"><items id="text">Palpation characteristics</items></items>
+      <items code="at0001"><items id="text">Consistency</items></items>
+      <items code="at0002"><items id="text">Soft</items></items>
+      <items code="at0003"><items id="text">Firm</items></items>
+      <items code="at0004"><items id="text">Hard</items></items>
+      <items code="at0005"><items id="text">Fluctuant</items></items>
+      <items code="at0006"><items id="text">Surface texture</items></items>
+      <items code="at0007"><items id="text">Smooth</items></items>
+      <items code="at0008"><items id="text">Rough</items></items>
+      <items code="at0009"><items id="text">Nodular</items></items>
+      <items code="at0010"><items id="text">Irregular</items></items>
+    </term_definitions>
+    <term_definitions language="sv">
+      <items code="at0000"><items id="text">Palpationsfynd</items></items>
+      <items code="at0001"><items id="text">Konsistens</items></items>
+      <items code="at0002"><items id="text">Mjuk</items></items>
+      <items code="at0003"><items id="text">Fast</items></items>
+      <items code="at0004"><items id="text">Hård</items></items>
+      <items code="at0005"><items id="text">Fluktuerande</items></items>
+      <items code="at0006"><items id="text">Ytstruktur</items></items>
+      <items code="at0007"><items id="text">Slät</items></items>
+      <items code="at0008"><items id="text">Grov</items></items>
+      <items code="at0009"><items id="text">Knölig</items></items>
+      <items code="at0010"><items id="text">Oregelbunden</items></items>
+    </term_definitions>
+  </component_ontologies>
+  <component_ontologies archetype_id="openEHR-EHR-CLUSTER.range_of_motion-qualitative.v0">
+    <term_definitions language="en">
+      <items code="at0000"><items id="text">Qualitative range of motion of a joint</items></items>
+      <items code="at0.1"><items id="text">Qualitative range</items></items>
+      <items code="at0.2"><items id="text">Full</items></items>
+      <items code="at0.3"><items id="text">Reduced</items></items>
+      <items code="at0.4"><items id="text">Limited</items></items>
+      <items code="at0.5"><items id="text">Minimal</items></items>
+      <items code="at0.6"><items id="text">Fixed</items></items>
+      <items code="at0.7"><items id="text">Pain on movement</items></items>
+      <items code="at0.8"><items id="text">No pain</items></items>
+      <items code="at0.9"><items id="text">Mild pain</items></items>
+      <items code="at0.10"><items id="text">Moderate pain</items></items>
+      <items code="at0.11"><items id="text">Severe pain</items></items>
+    </term_definitions>
+    <term_definitions language="sv">
+      <items code="at0000"><items id="text">Kvalitativ rörelseomfång för led</items></items>
+      <items code="at0.1"><items id="text">Kvalitativt rörelseomfång</items></items>
+      <items code="at0.2"><items id="text">Fullt</items></items>
+      <items code="at0.3"><items id="text">Nedsatt</items></items>
+      <items code="at0.4"><items id="text">Begränsat</items></items>
+      <items code="at0.5"><items id="text">Minimalt</items></items>
+      <items code="at0.6"><items id="text">Fixerat</items></items>
+      <items code="at0.7"><items id="text">Smärta vid rörelse</items></items>
+      <items code="at0.8"><items id="text">Ingen smärta</items></items>
+      <items code="at0.9"><items id="text">Lätt smärta</items></items>
+      <items code="at0.10"><items id="text">Måttlig smärta</items></items>
+      <items code="at0.11"><items id="text">Svår smärta</items></items>
     </term_definitions>
   </component_ontologies>
   <component_ontologies archetype_id="openEHR-EHR-OBSERVATION.symptom_sign_screening.v1">
@@ -12448,7 +12291,7 @@
       </items>
     </term_definitions>
   </component_ontologies>
-  <component_ontologies archetype_id="openEHR-EHR-CLUSTER.range_of_motion.v1">
+  <component_ontologies archetype_id="openEHR-EHR-CLUSTER.range_of_motion-qualitative.v0">
     <term_definitions language="en">
       <items code="at0000">
         <items id="text">Range of motion of a joint</items>
@@ -12884,16 +12727,6 @@
     <items id="L10n.en"> </items>
     <items id="L10n.sv"> </items>
   </annotations>
-  <annotations path="/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='History']/items[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v2]/items[openEHR-EHR-CLUSTER.clinergy_descriptor.v0]">
-    <items id="hide-on-form">
-      <value>true</value>
-    </items>
-  </annotations>
-  <annotations path="/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Examination']/items[openEHR-EHR-OBSERVATION.exam.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.exam.v2]/items[openEHR-EHR-CLUSTER.range_of_motion.v1]/items[openEHR-EHR-CLUSTER.clinergy_descriptor.v0]">
-    <items id="hide-on-form">
-      <value>true</value>
-    </items>
-  </annotations>
   <annotations path="/">
     <items id="L10n.en">Encounter</items>
     <items id="L10n.sv">Besök</items>
@@ -12906,11 +12739,11 @@
     <items id="L10n.en">primary medical care</items>
     <items id="L10n.sv">primärvård</items>
   </annotations>
-  <annotations path="/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Examination']/items[openEHR-EHR-OBSERVATION.exam.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.exam.v2]/items[openEHR-EHR-CLUSTER.range_of_motion.v1]">
+  <annotations path="/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Examination']/items[openEHR-EHR-OBSERVATION.exam.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.exam.v2]/items[openEHR-EHR-CLUSTER.range_of_motion-qualitative.v0]">
     <items id="L10n.en">Range of motion of a joint</items>
     <items id="L10n.sv">Ledrörelse</items>
   </annotations>
-  <annotations path="/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Examination']/items[openEHR-EHR-OBSERVATION.exam.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.exam.v2]/items[openEHR-EHR-CLUSTER.range_of_motion.v1]/items[at0003]">
+  <annotations path="/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Examination']/items[openEHR-EHR-OBSERVATION.exam.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.exam.v2]/items[openEHR-EHR-CLUSTER.range_of_motion-qualitative.v0]/items[at0003]">
     <items id="L10n.en">Clinical description</items>
     <items id="L10n.sv">Klinisk beskrivning</items>
   </annotations>
@@ -12938,11 +12771,11 @@
     <items id="L10n.en">Episode duration</items>
     <items id="L10n.sv">Episodlängd</items>
   </annotations>
-  <annotations path="/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Examination']/items[openEHR-EHR-OBSERVATION.exam.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.exam.v2]/items[openEHR-EHR-CLUSTER.range_of_motion.v1]/items[at0002]">
+  <annotations path="/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Examination']/items[openEHR-EHR-OBSERVATION.exam.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.exam.v2]/items[openEHR-EHR-CLUSTER.range_of_motion-qualitative.v0]/items[at0002]">
     <items id="L10n.en">Movement</items>
     <items id="L10n.sv">Rörelse</items>
   </annotations>
-  <annotations path="/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Examination']/items[openEHR-EHR-OBSERVATION.exam.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.exam.v2]/items[openEHR-EHR-CLUSTER.range_of_motion.v1]/items[at0035]">
+  <annotations path="/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Examination']/items[openEHR-EHR-OBSERVATION.exam.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.exam.v2]/items[openEHR-EHR-CLUSTER.range_of_motion-qualitative.v0]/items[at0035]">
     <items id="L10n.en">Clinical interpretation</items>
     <items id="L10n.sv">Klinisk tolkning</items>
   </annotations>

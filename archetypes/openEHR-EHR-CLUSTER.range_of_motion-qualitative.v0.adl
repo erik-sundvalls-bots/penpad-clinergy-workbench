@@ -1,0 +1,692 @@
+archetype (adl_version=1.4; uid=18adf8a5-d9a0-4be8-9dbb-f7c7db70a087)
+	openEHR-EHR-CLUSTER.range_of_motion-qualitative.v0
+specialize
+	openEHR-EHR-CLUSTER.range_of_motion.v1
+
+concept
+	[at0000.1]	-- Qualitative range of motion of a joint
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["sv"] = <
+			language = <[ISO_639-1::sv]>
+			author = <
+				["name"] = <"PEN&PAD workbench draft translation, not yet reviewed by a Swedish clinician">
+			>
+		>
+	>
+
+description
+	original_author = <
+		["name"] = <"PEN&PAD workbench (draft prepared for Erik Sundvall)">
+		["organisation"] = <"erik-sundvalls-bots (PEN&PAD workbench)">
+		["date"] = <"2026-11-18">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To record a qualitative, bedside estimate of the range of a specified movement around a joint, and any pain the movement elicits.">
+			use = <"Use where the range of motion is graded qualitatively (full, reduced, limited, minimal or fixed) rather than measured, and where pain on the tested movement is recorded as part of the same finding. All elements of the parent archetype CLUSTER.range_of_motion.v1 remain available, including the measured 'Range of motion' and 'Clinical interpretation'. Designed for the 'Examination findings' SLOT in CLUSTER.exam.v2 and its specialisations. This specialisation exists as an interim solution until the qualitative range and pain on movement are added to CLUSTER.range_of_motion itself.">
+			keywords = <"range of motion", "ROM", "joint", "movement", "pain on movement", "qualitative", "full range", "reduced range">
+			misuse = <"Not to be used for a goniometric measurement alone - use CLUSTER.range_of_motion.v1. Not to be used for pain reported in the history - use CLUSTER.symptom_sign within OBSERVATION.story. Not to be used for tenderness on palpation.">
+			copyright = <"© openEHR Foundation (parent archetype); © 2026 Erik Sundvall / erik-sundvalls-bots (specialisation)">
+		>
+		["sv"] = <
+			language = <[ISO_639-1::sv]>
+			purpose = <"Att registrera en kvalitativ, klinisk uppskattning av omfånget för en angiven rörelse kring en led, och eventuell smärta som rörelsen framkallar.">
+			use = <"Används där rörelseomfånget graderas kvalitativt (full, nedsatt, begränsad, minimal eller fixerad) i stället för att mätas, och där smärta vid den undersökta rörelsen registreras som en del av samma fynd. Alla element i föräldraarketypen CLUSTER.range_of_motion.v1 finns kvar, inklusive uppmätt 'Rörelseomfång' och 'Klinisk tolkning'. Avsedd för SLOT:en 'Undersökningsfynd' i CLUSTER.exam.v2 och dess specialiseringar. Specialiseringen är en tillfällig lösning tills kvalitativt rörelseomfång och smärta vid rörelse finns i CLUSTER.range_of_motion.">
+			keywords = <"rörelseomfång", "rörlighet", "led", "rörelse", "smärta vid rörelse", "kvalitativ">
+			misuse = <"Används inte enbart för goniometermätning - använd CLUSTER.range_of_motion.v1. Används inte för smärta som rapporteras i anamnesen - använd CLUSTER.symptom_sign i OBSERVATION.story. Används inte för palpationsömhet.">
+			copyright = <"© openEHR Foundation (parent archetype); © 2026 Erik Sundvall / erik-sundvalls-bots (specialisation)">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <"Drafted with the openEHR Assistant tooling; clinical review pending", ...>
+	other_details = <
+		["references"] = <"Derived from: Range of motion of a joint, published archetype [Internet]. openEHR Foundation, openEHR Clinical Knowledge Manager, revision 1.0.2. Available from: https://ckm.openehr.org/ckm/archetypes/1013.1.7057">
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/. Derived from CLUSTER.range_of_motion.v1 (© openEHR Foundation, CC BY-SA 4.0).">
+		["custodian_organisation"] = <"erik-sundvalls-bots (local draft, not CKM-governed)">
+		["original_namespace"] = <"local">
+		["original_publisher"] = <"erik-sundvalls-bots">
+		["revision"] = <"0.0.1-alpha">
+		["build_uid"] = <"9cb91630-395b-4bd5-a503-df02bfa017ff">
+		["ip_acknowledgement"] = <"This artefact includes content from SNOMED Clinical Terms (SNOMED CT), which is copyrighted material of SNOMED International. Implementers need an appropriate SNOMED CT Affiliate licence.">
+		["snomed_ct_verification"] = <"SNOMED CT International Edition 20260701 (tx.fhir.org $lookup, checked 2026-11-18). 'No pain' is unbound.">
+	>
+
+definition
+	CLUSTER[at0000.1] occurrences matches {1..*} matches {    -- Qualitative range of motion of a joint
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0002] matches {    -- Movement
+				value matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0003,    -- Abduction
+							at0004,    -- Adduction
+							at0005,    -- Extension
+							at0006,    -- Flexion
+							at0007,    -- Internal rotation
+							at0008,    -- External rotation
+							at0009,    -- Inversion
+							at0010,    -- Eversion
+							at0011,    -- Medial rotation
+							at0012,    -- Lateral rotation
+							at0013,    -- Dorsiflexion
+							at0014,    -- Plantar flexion
+							at0015,    -- Ulnar deviation
+							at0016,    -- Radial deviation
+							at0017,    -- Pronation
+							at0018,    -- Supination
+							at0019,    -- Reposition
+							at0020,    -- Opposition
+							at0021,    -- Radial abduction
+							at0022,    -- Palmar abduction
+							at0030,    -- Right lateral flexion
+							at0031,    -- Left lateral flexion
+							at0032,    -- Right rotation
+							at0033,    -- Left rotation
+							at0042,    -- Retraction
+							at0043,    -- Protraction
+							at0044,    -- Upward rotation
+							at0045,    -- Downward rotation
+							at0046,    -- Elavation
+							at0047,    -- Depression
+							at0048,    -- Opening
+							at0049,    -- Closing
+							at0050,    -- Rightward jaw translation
+							at0051,    -- Leftward jaw translation
+							at0052,    -- Protrusion
+							at0053]    -- Retrusion
+						}
+					}
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0023] occurrences matches {0..1} matches {    -- Starting position
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0024] occurrences matches {0..1} matches {    -- Mode of examination
+				value matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0025,    -- Active
+							at0034,    -- Active-assisted
+							at0026]    -- Passive
+						}
+					}
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0027] occurrences matches {0..1} matches {    -- Range of motion
+				value matches {
+					C_DV_QUANTITY <
+						
+						list = <
+							["1"] = <
+								units = <"deg">
+								magnitude = <|-360.0..360.0|>
+							>
+							["2"] = <
+								units = <"mm">
+							>
+							["3"] = <
+								units = <"cm">
+							>
+						>
+					>
+				}
+			}
+			ELEMENT[at0.1] occurrences matches {0..1} matches {    -- Qualitative range
+				value matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0.2,    -- Full
+							at0.3,    -- Reduced
+							at0.4,    -- Limited
+							at0.5,    -- Minimal
+							at0.6]    -- Fixed
+						}
+					}
+				}
+			}
+			ELEMENT[at0.7] occurrences matches {0..1} matches {    -- Pain on movement
+				value matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0.8,    -- No pain
+							at0.9,    -- Mild pain
+							at0.10,    -- Moderate pain
+							at0.11]    -- Severe pain
+						}
+					}
+				}
+			}
+			ELEMENT[at0035] occurrences matches {0..1} matches {    -- Clinical interpretation
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			allow_archetype CLUSTER[at0028] occurrences matches {0..*} matches {    -- Additional details
+				include
+					archetype_id/value matches {/.*/}
+			}
+			ELEMENT[at0029] occurrences matches {0..1} matches {    -- Comment
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+		}
+	}
+
+ontology
+	terminologies_available = <"SNOMED-CT", ...>
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Range of motion of a joint">
+					description = <"Measurement of the extent of motion for a specified simple or complex movement around an indentified joint or section of the spine.">
+				>
+				["at0000.1"] = <
+					text = <"Qualitative range of motion of a joint">
+					description = <"Clinical estimate of the extent of a specified movement around an identified joint or section of the spine, graded qualitatively, with any pain elicited by the movement.">
+				>
+				["at0002"] = <
+					text = <"Movement">
+					description = <"Identification of the movement being tested.">
+				>
+				["at0003"] = <
+					text = <"Abduction">
+					description = <"">
+				>
+				["at0004"] = <
+					text = <"Adduction">
+					description = <"">
+				>
+				["at0005"] = <
+					text = <"Extension">
+					description = <"">
+				>
+				["at0006"] = <
+					text = <"Flexion">
+					description = <"">
+				>
+				["at0007"] = <
+					text = <"Internal rotation">
+					description = <"">
+				>
+				["at0008"] = <
+					text = <"External rotation">
+					description = <"">
+				>
+				["at0009"] = <
+					text = <"Inversion">
+					description = <"">
+				>
+				["at0010"] = <
+					text = <"Eversion">
+					description = <"">
+				>
+				["at0011"] = <
+					text = <"Medial rotation">
+					description = <"">
+				>
+				["at0012"] = <
+					text = <"Lateral rotation">
+					description = <"">
+				>
+				["at0013"] = <
+					text = <"Dorsiflexion">
+					description = <"">
+				>
+				["at0014"] = <
+					text = <"Plantar flexion">
+					description = <"">
+				>
+				["at0015"] = <
+					text = <"Ulnar deviation">
+					description = <"">
+				>
+				["at0016"] = <
+					text = <"Radial deviation">
+					description = <"">
+				>
+				["at0017"] = <
+					text = <"Pronation">
+					description = <"">
+				>
+				["at0018"] = <
+					text = <"Supination">
+					description = <"">
+				>
+				["at0019"] = <
+					text = <"Reposition">
+					description = <"">
+				>
+				["at0020"] = <
+					text = <"Opposition">
+					description = <"">
+				>
+				["at0021"] = <
+					text = <"Radial abduction">
+					description = <"">
+				>
+				["at0022"] = <
+					text = <"Palmar abduction">
+					description = <"">
+				>
+				["at0023"] = <
+					text = <"Starting position">
+					description = <"Description of the joint's position when starting the examination.">
+				>
+				["at0024"] = <
+					text = <"Mode of examination">
+					description = <"Whether the examination is done actively or passively.">
+				>
+				["at0025"] = <
+					text = <"Active">
+					description = <"The movement is performed by the individual. Also known as AROM.">
+				>
+				["at0026"] = <
+					text = <"Passive">
+					description = <"The movement is performed by the examiner or a device. Also known as PROM.">
+				>
+				["at0027"] = <
+					text = <"Range of motion">
+					description = <"The extent of motion for an identified movement around a joint.">
+				>
+				["at0028"] = <
+					text = <"Additional details">
+					description = <"Additional structured details about the range of motion.">
+				>
+				["at0029"] = <
+					text = <"Comment">
+					description = <"Additional narrative about the range of motion findings, not captured in other fields.">
+				>
+				["at0030"] = <
+					text = <"Right lateral flexion">
+					description = <"">
+				>
+				["at0031"] = <
+					text = <"Left lateral flexion">
+					description = <"">
+				>
+				["at0032"] = <
+					text = <"Right rotation">
+					description = <"">
+				>
+				["at0033"] = <
+					text = <"Left rotation">
+					description = <"">
+				>
+				["at0034"] = <
+					text = <"Active-assisted">
+					description = <"The movement is partially assisted by the examiner or a device. Also known as AAROM.">
+				>
+				["at0035"] = <
+					text = <"Clinical interpretation">
+					description = <"Single word, phrase or brief description that represents the clinical meaning and significance of the range of motion finding.">
+					comment = <"For example: 'Within normal range', 'Increased range of motion' or 'Decreased range of motion'.
+Coding of the 'Interpretation' with a terminology is preferred, where possible.">
+				>
+				["at0042"] = <
+					text = <"Retraction">
+					description = <"">
+				>
+				["at0043"] = <
+					text = <"Protraction">
+					description = <"">
+				>
+				["at0044"] = <
+					text = <"Upward rotation">
+					description = <"">
+				>
+				["at0045"] = <
+					text = <"Downward rotation">
+					description = <"">
+				>
+				["at0046"] = <
+					text = <"Elavation">
+					description = <"">
+				>
+				["at0047"] = <
+					text = <"Depression">
+					description = <"">
+				>
+				["at0048"] = <
+					text = <"Opening">
+					description = <"">
+				>
+				["at0049"] = <
+					text = <"Closing">
+					description = <"">
+				>
+				["at0050"] = <
+					text = <"Rightward jaw translation">
+					description = <"">
+				>
+				["at0051"] = <
+					text = <"Leftward jaw translation">
+					description = <"">
+				>
+				["at0052"] = <
+					text = <"Protrusion">
+					description = <"">
+				>
+				["at0053"] = <
+					text = <"Retrusion">
+					description = <"">
+				>
+				["at0.1"] = <
+					text = <"Qualitative range">
+					description = <"Qualitative grade of the extent of the movement compared with the expected normal range.">
+					comment = <"Use when the range is estimated at the bedside rather than measured. If measured, record the value in 'Range of motion'.">
+				>
+				["at0.2"] = <
+					text = <"Full">
+					description = <"The movement reaches the expected normal range.">
+				>
+				["at0.3"] = <
+					text = <"Reduced">
+					description = <"The movement is somewhat less than the expected normal range.">
+				>
+				["at0.4"] = <
+					text = <"Limited">
+					description = <"The movement is markedly less than the expected normal range.">
+				>
+				["at0.5"] = <
+					text = <"Minimal">
+					description = <"Only a trace of movement is possible.">
+				>
+				["at0.6"] = <
+					text = <"Fixed">
+					description = <"No movement is possible; the joint is fixed.">
+				>
+				["at0.7"] = <
+					text = <"Pain on movement">
+					description = <"Pain elicited by the tested movement, and its intensity.">
+					comment = <"Record 'No pain' to state explicitly that the movement was not painful.">
+				>
+				["at0.8"] = <
+					text = <"No pain">
+					description = <"The movement did not elicit pain.">
+				>
+				["at0.9"] = <
+					text = <"Mild pain">
+					description = <"The movement elicited mild pain.">
+				>
+				["at0.10"] = <
+					text = <"Moderate pain">
+					description = <"The movement elicited moderate pain.">
+				>
+				["at0.11"] = <
+					text = <"Severe pain">
+					description = <"The movement elicited severe pain.">
+				>
+			>
+		>
+		["sv"] = <
+			items = <
+				["at0000"] = <
+					text = <"Rörelseomfång i en led">
+					description = <"Mätning av rörelseomfånget för en angiven enkel eller sammansatt rörelse i en angiven led eller del av ryggraden.">
+				>
+				["at0000.1"] = <
+					text = <"Kvalitativt rörelseomfång i en led">
+					description = <"Klinisk uppskattning av omfånget för en angiven rörelse i en angiven led eller del av ryggraden, graderad kvalitativt, med eventuell smärta som rörelsen framkallar.">
+				>
+				["at0002"] = <
+					text = <"Rörelse">
+					description = <"Den rörelse som undersöks.">
+				>
+				["at0003"] = <
+					text = <"Abduktion">
+					description = <"">
+				>
+				["at0004"] = <
+					text = <"Adduktion">
+					description = <"">
+				>
+				["at0005"] = <
+					text = <"Extension">
+					description = <"">
+				>
+				["at0006"] = <
+					text = <"Flexion">
+					description = <"">
+				>
+				["at0007"] = <
+					text = <"Inåtrotation">
+					description = <"">
+				>
+				["at0008"] = <
+					text = <"Utåtrotation">
+					description = <"">
+				>
+				["at0009"] = <
+					text = <"Inversion">
+					description = <"">
+				>
+				["at0010"] = <
+					text = <"Eversion">
+					description = <"">
+				>
+				["at0011"] = <
+					text = <"Medial rotation">
+					description = <"">
+				>
+				["at0012"] = <
+					text = <"Lateral rotation">
+					description = <"">
+				>
+				["at0013"] = <
+					text = <"Dorsalflexion">
+					description = <"">
+				>
+				["at0014"] = <
+					text = <"Plantarflexion">
+					description = <"">
+				>
+				["at0015"] = <
+					text = <"Ulnardeviation">
+					description = <"">
+				>
+				["at0016"] = <
+					text = <"Radialdeviation">
+					description = <"">
+				>
+				["at0017"] = <
+					text = <"Pronation">
+					description = <"">
+				>
+				["at0018"] = <
+					text = <"Supination">
+					description = <"">
+				>
+				["at0019"] = <
+					text = <"Reposition">
+					description = <"">
+				>
+				["at0020"] = <
+					text = <"Opposition">
+					description = <"">
+				>
+				["at0021"] = <
+					text = <"Radial abduktion">
+					description = <"">
+				>
+				["at0022"] = <
+					text = <"Palmar abduktion">
+					description = <"">
+				>
+				["at0023"] = <
+					text = <"Utgångsposition">
+					description = <"Beskrivning av ledens position när undersökningen påbörjas.">
+				>
+				["at0024"] = <
+					text = <"Undersökningssätt">
+					description = <"Om undersökningen görs aktivt eller passivt.">
+				>
+				["at0025"] = <
+					text = <"Aktiv">
+					description = <"Rörelsen utförs av individen själv. Kallas även AROM.">
+				>
+				["at0026"] = <
+					text = <"Passiv">
+					description = <"Rörelsen utförs av undersökaren eller ett hjälpmedel. Kallas även PROM.">
+				>
+				["at0027"] = <
+					text = <"Rörelseomfång">
+					description = <"Omfånget av en angiven rörelse kring en led.">
+				>
+				["at0028"] = <
+					text = <"Ytterligare detaljer">
+					description = <"Ytterligare strukturerade detaljer om rörelseomfånget.">
+				>
+				["at0029"] = <
+					text = <"Kommentar">
+					description = <"Ytterligare fritext om fynden vid undersökning av rörelseomfång som inte registrerats i andra fält.">
+				>
+				["at0030"] = <
+					text = <"Lateralflexion åt höger">
+					description = <"">
+				>
+				["at0031"] = <
+					text = <"Lateralflexion åt vänster">
+					description = <"">
+				>
+				["at0032"] = <
+					text = <"Rotation åt höger">
+					description = <"">
+				>
+				["at0033"] = <
+					text = <"Rotation åt vänster">
+					description = <"">
+				>
+				["at0034"] = <
+					text = <"Aktiv med assistans">
+					description = <"Rörelsen assisteras delvis av undersökaren eller ett hjälpmedel. Kallas även AAROM.">
+				>
+				["at0035"] = <
+					text = <"Klinisk tolkning">
+					description = <"Enstaka ord, fras eller kort beskrivning som anger den kliniska innebörden och betydelsen av fyndet vid undersökning av rörelseomfång.">
+				>
+				["at0042"] = <
+					text = <"Retraktion">
+					description = <"">
+				>
+				["at0043"] = <
+					text = <"Protraktion">
+					description = <"">
+				>
+				["at0044"] = <
+					text = <"Uppåtrotation">
+					description = <"">
+				>
+				["at0045"] = <
+					text = <"Nedåtrotation">
+					description = <"">
+				>
+				["at0046"] = <
+					text = <"Elevation">
+					description = <"">
+				>
+				["at0047"] = <
+					text = <"Depression">
+					description = <"">
+				>
+				["at0048"] = <
+					text = <"Öppning">
+					description = <"">
+				>
+				["at0049"] = <
+					text = <"Stängning">
+					description = <"">
+				>
+				["at0050"] = <
+					text = <"Käktranslation åt höger">
+					description = <"">
+				>
+				["at0051"] = <
+					text = <"Käktranslation åt vänster">
+					description = <"">
+				>
+				["at0052"] = <
+					text = <"Protrusion">
+					description = <"">
+				>
+				["at0053"] = <
+					text = <"Retrusion">
+					description = <"">
+				>
+				["at0.1"] = <
+					text = <"Kvalitativt rörelseomfång">
+					description = <"Kvalitativ gradering av rörelsens omfång jämfört med förväntat normalt omfång.">
+					comment = <"Används när omfånget uppskattas kliniskt i stället för att mätas. Om det mäts registreras värdet i 'Rörelseomfång'.">
+				>
+				["at0.2"] = <
+					text = <"Full">
+					description = <"Rörelsen når förväntat normalt omfång.">
+				>
+				["at0.3"] = <
+					text = <"Nedsatt">
+					description = <"Rörelsen är något mindre än förväntat normalt omfång.">
+				>
+				["at0.4"] = <
+					text = <"Begränsad">
+					description = <"Rörelsen är påtagligt mindre än förväntat normalt omfång.">
+				>
+				["at0.5"] = <
+					text = <"Minimal">
+					description = <"Endast en antydan till rörelse är möjlig.">
+				>
+				["at0.6"] = <
+					text = <"Fixerad">
+					description = <"Ingen rörelse är möjlig; leden är fixerad.">
+				>
+				["at0.7"] = <
+					text = <"Smärta vid rörelse">
+					description = <"Smärta som framkallas av den undersökta rörelsen, och dess intensitet.">
+					comment = <"Registrera 'Ingen smärta' för att uttryckligen ange att rörelsen inte var smärtsam.">
+				>
+				["at0.8"] = <
+					text = <"Ingen smärta">
+					description = <"Rörelsen framkallade ingen smärta.">
+				>
+				["at0.9"] = <
+					text = <"Lätt smärta">
+					description = <"Rörelsen framkallade lätt smärta.">
+				>
+				["at0.10"] = <
+					text = <"Måttlig smärta">
+					description = <"Rörelsen framkallade måttlig smärta.">
+				>
+				["at0.11"] = <
+					text = <"Kraftig smärta">
+					description = <"Rörelsen framkallade kraftig smärta.">
+				>
+			>
+		>
+	>
+	term_bindings = <
+		["SNOMED-CT"] = <
+			items = <
+				["at0.1"] = <[SNOMED-CT::364564000]>
+				["at0.2"] = <[SNOMED-CT::277972004]>
+				["at0.3"] = <[SNOMED-CT::260400001]>
+				["at0.4"] = <[SNOMED-CT::255469002]>
+				["at0.5"] = <[SNOMED-CT::255605001]>
+				["at0.6"] = <[SNOMED-CT::261010008]>
+				["at0.7"] = <[SNOMED-CT::298255009]>
+				["at0.9"] = <[SNOMED-CT::255604002]>
+				["at0.10"] = <[SNOMED-CT::6736007]>
+				["at0.11"] = <[SNOMED-CT::24484000]>
+			>
+		>
+	>

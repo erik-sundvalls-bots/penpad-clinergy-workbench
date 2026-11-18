@@ -126,7 +126,7 @@ export function buildQuestionnaire(): Record<string, unknown> {
       choiceItem(`exam.${side}.status`, "Status", ["normal", "notExamined"]),
       choiceItem(`exam.${side}.tenderness`, "Tenderness", ["absence", "presence"]),
       ...(["flexion", "extension", "abduction", "adduction"] as const).flatMap((move) => [
-        choiceItem(`exam.${side}.${move}Range`, `${move} range`, ["full", "reduced", "limited", "minimal"]),
+        choiceItem(`exam.${side}.${move}Range`, `${move} range`, ["full", "reduced", "limited", "fixed"]),
         choiceItem(`exam.${side}.${move}Pain`, `${move} pain on movement`, ["absence", "mild", "moderate", "severe"]),
       ]),
     ],

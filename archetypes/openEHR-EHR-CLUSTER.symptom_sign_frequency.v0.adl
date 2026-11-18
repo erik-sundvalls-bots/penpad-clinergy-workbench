@@ -1,0 +1,184 @@
+archetype (adl_version=1.4; uid=6fc8036c-bd4c-4a80-a69b-d41c863e02ba)
+	openEHR-EHR-CLUSTER.symptom_sign_frequency.v0
+
+concept
+	[at0000]	-- Symptom/sign frequency
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["sv"] = <
+			language = <[ISO_639-1::sv]>
+			author = <
+				["name"] = <"PEN&PAD workbench draft translation, not yet reviewed by a Swedish clinician">
+			>
+		>
+	>
+
+description
+	original_author = <
+		["name"] = <"PEN&PAD workbench (draft prepared for Erik Sundvall)">
+		["organisation"] = <"erik-sundvalls-bots (PEN&PAD workbench)">
+		["date"] = <"2026-11-18">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To record how often episodes of an identified symptom or sign occur, either as a qualitative category or as a rate.">
+			use = <"Use to record the frequency of episodes of a symptom or sign. This archetype is designed for the 'Specific details' SLOT in CLUSTER.symptom_sign.v2 until symptom_sign itself carries a frequency element (see the change request in the workbench docs/ckm-change-requests.md). It can also be used in other CLUSTER or ENTRY archetypes where the frequency of a symptom, sign or event needs to be recorded.">
+			keywords = <"frequency", "episode", "how often", "infrequent", "occasional", "frequent", "symptom">
+			misuse = <"Not to be used for medication or activity timing - use CLUSTER.timing_daily or CLUSTER.timing_nondaily. Not to be used for the pattern within one episode (for example constant or intermittent) - use 'Pattern' in CLUSTER.symptom_sign. Not to be used to count previous episodes - use 'Number of previous episodes' in CLUSTER.symptom_sign.">
+			copyright = <"© 2026 Erik Sundvall / erik-sundvalls-bots">
+		>
+		["sv"] = <
+			language = <[ISO_639-1::sv]>
+			purpose = <"Att registrera hur ofta episoder av ett angivet symtom eller tecken förekommer, antingen som en kvalitativ kategori eller som en takt.">
+			use = <"Används för att registrera hur ofta episoder av ett symtom eller tecken förekommer. Arketypen är avsedd för SLOT:en 'Specifika detaljer' i CLUSTER.symptom_sign.v2 tills symptom_sign själv har ett frekvenselement (se ändringsförslaget i arbetsbänkens docs/ckm-change-requests.md). Den kan även användas i andra CLUSTER- eller ENTRY-arketyper där frekvensen för ett symtom, tecken eller en händelse behöver registreras.">
+			keywords = <"frekvens", "episod", "hur ofta", "sällan", "ibland", "ofta", "symtom">
+			misuse = <"Används inte för tidsangivelser för läkemedel eller aktiviteter - använd CLUSTER.timing_daily eller CLUSTER.timing_nondaily. Används inte för mönstret inom en episod (till exempel konstant eller intermittent) - använd 'Mönster' i CLUSTER.symptom_sign. Används inte för att räkna tidigare episoder - använd 'Antal tidigare episoder' i CLUSTER.symptom_sign.">
+			copyright = <"© 2026 Erik Sundvall / erik-sundvalls-bots">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <"Drafted with the openEHR Assistant tooling; clinical review pending", ...>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["custodian_organisation"] = <"erik-sundvalls-bots (local draft, not CKM-governed)">
+		["original_namespace"] = <"local">
+		["original_publisher"] = <"erik-sundvalls-bots">
+		["revision"] = <"0.0.1-alpha">
+		["build_uid"] = <"a689eeeb-593d-4868-8dd1-1cf5534edb8f">
+		["ip_acknowledgement"] = <"This artefact includes content from SNOMED Clinical Terms (SNOMED CT), which is copyrighted material of SNOMED International. Implementers need an appropriate SNOMED CT Affiliate licence.">
+		["snomed_ct_verification"] = <"SNOMED CT International Edition 20260701 (tx.fhir.org $lookup, checked 2026-11-18)">
+	>
+
+definition
+	CLUSTER[at0000] matches {    -- Symptom/sign frequency
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0001] occurrences matches {0..1} matches {    -- Frequency category
+				value matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0002,    -- Infrequent
+							at0003,    -- Occasional
+							at0004]    -- Frequent
+						}
+					}
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0005] occurrences matches {0..1} matches {    -- Frequency rate
+				value matches {
+					C_DV_QUANTITY <
+						property = <[openehr::382]>
+						list = <
+							["1"] = <
+								units = <"/d">
+								magnitude = <|>=0.0|>
+							>
+							["2"] = <
+								units = <"/wk">
+								magnitude = <|>=0.0|>
+							>
+							["3"] = <
+								units = <"/mo">
+								magnitude = <|>=0.0|>
+							>
+							["4"] = <
+								units = <"/a">
+								magnitude = <|>=0.0|>
+							>
+						>
+					>
+				}
+			}
+			ELEMENT[at0006] occurrences matches {0..1} matches {    -- Comment
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+		}
+	}
+
+ontology
+	terminologies_available = <"SNOMED-CT", ...>
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Symptom/sign frequency">
+					description = <"How often episodes of an identified symptom or sign occur.">
+				>
+				["at0001"] = <
+					text = <"Frequency category">
+					description = <"Category describing how often episodes of the symptom or sign occur.">
+					comment = <"Use when the frequency is reported qualitatively. If a rate is known, record it in 'Frequency rate'.">
+				>
+				["at0002"] = <
+					text = <"Infrequent">
+					description = <"Episodes occur seldom.">
+				>
+				["at0003"] = <
+					text = <"Occasional">
+					description = <"Episodes occur now and then, neither seldom nor often.">
+				>
+				["at0004"] = <
+					text = <"Frequent">
+					description = <"Episodes occur often.">
+				>
+				["at0005"] = <
+					text = <"Frequency rate">
+					description = <"The number of episodes of the symptom or sign per unit of time.">
+					comment = <"For example: 3 per week (3 /wk) or 2 per day (2 /d).">
+				>
+				["at0006"] = <
+					text = <"Comment">
+					description = <"Additional narrative about the frequency of the symptom or sign, not captured in other fields.">
+				>
+			>
+		>
+		["sv"] = <
+			items = <
+				["at0000"] = <
+					text = <"Frekvens för symtom/tecken">
+					description = <"Hur ofta episoder av ett angivet symtom eller tecken förekommer.">
+				>
+				["at0001"] = <
+					text = <"Frekvenskategori">
+					description = <"Kategori som beskriver hur ofta episoder av symtomet eller tecknet förekommer.">
+					comment = <"Används när frekvensen anges kvalitativt. Om en takt är känd registreras den i 'Frekvens per tidsenhet'.">
+				>
+				["at0002"] = <
+					text = <"Sällan">
+					description = <"Episoderna förekommer sällan.">
+				>
+				["at0003"] = <
+					text = <"Ibland">
+					description = <"Episoderna förekommer då och då, varken sällan eller ofta.">
+				>
+				["at0004"] = <
+					text = <"Ofta">
+					description = <"Episoderna förekommer ofta.">
+				>
+				["at0005"] = <
+					text = <"Frekvens per tidsenhet">
+					description = <"Antal episoder av symtomet eller tecknet per tidsenhet.">
+					comment = <"Till exempel: 3 per vecka (3 /wk) eller 2 per dygn (2 /d).">
+				>
+				["at0006"] = <
+					text = <"Kommentar">
+					description = <"Ytterligare fritext om symtomets eller tecknets frekvens som inte registrerats i andra fält.">
+				>
+			>
+		>
+	>
+	term_bindings = <
+		["SNOMED-CT"] = <
+			items = <
+				["at0001"] = <[SNOMED-CT::162451001]>
+				["at0002"] = <[SNOMED-CT::27789000]>
+				["at0003"] = <[SNOMED-CT::84638005]>
+				["at0004"] = <[SNOMED-CT::70232002]>
+			>
+		>
+	>

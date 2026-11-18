@@ -766,14 +766,14 @@
                           "_type": "CLUSTER",
                           "name": {
                             "_type": "DV_TEXT",
-                            "value": "Range of motion of a joint"
+                            "value": "Qualitative range of motion of a joint"
                           },
-                          "archetype_node_id": "openEHR-EHR-CLUSTER.range_of_motion.v1",
+                          "archetype_node_id": "openEHR-EHR-CLUSTER.range_of_motion-qualitative.v0",
                           "archetype_details": {
                             "_type": "ARCHETYPED",
                             "archetype_id": {
                               "_type": "ARCHETYPE_ID",
-                              "value": "openEHR-EHR-CLUSTER.range_of_motion.v1"
+                              "value": "openEHR-EHR-CLUSTER.range_of_motion-qualitative.v0"
                             },
                             "rm_version": "1.1.0"
                           },
@@ -828,9 +828,9 @@
                               "_type": "ELEMENT",
                               "name": {
                                 "_type": "DV_TEXT",
-                                "value": "Clinical interpretation"
+                                "value": "Qualitative range"
                               },
-                              "archetype_node_id": "at0035",
+                              "archetype_node_id": "at0.1",
                               "value": {
                                 "_type": "DV_CODED_TEXT",
                                 "value": "Full",
@@ -838,9 +838,9 @@
                                   "_type": "CODE_PHRASE",
                                   "terminology_id": {
                                     "_type": "TERMINOLOGY_ID",
-                                    "value": "Clinergy"
+                                    "value": "local"
                                   },
-                                  "code_string": "full"
+                                  "code_string": "at0.2"
                                 },
                                 "mappings": [
                                   {

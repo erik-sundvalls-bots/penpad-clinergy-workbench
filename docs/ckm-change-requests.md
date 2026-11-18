@@ -17,9 +17,10 @@ Checked against the published Clinical Knowledge Manager archetypes on 16 Novemb
 | openEHR-EHR-EVALUATION.exclusion_specific.v1 | 1.0.2 | Excluded diagnosis. Name at0003 is the local alternative at0004 Problem/diagnosis. The value is DV_CODED_TEXT, which the archetype allows as a DV_TEXT subtype |
 | openEHR-EHR-OBSERVATION.exam.v1 | 1.1.5 | One observation per examined side |
 | openEHR-EHR-CLUSTER.exam.v2 | 2.1.3 | Structure examined, body site, interpretation, findings slot |
-| openEHR-EHR-CLUSTER.range_of_motion.v1 | 1.0.2 | Flexion at0006, extension at0005, abduction at0003, adduction at0004 |
+| openEHR-EHR-CLUSTER.range_of_motion-qualitative.v0 | local 0.0.1-alpha | Specialises range_of_motion.v1; qualitative range at0.1 and pain on movement at0.7 |
 | openEHR-EHR-CLUSTER.exclusion_exam.v1 | 1.1.2 | "Not examined" as Examination not done = true |
-| openEHR-EHR-CLUSTER.clinergy_descriptor.v0 | local 0.0.1 | Frequency, consistency, texture, pain on movement, duration unit |
+| openEHR-EHR-CLUSTER.symptom_sign_frequency.v0 | local 0.0.1-alpha | Frequency category in symptom_sign Specific details |
+| openEHR-EHR-CLUSTER.palpation_characteristics.v0 | local 0.0.1-alpha | Consistency and surface texture in symptom_sign Specific details |
 | openEHR-EHR-EVALUATION.recommendation.v2 | 2.0.5 | Optional Plan section. Topic at0006, Recommendation at0002 (required). CKM CID 1013.1.5755, checked 17 November 2026 |
 
 `CLUSTER.exam-hand.v0` and `CLUSTER.exam-finger.v0` are draft (0.0.1-alpha), so the published `CLUSTER.exam.v2` is used and the thumb is named in System or structure examined.
@@ -35,7 +36,7 @@ Checked against the published Clinical Knowledge Manager archetypes on 16 Novemb
 
 Onset type (gradual / rapid / sudden) fits `symptom_sign` Onset timing at0164, whose comment names gradual and sudden, as text. Character fits at0189 as text. Pattern fits at0003 as text. Severity fits the mild / moderate / severe codes at0023–at0025. Duration fits Episode duration at0028 as DV_DURATION.
 
-So problem_qualifier is not placed in the specific-details slot. The slot is used only for the local descriptor cluster.
+So problem_qualifier is not placed in the specific-details slot. The slot carries the local `symptom_sign_frequency` and `palpation_characteristics` clusters instead of the retired `clinergy_descriptor` workaround.
 
 ## Requests
 

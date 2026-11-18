@@ -575,58 +575,6 @@
                           }
                         },
                         {
-                          "_type": "CLUSTER",
-                          "name": {
-                            "_type": "DV_TEXT",
-                            "value": "Clinergy descriptor"
-                          },
-                          "archetype_node_id": "openEHR-EHR-CLUSTER.clinergy_descriptor.v0",
-                          "archetype_details": {
-                            "_type": "ARCHETYPED",
-                            "archetype_id": {
-                              "_type": "ARCHETYPE_ID",
-                              "value": "openEHR-EHR-CLUSTER.clinergy_descriptor.v0"
-                            },
-                            "rm_version": "1.1.0"
-                          },
-                          "items": [
-                            {
-                              "_type": "ELEMENT",
-                              "name": {
-                                "_type": "DV_TEXT",
-                                "value": "Duration unit"
-                              },
-                              "archetype_node_id": "at0005",
-                              "value": {
-                                "_type": "DV_CODED_TEXT",
-                                "value": "week",
-                                "defining_code": {
-                                  "_type": "CODE_PHRASE",
-                                  "terminology_id": {
-                                    "_type": "TERMINOLOGY_ID",
-                                    "value": "Clinergy"
-                                  },
-                                  "code_string": "week"
-                                },
-                                "mappings": [
-                                  {
-                                    "_type": "TERM_MAPPING",
-                                    "match": "=",
-                                    "target": {
-                                      "_type": "CODE_PHRASE",
-                                      "terminology_id": {
-                                        "_type": "TERMINOLOGY_ID",
-                                        "value": "SNOMED-CT"
-                                      },
-                                      "code_string": "258705008"
-                                    }
-                                  }
-                                ]
-                              }
-                            }
-                          ]
-                        },
-                        {
                           "_type": "ELEMENT",
                           "name": {
                             "_type": "DV_TEXT",

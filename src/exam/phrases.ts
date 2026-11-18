@@ -38,7 +38,7 @@ const ENGLISH: ExamPhrases = {
     AbductionSign: "abduction",
     AdductionSign: "adduction",
   },
-  range: { full: "full", reduced: "reduced", limited: "limited", minimal: "minimal" },
+  range: { full: "full", reduced: "reduced", limited: "limited", fixed: "fixed" },
   pain: {
     absence: "not painful",
     mild: "mildly painful",
