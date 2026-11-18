@@ -36,6 +36,7 @@ export { buildZipehrPreviewDocument, composeQuietStructureCss, ZIP_QUIET_PREVIEW
 export {
   buildQuietZipehrPreviewDocument,
   ZIP_L10N_PREVIEW_SCRIPT,
+  ZIP_QUIET_DOM_SCRIPT,
 } from "./zipehr-preview.ts";
 
 export type ZipehrRenderOptions = {

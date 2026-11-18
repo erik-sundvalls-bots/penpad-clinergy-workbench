@@ -7,6 +7,7 @@ import { renderSwedishGp } from "../sv/gp-sentence.ts";
 import { emptyExam, emptyFinding, type ExamSide, type FindingForm, type WorkbenchState } from "../model.ts";
 import { term, type Term } from "./terms.ts";
 import { GP_TEMPLATE_ID, TEMPLATE_ID } from "./template.ts";
+import { clinergyCodedText, localCodedText } from "./coded-text.ts";
 
 export interface CoverageRow {
   key: string;
@@ -193,34 +194,38 @@ function symptomCluster(
   language: NoteLanguage,
 ): Record<string, unknown> {
   const items: Record<string, unknown>[] = [
-    element("at0001", rmLabel(language, "Symptom/Sign name", "Symtom/teckennamn"), writeCoded(nameKey, touch)),
+    element("at0001", rmLabel(language, "Symptom/Sign name", "Symtom/teckennamn"), writeCoded(nameKey, touch, language)),
   ];
   if (siteKey) items.push(locationCluster(siteKey, form, touch, language));
   const onset = form.choices.AbsoluteOnset;
-  if (onset) items.push(element("at0164", rmLabel(language, "Onset timing", "Debut"), writeCoded(onset, touch)));
+  if (onset) items.push(element("at0164", rmLabel(language, "Onset timing", "Debut"), writeCoded(onset, touch, language)));
   if (form.durationNumber != null && form.durationNumber > 0) {
     const iso = isoDuration(form.durationNumber, form.durationUnit);
     items.push(element("at0028", rmLabel(language, "Episode duration", "Episodlängd"), { _type: "DV_DURATION", value: iso }));
     touch(form.durationUnit);
-    items.push(descriptorCluster({ duration_unit: form.durationUnit, ...descriptorValues(form) }, touch));
+    items.push(descriptorCluster({ duration_unit: form.durationUnit, ...descriptorValues(form) }, touch, language));
   } else {
     const extra = descriptorValues(form);
-    if (Object.keys(extra).length) items.push(descriptorCluster(extra, touch));
+    if (Object.keys(extra).length) items.push(descriptorCluster(extra, touch, language));
   }
   const severity = form.choices.AbsoluteSeverity;
   if (severity && SEVERITY[severity]) {
     const [code, text] = SEVERITY[severity];
-    items.push(element("at0021", rmLabel(language, "Severity category", "Svårighetsgrad"), writeLocal(code, text, severity, touch)));
+    items.push(element("at0021", rmLabel(language, "Severity category", "Svårighetsgrad"), writeLocal(code, text, severity, touch, language)));
   }
   const character = form.choices.AbsolutePainDescriptor;
-  if (character) items.push(element("at0189", "Character", writeCoded(character, touch)));
+  if (character) {
+    items.push(
+      element("at0189", rmLabel(language, "Character", "Karaktär"), writeCoded(character, touch, language)),
+    );
+  }
   const progress = form.choices.AbsoluteProgress;
   if (progress && PROGRESS[progress]) {
     const [code, text] = PROGRESS[progress];
-    items.push(element("at0180", "Progression", writeLocal(code, text, progress, touch)));
+    items.push(element("at0180", "Progression", writeLocal(code, text, progress, touch, language)));
   }
   const pattern = form.choices.AbsoluteProcessPattern;
-  if (pattern) items.push(element("at0003", "Pattern", writeCoded(pattern, touch)));
+  if (pattern) items.push(element("at0003", rmLabel(language, "Pattern", "Mönster"), writeCoded(pattern, touch, language)));
   const wrapper = language === "sv" ? "Symtom/tecken" : "Symptom/Sign";
   return cluster("openEHR-EHR-CLUSTER.symptom_sign.v2", wrapper, items);
 }
@@ -233,7 +238,11 @@ function descriptorValues(form: WorkbenchState["pain"]): Record<string, string> 
   return out;
 }
 
-function descriptorCluster(values: Record<string, string>, touch: (key: string) => void): Record<string, unknown> {
+function descriptorCluster(
+  values: Record<string, string>,
+  touch: (key: string) => void,
+  language: NoteLanguage = "en",
+): Record<string, unknown> {
   const node: Record<string, [string, string]> = {
     frequency: ["at0001", "Frequency"],
     consistency: ["at0002", "Consistency"],
@@ -243,9 +252,13 @@ function descriptorCluster(values: Record<string, string>, touch: (key: string) 
   };
   const items = Object.entries(values).filter(([, value]) => value).map(([slot, value]) => {
     const [at, label] = node[slot];
-    return element(at, label, writeCoded(value, touch));
+    return element(at, label, writeCoded(value, touch, language));
   });
-  return cluster("openEHR-EHR-CLUSTER.clinergy_descriptor.v0", "Clinergy descriptor", items);
+  return cluster(
+    "openEHR-EHR-CLUSTER.clinergy_descriptor.v0",
+    language === "sv" ? "Clinergy-beskrivning" : "Clinergy descriptor",
+    items,
+  );
 }
 
 function locationCluster(
@@ -255,15 +268,17 @@ function locationCluster(
   language: NoteLanguage = "en",
 ): Record<string, unknown> {
   const items = [
-    element("at0001", rmLabel(language, "Body site name", "Kroppsplats"), writeCoded(siteKey, touch)),
+    element("at0001", rmLabel(language, "Body site name", "Kroppsplats"), writeCoded(siteKey, touch, language)),
   ];
   if (form.sublocation) {
-    items.push(element("at0065", rmLabel(language, "Specific site", "Specifik plats"), writeCoded(form.sublocation, touch)));
+    items.push(element("at0065", rmLabel(language, "Specific site", "Specifik plats"), writeCoded(form.sublocation, touch, language)));
   }
   const laterality = lateralityCode(form.laterality);
   if (laterality) {
     touch(laterality.key);
-    items.push(element("at0002", rmLabel(language, "Laterality", "Lateralitet"), writeLocal(laterality.at, laterality.text, laterality.key, touch)));
+    items.push(
+      element("at0002", rmLabel(language, "Laterality", "Lateralitet"), writeLocal(laterality.at, laterality.text, laterality.key, touch, language)),
+    );
   }
   return cluster(
     "openEHR-EHR-CLUSTER.anatomical_location.v1",
@@ -306,18 +321,18 @@ function examObservation(
   const definition = examsByName.ThumbExam;
   const site = definition?.baseLocation ?? "Thumb";
   const items: Record<string, unknown>[] = [
-    element("at0001", rmLabel(language, "System or structure examined", "Undersökt struktur"), writeCoded(site, touch)),
+    element("at0001", rmLabel(language, "System or structure examined", "Undersökt struktur"), writeCoded(site, touch, language)),
     locationCluster(site, { laterality: [side], sublocation: null }, touch, language),
   ];
   if (exam.status === "normal") {
-    items.push(element("at0006", "Clinical interpretation", writeCoded("normal", touch)));
+    items.push(element("at0006", rmLabel(language, "Clinical interpretation", "Klinisk tolkning"), writeCoded("normal", touch, language)));
   }
   for (const sign of definition?.signs0 ?? ["TendernessSign"]) {
     const key = presenceKey(sign);
     if (!key) continue;
     if (exam[key] === "presence") {
       items.push(cluster("openEHR-EHR-CLUSTER.symptom_sign.v2", rmLabel(language, "Symptom/Sign", "Symtom/tecken"), [
-        element("at0001", rmLabel(language, "Symptom/Sign name", "Symtom/teckennamn"), writeCoded(sign, touch)),
+        element("at0001", rmLabel(language, "Symptom/Sign name", "Symtom/teckennamn"), writeCoded(sign, touch, language)),
       ]));
     }
     if (exam[key] === "absence") absentTenderness.push(`${side} thumb`);
@@ -331,10 +346,16 @@ function examObservation(
     const pain = exam[keys.pain as keyof ExamSide];
     if (!range && !pain) continue;
     const moveItems: Record<string, unknown>[] = [
-      element("at0002", "Movement", writeLocal(coded[0], coded[1], sign, touch)),
+      element("at0002", rmLabel(language, "Movement", "Rörelse"), writeLocal(coded[0], coded[1], sign, touch, language)),
     ];
-    if (range) moveItems.push(element("at0035", "Clinical interpretation", writeCoded(range, touch)));
-    if (pain) moveItems.push(descriptorCluster({ pain_on_movement: pain === "absence" ? "absence" : pain }, touch));
+    if (range) {
+      moveItems.push(
+        element("at0035", rmLabel(language, "Clinical interpretation", "Klinisk tolkning"), writeCoded(range, touch, language)),
+      );
+    }
+    if (pain) {
+      moveItems.push(descriptorCluster({ pain_on_movement: pain === "absence" ? "absence" : pain }, touch, language));
+    }
     items.push(cluster("openEHR-EHR-CLUSTER.range_of_motion.v1", "Range of motion of a joint", moveItems));
   }
   if (prose) items.push(element("at0003", "Clinical description", dvText(prose)));
@@ -380,18 +401,26 @@ function problemEvaluation(
 ): Record<string, unknown> {
   const laterality = answer?.laterality?.length ? answer.laterality : [];
   const items = [
-    element("at0002", rmLabel(language, "Problem/Diagnosis name", "Diagnosnamn"), writeCoded(key, touch)),
+    element("at0002", rmLabel(language, "Problem/Diagnosis name", "Diagnosnamn"), writeCoded(key, touch, language)),
     locationCluster(location ?? "Thumb", { laterality, sublocation: null }, touch, language),
   ];
   const severity = answer?.choices.AbsoluteSeverity;
   if (severity && PROBLEM_SEVERITY[severity]) {
     const [code, text] = PROBLEM_SEVERITY[severity];
-    items.push(element("at0005", "Severity", writeLocal(code, text, severity, touch)));
+    items.push(
+      element("at0005", rmLabel(language, "Severity", "Svårighetsgrad"), writeLocal(code, text, severity, touch, language)),
+    );
   }
   const note = [sentence, unmappedDiseaseText(answer)].filter((part) => part && part.length > 0).join(". ");
   if (note) items.push(element("at0009", "Clinical description", dvText(note)));
   if (suspected) {
-    items.push(element("at0073", "Diagnostic certainty", writeLocal("at0074", "Suspected", "possible", () => {})));
+    items.push(
+      element(
+        "at0073",
+        rmLabel(language, "Diagnostic certainty", "Diagnostisk säkerhet"),
+        writeLocal("at0074", "Suspected", "possible", () => {}, language),
+      ),
+    );
   }
   return evaluation("openEHR-EHR-EVALUATION.problem_diagnosis.v1", "Problem/Diagnosis", items);
 }
@@ -409,20 +438,31 @@ function recommendationEvaluation(text: string, _touch: (key: string) => void): 
 
 function exclusionEvaluation(key: string, touch: (key: string) => void): Record<string, unknown> {
   return evaluation("openEHR-EHR-EVALUATION.exclusion_specific.v1", "Exclusion - specific", [
-    element("at0003", dvLocalName("at0004", "Problem/diagnosis"), writeCoded(key, touch)),
+    element("at0003", dvLocalName("at0004", "Problem/diagnosis"), writeCoded(key, touch, "en")),
   ]);
 }
 
-function writeCoded(key: string, touch: (key: string) => void): Record<string, unknown> {
+function writeCoded(
+  key: string,
+  touch: (key: string) => void,
+  language: NoteLanguage = "en",
+): Record<string, unknown> {
   touch(key);
   const row = term(key);
-  const text = row?.preferred ?? key;
+  const text = clinergyCodedText(key, language);
   return dvCoded(text, "Clinergy", key, mappingList(row));
 }
 
-function writeLocal(at: string, text: string, key: string, touch: (key: string) => void): Record<string, unknown> {
+function writeLocal(
+  at: string,
+  text: string,
+  key: string,
+  touch: (key: string) => void,
+  language: NoteLanguage = "en",
+): Record<string, unknown> {
   touch(key);
-  return dvCoded(text, "local", at, mappingList(term(key)));
+  const rubric = localCodedText(at, text, language);
+  return dvCoded(rubric, "local", at, mappingList(term(key)));
 }
 
 function mappingList(row: Term | undefined): Record<string, unknown>[] {

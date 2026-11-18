@@ -1,13 +1,13 @@
 import { describe, expect, it } from "vitest";
 import { gpVisitState, emptyState, findingsFromState } from "../src/model.ts";
 import { buildVisit } from "../src/openehr/compose.ts";
-import { renderSwedishGp } from "../src/sv/gp-sentence.ts";
 import { painForm } from "../src/knowledge.ts";
+import { historyNarrativeText } from "../src/summary.ts";
 import {
   canonicalToZipehrHtml5,
   buildQuietZipehrPreviewDocument,
   composeQuietStructureCss,
-  ZIP_QUIET_PREVIEW_SCRIPT,
+  ZIP_QUIET_DOM_SCRIPT,
 } from "../src/openehr/zipehr.ts";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
@@ -27,6 +27,20 @@ const ENGLISH_LEAK = [
   "Symptom/Sign",
   "Examination not done: true",
   "Examination not done:true",
+  "Episode duration",
+  "Body site name",
+  "Laterality",
+  "Character",
+  "Severity category",
+  "Clinical interpretation",
+  "Movement",
+  "Problem/Diagnosis name",
+  "Symptom/Sign name",
+  "Onset timing",
+  "Pattern",
+  "Progression",
+  "2 weeks",
+  "weeks",
 ];
 
 function renderQuietPreview(
@@ -48,7 +62,7 @@ function renderQuietPreview(
   const win = new Window({ url: "https://example.test/" });
   win.document.write(doc);
   const script = win.document.createElement("script");
-  script.textContent = ZIP_QUIET_PREVIEW_SCRIPT;
+  script.textContent = ZIP_QUIET_DOM_SCRIPT;
   win.document.body.appendChild(script);
   return {
     win,
@@ -58,28 +72,34 @@ function renderQuietPreview(
 
 describe("ZipEHR quiet GP visit", () => {
   it("English quiet view shows one exam heading and no raw boolean", async () => {
-    const built = buildVisit(gpVisitState(), "Pain in right thumb");
+    const state = gpVisitState();
+    const narrative = historyNarrativeText(findingsFromState(state, painForm.diagnoses), "en");
+    const built = buildVisit(state, narrative);
     const html = await canonicalToZipehrHtml5(built.canonical, { templateRenderLang: "en" });
     expect(html).toContain('data-opt-visibility="pass-through"');
     const { text: view, win } = renderQuietPreview(html);
     expect(win.document.querySelector("[data-opt-visibility='pass-through']")).toBeTruthy();
-    expect(view).toContain("Physical examination findings");
+    expect((view.match(/Physical examination findings/g) ?? []).length).toBe(1);
     expect(view).not.toMatch(/Examination not done:\s*true/i);
+    expect(view).not.toMatch(/, present\b/i);
     expect(html).toContain('data-antn-hide-on-form="true"');
     expect(win.document.querySelector("[data-antn-hide-on-form='true']")).toBeTruthy();
   });
 
   it("Swedish quiet view uses L10n and does not leak English UI labels", async () => {
     const state = gpVisitState();
-    const history = findingsFromState(state, painForm.diagnoses)
-      .filter((f) => f.topic === "ThumbPainSymptom" || f.topic === "ThumbSwellingSymptom")
-      .map((f) => renderSwedishGp(f))
-      .join("\n");
+    const history = historyNarrativeText(
+      findingsFromState(state, painForm.diagnoses).filter(
+        (f) => f.topic === "ThumbPainSymptom" || f.topic === "ThumbSwellingSymptom",
+      ),
+      "sv",
+    );
     const built = buildVisit(state, history, "sv");
     const html = await canonicalToZipehrHtml5(built.canonical, { templateRenderLang: "sv" });
     const { text: view } = renderQuietPreview(html, "sv");
     expect(view).toContain("Status");
     expect(view).not.toContain("Physical examination findings");
+    expect(view).toContain("2 veckor");
     const svLeak = ENGLISH_LEAK.filter((f) => f !== "Physical examination findings");
     for (const fragment of svLeak) {
       expect(view, fragment).not.toContain(fragment);

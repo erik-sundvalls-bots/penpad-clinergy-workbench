@@ -53,6 +53,7 @@ import optUrl from "../templates/thumb-pain.opt?url";
 import optPlainUrl from "../templates/thumb-pain-encounter.v2.opt?url";
 import { renderSwedishGp } from "./sv/gp-sentence.ts";
 import { render, type Finding } from "../vendor/sentence.ts";
+import { historyNarrativeText, summaryLines } from "./summary.ts";
 
 const FEATURE_LABEL: Record<string, string> = {
   laterality: "Laterality",
@@ -869,8 +870,8 @@ function paintDurations(): void {
 function paintOutputs(): void {
   swedish.missing.length = 0;
   const findings = currentFindings();
-  const english = findings.map((finding) => render(finding, knowledge));
-  const swedishLines = findings.map((finding) => renderSwedishGp(finding));
+  const english = summaryLines(findings, "en");
+  const swedishLines = summaryLines(findings, "sv");
   const enBox = document.querySelector("#summary-en");
   const svBox = document.querySelector("#summary-sv");
   if (enBox) enBox.textContent = englishNote(english);
@@ -916,7 +917,7 @@ function swedishNote(lines: string[]): string {
 }
 
 function englishText(): string {
-  return englishNote(currentFindings().map((finding) => render(finding, knowledge)));
+  return englishNote(summaryLines(currentFindings(), "en"));
 }
 
 function diseaseDetails(): string {
@@ -952,21 +953,8 @@ function paintGalen(findings: Finding[]): void {
   host.innerHTML = `<table class="bindings"><thead><tr><th>Clinergy</th><th>OpenGALEN</th><th>SNOMED CT</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
-function historyNarrative(findings: Finding[]): string {
-  return findings
-    .filter((finding) => !isAssessmentTopic(finding.topic))
-    .map((finding) => render(finding, knowledge))
-    .join("\n");
-}
-
-function isAssessmentTopic(topic: string): boolean {
-  return painForm.diagnoses.some((link) =>
-    topic === link.item || topic === link.preCoordinated || topic === link.concept
-  );
-}
-
 function paintEhr(findings: Finding[], _english: string[]): void {
-  const narrative = historyNarrative(findings);
+  const narrative = historyNarrativeText(findings, "en");
   const result = buildVisit(state, narrative);
   canonicalForSimplified = result.canonical;
   cachedZipehrRenderLang = languageFromCanonical(result.canonical);

@@ -6,6 +6,8 @@ import { chromium } from "playwright";
 
 const baseUrl = process.env.PREVIEW_URL ?? "http://127.0.0.1:4173/penpad-clinergy-workbench/";
 const outDir = "/opt/cursor/artifacts";
+const commit = process.env.CAPTURE_COMMIT ?? "unknown";
+console.log(`capture-log commit=${commit}`);
 
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1480, height: 1100 } });

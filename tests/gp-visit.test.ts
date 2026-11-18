@@ -13,6 +13,7 @@ import { renderSwedishGp } from "../src/sv/gp-sentence.ts";
 import { localizePlan } from "../src/exam/phrases.ts";
 import { findingsFromState } from "../src/model.ts";
 import { historyStoryText } from "./canonical-helpers.ts";
+import { historyNarrativeText } from "../src/summary.ts";
 
 const WALKTHROUGH_EXAM = [
   "On Examination",
@@ -48,10 +49,12 @@ describe("general practice visit", () => {
   it("keeps Story to the history narrative", () => {
     const state = gpVisitState();
     const findings = findingsFromState(state, painForm.diagnoses);
-    const history = findings
-      .filter((finding) => finding.topic === "ThumbPainSymptom" || finding.topic === "ThumbSwellingSymptom")
-      .map((finding) => render(finding, knowledge))
-      .join("\n");
+    const history = historyNarrativeText(
+      findings.filter(
+        (finding) => finding.topic === "ThumbPainSymptom" || finding.topic === "ThumbSwellingSymptom",
+      ),
+      "en",
+    );
     const built = buildVisit(state, history);
     const story = historyStoryText(built.canonical) ?? "";
     expect(story).toContain("Pain in right thumb");

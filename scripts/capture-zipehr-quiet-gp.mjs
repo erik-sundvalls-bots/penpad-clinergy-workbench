@@ -7,10 +7,8 @@ import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { gpVisitState, findingsFromState } from "../src/model.ts";
 import { buildVisit } from "../src/openehr/compose.ts";
-import { renderSwedishGp } from "../src/sv/gp-sentence.ts";
 import { painForm } from "../src/knowledge.ts";
-import { render } from "../vendor/sentence.ts";
-import { knowledge } from "../src/knowledge.ts";
+import { historyNarrativeText } from "../src/summary.ts";
 import {
   buildQuietZipehrPreviewDocument,
   canonicalToZipehrHtml5,
@@ -19,19 +17,20 @@ import {
 
 const outDir = "/opt/cursor/artifacts";
 mkdirSync(outDir, { recursive: true });
+const commit = process.env.CAPTURE_COMMIT ?? "unknown";
+console.log(`capture-log commit=${commit}`);
 
 const cssBase = readFileSync(join(process.cwd(), "public/zipehr-css/zipehr-html5-short.css"), "utf8");
 const cssQuiet = readFileSync(join(process.cwd(), "public/zipehr-css/zipehr-html5-quiet-structure.css"), "utf8");
 const css = composeQuietStructureCss(cssBase, cssQuiet);
 
 const state = gpVisitState();
-const enNarrative = findingsFromState(state, painForm.diagnoses)
-  .map((f) => render(f, knowledge))
-  .join("\n");
-const svNarrative = findingsFromState(state, painForm.diagnoses)
-  .filter((f) => f.topic === "ThumbPainSymptom" || f.topic === "ThumbSwellingSymptom")
-  .map((f) => renderSwedishGp(f))
-  .join("\n");
+const findings = findingsFromState(state, painForm.diagnoses);
+const enNarrative = historyNarrativeText(findings, "en");
+const svNarrative = historyNarrativeText(
+  findings.filter((f) => f.topic === "ThumbPainSymptom" || f.topic === "ThumbSwellingSymptom"),
+  "sv",
+);
 
 async function previewHtml(lang) {
   const narrative = lang === "sv" ? svNarrative : enNarrative;
