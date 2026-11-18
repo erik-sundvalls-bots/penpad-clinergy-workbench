@@ -146,6 +146,10 @@ describe("workbench UI (preview)", () => {
 
     await page.locator("#comment").fill("Prefers morning appointments.");
     await page.waitForTimeout(400);
+    const enAfterOnset = await page.locator("#summary-en").innerText();
+    expect(enAfterOnset.split("\n")[0]).toMatch(/^No pain in right thumb\.?$/i);
+    const svAfter = await page.locator("#summary-sv").innerText();
+    expect(svAfter).toMatch(/Kommentar:\s*Prefers morning appointments/i);
     const canonical = await page.locator("#ehr").innerText();
     expect(canonical).toContain("Prefers morning appointments.");
     const fhir = await page.locator("#fhir").innerText();

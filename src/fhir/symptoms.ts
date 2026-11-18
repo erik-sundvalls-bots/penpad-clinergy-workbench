@@ -163,12 +163,14 @@ function symptomModel(
   const keyFeatures: Record<string, unknown> = {};
   const location = locationOf(form, "Thumb");
   if (location) keyFeatures.location = [location];
-  const quality = qualityOf(form);
-  if (quality.length) keyFeatures.quality = quality;
-  const severity = severityOf(form);
-  if (severity) keyFeatures.severity = severity;
-  const frequency = frequencyOf(form);
-  if (frequency) keyFeatures.frequency = frequency;
+  if (presentFlag) {
+    const quality = qualityOf(form);
+    if (quality.length) keyFeatures.quality = quality;
+    const severity = severityOf(form);
+    if (severity) keyFeatures.severity = severity;
+    const frequency = frequencyOf(form);
+    if (frequency) keyFeatures.frequency = frequency;
+  }
 
   const model: Record<string, unknown> = {
     // Logical model instance, not a FHIR resource. resourceType is a convenience tag.
@@ -188,12 +190,14 @@ function symptomModel(
   if (narrative.trim()) {
     model.symptomDescription = [annotation(narrative.trim())];
   }
-  const timing = timingOf(form);
-  if (timing) model.timing = timing;
-  const trend = form.choices.AbsoluteProgress;
-  if (trend) model.trend = codeString(trend);
-  const course = form.choices.AbsoluteProcessPattern;
-  if (course) model.clinicalCourse = codeString(course);
+  if (presentFlag) {
+    const timing = timingOf(form);
+    if (timing) model.timing = timing;
+    const trend = form.choices.AbsoluteProgress;
+    if (trend) model.trend = codeString(trend);
+    const course = form.choices.AbsoluteProcessPattern;
+    if (course) model.clinicalCourse = codeString(course);
+  }
   return model;
 }
 

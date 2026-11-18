@@ -1013,7 +1013,10 @@ function englishNote(lines: string[]): string {
 
 function swedishNote(lines: string[]): string {
   const exam = onExamination(state, "sv");
-  return [lines.join("\n"), exam].filter((part) => part.length > 0).join("\n\n");
+  const comment = state.comment.trim();
+  const parts = [lines.join("\n"), exam];
+  if (comment) parts.push(`Kommentar: ${comment}`);
+  return parts.filter((part) => part.length > 0).join("\n\n");
 }
 
 function englishText(): string {
