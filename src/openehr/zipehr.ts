@@ -34,6 +34,7 @@ export const ZIP_VARIANT_OPTIONS: { value: ZipehrVariant; label: string }[] = [
 
 export const ZIP_EHR_SERIALIZE_OPTIONS = {
   symbolVariant: "emoji" as const,
+  layout: "linesaving" as const,
   propertyMode: "comment" as const,
 };
 
@@ -140,7 +141,6 @@ export async function canonicalToZipehr(
     case "zipehr.html5.emoji":
       return serializeToHtml5Variant(canonical, variant, {
         ...ZIP_EHR_SERIALIZE_OPTIONS,
-        layout: variant === "zipehr.html5.short" ? "oneliner" : "linesaving",
         ...shared,
       } as never);
   }

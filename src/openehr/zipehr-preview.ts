@@ -157,7 +157,7 @@ function postprocessQuietMarkup(markup: string, lang: NoteLanguage): string {
       out = `${out.slice(0, second)}${out.slice(second + examTitle.length)}`;
     }
   }
-  return replaceIsoDateTimesInText(out, lang);
+  return out;
 }
 
 export function buildQuietZipehrPreviewDocument(

@@ -376,7 +376,14 @@ pre.xml-output {
   white-space: nowrap;
 }
 
-.zipehr-variant-select,
+.zipehr-variant-select {
+  font: inherit;
+  padding: 2px 6px;
+  width: max-content;
+  max-width: min(28rem, 100%);
+  flex: 1 1 18rem;
+}
+
 .zipehr-css-select {
   font: inherit;
   padding: 2px 6px;

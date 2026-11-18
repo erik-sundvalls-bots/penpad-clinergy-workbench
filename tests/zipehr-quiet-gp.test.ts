@@ -44,6 +44,16 @@ const ENGLISH_LEAK = [
   "weeks",
 ];
 
+function quietCompositionHeaderText(
+  html: string,
+  templateRenderLang: "en" | "sv" = "en",
+): string {
+  const { text, win } = renderQuietPreview(html, templateRenderLang);
+  const co = win.document.querySelector("o-co") as HTMLElement | null;
+  const header = co?.innerText?.replace(/\s+/g, " ").trim() ?? text;
+  return header;
+}
+
 function renderQuietPreview(
   html: string,
   templateRenderLang: "en" | "sv" = "en",
@@ -83,6 +93,9 @@ describe("ZipEHR quiet GP visit", () => {
     expect((view.match(/Physical examination findings/g) ?? []).length).toBe(1);
     expect(view).not.toMatch(/Examination not done:\s*true/i);
     expect(view).not.toMatch(/,\s*present\b/i);
+    const header = quietCompositionHeaderText(html, "en");
+    expect(header).toContain("Encounter event Dr J Brown");
+    expect(header).toContain("21 Oct 2021 14:21 primary medical care");
     expect(view).toContain("21 Oct 2021 14:21");
     expect(view).not.toContain("2021-10-21T14:21:00+01:00");
     expect(formatIsoDateTimeFriendly("2021-10-21T14:21:00+01:00", "en")).toBe("21 Oct 2021 14:21");
@@ -104,6 +117,9 @@ describe("ZipEHR quiet GP visit", () => {
     expect(view).toContain("Status");
     expect(view).not.toContain("Physical examination findings");
     expect(view).toContain("2 veckor");
+    const header = quietCompositionHeaderText(html, "sv");
+    expect(header).toContain("Encounter event Dr J Brown");
+    expect(header).toContain("21 okt 2021 14:21 primary medical care");
     expect(view).toContain("21 okt 2021 14:21");
     expect(view).not.toContain("2021-10-21T14:21:00+01:00");
     const svLeak = ENGLISH_LEAK.filter((f) => f !== "Physical examination findings");
