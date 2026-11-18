@@ -44,7 +44,7 @@ async function waitPort() {
 }
 
 await waitPort();
-execSync(`node ${captureScript}`, { stdio: "inherit", env: { ...process.env, CAPTURE_COMMIT: sha } });
+execSync(`npx vite-node ${captureScript}`, { stdio: "inherit", env: { ...process.env, CAPTURE_COMMIT: sha } });
 try {
   process.kill(-preview.pid, "SIGTERM");
 } catch {

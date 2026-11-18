@@ -14,7 +14,7 @@ export function isAssessmentTopic(topic: string, diagnoses: FormLink[] = painFor
 
 /** Drop trailing ", present" from Clinergy summary sentences in the UI. */
 export function formatEnglishSummaryLine(line: string): string {
-  const trimmed = line.replace(/, present\s*$/i, "").trim();
+  const trimmed = line.replace(/,?\s*present\s*$/i, "").trim();
   return /[.!?]$/.test(trimmed) ? trimmed : `${trimmed}.`;
 }
 

@@ -81,7 +81,7 @@ describe("ZipEHR quiet GP visit", () => {
     expect(win.document.querySelector("[data-opt-visibility='pass-through']")).toBeTruthy();
     expect((view.match(/Physical examination findings/g) ?? []).length).toBe(1);
     expect(view).not.toMatch(/Examination not done:\s*true/i);
-    expect(view).not.toMatch(/, present\b/i);
+    expect(view).not.toMatch(/\b,?\s*present\b/i);
     expect(html).toContain('data-antn-hide-on-form="true"');
     expect(win.document.querySelector("[data-antn-hide-on-form='true']")).toBeTruthy();
   });
