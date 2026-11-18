@@ -33,6 +33,19 @@ describe("workbench UI (preview)", () => {
     await page.close();
   });
 
+  it("translates duration units in SV form-label mode", async () => {
+    const page = await browser.newPage({ viewport: { width: 1280, height: 800 } });
+    await page.goto(baseUrl, { waitUntil: "networkidle" });
+    await page.locator("#load-gp").click();
+    await page.waitForTimeout(300);
+    await page.locator("#ui-sv-labels").check();
+    await page.waitForTimeout(300);
+    expect(await page.locator('select[data-unit="ThumbSprain"] option[value="day"]').innerText()).toBe("dagar");
+    expect(await page.locator('select[data-unit="ThumbSprain"] option[value="week"]').innerText()).toBe("veckor");
+    expect(await page.locator("#diagnoses-heading").innerText()).toBe("Diagnoser");
+    await page.close();
+  });
+
   it("shows human labels on the fracture detail form", async () => {
     const page = await browser.newPage({ viewport: { width: 1280, height: 800 } });
     await page.goto(baseUrl, { waitUntil: "networkidle" });

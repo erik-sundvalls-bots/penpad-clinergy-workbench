@@ -6,6 +6,27 @@ export type UiLang = "en" | "sv";
 
 const SV_HEAD = { gender: "en" as const, definite: false, plural: false };
 
+const DURATION_UNIT_KEYS = ["second", "minute", "hour", "day", "week", "month", "year"] as const;
+
+const DURATION_UNIT_EN: Record<string, string> = {
+  second: "seconds",
+  minute: "minutes",
+  hour: "hours",
+  day: "days",
+  week: "weeks",
+  month: "months",
+  year: "years",
+};
+
+const UI: Record<string, { en: string; sv: string }> = {
+  diagnosesHeading: { en: "Diagnoses", sv: "Diagnoser" },
+  commentPlaceholder: { en: "Free-text comment", sv: "Fritextkommentar" },
+  commentAria: { en: "Comment", sv: "Kommentar" },
+  durationUnitAria: { en: "Duration unit", sv: "Varaktighetsenhet" },
+  decreaseDuration: { en: "Decrease duration", sv: "Minska varaktighet" },
+  increaseDuration: { en: "Increase duration", sv: "Öka varaktighet" },
+};
+
 const FEATURE: Record<string, { en: string; sv: string }> = {
   laterality: { en: "Laterality", sv: "Lateralitet" },
   sublocation: { en: "Sublocation", sv: "Subläge" },
@@ -103,4 +124,18 @@ export function diseaseFormHeading(topic: string, lang: UiLang): string {
     return capitalizeSentence(swedish.noun(topic, SV_HEAD));
   }
   return capitalizeSentence(formOf(topic)?.display ?? displayOf(topic));
+}
+
+export function durationUnitLabel(key: string, lang: UiLang): string {
+  if (lang === "en") return DURATION_UNIT_EN[key] ?? key;
+  return swedish.unit(key, 2);
+}
+
+export function durationUnitKeys(): readonly string[] {
+  return DURATION_UNIT_KEYS;
+}
+
+export function uiString(key: string, lang: UiLang): string {
+  const row = UI[key as keyof typeof UI];
+  return row?.[lang] ?? key;
 }

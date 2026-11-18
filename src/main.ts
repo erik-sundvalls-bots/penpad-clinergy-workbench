@@ -8,8 +8,11 @@ import {
   choiceButtonLabel,
   diagnosisRowLabel,
   diseaseFormHeading,
+  durationUnitKeys,
+  durationUnitLabel,
   featureLabel,
   skipFeatureRow,
+  uiString,
   type UiLang,
 } from "./form-labels.ts";
 import { syncDiseaseFormAnswers, visibleDiseaseDetailTopics } from "./visit-forms.ts";
@@ -71,16 +74,6 @@ import { render, type Finding } from "../vendor/sentence.ts";
 import { examMoreFilled, painMoreLayerFilled, swellingMoreFilled } from "./form-fill.ts";
 import { historyNarrativeText, summaryLines } from "./summary.ts";
 
-const UNITS: Array<[string, string]> = [
-  ["second", "seconds"],
-  ["minute", "minutes"],
-  ["hour", "hours"],
-  ["day", "days"],
-  ["week", "weeks"],
-  ["month", "months"],
-  ["year", "years"],
-];
-
 const GALEN_BROWSER = "https://erik-sundvalls-bots.github.io/opengalen-browser/#concept=";
 
 const app = document.querySelector<HTMLElement>("#app");
@@ -129,7 +122,7 @@ function page(): string {
             ${historyAndExam()}
             ${diagnoses()}
             <div id="disease-details"></div>
-            <h2 class="side-label">Comment</h2>
+            <h2 class="side-label" id="comment-heading">Comment</h2>
             <textarea id="comment" class="comment-box" aria-label="Comment" placeholder="Free-text comment"></textarea>
           </div>
         </div>
@@ -301,11 +294,13 @@ function featureRow(
   const lat = feature === "laterality" ? " lat" : "";
   if (feature === "QuantityDuration") {
     return `<div class="field"><span class="field-name">${escapeText(label)}</span><span class="duration">
-      <button type="button" class="spin" data-spin="${group}" data-dir="-1" aria-label="Decrease duration">◂</button>
-      <input id="${group}-duration" inputmode="numeric" aria-label="${label}" data-duration="${group}" />
-      <button type="button" class="spin" data-spin="${group}" data-dir="1" aria-label="Increase duration">▸</button>
-      <select class="unit" data-unit="${group}" aria-label="Duration unit">${
-      UNITS.map(([key, word]) => `<option value="${key}">${word}</option>`).join("")
+      <button type="button" class="spin" data-spin="${group}" data-dir="-1" aria-label="${escapeAttr(uiString("decreaseDuration", lang))}">◂</button>
+      <input id="${group}-duration" inputmode="numeric" aria-label="${escapeAttr(label)}" data-duration="${group}" />
+      <button type="button" class="spin" data-spin="${group}" data-dir="1" aria-label="${escapeAttr(uiString("increaseDuration", lang))}">▸</button>
+      <select class="unit" data-unit="${group}" aria-label="${escapeAttr(uiString("durationUnitAria", lang))}">${
+      durationUnitKeys().map((key) =>
+        `<option value="${key}">${escapeText(durationUnitLabel(key, lang))}</option>`
+      ).join("")
     }</select>
     </span></div>`;
   }
@@ -366,7 +361,7 @@ function diagnosisRowsHtml(lang: UiLang = uiLang): string {
 }
 
 function diagnoses(): string {
-  return `<fieldset class="group"><h2>Diagnoses</h2><div id="diagnosis-rows">${diagnosisRowsHtml("en")}</div></fieldset>`;
+  return `<fieldset class="group"><h2 id="diagnoses-heading">Diagnoses</h2><div id="diagnosis-rows">${diagnosisRowsHtml("en")}</div></fieldset>`;
 }
 
 function swellingDialog(): string {
@@ -875,6 +870,17 @@ function examSide(name: string): ExamSide {
   return name === "right" ? state.exam.right : state.exam.left;
 }
 
+function paintDurationUnitLabels(): void {
+  for (const select of document.querySelectorAll<HTMLSelectElement>("select[data-unit]")) {
+    const value = select.value;
+    for (const option of select.options) {
+      option.textContent = durationUnitLabel(option.value, uiLang);
+    }
+    select.setAttribute("aria-label", uiString("durationUnitAria", uiLang));
+    if (value) select.value = value;
+  }
+}
+
 function paint(): void {
   const diag = document.querySelector("#diagnosis-rows");
   if (diag) diag.innerHTML = diagnosisRowsHtml(uiLang);
@@ -882,7 +888,16 @@ function paint(): void {
   if (details) details.innerHTML = diseaseDetails();
   const svToggle = document.querySelector<HTMLInputElement>("#ui-sv-labels");
   if (svToggle) svToggle.checked = uiLang === "sv";
+  const diagHeading = document.querySelector("#diagnoses-heading");
+  if (diagHeading) diagHeading.textContent = uiString("diagnosesHeading", uiLang);
+  const commentHeading = document.querySelector("#comment-heading");
+  if (commentHeading) commentHeading.textContent = uiString("commentAria", uiLang);
   const comment = document.querySelector<HTMLTextAreaElement>("#comment");
+  if (comment) {
+    comment.placeholder = uiString("commentPlaceholder", uiLang);
+    comment.setAttribute("aria-label", uiString("commentAria", uiLang));
+  }
+  paintDurationUnitLabels();
   if (comment && document.activeElement !== comment) comment.value = state.comment;
   const more = document.querySelector<HTMLElement>("#pain-more-layer");
   const moreButton = document.querySelector<HTMLButtonElement>("#pain-more");

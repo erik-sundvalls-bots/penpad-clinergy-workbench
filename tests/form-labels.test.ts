@@ -4,8 +4,10 @@ import {
   choiceButtonLabel,
   diagnosisRowLabel,
   diseaseFormHeading,
+  durationUnitLabel,
   featureLabel,
   skipFeatureRow,
+  uiString,
 } from "../src/form-labels.ts";
 
 describe("form labels", () => {
@@ -30,5 +32,15 @@ describe("form labels", () => {
   it("skips undeclared time-of-occurrence row", () => {
     expect(skipFeatureRow("QuantityTimeOcc")).toBe(true);
     expect(skipFeatureRow("AbsoluteSeverity")).toBe(false);
+  });
+
+  it("translates duration unit labels for SV mode", () => {
+    expect(durationUnitLabel("day", "en")).toBe("days");
+    expect(durationUnitLabel("week", "en")).toBe("weeks");
+    expect(durationUnitLabel("day", "sv")).toBe("dagar");
+    expect(durationUnitLabel("week", "sv")).toBe("veckor");
+    expect(durationUnitLabel("month", "sv")).toBe("månader");
+    expect(uiString("diagnosesHeading", "sv")).toBe("Diagnoser");
+    expect(uiString("commentPlaceholder", "sv")).toBe("Fritextkommentar");
   });
 });
