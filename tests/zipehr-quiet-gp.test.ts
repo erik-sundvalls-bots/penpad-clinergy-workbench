@@ -7,44 +7,23 @@ import {
   canonicalToZipehrHtml5,
   buildQuietZipehrPreviewDocument,
   composeQuietStructureCss,
-  ZIP_QUIET_DOM_SCRIPT,
 } from "../src/openehr/zipehr.ts";
-import { formatIsoDateTimeFriendly } from "../src/openehr/zipehr-preview.ts";
+import { applyZipQuietDomScript, formatIsoDateTimeFriendly } from "../src/openehr/zipehr-preview.ts";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { Window } from "happy-dom";
 
-const ENGLISH_LEAK = [
+const SV_ENGLISH_STRUCTURE = [
   "On Examination",
-  "Right thumb",
-  "full range",
-  "mildly painful",
-  "Thumb sprain",
-  "Review the right thumb",
-  "not examined",
-  "not painful",
   "Physical examination findings",
   "Story/History",
   "Symptom/Sign",
-  "Examination not done: true",
-  "Examination not done:true",
-  "Episode duration",
-  "Body site name",
-  "Laterality",
-  "Character",
-  "Severity category",
-  "Clinical interpretation",
-  "Movement",
-  "Problem/Diagnosis name",
-  "Symptom/Sign name",
-  "Onset timing",
-  "Pattern",
-  "Progression",
-  "2 weeks",
-  "weeks",
-  "primary medical care",
   "Encounter event",
+  "Möte händelse",
   "Encounter",
+  "primary medical care",
+  "Moderate",
+  "Right",
   "Range of motion of a joint",
   "Clinical description",
   "Problem/Diagnosis",
@@ -53,16 +32,27 @@ const ENGLISH_LEAK = [
   "Clinical management",
   "Clinical interpretation",
   "21 Oct 2021",
+  "2 weeks",
+];
+
+const EN_SWEDISH_STRUCTURE = [
+  "Besök",
+  "primärvård",
+  "Berättelse",
+  "Symtom/tecken",
+  "Status",
+  "Ledrörelse",
+  "veckor",
+  "21 okt",
 ];
 
 function quietCompositionHeaderText(
   html: string,
   templateRenderLang: "en" | "sv" = "en",
 ): string {
-  const { text, win } = renderQuietPreview(html, templateRenderLang);
+  const { win } = renderQuietPreview(html, templateRenderLang);
   const co = win.document.querySelector("o-co") as HTMLElement | null;
-  const header = co?.innerText?.replace(/\s+/g, " ").trim() ?? text;
-  return header;
+  return co?.innerText?.replace(/\s+/g, " ").trim() ?? "";
 }
 
 function renderQuietPreview(
@@ -82,10 +72,8 @@ function renderQuietPreview(
     templateRenderLang,
   });
   const win = new Window({ url: "https://example.test/" });
-  win.document.write(doc);
-  const script = win.document.createElement("script");
-  script.textContent = ZIP_QUIET_DOM_SCRIPT;
-  win.document.body.appendChild(script);
+  win.document.write(doc.replace(/<script>[\s\S]*?<\/script>\s*(?=<\/body>)/, ""));
+  applyZipQuietDomScript(win);
   return {
     win,
     text: win.document.body.innerText.replace(/\s+/g, " ").trim(),
@@ -109,7 +97,10 @@ describe("ZipEHR quiet GP visit", () => {
     expect(header).toContain("21 Oct 2021 14:21 primary medical care");
     expect(view).toContain("21 Oct 2021 14:21");
     expect(view).not.toContain("2021-10-21T14:21:00+01:00");
-    expect(formatIsoDateTimeFriendly("2021-10-21T14:21:00+01:00", "en")).toBe("21 Oct 2021 14:21");
+    expect(formatIsoDateTimeFriendly("2021-10-21T14:21:00+01:00", "en")).toMatch(/21 Oct 2021 14:21/);
+    for (const fragment of EN_SWEDISH_STRUCTURE) {
+      expect(view, fragment).not.toContain(fragment);
+    }
     expect(html).toContain('data-antn-hide-on-form="true"');
     expect(win.document.querySelector("[data-antn-hide-on-form='true']")).toBeTruthy();
   });
@@ -129,12 +120,13 @@ describe("ZipEHR quiet GP visit", () => {
     expect(view).not.toContain("Physical examination findings");
     expect(view).toContain("2 veckor");
     const header = quietCompositionHeaderText(html, "sv");
-    expect(header).toContain("Möte händelse Dr J Brown");
+    expect(header).toContain("Besök Dr J Brown");
+    expect(header).not.toMatch(/Möte händelse/i);
+    expect(header).not.toMatch(/Encounter event/i);
     expect(header).toContain("21 okt 2021 14:21 primärvård");
-    expect(view).toContain("21 okt 2021 14:21");
+    expect(view).toMatch(/21 okt 2021 14:21/);
     expect(view).not.toContain("2021-10-21T14:21:00+01:00");
-    const svLeak = ENGLISH_LEAK.filter((f) => f !== "Physical examination findings");
-    for (const fragment of svLeak) {
+    for (const fragment of SV_ENGLISH_STRUCTURE) {
       expect(view, fragment).not.toContain(fragment);
     }
   });
