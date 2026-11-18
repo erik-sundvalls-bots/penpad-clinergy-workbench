@@ -35,7 +35,7 @@ import type { CdrProfile, SimplifiedViewFlavour } from "./openehr/view-types.ts"
 import { validateComposition } from "./openehr/validate.ts";
 import {
   ZIP_CSS_SELECT_OPTIONS,
-  buildZipehrPreviewDocument,
+  buildQuietZipehrPreviewDocument,
   canonicalToZipehrHtml5,
   composeQuietStructureCss,
   resolveZipehrCssFile,
@@ -43,6 +43,7 @@ import {
   ZIP_QUIET_CSS,
   zipehrTextStats,
 } from "./openehr/zipehr.ts";
+import { languageFromCanonical } from "./openehr/zipehr-template.ts";
 import { term } from "./openehr/terms.ts";
 import gpOptUrl from "../templates/gp-encounter.opt?url";
 import { buildQuestionnaireExport } from "./fhir/questionnaire.ts";
@@ -101,6 +102,7 @@ let cachedXml = "";
 let cachedSimplified = "";
 let cachedZipehrHtml = "";
 let cachedZipehrCss = "";
+let cachedZipehrRenderLang: "en" | "sv" = "en";
 let canonicalForSimplified: Record<string, unknown> | null = null;
 let fhirTab: "bundle" | "questionnaire" | "response" | "symptoms" = "bundle";
 let fhirJson = "";
@@ -765,14 +767,16 @@ async function refreshZipehrDocument(): Promise<void> {
   try {
     const css = await loadZipehrStylesheet();
     cachedZipehrCss = css;
-    frame.srcdoc = buildZipehrPreviewDocument(cachedZipehrHtml, css, {
+    frame.srcdoc = buildQuietZipehrPreviewDocument(cachedZipehrHtml, css, {
       quietStructureTooltips: quiet,
+      templateRenderLang: cachedZipehrRenderLang,
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
-    frame.srcdoc = buildZipehrPreviewDocument(
+    frame.srcdoc = buildQuietZipehrPreviewDocument(
       cachedZipehrHtml,
       `/* ${message} */\n`,
+      { templateRenderLang: cachedZipehrRenderLang },
     );
   }
 }
@@ -971,6 +975,7 @@ function paintEhr(findings: Finding[], _english: string[]): void {
   const narrative = historyNarrative(findings);
   const result = buildVisit(state, narrative);
   canonicalForSimplified = result.canonical;
+  cachedZipehrRenderLang = languageFromCanonical(result.canonical);
   const checked = validateComposition(result.canonical);
   const jsonText = JSON.stringify(result.canonical, null, 2);
   cachedCanonicalJson = jsonText;
@@ -1010,7 +1015,9 @@ function paintEhr(findings: Finding[], _english: string[]): void {
       xmlStats.textContent = `${stats.characters.toLocaleString()} characters · ${stats.lines.toLocaleString()} lines`;
     }
     try {
-      cachedZipehrHtml = await canonicalToZipehrHtml5(result.canonical);
+      cachedZipehrHtml = await canonicalToZipehrHtml5(result.canonical, {
+        templateRenderLang: cachedZipehrRenderLang,
+      });
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
       cachedZipehrHtml = `<!-- ZipEHR serialize failed: ${message} -->`;

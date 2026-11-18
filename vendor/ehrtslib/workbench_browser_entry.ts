@@ -22,5 +22,6 @@ export {
   ZIP_QUIET_PREVIEW_SCRIPT,
   buildZipehrPreviewDocument,
   composeQuietStructureCss,
+  stripCssImports,
   type ZipehrPreviewDocumentOptions,
 } from "./serialization/zipehr/css/compose_quiet_css.ts";

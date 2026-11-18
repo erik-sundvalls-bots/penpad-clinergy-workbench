@@ -3,7 +3,7 @@ import type { CdrProfile, SimplifiedViewFlavour } from "./view-types.ts";
 
 export type { CdrProfile, SimplifiedViewFlavour };
 
-type Vendor = typeof import("../../vendor/ehrtslib/ehrtslib-0.13.0.min.js");
+type Vendor = typeof import("../../vendor/ehrtslib/ehrtslib-0.14.0.min.js");
 
 interface SerializationDeps {
   vendor: Vendor;
@@ -18,7 +18,7 @@ let depsPromise: Promise<SerializationDeps> | null = null;
 
 function loadDeps(): Promise<SerializationDeps> {
   if (!depsPromise) {
-    depsPromise = import("../../vendor/ehrtslib/ehrtslib-0.13.0.min.js").then((vendor) => {
+    depsPromise = import("../../vendor/ehrtslib/ehrtslib-0.14.0.min.js").then((vendor) => {
       const operationalTemplate = vendor.parser.parseOptXml(optXml).operationalTemplate;
       const xmlSerializer = new vendor.XmlSerializer({
         prettyPrint: true,

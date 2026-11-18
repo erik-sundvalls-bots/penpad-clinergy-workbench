@@ -4,7 +4,10 @@ import {
   serializeToHtml5Variant,
   zipehrHtml5ToCanonical,
   ZIP_QUIET_STRUCTURE_CSS,
-} from "../../vendor/ehrtslib/ehrtslib-0.13.0.min.js";
+  ZIP_QUIET_PREVIEW_SCRIPT,
+} from "../../vendor/ehrtslib/ehrtslib-0.14.0.min.js";
+import type { NoteLanguage } from "../exam/phrases.ts";
+import { languageFromCanonical, zipehrTemplateForCanonical } from "./zipehr-template.ts";
 
 /** Same variant and serializer options as the ehrtslib demo ZipEHR output tab. */
 export const ZIP_EHR_HTML5_VARIANT = "zipehr.html5.short" as const;
@@ -29,7 +32,15 @@ export const ZIP_CSS_SELECT_OPTIONS: { value: string; label: string }[] = [
   { value: "zipehr-html5-emoji.css", label: "zipehr-html5-emoji.css" },
 ];
 
-export { buildZipehrPreviewDocument, composeQuietStructureCss };
+export { buildZipehrPreviewDocument, composeQuietStructureCss, ZIP_QUIET_PREVIEW_SCRIPT };
+export {
+  buildQuietZipehrPreviewDocument,
+  ZIP_L10N_PREVIEW_SCRIPT,
+} from "./zipehr-preview.ts";
+
+export type ZipehrRenderOptions = {
+  templateRenderLang?: NoteLanguage;
+};
 
 export function resolveZipehrCssFile(selectValue: string): string | null {
   if (selectValue === "none" || selectValue === "custom") return null;
@@ -45,8 +56,15 @@ export function zipehrTextStats(text: string): { characters: number; lines: numb
 
 export async function canonicalToZipehrHtml5(
   canonical: Record<string, unknown>,
+  options?: ZipehrRenderOptions,
 ): Promise<string> {
-  return serializeToHtml5Variant(canonical, ZIP_EHR_HTML5_VARIANT, ZIP_EHR_SERIALIZE_OPTIONS);
+  const lang = options?.templateRenderLang ?? languageFromCanonical(canonical);
+  return serializeToHtml5Variant(canonical, ZIP_EHR_HTML5_VARIANT, {
+    ...ZIP_EHR_SERIALIZE_OPTIONS,
+    lang,
+    templateRenderLang: lang,
+    template: zipehrTemplateForCanonical(canonical),
+  } as never);
 }
 
 export function zipehrHtml5ToCanonicalRecord(html: string): Record<string, unknown> {

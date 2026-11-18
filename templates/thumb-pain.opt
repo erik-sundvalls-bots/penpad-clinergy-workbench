@@ -12537,23 +12537,47 @@
   </component_ontologies>
   <annotations path="/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Examination']">
     <items id="L10n.en">Examination</items>
+    <items id="L10n.sv">Status</items>
   </annotations>
   <annotations path="/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='History']">
     <items id="L10n.en">History</items>
+    <items id="L10n.sv">Anamnes</items>
   </annotations>
   <annotations path="/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Assessment']">
     <items id="L10n.en">Assessment</items>
+    <items id="L10n.sv">Bedömning</items>
   </annotations>
   <annotations path="/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Examination']/items[openEHR-EHR-OBSERVATION.exam.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.exam.v2]/items[openEHR-EHR-CLUSTER.symptom_sign.v2]">
     <items id="L10n.en">Tenderness</items>
+    <items id="L10n.sv">Ömhet</items>
   </annotations>
   <annotations path="/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='History']/items[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v2]">
     <items id="L10n.en">Symptom/Sign</items>
+    <items id="L10n.sv">Symtom/tecken</items>
   </annotations>
   <annotations path="/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Examination']/items[openEHR-EHR-OBSERVATION.exam.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.exam.v2]/items[openEHR-EHR-CLUSTER.symptom_sign.v2]/items[at0147]">
     <items id="L10n.en">Structured body site</items>
+    <items id="L10n.sv">Strukturerad kroppsplats</items>
   </annotations>
   <annotations path="/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Examination']/items[openEHR-EHR-OBSERVATION.exam.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.exam.v2]/items[openEHR-EHR-CLUSTER.symptom_sign.v2]/items[at0153]">
     <items id="L10n.en">Specific details</items>
+    <items id="L10n.sv">Specifika detaljer</items>
   </annotations>
+  <annotations path="/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='History']/items[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v2]/items[openEHR-EHR-CLUSTER.clinergy_descriptor.v0]">
+    <items id="hide-on-form">
+      <value>true</value>
+    </items>
+  </annotations>
+  <annotations path="/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Examination']/items[openEHR-EHR-OBSERVATION.exam.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.exam.v2]/items[openEHR-EHR-CLUSTER.range_of_motion.v1]/items[openEHR-EHR-CLUSTER.clinergy_descriptor.v0]">
+    <items id="hide-on-form">
+      <value>true</value>
+    </items>
+  </annotations>
+  <view>
+    <constraints path="/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Examination']/items[openEHR-EHR-OBSERVATION.exam.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.exam.v2]">
+      <items id="pass_through">
+        <value>true</value>
+      </items>
+    </constraints>
+  </view>
 </template>

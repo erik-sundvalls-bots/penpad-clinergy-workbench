@@ -23,6 +23,8 @@ export function buildZipehrPreviewDocument(
   options?: { quietStructureTooltips?: boolean },
 ): string;
 
+export const ZIP_QUIET_PREVIEW_SCRIPT: string;
+
 export class XmlSerializer {
   constructor(config?: {
     prettyPrint?: boolean;

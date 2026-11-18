@@ -1,7 +1,7 @@
 import gpOptXml from "../../templates/gp-encounter.opt?raw";
 import optXml from "../../templates/thumb-pain.opt?raw";
 import { GP_TEMPLATE_ID } from "./template.ts";
-import { parser, serialization, validation } from "../../vendor/ehrtslib/ehrtslib-0.13.0.min.js";
+import { parser, serialization, validation } from "../../vendor/ehrtslib/ehrtslib-0.14.0.min.js";
 
 export interface ValidationIssue {
   path: string;
