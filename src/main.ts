@@ -35,14 +35,21 @@ import type { CdrProfile, SimplifiedViewFlavour } from "./openehr/view-types.ts"
 import { validateComposition } from "./openehr/validate.ts";
 import {
   ZIP_CSS_SELECT_OPTIONS,
-  buildZipehrPreviewDocument,
-  canonicalToZipehrHtml5,
+  ZIP_EHR_HTML5_VARIANT,
+  ZIP_VARIANT_OPTIONS,
+  buildQuietZipehrPreviewDocument,
+  canonicalToZipehr,
   composeQuietStructureCss,
+  isZipehrMarkupVariant,
   resolveZipehrCssFile,
+  zipehrDownloadBasename,
+  zipehrDownloadMime,
   ZIP_DEFAULT_CSS,
   ZIP_QUIET_CSS,
   zipehrTextStats,
+  type ZipehrVariant,
 } from "./openehr/zipehr.ts";
+import { languageFromCanonical } from "./openehr/zipehr-template.ts";
 import { term } from "./openehr/terms.ts";
 import gpOptUrl from "../templates/gp-encounter.opt?url";
 import { buildQuestionnaireExport } from "./fhir/questionnaire.ts";
@@ -53,6 +60,7 @@ import optPlainUrl from "../templates/thumb-pain-encounter.v2.opt?url";
 import { renderSwedishGp } from "./sv/gp-sentence.ts";
 import { expressionsFor, UNMAPPED_INFO } from "./snomed/expressions.ts";
 import { render, type Finding } from "../vendor/sentence.ts";
+import { historyNarrativeText, summaryLines } from "./summary.ts";
 
 const FEATURE_LABEL: Record<string, string> = {
   laterality: "Laterality",
@@ -92,16 +100,18 @@ if (!app) throw new Error("missing #app");
 const root: HTMLElement = app;
 
 let state = emptyState();
-let ehrFormatTab: EhrFormatTab = "canonical";
+let ehrFormatTab: EhrFormatTab = "zipehr";
 let simplifiedCdrProfile: CdrProfile = "better";
 let simplifiedFlavour: SimplifiedViewFlavour = "structured";
+let zipehrVariant: ZipehrVariant = ZIP_EHR_HTML5_VARIANT;
 let zipehrViewMode: "code" | "document" = "document";
-let zipehrStylesheet = "default";
+let zipehrStylesheet: string = ZIP_QUIET_CSS;
 let cachedCanonicalJson = "";
 let cachedXml = "";
 let cachedSimplified = "";
 let cachedZipehrHtml = "";
 let cachedZipehrCss = "";
+let cachedZipehrRenderLang: "en" | "sv" = "en";
 let canonicalForSimplified: Record<string, unknown> | null = null;
 let cachedSnomedExpressions: string[] = [];
 let fhirTab: "bundle" | "questionnaire" | "response" | "symptoms" = "bundle";
@@ -160,12 +170,6 @@ function page(): string {
           <p id="summary-sv" class="sv-sentence" lang="sv" aria-live="polite"></p>
           <p id="sv-missing" class="missing"></p>
         </section>
-        <section class="panel" id="bindings-panel">
-          <h2>OpenGALEN and SNOMED CT</h2>
-          <p class="note">Reviewed bindings for the values you have selected. Unverified means the code was not confirmed and is not written into the composition. Post-coordinated SNOMED CT expressions use the same reviewed map and update as you click. Duration has no MRCM attribute and is listed as unmapped. Nothing is sent to a terminology server.</p>
-          <div id="galen"></div>
-          <div id="snomed-expressions"></div>
-        </section>
         <section class="panel" id="openehr-panel">
           <h2>openEHR</h2>
           <div class="downloads">
@@ -174,12 +178,12 @@ function page(): string {
             <a href="${optPlainUrl}" download="thumb-pain-encounter.v2.opt">Uncoded OPT</a>
           </div>
           <div class="ehr-format-tabs" role="tablist" aria-label="openEHR representation">
-            <button type="button" class="ehr-format-tab active" data-ehr-format="canonical" role="tab" aria-selected="true">Canonical JSON</button>
+            <button type="button" class="ehr-format-tab" data-ehr-format="canonical" role="tab" aria-selected="false">Canonical JSON</button>
             <button type="button" class="ehr-format-tab" data-ehr-format="xml" role="tab" aria-selected="false">Canonical XML</button>
             <button type="button" class="ehr-format-tab" data-ehr-format="simplified" role="tab" aria-selected="false">Simplified</button>
-            <button type="button" class="ehr-format-tab" data-ehr-format="zipehr" role="tab" aria-selected="false">ZipEHR</button>
+            <button type="button" class="ehr-format-tab active" data-ehr-format="zipehr" role="tab" aria-selected="true">ZipEHR</button>
           </div>
-          <div id="ehr-canonical-pane">
+          <div id="ehr-canonical-pane" hidden>
             <div class="tabs-mini">
               <button type="button" id="copy-ehr">Copy</button>
               <button type="button" id="download-ehr">Download</button>
@@ -215,18 +219,32 @@ function page(): string {
             </div>
             <pre id="ehr-simplified" class="json"></pre>
           </div>
-          <div id="ehr-zipehr-pane" hidden>
-            <div class="zipehr-view-tabs" role="tablist" aria-label="ZipEHR view">
-              <button type="button" class="zipehr-view-tab" data-zipehr-view="code" role="tab" aria-selected="false">Code</button>
-              <button type="button" class="zipehr-view-tab active" data-zipehr-view="document" role="tab" aria-selected="true">Document</button>
-            </div>
-            <div class="tabs-mini">
+          <div id="ehr-zipehr-pane">
+            <div class="tabs-mini zipehr-toolbar">
+              <label class="zipehr-field-label" for="zipehr-variant">ZipEHR variant:</label>
+              <select id="zipehr-variant" class="zipehr-variant-select" aria-label="ZipEHR variant">
+                ${ZIP_VARIANT_OPTIONS.map(
+                  (opt) =>
+                    `<option value="${escapeAttr(opt.value)}"${opt.value === zipehrVariant ? " selected" : ""}>${escapeText(opt.label)}</option>`,
+                ).join("")}
+              </select>
               <label class="zipehr-css-label" for="zipehr-css-select">Stylesheet:</label>
               <select id="zipehr-css-select" class="zipehr-css-select" aria-label="ZipEHR stylesheet">
                 ${ZIP_CSS_SELECT_OPTIONS.map(
-                  (opt) => `<option value="${escapeAttr(opt.value)}">${escapeText(opt.label)}</option>`,
+                  (opt) =>
+                    `<option value="${escapeAttr(opt.value)}"${opt.value === zipehrStylesheet ? " selected" : ""}>${escapeText(opt.label)}</option>`,
                 ).join("")}
               </select>
+              <div id="zipehr-view-tabs" class="output-view-tabs output-view-tabs--inline" role="tablist" aria-label="ZipEHR view">
+                <button type="button" class="output-view-tab" data-zipehr-view="code" role="tab" aria-selected="false" aria-label="Code view">
+                  <svg class="output-view-tab-icon" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="m4.72 12.53 2.52-3.58L4.72 5.47a.75.75 0 0 1 1.06-1.06l3.12 3.18a.75.75 0 0 1 0 1.06l-3.12 3.18a.75.75 0 0 1-1.06-1.06Zm6.56-7.06a.75.75 0 0 0-1.06-1.06L7.1 7.65a.75.75 0 0 0 0 1.06l3.12 3.18a.75.75 0 1 0 1.06-1.06L8.31 8.53l2.97-3.06Z"/></svg>
+                  <span>Code</span>
+                </button>
+                <button type="button" class="output-view-tab active" data-zipehr-view="document" role="tab" aria-selected="true" aria-label="Document view">
+                  <svg class="output-view-tab-icon" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.772.513 1.237v9.586A1.75 1.75 0 0 1 13 16H3.75A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V6h-2.75A1.75 1.75 0 0 1 9 4.25V1.5Z"/></svg>
+                  <span>Document</span>
+                </button>
+              </div>
               <button type="button" id="copy-zipehr">Copy</button>
               <button type="button" id="download-zipehr">Download</button>
               <span id="zipehr-stats" class="output-stats"></span>
@@ -252,10 +270,11 @@ function page(): string {
           <pre id="fhir" class="json"></pre>
           <p id="fhir-errors" class="missing"></p>
         </section>
-        <section class="panel" id="exam-note">
-          <h2>On Examination</h2>
-          <p class="note">The 1998 summary put examination findings in their own block. That block is part of the English summary, the exam archetype, and the FHIR Observations.</p>
-          <div id="exam-list"></div>
+        <section class="panel">
+          <h2>Possible Terminology system similarities</h2>
+          <p class="note">Reviewed bindings for the values you have selected. Unverified means the code was not confirmed and is not written into the composition. Post-coordinated SNOMED CT expressions use the same reviewed map and update as you click. Duration has no MRCM attribute and is listed as unmapped. Nothing is sent to a terminology server.</p>
+          <div id="galen"></div>
+          <div id="snomed-expressions"></div>
         </section>
       </aside>
     </div>
@@ -555,7 +574,11 @@ function wire(): void {
       return;
     }
     if (button.id === "download-zipehr") {
-      downloadTextFile("thumb-encounter.zipehr.html5", cachedZipehrHtml, "text/html");
+      downloadTextFile(
+        zipehrDownloadBasename(zipehrVariant),
+        cachedZipehrHtml,
+        zipehrDownloadMime(zipehrVariant),
+      );
       return;
     }
     if (
@@ -665,6 +688,13 @@ function wire(): void {
   });
   root.addEventListener("change", (event) => {
     const target = event.target;
+    if (target instanceof HTMLSelectElement && target.id === "zipehr-variant") {
+      const value = target.value;
+      if (ZIP_VARIANT_OPTIONS.some((opt) => opt.value === value)) {
+        setZipehrVariant(value as ZipehrVariant);
+      }
+      return;
+    }
     if (target instanceof HTMLSelectElement && target.id === "zipehr-css-select") {
       zipehrStylesheet = target.value;
       void refreshZipehrDocument();
@@ -683,6 +713,10 @@ function wire(): void {
     form.durationUnit = target.value;
     paintOutputs();
   });
+
+  applyEhrFormatTab(document, ehrFormatTab);
+  syncZipehrRenderableUi();
+  setZipehrViewMode(zipehrViewMode);
 }
 
 function downloadTextFile(filename: string, text: string, mime: string): void {
@@ -735,7 +769,53 @@ function refreshSimplifiedOutput(): void {
   })();
 }
 
+function syncZipehrRenderableUi(): void {
+  const tabs = document.querySelector<HTMLElement>("#zipehr-view-tabs");
+  const renderable = isZipehrMarkupVariant(zipehrVariant);
+  if (tabs) tabs.hidden = !renderable;
+  if (!renderable) {
+    const code = document.querySelector<HTMLElement>("#zipehr-code");
+    const frame = document.querySelector<HTMLElement>("#zipehr-document");
+    if (code) code.hidden = false;
+    if (frame) frame.hidden = true;
+    return;
+  }
+  setZipehrViewMode(zipehrViewMode);
+}
+
+function setZipehrVariant(variant: ZipehrVariant): void {
+  zipehrVariant = variant;
+  syncZipehrRenderableUi();
+  void refreshZipehrSerializedOutput();
+}
+
+async function refreshZipehrSerializedOutput(): Promise<void> {
+  if (!canonicalForSimplified) return;
+  try {
+    cachedZipehrHtml = await canonicalToZipehr(canonicalForSimplified, zipehrVariant, {
+      templateRenderLang: cachedZipehrRenderLang,
+    });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    cachedZipehrHtml = `<!-- ZipEHR serialize failed: ${message} -->`;
+  }
+  const code = document.querySelector("#zipehr-code");
+  if (code) code.textContent = cachedZipehrHtml;
+  const zipehrStats = document.querySelector("#zipehr-stats");
+  if (zipehrStats) {
+    const stats = zipehrTextStats(cachedZipehrHtml);
+    zipehrStats.textContent = `${stats.characters.toLocaleString()} characters · ${stats.lines.toLocaleString()} lines`;
+  }
+  syncZipehrRenderableUi();
+  if (ehrFormatTab === "zipehr" && isZipehrMarkupVariant(zipehrVariant)) {
+    await refreshZipehrDocument();
+  }
+}
+
 function setZipehrViewMode(mode: "code" | "document"): void {
+  if (!isZipehrMarkupVariant(zipehrVariant)) {
+    mode = "code";
+  }
   zipehrViewMode = mode;
   const code = document.querySelector<HTMLElement>("#zipehr-code");
   const frame = document.querySelector<HTMLElement>("#zipehr-document");
@@ -749,7 +829,7 @@ function setZipehrViewMode(mode: "code" | "document"): void {
 }
 
 async function loadZipehrStylesheet(): Promise<string> {
-  const file = resolveZipehrCssFile(zipehrStylesheet);
+  const file = resolveZipehrCssFile(zipehrStylesheet, zipehrVariant);
   if (!file) return "";
   const baseUrl = import.meta.env.BASE_URL || "/";
   const fetchCss = async (name: string) => {
@@ -767,20 +847,22 @@ async function loadZipehrStylesheet(): Promise<string> {
 async function refreshZipehrDocument(): Promise<void> {
   const frame = document.querySelector<HTMLIFrameElement>("#zipehr-document");
   if (!frame || !cachedZipehrHtml) return;
-  const cssFile = resolveZipehrCssFile(zipehrStylesheet);
+  const cssFile = resolveZipehrCssFile(zipehrStylesheet, zipehrVariant);
   const quiet = cssFile === ZIP_QUIET_CSS;
   frame.sandbox = quiet ? "allow-same-origin allow-scripts" : "allow-same-origin";
   try {
     const css = await loadZipehrStylesheet();
     cachedZipehrCss = css;
-    frame.srcdoc = buildZipehrPreviewDocument(cachedZipehrHtml, css, {
+    frame.srcdoc = buildQuietZipehrPreviewDocument(cachedZipehrHtml, css, {
       quietStructureTooltips: quiet,
+      templateRenderLang: cachedZipehrRenderLang,
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
-    frame.srcdoc = buildZipehrPreviewDocument(
+    frame.srcdoc = buildQuietZipehrPreviewDocument(
       cachedZipehrHtml,
       `/* ${message} */\n`,
+      { templateRenderLang: cachedZipehrRenderLang },
     );
   }
 }
@@ -878,8 +960,8 @@ function paintDurations(): void {
 function paintOutputs(): void {
   swedish.missing.length = 0;
   const findings = currentFindings();
-  const english = findings.map((finding) => render(finding, knowledge));
-  const swedishLines = findings.map((finding) => renderSwedishGp(finding));
+  const english = summaryLines(findings, "en");
+  const swedishLines = summaryLines(findings, "sv");
   const enBox = document.querySelector("#summary-en");
   const svBox = document.querySelector("#summary-sv");
   if (enBox) enBox.textContent = englishNote(english);
@@ -908,7 +990,6 @@ function paintOutputs(): void {
   paintGalen(findings);
   paintSnomed(findings);
   paintEhr(findings, english);
-  paintExam();
 }
 
 function currentFindings(): Finding[] {
@@ -927,7 +1008,7 @@ function swedishNote(lines: string[]): string {
 }
 
 function englishText(): string {
-  return englishNote(currentFindings().map((finding) => render(finding, knowledge)));
+  return englishNote(summaryLines(currentFindings(), "en"));
 }
 
 function diseaseDetails(): string {
@@ -1000,23 +1081,11 @@ function paintGalen(findings: Finding[]): void {
   host.innerHTML = `<table class="bindings"><thead><tr><th>Clinergy</th><th>OpenGALEN</th><th>SNOMED CT</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
-function historyNarrative(findings: Finding[]): string {
-  return findings
-    .filter((finding) => !isAssessmentTopic(finding.topic))
-    .map((finding) => render(finding, knowledge))
-    .join("\n");
-}
-
-function isAssessmentTopic(topic: string): boolean {
-  return painForm.diagnoses.some((link) =>
-    topic === link.item || topic === link.preCoordinated || topic === link.concept
-  );
-}
-
 function paintEhr(findings: Finding[], _english: string[]): void {
-  const narrative = historyNarrative(findings);
+  const narrative = historyNarrativeText(findings, "en");
   const result = buildVisit(state, narrative);
   canonicalForSimplified = result.canonical;
+  cachedZipehrRenderLang = languageFromCanonical(result.canonical);
   const checked = validateComposition(result.canonical);
   const jsonText = JSON.stringify(result.canonical, null, 2);
   cachedCanonicalJson = jsonText;
@@ -1055,20 +1124,7 @@ function paintEhr(findings: Finding[], _english: string[]): void {
       const stats = zipehrTextStats(cachedXml);
       xmlStats.textContent = `${stats.characters.toLocaleString()} characters · ${stats.lines.toLocaleString()} lines`;
     }
-    try {
-      cachedZipehrHtml = await canonicalToZipehrHtml5(result.canonical);
-    } catch (error) {
-      const message = error instanceof Error ? error.message : String(error);
-      cachedZipehrHtml = `<!-- ZipEHR serialize failed: ${message} -->`;
-    }
-    const code = document.querySelector("#zipehr-code");
-    if (code) code.textContent = cachedZipehrHtml;
-    const zipehrStats = document.querySelector("#zipehr-stats");
-    if (zipehrStats) {
-      const stats = zipehrTextStats(cachedZipehrHtml);
-      zipehrStats.textContent = `${stats.characters.toLocaleString()} characters · ${stats.lines.toLocaleString()} lines`;
-    }
-    if (ehrFormatTab === "zipehr") await refreshZipehrDocument();
+    await refreshZipehrSerializedOutput();
   })();
 }
 
@@ -1121,13 +1177,6 @@ function paintFhir(canonical: Record<string, unknown>, narrative: string): void 
     const lines = check.errors.concat(check.warnings).map((issue) => `${issue.path} — ${issue.message}`).concat(extra);
     errors.textContent = lines.join("\n");
   }
-}
-
-function paintExam(): void {
-  const host = document.querySelector("#exam-list");
-  if (!host) return;
-  const block = onExamination(state);
-  host.textContent = block || "Nothing selected.";
 }
 
 function buttonLabel(value: string): string {

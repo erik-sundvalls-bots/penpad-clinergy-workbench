@@ -19,7 +19,7 @@ describe("five known-good English sentences", () => {
 
 describe("Swedish for the same five findings", () => {
   const expected = [
-    "Svullnad på vänster tumme.",
+    "Svullnad av vänster tumme.",
     "Svullnad av ytterfalangen på vänster tumme sedan 2 veckor.",
     "Måttlig svullnad av ytterfalangen på vänster tumme sedan 2 veckor, gradvis debut.",
     "Smärta i höger tumme.",

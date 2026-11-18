@@ -13,6 +13,7 @@ import { renderSwedishGp } from "../src/sv/gp-sentence.ts";
 import { localizePlan } from "../src/exam/phrases.ts";
 import { findingsFromState } from "../src/model.ts";
 import { historyStoryText } from "./canonical-helpers.ts";
+import { historyNarrativeText } from "../src/summary.ts";
 
 const WALKTHROUGH_EXAM = [
   "On Examination",
@@ -48,10 +49,12 @@ describe("general practice visit", () => {
   it("keeps Story to the history narrative", () => {
     const state = gpVisitState();
     const findings = findingsFromState(state, painForm.diagnoses);
-    const history = findings
-      .filter((finding) => finding.topic === "ThumbPainSymptom" || finding.topic === "ThumbSwellingSymptom")
-      .map((finding) => render(finding, knowledge))
-      .join("\n");
+    const history = historyNarrativeText(
+      findings.filter(
+        (finding) => finding.topic === "ThumbPainSymptom" || finding.topic === "ThumbSwellingSymptom",
+      ),
+      "en",
+    );
     const built = buildVisit(state, history);
     const story = historyStoryText(built.canonical) ?? "";
     expect(story).toContain("Pain in right thumb");
@@ -148,7 +151,7 @@ describe("general practice visit", () => {
 const SWEDISH_NOTE = [
   "Smärta i höger tumme.",
   "Måttlig svullnad av ytterfalangen på höger tumme sedan 2 veckor, gradvis debut.",
-  "Tumstukning i höger tumme.",
+  "Stukning av höger tumme.",
   "",
   "Status",
   "Höger tumme:",
@@ -205,7 +208,7 @@ describe("Swedish GP visit note", () => {
     expect(story).not.toContain("Tumstukning");
     const coded = JSON.stringify(built.canonical);
     expect(coded).toContain("Höger tumled: flexion full rörlighet, lätt smärtsam");
-    expect(coded).toContain("Tumstukning i höger tumme.");
+    expect(coded).toContain("Stukning av höger tumme.");
     expect(coded).toContain("Återbesök om en vecka om smärtan i höger tumme inte är bättre.");
     expect((built.canonical.language as { code_string: string }).code_string).toBe("sv");
     for (const fragment of ENGLISH_LEAK) {
