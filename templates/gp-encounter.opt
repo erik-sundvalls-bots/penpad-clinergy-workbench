@@ -12894,6 +12894,58 @@
       <value>true</value>
     </items>
   </annotations>
+  <annotations path="/">
+    <items id="L10n.en">Encounter</items>
+    <items id="L10n.sv">Besök</items>
+  </annotations>
+  <annotations path="/category">
+    <items id="L10n.en">event</items>
+    <items id="L10n.sv"> </items>
+  </annotations>
+  <annotations path="/context/setting">
+    <items id="L10n.en">primary medical care</items>
+    <items id="L10n.sv">primärvård</items>
+  </annotations>
+  <annotations path="/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Examination']/items[openEHR-EHR-OBSERVATION.exam.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.exam.v2]/items[openEHR-EHR-CLUSTER.range_of_motion.v1]">
+    <items id="L10n.en">Range of motion of a joint</items>
+    <items id="L10n.sv">Ledrörelse</items>
+  </annotations>
+  <annotations path="/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Examination']/items[openEHR-EHR-OBSERVATION.exam.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.exam.v2]/items[openEHR-EHR-CLUSTER.range_of_motion.v1]/items[at0003]">
+    <items id="L10n.en">Clinical description</items>
+    <items id="L10n.sv">Klinisk beskrivning</items>
+  </annotations>
+  <annotations path="/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Assessment']/items[openEHR-EHR-EVALUATION.problem_diagnosis.v1]">
+    <items id="L10n.en">Problem/Diagnosis</items>
+    <items id="L10n.sv">Problem/diagnos</items>
+  </annotations>
+  <annotations path="/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Assessment']/items[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0009]">
+    <items id="L10n.en">Clinical description</items>
+    <items id="L10n.sv">Klinisk beskrivning</items>
+  </annotations>
+  <annotations path="/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Assessment']/items[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0002]">
+    <items id="L10n.en">Problem/Diagnosis name</items>
+    <items id="L10n.sv">Diagnosnamn</items>
+  </annotations>
+  <annotations path="/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Plan']/items[openEHR-EHR-EVALUATION.recommendation.v2]">
+    <items id="L10n.en">Recommendation</items>
+    <items id="L10n.sv">Rekommendation</items>
+  </annotations>
+  <annotations path="/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Plan']/items[openEHR-EHR-EVALUATION.recommendation.v2]/data[at0001]/items[at0006]">
+    <items id="L10n.en">Topic</items>
+    <items id="L10n.sv">Ämne</items>
+  </annotations>
+  <annotations path="/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='History']/items[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v2]/items[at0013]">
+    <items id="L10n.en">Episode duration</items>
+    <items id="L10n.sv">Episodlängd</items>
+  </annotations>
+  <annotations path="/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Examination']/items[openEHR-EHR-OBSERVATION.exam.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.exam.v2]/items[openEHR-EHR-CLUSTER.range_of_motion.v1]/items[at0002]">
+    <items id="L10n.en">Movement</items>
+    <items id="L10n.sv">Rörelse</items>
+  </annotations>
+  <annotations path="/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Examination']/items[openEHR-EHR-OBSERVATION.exam.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.exam.v2]/items[openEHR-EHR-CLUSTER.range_of_motion.v1]/items[at0035]">
+    <items id="L10n.en">Clinical interpretation</items>
+    <items id="L10n.sv">Klinisk tolkning</items>
+  </annotations>
   <view>
     <constraints path="/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Examination']/items[openEHR-EHR-OBSERVATION.exam.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.exam.v2]">
       <items id="pass_through">

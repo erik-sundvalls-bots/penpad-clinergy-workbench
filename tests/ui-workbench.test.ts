@@ -100,6 +100,13 @@ describe("workbench UI (preview)", () => {
     expect(await page.locator("#zipehr-document").isVisible()).toBe(true);
     expect(await page.locator("#zipehr-code").isHidden()).toBe(true);
 
+    const quietFrame = page.frameLocator("#zipehr-document");
+    const quietText = await quietFrame.locator("body").innerText();
+    expect(quietText).toContain("21 Oct 2021 14:21");
+    expect(quietText).not.toContain("2021-10-21T14:21:00+01:00");
+    expect(quietText).toMatch(/Encounter event Dr J Brown/i);
+    expect(quietText).not.toMatch(/Besök|primärvård|Anamnes|Symtom\/tecken/i);
+
     await variant.selectOption("zipehr.json");
     await page.waitForTimeout(400);
     expect(await viewTabs.isHidden()).toBe(true);
@@ -109,11 +116,6 @@ describe("workbench UI (preview)", () => {
     await variant.selectOption("zipehr.xhtml");
     await page.waitForTimeout(400);
     expect(await viewTabs.isVisible()).toBe(true);
-
-    const frame = page.frameLocator("#zipehr-document");
-    const bodyText = await frame.locator("body").innerText();
-    expect(bodyText).toContain("21 Oct 2021 14:21");
-    expect(bodyText).not.toContain("2021-10-21T14:21:00+01:00");
 
     await page.close();
   });

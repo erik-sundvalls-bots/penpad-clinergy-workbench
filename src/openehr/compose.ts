@@ -526,17 +526,17 @@ function composition(
 ): Record<string, unknown> {
   return {
     _type: "COMPOSITION",
-    name: dvText(rmLabel(language, "Encounter", "Möte")),
+    name: dvText("Encounter"),
     archetype_node_id: "openEHR-EHR-COMPOSITION.encounter.v1",
     archetype_details: archetyped("openEHR-EHR-COMPOSITION.encounter.v1", templateId),
     language: codePhrase("ISO_639-1", language),
     territory: codePhrase("ISO_3166-1", "GB"),
-    category: dvCoded(rmLabel(language, "event", "händelse"), "openehr", "433"),
+    category: dvCoded("event", "openehr", "433"),
     composer: { _type: "PARTY_IDENTIFIED", name: "Dr J Brown" },
     context: {
       _type: "EVENT_CONTEXT",
       start_time: { _type: "DV_DATE_TIME", value: TIME },
-      setting: dvCoded(rmLabel(language, "primary medical care", "primärvård"), "openehr", "228"),
+      setting: dvCoded("primary medical care", "openehr", "228"),
     },
     content,
   };
