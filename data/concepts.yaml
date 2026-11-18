@@ -168,3 +168,9 @@ JointStiffnessSymptom:
   display: joint stiffness
   category: symptom
   summaryType: AbsentPresent
+healed:
+  display: healed
+partiallyHealed:
+  display: partially healed
+nonHealed:
+  display: not healed

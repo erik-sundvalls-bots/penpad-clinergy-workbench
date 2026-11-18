@@ -4,6 +4,14 @@ import { onExamination } from "./exam/prose.ts";
 import { buildFhirBundle } from "./fhir/bundle.ts";
 import { validateFhirBundle } from "./fhir/validate.ts";
 import { formOf } from "./forms/catalog.ts";
+import {
+  choiceButtonLabel,
+  diagnosisRowLabel,
+  diseaseFormHeading,
+  featureLabel,
+  skipFeatureRow,
+  type UiLang,
+} from "./form-labels.ts";
 import { syncDiseaseFormAnswers, visibleDiseaseDetailTopics } from "./visit-forms.ts";
 import {
   conceptLabel,
@@ -63,20 +71,6 @@ import { render, type Finding } from "../vendor/sentence.ts";
 import { examMoreFilled, painMoreLayerFilled, swellingMoreFilled } from "./form-fill.ts";
 import { historyNarrativeText, summaryLines } from "./summary.ts";
 
-const FEATURE_LABEL: Record<string, string> = {
-  laterality: "Laterality",
-  sublocation: "Sublocation",
-  QuantityDuration: "Duration",
-  AbsolutePainDescriptor: "Character",
-  AbsoluteSeverity: "Severity",
-  AbsoluteFrequency: "Frequency",
-  AbsoluteOnset: "Onset",
-  AbsoluteProgress: "Progress",
-  AbsoluteProcessPattern: "Pattern",
-  AbsoluteConsistency: "Consistency",
-  AbsoluteTexture: "Texture",
-};
-
 const UNITS: Array<[string, string]> = [
   ["second", "seconds"],
   ["minute", "minutes"],
@@ -87,13 +81,6 @@ const UNITS: Array<[string, string]> = [
   ["year", "years"],
 ];
 
-const SUMMARY_WORDS: Record<string, string> = {
-  presence: "present",
-  absence: "absent",
-  possible: "possible",
-  excluded: "excluded",
-};
-
 const GALEN_BROWSER = "https://erik-sundvalls-bots.github.io/opengalen-browser/#concept=";
 
 const app = document.querySelector<HTMLElement>("#app");
@@ -101,6 +88,7 @@ if (!app) throw new Error("missing #app");
 const root: HTMLElement = app;
 
 let state = emptyState();
+let uiLang: UiLang = "en";
 let ehrFormatTab: EhrFormatTab = "zipehr";
 let simplifiedCdrProfile: CdrProfile = "better";
 let simplifiedFlavour: SimplifiedViewFlavour = "structured";
@@ -142,7 +130,7 @@ function page(): string {
             ${diagnoses()}
             <div id="disease-details"></div>
             <h2 class="side-label">Comment</h2>
-            <textarea id="comment" class="comment-box" aria-label="Comment" placeholder="Stored on the examination when one is recorded. Not part of the generated sentence."></textarea>
+            <textarea id="comment" class="comment-box" aria-label="Comment" placeholder="Free-text comment"></textarea>
           </div>
         </div>
         <div class="actions">
@@ -161,6 +149,7 @@ function page(): string {
           <h2>Svenska (Swedish)</h2>
           <p id="summary-sv" class="sv-sentence" lang="sv" aria-live="polite"></p>
           <p id="sv-missing" class="missing"></p>
+          <label class="ui-lang-toggle"><input type="checkbox" id="ui-sv-labels" /> Swedish form labels</label>
         </section>
         <section class="panel" id="openehr-panel">
           <h2>openEHR</h2>
@@ -277,8 +266,8 @@ function page(): string {
 }
 
 function descriptors(first: { feature?: string; values: unknown[]; multiple?: boolean }[], more: typeof first): string {
-  const rows = first.map((row) => featureRow("pain", row)).join("");
-  const moreRows = more.map((row) => featureRow("pain", row)).join("");
+  const rows = first.map((row) => featureRow("pain", row, "en")).join("");
+  const moreRows = more.map((row) => featureRow("pain", row, "en")).join("");
   return `<fieldset class="group">
     <h2>Descriptors</h2>
     <div class="hand"><img src="${handUrl}" alt="Line drawing of a hand, palm up, thumb on the left" /><span>Location: thumb</span></div>
@@ -301,16 +290,17 @@ function answerForm(group: string): FindingForm {
   return state.formAnswers[group];
 }
 
-function featureRow(group: string, row: { feature?: string; values: unknown[]; multiple?: boolean }): string {
-  if (!row.feature) return "";
+function featureRow(
+  group: string,
+  row: { feature?: string; values: unknown[]; multiple?: boolean },
+  lang: UiLang = uiLang,
+): string {
+  if (!row.feature || skipFeatureRow(row.feature)) return "";
   const feature = row.feature;
-  const label = FEATURE_LABEL[feature] ?? feature;
+  const label = featureLabel(feature, lang);
   const lat = feature === "laterality" ? " lat" : "";
-  if (feature === "QuantityTimeOcc") {
-    return `<p class="note">Time of occurrence is on this form. It is not stored: the extract has no clock time, and problem/diagnosis onset is a date/time.</p>`;
-  }
   if (feature === "QuantityDuration") {
-    return `<div class="field"><span class="field-name">${label}</span><span class="duration">
+    return `<div class="field"><span class="field-name">${escapeText(label)}</span><span class="duration">
       <button type="button" class="spin" data-spin="${group}" data-dir="-1" aria-label="Decrease duration">◂</button>
       <input id="${group}-duration" inputmode="numeric" aria-label="${label}" data-duration="${group}" />
       <button type="button" class="spin" data-spin="${group}" data-dir="1" aria-label="Increase duration">▸</button>
@@ -323,7 +313,7 @@ function featureRow(group: string, row: { feature?: string; values: unknown[]; m
   const buttons = values.map((value) =>
     `<button type="button" class="choice" data-group="${group}" data-feature="${escapeAttr(feature)}" data-value="${
       escapeAttr(value)
-    }" data-multiple="${row.multiple ? "true" : "false"}" aria-pressed="false">${escapeText(buttonLabel(value))}</button>`
+    }" data-multiple="${row.multiple ? "true" : "false"}" aria-pressed="false">${escapeText(choiceButtonLabel(value, lang))}</button>`
   ).join("");
   return `<div class="field"><span class="field-name${lat}">${escapeText(label)}</span>${buttons}</div>`;
 }
@@ -352,7 +342,6 @@ function historyAndExam(): string {
       ${examStatusButtons("right")}
       <button type="button" class="choice" data-exam-open="right">more…</button>
     </div>
-    <p class="note">Further history (FH, PMH, SH) and Interventions are on the 1998 screen. This extract has no rows for them.</p>
   </fieldset>`;
 }
 
@@ -364,17 +353,20 @@ function examStatusButtons(side: "left" | "right"): string {
   ).join("");
 }
 
-function diagnoses(): string {
-  const rows = painForm.diagnoses.map((link) => {
-    const label = link.item.replace(/([a-z0-9])([A-Z])/g, "$1 $2");
+function diagnosisRowsHtml(lang: UiLang = uiLang): string {
+  return painForm.diagnoses.map((link) => {
+    const label = diagnosisRowLabel(link, lang);
     const buttons = ["presence", "possible", "excluded"].map((value) =>
       `<button type="button" class="choice" data-group="diagnosis" data-item="${escapeAttr(link.item)}" data-value="${value}" aria-pressed="false">${
-        SUMMARY_WORDS[value]
+        escapeText(choiceButtonLabel(value, lang))
       }</button>`
     ).join("");
     return `<div class="field"><span class="field-name">${escapeText(label)}</span>${buttons}</div>`;
   }).join("");
-  return `<fieldset class="group"><h2>Diagnoses</h2>${rows}</fieldset>`;
+}
+
+function diagnoses(): string {
+  return `<fieldset class="group"><h2>Diagnoses</h2><div id="diagnosis-rows">${diagnosisRowsHtml("en")}</div></fieldset>`;
 }
 
 function swellingDialog(): string {
@@ -406,7 +398,6 @@ function swellingDialog(): string {
           <button type="button" class="choice" data-group="stiffness" data-value="absence" aria-pressed="false">absent</button>
           <button type="button" class="choice" data-group="stiffness" data-value="presence" aria-pressed="false">present</button>
         </div>
-        <p class="note">Pain, tenderness and erythema are criterial links. The sentence generator does not turn them into summary prose (the rule token descAdverb is not handled). Joint stiffness is a separate finding and does get a sentence.</p>
       </fieldset>
     </div>
     <div class="actions">
@@ -445,7 +436,6 @@ function examDialog(): string {
       <fieldset class="group">
         <h2>Thumb joint</h2>
         ${movements}
-        <p class="note">These movement rows are the ones in the 1998 demo. They are written into the On Examination block of the summary.</p>
       </fieldset>
     </div>
   </dialog>`;
@@ -458,6 +448,7 @@ function about(): string {
     <p>Clinergy content is © 1997-8 Semantic Technologies Ltd / Victoria University of Manchester. Only a small extract (the thumb pain, swelling, sign and diagnosis forms, the sentence rules those forms need, and the terminology bindings) is included, and only for demonstration.</p>
     <p>OpenGALEN names link to the <a href="https://erik-sundvalls-bots.github.io/opengalen-browser/">OpenGALEN browser</a> (<code>#concept=Name</code>). Pre-coordinated SNOMED CT codes link to the public browser. Post-coordinated expressions are built in the page from a reviewed map (clinergy-extractor PR #13); they are not sent to a terminology server, and unverified codes are listed as unmapped rather than guessed. Swedish wording is ours and has not had a native-speaker review. The English summary is the only narrative stored in the composition, and it is also the QuestionnaireResponse narrative and the Symptom Logical Model <code>symptomDescription</code>.</p>
     <p>The FHIR panel exports the whole visit as an R4 collection Bundle, a FHIR R4 Questionnaire and a live QuestionnaireResponse for the published thumb form (<a href="https://github.com/erik-sundvalls-bots/clinergy-extractor/issues/7">clinergy-extractor #7</a>), and a <a href="https://build.fhir.org/ig/HL7/fhir-symptoms-ig/en/StructureDefinition-SymptomLogicalModel.html">Symptoms IG Symptom Logical Model</a> instance for the current finding (<a href="https://github.com/erik-sundvalls-bots/clinergy-extractor/issues/8">#8</a>). Unmapped elements are listed rather than guessed. These are shape-checked in the page; they are not sent to a FHIR server.</p>
+    <p>This extract omits further history (family, past medical and social history) and interventions from the full 1998 screen. Fracture time-of-occurrence is not stored in openEHR here (the published extract has no clock time). Swelling consequence toggles are criterial links only; they do not appear in generated sentences. Joint stiffness does. Examination movements follow the public walkthrough demo.</p>
   </section>`;
 }
 
@@ -700,6 +691,14 @@ function wire(): void {
     paintOutputs();
   });
 
+  root.addEventListener("change", (event) => {
+    const target = event.target;
+    if (target instanceof HTMLInputElement && target.id === "ui-sv-labels") {
+      uiLang = target.checked ? "sv" : "en";
+      paint();
+    }
+  });
+
   applyEhrFormatTab(document, ehrFormatTab);
   syncZipehrRenderableUi();
   setZipehrViewMode(zipehrViewMode);
@@ -877,8 +876,12 @@ function examSide(name: string): ExamSide {
 }
 
 function paint(): void {
+  const diag = document.querySelector("#diagnosis-rows");
+  if (diag) diag.innerHTML = diagnosisRowsHtml(uiLang);
   const details = document.querySelector("#disease-details");
   if (details) details.innerHTML = diseaseDetails();
+  const svToggle = document.querySelector<HTMLInputElement>("#ui-sv-labels");
+  if (svToggle) svToggle.checked = uiLang === "sv";
   const comment = document.querySelector<HTMLTextAreaElement>("#comment");
   if (comment && document.activeElement !== comment) comment.value = state.comment;
   const more = document.querySelector<HTMLElement>("#pain-more-layer");
@@ -1007,9 +1010,9 @@ function diseaseDetails(): string {
     const form = formOf(topic);
     if (!form) return "";
     const rows = [...(form.firstLayer ?? []), ...(form.moreLayer ?? [])]
-      .map((row) => featureRow(topic, row))
+      .map((row) => featureRow(topic, row, uiLang))
       .join("");
-    return `<fieldset class="group"><h2>${escapeText(form.display)}</h2>${rows}</fieldset>`;
+    return `<fieldset class="group"><h2>${escapeText(diseaseFormHeading(topic, uiLang))}</h2>${rows}</fieldset>`;
   }).join("");
 }
 
@@ -1167,12 +1170,6 @@ function paintFhir(canonical: Record<string, unknown>, narrative: string): void 
     const lines = check.errors.concat(check.warnings).map((issue) => `${issue.path} — ${issue.message}`).concat(extra);
     errors.textContent = lines.join("\n");
   }
-}
-
-function buttonLabel(value: string): string {
-  if (value === "leftSelection") return "left";
-  if (value === "rightSelection") return "right";
-  return conceptLabel(value);
 }
 
 function escapeText(value: string): string {

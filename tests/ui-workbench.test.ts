@@ -33,6 +33,20 @@ describe("workbench UI (preview)", () => {
     await page.close();
   });
 
+  it("shows human labels on the fracture detail form", async () => {
+    const page = await browser.newPage({ viewport: { width: 1280, height: 800 } });
+    await page.goto(baseUrl, { waitUntil: "networkidle" });
+    await page.locator('[data-group="diagnosis"][data-item="ThumbFracture"][data-value="possible"]').click();
+    await page.waitForTimeout(300);
+    const text = await page.locator("#disease-details").innerText();
+    expect(text).toContain("Healing");
+    expect(text).toContain("partially healed");
+    expect(text).not.toMatch(/AbsoluteHealingCharacter/i);
+    expect(text).not.toMatch(/partially Healed/);
+    expect(await page.locator("#disease-details h2").innerText()).toBe("Thumb fracture");
+    await page.close();
+  });
+
   it("shows fracture detail when diagnosis is possible and hides it when excluded", async () => {
     const page = await browser.newPage({ viewport: { width: 1280, height: 800 } });
     await page.goto(baseUrl, { waitUntil: "networkidle" });

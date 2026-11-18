@@ -29,5 +29,10 @@ await page.locator('[data-group="diagnosis"][data-item="ThumbFracture"][data-val
 await page.waitForTimeout(300);
 await page.locator(".form-grid").screenshot({ path: join(outDir, "hackathon-fracture-excluded-hidden.png") });
 
+await page.locator('[data-group="diagnosis"][data-item="ThumbFracture"][data-value="possible"]').click();
+await page.locator("#ui-sv-labels").check();
+await page.waitForTimeout(400);
+await page.locator("#disease-details").screenshot({ path: join(outDir, "hackathon-fracture-form-sv.png") });
+
 await browser.close();
 console.log(`hackathon capture commit=${commit}`);
