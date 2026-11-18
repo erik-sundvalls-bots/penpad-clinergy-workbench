@@ -368,16 +368,73 @@ pre.xml-output {
   word-break: break-word;
 }
 
+.zipehr-field-label,
 .zipehr-css-label {
   font-size: 0.85rem;
   font-weight: 650;
   color: #083856;
+  white-space: nowrap;
 }
 
+.zipehr-variant-select,
 .zipehr-css-select {
   font: inherit;
   padding: 2px 6px;
-  max-width: 14rem;
+  max-width: 17rem;
+}
+
+.zipehr-toolbar {
+  align-items: center;
+}
+
+.output-view-tabs {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  flex-shrink: 0;
+  margin-left: auto;
+  border: 1px solid #c8bfb0;
+  border-radius: 4px;
+  background: #efe8dc;
+}
+
+.output-view-tabs--inline {
+  margin-left: auto;
+}
+
+.output-view-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  font-weight: 650;
+  color: #083856;
+  background: transparent;
+  border: none;
+  border-right: 1px solid #c8bfb0;
+  cursor: pointer;
+}
+
+.output-view-tab:last-child {
+  border-right: none;
+}
+
+.output-view-tab:hover {
+  background: #e4ddd2;
+}
+
+.output-view-tab.active {
+  color: #fff;
+  background: #083856;
+}
+
+.output-view-tab-icon {
+  flex-shrink: 0;
+}
+
+#zipehr-view-tabs[hidden] {
+  display: none !important;
 }
 
 .output-stats {

@@ -1,6 +1,26 @@
 import type { NoteLanguage } from "../exam/phrases.ts";
 import { buildZipehrPreviewDocument } from "../../vendor/ehrtslib/ehrtslib-0.14.0.min.js";
 
+const EN_MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const SV_MONTHS = ["jan", "feb", "mar", "apr", "maj", "jun", "jul", "aug", "sep", "okt", "nov", "dec"];
+const ISO_DATETIME =
+  /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2})?(?:[+-]\d{2}:\d{2}|Z)?/g;
+
+/** Wall-clock date/time from an ISO string (EN: `21 Oct 2021 14:21`, SV: `21 okt 2021 14:21`). */
+export function formatIsoDateTimeFriendly(iso: string, lang: NoteLanguage): string | null {
+  const m = iso.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/);
+  if (!m) return null;
+  const day = Number(m[3]);
+  const monthIdx = Number(m[2]) - 1;
+  if (monthIdx < 0 || monthIdx > 11) return null;
+  const month = lang === "sv" ? SV_MONTHS[monthIdx]! : EN_MONTHS[monthIdx]!;
+  return `${day} ${month} ${m[1]} ${m[4]}:${m[5]}`;
+}
+
+function replaceIsoDateTimesInText(text: string, lang: NoteLanguage): string {
+  return text.replace(ISO_DATETIME, (iso) => formatIsoDateTimeFriendly(iso, lang) ?? iso);
+}
+
 /** Apply OPT `L10n.*` attrs emitted as `data-antn-l10n-{lang}` onto visible ZipEHR labels. */
 export const ZIP_L10N_PREVIEW_SCRIPT = `(() => {
   const lang = (document.documentElement.lang || "en").toLowerCase();
@@ -24,8 +44,7 @@ export const ZIP_L10N_PREVIEW_SCRIPT = `(() => {
   }
 })();`;
 
-/** Quiet document view: L10n, collapse duplicate exam headings, localise durations. */
-export const ZIP_QUIET_DOM_SCRIPT = `(() => {
+const zipQuietDomScriptBody = `(() => {
   const lang = (document.documentElement.lang || "en").toLowerCase();
   const l10nAttr = "data-antn-l10n-" + lang;
   if (lang !== "en") {
@@ -66,6 +85,23 @@ export const ZIP_QUIET_DOM_SCRIPT = `(() => {
       document.body.innerHTML = replaceWeeks(html);
     }
   }
+  const isoRe = /\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}(?::\\d{2})?(?:[+-]\\d{2}:\\d{2}|Z)?/g;
+  const enM = __EN_MONTHS__;
+  const svM = __SV_MONTHS__;
+  const fmtIso = (iso) => {
+    const m = iso.match(/^(\\d{4})-(\\d{2})-(\\d{2})T(\\d{2}):(\\d{2})/);
+    if (!m) return iso;
+    const monthIdx = Number(m[2]) - 1;
+    if (monthIdx < 0 || monthIdx > 11) return iso;
+    const month = (lang === "sv" ? svM : enM)[monthIdx];
+    return Number(m[3]) + " " + month + " " + m[1] + " " + m[4] + ":" + m[5];
+  };
+  const isoWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+  let isoNode;
+  while ((isoNode = isoWalker.nextNode())) {
+    if (!isoRe.test(isoNode.textContent || "")) continue;
+    isoNode.textContent = (isoNode.textContent || "").replace(isoRe, fmtIso);
+  }
   const examTitle = lang === "sv" ? "Status" : "Physical examination findings";
   const text = document.body.innerText;
   const matches = text.split(examTitle).length - 1;
@@ -84,6 +120,17 @@ export const ZIP_QUIET_DOM_SCRIPT = `(() => {
     }
   }
 })();`;
+
+/** Injected into quiet iframe previews (month arrays built at module load). */
+export const ZIP_QUIET_DOM_SCRIPT = zipQuietDomScriptBody
+  .replace(
+    "__EN_MONTHS__",
+    JSON.stringify(EN_MONTHS),
+  )
+  .replace(
+    "__SV_MONTHS__",
+    JSON.stringify(SV_MONTHS),
+  );
 
 export type QuietZipehrPreviewOptions = {
   quietStructureTooltips?: boolean;
@@ -110,7 +157,7 @@ function postprocessQuietMarkup(markup: string, lang: NoteLanguage): string {
       out = `${out.slice(0, second)}${out.slice(second + examTitle.length)}`;
     }
   }
-  return out;
+  return replaceIsoDateTimesInText(out, lang);
 }
 
 export function buildQuietZipehrPreviewDocument(

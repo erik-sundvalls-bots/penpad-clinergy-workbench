@@ -6,7 +6,11 @@
 export * from "./mod.ts";
 export {
   serializeToHtml5Variant,
+  serializeToJZipehr,
+  serializeToYZipehr,
+  serializeToXZipehr,
   zipehrHtml5ToCanonical,
+  zipehrTextToCanonical,
   type Html5Layout,
   type Html5SerializeOptions,
   type Html5Dialect,

@@ -1,3 +1,26 @@
+export function serializeToJZipehr(
+  obj: unknown,
+  symbolVariant?: "emoji" | "lettercode",
+): Promise<string>;
+
+export function serializeToYZipehr(
+  obj: unknown,
+  symbolVariant?: "emoji" | "lettercode",
+): Promise<string>;
+
+export function serializeToXZipehr(
+  obj: unknown,
+  options?: {
+    symbolVariant?: "emoji" | "lettercode";
+    propertyMode?: "omit" | "attribute" | "comment";
+    lang?: string;
+    templateRenderLang?: string;
+    template?: unknown;
+  },
+): Promise<string>;
+
+export function zipehrTextToCanonical(text: string): unknown;
+
 export function serializeToHtml5Variant(
   obj: unknown,
   variant: "zipehr.html5.short" | "zipehr.html5.full" | "zipehr.html5.emoji",

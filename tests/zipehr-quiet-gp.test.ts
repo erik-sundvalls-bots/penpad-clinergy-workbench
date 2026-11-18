@@ -9,6 +9,7 @@ import {
   composeQuietStructureCss,
   ZIP_QUIET_DOM_SCRIPT,
 } from "../src/openehr/zipehr.ts";
+import { formatIsoDateTimeFriendly } from "../src/openehr/zipehr-preview.ts";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { Window } from "happy-dom";
@@ -81,7 +82,10 @@ describe("ZipEHR quiet GP visit", () => {
     expect(win.document.querySelector("[data-opt-visibility='pass-through']")).toBeTruthy();
     expect((view.match(/Physical examination findings/g) ?? []).length).toBe(1);
     expect(view).not.toMatch(/Examination not done:\s*true/i);
-    expect(view).not.toMatch(/\b,?\s*present\b/i);
+    expect(view).not.toMatch(/,\s*present\b/i);
+    expect(view).toContain("21 Oct 2021 14:21");
+    expect(view).not.toContain("2021-10-21T14:21:00+01:00");
+    expect(formatIsoDateTimeFriendly("2021-10-21T14:21:00+01:00", "en")).toBe("21 Oct 2021 14:21");
     expect(html).toContain('data-antn-hide-on-form="true"');
     expect(win.document.querySelector("[data-antn-hide-on-form='true']")).toBeTruthy();
   });
@@ -100,6 +104,8 @@ describe("ZipEHR quiet GP visit", () => {
     expect(view).toContain("Status");
     expect(view).not.toContain("Physical examination findings");
     expect(view).toContain("2 veckor");
+    expect(view).toContain("21 okt 2021 14:21");
+    expect(view).not.toContain("2021-10-21T14:21:00+01:00");
     const svLeak = ENGLISH_LEAK.filter((f) => f !== "Physical examination findings");
     for (const fragment of svLeak) {
       expect(view, fragment).not.toContain(fragment);
