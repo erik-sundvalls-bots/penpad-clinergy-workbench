@@ -286,6 +286,47 @@ table.bindings th, table.bindings td {
 
 table.bindings th { background: #efe8dc; }
 
+.snomed-title {
+  margin: 14px 0 8px;
+  font-size: 1rem;
+  color: #083856;
+}
+
+.snomed-block {
+  margin: 0 0 12px;
+}
+
+.snomed-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.snomed-head h3 {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #083856;
+}
+
+pre.snomed-expr {
+  margin: 0;
+  white-space: pre-wrap;
+  background: #fff;
+  border: 1px solid var(--line);
+  padding: 8px;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.85rem;
+  overflow-x: auto;
+}
+
+ul.snomed-unmapped {
+  margin: 6px 0 0;
+  padding-left: 1.2rem;
+}
+
+
 .badge {
   display: inline-block;
   border: 1px solid #8a5a12;

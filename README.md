@@ -1,6 +1,6 @@
 # PEN&PAD + Clinergy experimental workbench
 
-A static page for hackathon participants. Combine extracted Clinergy forms (thumb pain, swelling, examination, sprain, fracture) into a general-practice encounter and watch English and Swedish summary sentences, including the On Examination block, OpenGALEN bindings, **canonical openEHR JSON**, a FHIR R4 collection, and FHIR (Questionnaire and a [Symptoms IG Symptom Logical Model](https://build.fhir.org/ig/HL7/fhir-symptoms-ig/en/StructureDefinition-SymptomLogicalModel.html) export of the current finding) update as you click.
+A static page for hackathon participants. Combine extracted Clinergy forms (thumb pain, swelling, examination, sprain, fracture) into a general-practice encounter and watch English and Swedish summary sentences, including the On Examination block, OpenGALEN bindings, **SNOMED CT post-coordinated expressions**, **canonical openEHR JSON**, a FHIR R4 collection, and FHIR (Questionnaire and a [Symptoms IG Symptom Logical Model](https://build.fhir.org/ig/HL7/fhir-symptoms-ig/en/StructureDefinition-SymptomLogicalModel.html) export of the current finding) update as you click.
 
 **Live site:** https://erik-sundvalls-bots.github.io/penpad-clinergy-workbench/
 
@@ -8,7 +8,7 @@ The form follows the [1998 Clinergy thumb pain demo](https://pen-pad-revival.git
 
 Clinergy content is © 1997-8 Semantic Technologies Ltd / Victoria University of Manchester. Only a small extract is included, for demonstration. See [data/README.md](data/README.md).
 
-The sentence generator and the openEHR builder are vendored from [clinergy-extractor](https://github.com/erik-sundvalls-bots/clinergy-extractor) `main`. See [vendor/README.md](vendor/README.md) for the local fixes to port back.
+The sentence generator, the openEHR builder, and the SNOMED CT expression builder are vendored from [clinergy-extractor](https://github.com/erik-sundvalls-bots/clinergy-extractor) `main`. See [vendor/README.md](vendor/README.md) for the local fixes to port back. Expressions use only ids from the reviewed map in `mappings/snomed.yaml`. Duration is listed as unmapped (there is no MRCM duration attribute). The page does not call a terminology server. FHIR exports still use the pre-coordinated SNOMED codes already in the bindings; the post-coordinated expression is not written into a FHIR `code` (the grammar uses whitespace and line breaks that a FHIR `code` value cannot hold).
 
 ## openEHR output
 

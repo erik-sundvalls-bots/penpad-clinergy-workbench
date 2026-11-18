@@ -4,6 +4,8 @@ TypeScript from [erik-sundvalls-bots/clinergy-extractor](https://github.com/erik
 
 Taken from `main` at `f975528` (merge of PRs #9, #10 and #11, CI green). Files: `sentence.ts`, `language.ts`, `openehr.ts`, `lang/en.yaml`, `lang/sv.yaml`, `mappings/openehr.yaml`, `templates/thumb-pain.opt`, `templates/thumb-pain.webtemplate.json`.
 
+`snomed.ts` and `mappings/snomed.yaml` were taken later from `main` at `d9bd85b` (merge of PRs #13 and #14). The filesystem loader and the FHIR / Snowstorm terminology-server clients were removed so the module bundles in the browser and never calls a terminology server at runtime. Call `snomedMapFromParsed`. The workbench wrapper in `src/snomed/expressions.ts` maps Clinergy form keys (`AbsoluteSeverity`, `AbsoluteOnset`, `QuantityDuration`) onto the fixture names in the map (`Severity`, `Onset`, `Duration`). Port that alias list back if the extractor starts consuming the real extract names.
+
 Filesystem loaders (`Deno.readTextFile`, `@std/yaml`) were removed so the modules bundle in the browser. Call `sentenceKnowledgeFromParsed`, `packFromParsed`, and `descriptorMapFromParsed`.
 
 ## Local fixes to port back
