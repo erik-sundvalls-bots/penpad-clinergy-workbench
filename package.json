@@ -6,12 +6,14 @@
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "test": "vitest run",
+    "post:cdr": "npx vite-node scripts/post-thumb-cases.ts",
     "preview": "vite preview --host 127.0.0.1 --port 4173"
   },
   "dependencies": {
     "yaml": "^2.8.0"
   },
   "devDependencies": {
+    "happy-dom": "^21.0.4",
     "typescript": "^5.9.2",
     "vite": "^6.3.5",
     "vitest": "^4.1.12"

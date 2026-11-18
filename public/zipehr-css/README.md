@@ -1,0 +1,3 @@
+Stylesheets copied from [ehrtslib `examples/demo-app/public/zipehr-css`](https://github.com/ErikSundvall/ehrtslib/tree/cursor/ferro-wt-flat-fixes-316-317-ea0e/examples/demo-app/public/zipehr-css) (v0.13, PR #322). Used by the ZipEHR **Document** view.
+
+**Quiet mode:** select `zipehr-html5-quiet-structure.css`. The app inlines dialect default (`zipehr-html5-short.css`) plus the quiet overlay via `composeQuietStructureCss`, then runs the upstream `ZIP_QUIET_PREVIEW_SCRIPT` in the iframe (anchor strips for RM containers only; archetype headings stay visible).

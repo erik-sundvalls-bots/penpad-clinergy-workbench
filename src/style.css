@@ -82,6 +82,20 @@ a:hover { text-decoration: none; }
   font-size: 0.82rem;
 }
 
+.picks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 8px 10px 0;
+}
+
+.pick .kind {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 500;
+  opacity: 0.8;
+}
+
 .tabs {
   display: flex;
   gap: 4px;
@@ -281,7 +295,96 @@ table.bindings th { background: #efe8dc; }
   font-size: 0.75rem;
 }
 
-.tabs-mini { display: flex; gap: 6px; margin-bottom: 8px; flex-wrap: wrap; }
+.tabs-mini { display: flex; gap: 6px; margin-bottom: 8px; flex-wrap: wrap; align-items: center; }
+
+.ehr-format-tabs,
+.zipehr-view-tabs {
+  display: flex;
+  gap: 4px;
+  margin: 8px 0;
+  flex-wrap: wrap;
+}
+
+.ehr-format-tab,
+.zipehr-view-tab {
+  border: 1px solid #c8bfb0;
+  background: #efe8dc;
+  color: #083856;
+  padding: 4px 10px;
+  font: inherit;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.ehr-format-tab.active,
+.zipehr-view-tab.active {
+  background: #083856;
+  color: #fff;
+  border-color: #083856;
+}
+
+.ehr-simplified-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.ehr-simplified-label {
+  font-size: 0.85rem;
+  font-weight: 650;
+  color: #083856;
+}
+
+.ehr-simplified-select {
+  font: inherit;
+  padding: 2px 6px;
+}
+
+.ehr-simplified-flavour {
+  border: 1px solid #c8bfb0;
+  background: #efe8dc;
+  color: #083856;
+  padding: 2px 8px;
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.ehr-simplified-flavour.active {
+  background: #083856;
+  color: #fff;
+  border-color: #083856;
+}
+
+.ehr-simplified-note {
+  flex: 1 1 100%;
+  margin: 0;
+}
+
+pre.xml-output {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.zipehr-css-label {
+  font-size: 0.85rem;
+  font-weight: 650;
+  color: #083856;
+}
+
+.zipehr-css-select {
+  font: inherit;
+  padding: 2px 6px;
+  max-width: 14rem;
+}
+
+.output-stats {
+  font-size: 0.8rem;
+  color: #5a4d3c;
+  margin-left: auto;
+}
 
 pre.json {
   margin: 0;
@@ -292,6 +395,19 @@ pre.json {
   padding: 10px;
   font-size: 0.78rem;
   line-height: 1.35;
+}
+
+pre.zipehr-code {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+iframe.zipehr-document {
+  width: 100%;
+  min-height: 22rem;
+  max-height: 28rem;
+  border: 1px solid #c8bfb0;
+  background: #fff;
 }
 
 .downloads { display: flex; flex-wrap: wrap; gap: 10px; margin: 8px 0; }

@@ -1,5 +1,10 @@
 import "./style.css";
 import handUrl from "../data/Mus_hand.png";
+import { onExamination } from "./exam/prose.ts";
+import { localizePlan } from "./exam/phrases.ts";
+import { buildFhirBundle } from "./fhir/bundle.ts";
+import { validateFhirBundle } from "./fhir/validate.ts";
+import { formOf, visitPicks } from "./forms/catalog.ts";
 import {
   conceptLabel,
   knowledge,
@@ -9,8 +14,10 @@ import {
 } from "./knowledge.ts";
 import {
   demoState,
+  emptyFinding,
   emptyState,
   findingsFromState,
+  gpVisitState,
   selectedConceptKeys,
   toggleChoice,
   toggleSide,
@@ -18,16 +25,33 @@ import {
   type FindingForm,
   type WorkbenchState,
 } from "./model.ts";
-import { buildThumbEncounter } from "./openehr/compose.ts";
+import { buildVisit } from "./openehr/compose.ts";
+import {
+  applyEhrFormatTab,
+  downloadBasenameForTab,
+  type EhrFormatTab,
+} from "./openehr/ehr-format-tabs.ts";
+import type { CdrProfile, SimplifiedViewFlavour } from "./openehr/view-types.ts";
 import { validateComposition } from "./openehr/validate.ts";
+import {
+  ZIP_CSS_SELECT_OPTIONS,
+  buildZipehrPreviewDocument,
+  canonicalToZipehrHtml5,
+  composeQuietStructureCss,
+  resolveZipehrCssFile,
+  ZIP_DEFAULT_CSS,
+  ZIP_QUIET_CSS,
+  zipehrTextStats,
+} from "./openehr/zipehr.ts";
 import { term } from "./openehr/terms.ts";
+import gpOptUrl from "../templates/gp-encounter.opt?url";
 import { buildQuestionnaireExport } from "./fhir/questionnaire.ts";
 import { buildSymptomExport } from "./fhir/symptoms.ts";
 import { validateQuestionnaire, validateQuestionnaireResponse, validateSymptomExport } from "./fhir/validate.ts";
 import optUrl from "../templates/thumb-pain.opt?url";
 import optPlainUrl from "../templates/thumb-pain-encounter.v2.opt?url";
-import webTemplateUrl from "../templates/thumb-pain-encounter.v2.web-template.json?url";
-import { render, renderReport, type Finding } from "../vendor/sentence.ts";
+import { renderSwedishGp } from "./sv/gp-sentence.ts";
+import { render, type Finding } from "../vendor/sentence.ts";
 
 const FEATURE_LABEL: Record<string, string> = {
   laterality: "Laterality",
@@ -67,10 +91,21 @@ if (!app) throw new Error("missing #app");
 const root: HTMLElement = app;
 
 let state = emptyState();
-let flatMode = false;
-let fhirTab: "questionnaire" | "response" | "symptoms" = "questionnaire";
+let ehrFormatTab: EhrFormatTab = "canonical";
+let simplifiedCdrProfile: CdrProfile = "better";
+let simplifiedFlavour: SimplifiedViewFlavour = "structured";
+let zipehrViewMode: "code" | "document" = "document";
+let zipehrStylesheet = "default";
+let cachedCanonicalJson = "";
+let cachedXml = "";
+let cachedSimplified = "";
+let cachedZipehrHtml = "";
+let cachedZipehrCss = "";
+let canonicalForSimplified: Record<string, unknown> | null = null;
+let fhirTab: "bundle" | "questionnaire" | "response" | "symptoms" = "bundle";
 let fhirJson = "";
-
+let fhirCanonical: Record<string, unknown> | null = null;
+let fhirNarrative = "";
 root.innerHTML = page();
 wire();
 paint();
@@ -80,15 +115,20 @@ function page(): string {
   <div class="wrap">
     <header class="mast">
       <h1>PEN&amp;PAD + Clinergy experimental workbench</h1>
-      <p>Fill the thumb pain form the way the 1998 Clinergy demo did. Summary sentences, OpenGALEN bindings, openEHR, and FHIR exports update as you click. Nothing is installed and nothing is saved on a server.</p>
+      <p>Fill a Clinergy general-practice visit. Thumb pain, swelling, examination and diagnoses can be combined. Summary sentences, including On Examination, OpenGALEN bindings, openEHR and FHIR update as you click. Nothing is installed and nothing is saved on a server.</p>
     </header>
     <div class="layout">
       <section class="window" aria-label="Thumb pain form">
         <div class="titlebar"><span>Clinergy GP</span><span>experimental</span></div>
         <p class="patient">No 13459. Mr John Parsons — demo patient from the public walkthrough</p>
+        <div class="picks" role="group" aria-label="Forms in this visit">
+          ${visitPicks.map((pick) =>
+            `<button type="button" class="choice pick" data-pick="${escapeAttr(pick.id)}" aria-pressed="false">${escapeText(pick.label)} <span class="kind">${escapeText(pick.kind)}</span></button>`
+          ).join("")}
+        </div>
         <div class="tabs">
           <button type="button" class="tab" aria-selected="false" disabled>Topics</button>
-          <button type="button" class="tab" aria-selected="true">Thumb pain</button>
+          <button type="button" class="tab" aria-selected="true">Visit</button>
         </div>
         <div class="form-grid">
           <div>
@@ -96,12 +136,14 @@ function page(): string {
             ${associated()}
             ${historyAndExam()}
             ${diagnoses()}
+            <div id="disease-details"></div>
             <h2 class="side-label">Comment</h2>
-            <textarea class="comment-box" aria-label="Comment" placeholder="Not part of the generated sentence"></textarea>
+            <textarea id="comment" class="comment-box" aria-label="Comment" placeholder="Stored on the examination when one is recorded. Not part of the generated sentence."></textarea>
           </div>
         </div>
         <div class="actions">
           <button type="button" id="load-demo">Load the 1998 demo</button>
+          <button type="button" id="load-gp">Load a GP visit</button>
           <button type="button" id="reset">Reset</button>
           <button type="button" id="copy-summary">Copy English summary</button>
         </div>
@@ -121,27 +163,83 @@ function page(): string {
           <p class="note">Reviewed bindings for the values you have selected. Unverified means the code was not confirmed and is not written into the composition.</p>
           <div id="galen"></div>
         </section>
-        <section class="panel">
+        <section class="panel" id="openehr-panel">
           <h2>openEHR</h2>
           <div class="downloads">
-            <a href="${optUrl}" download="thumb-pain-encounter.v2-coded.opt">Thumb pain OPT</a>
+            <a href="${optUrl}" download="thumb-pain-encounter.v2-coded.opt">Thumb encounter OPT</a>
+            <a href="${gpOptUrl}" download="gp-encounter.v1.opt">GP encounter OPT</a>
             <a href="${optPlainUrl}" download="thumb-pain-encounter.v2.opt">Uncoded OPT</a>
-            <a href="${webTemplateUrl}" download="thumb-pain-encounter.v2.web-template.json">Web template</a>
           </div>
-          <div class="tabs-mini">
-            <button type="button" id="tab-canonical" aria-pressed="true">Canonical JSON</button>
-            <button type="button" id="tab-flat" aria-pressed="false">FLAT</button>
-            <button type="button" id="copy-ehr">Copy</button>
+          <div class="ehr-format-tabs" role="tablist" aria-label="openEHR representation">
+            <button type="button" class="ehr-format-tab active" data-ehr-format="canonical" role="tab" aria-selected="true">Canonical JSON</button>
+            <button type="button" class="ehr-format-tab" data-ehr-format="xml" role="tab" aria-selected="false">Canonical XML</button>
+            <button type="button" class="ehr-format-tab" data-ehr-format="simplified" role="tab" aria-selected="false">Simplified</button>
+            <button type="button" class="ehr-format-tab" data-ehr-format="zipehr" role="tab" aria-selected="false">ZipEHR</button>
+          </div>
+          <div id="ehr-canonical-pane">
+            <div class="tabs-mini">
+              <button type="button" id="copy-ehr">Copy</button>
+              <button type="button" id="download-ehr">Download</button>
+              <span id="ehr-canonical-stats" class="output-stats"></span>
+            </div>
+            <pre id="ehr" class="json"></pre>
+          </div>
+          <div id="ehr-xml-pane" hidden>
+            <div class="tabs-mini">
+              <button type="button" id="copy-ehr-xml">Copy</button>
+              <button type="button" id="download-ehr-xml">Download</button>
+              <span id="ehr-xml-stats" class="output-stats"></span>
+            </div>
+            <pre id="ehr-xml" class="json xml-output"></pre>
+          </div>
+          <div id="ehr-simplified-pane" hidden>
+            <div id="ehr-simplified-controls" class="ehr-simplified-controls" hidden>
+              <label class="ehr-simplified-label" for="ehr-cdr-profile">CDR dialect:</label>
+              <select id="ehr-cdr-profile" class="ehr-simplified-select" aria-label="CDR vendor dialect for simplified view">
+                <option value="better">Better</option>
+                <option value="ehrbase">EHRbase</option>
+                <option value="ferroehr">FerroEHR</option>
+              </select>
+              <span class="ehr-simplified-label">Format:</span>
+              <button type="button" class="ehr-simplified-flavour active" data-simplified-flavour="structured" aria-pressed="true">Structured</button>
+              <button type="button" class="ehr-simplified-flavour" data-simplified-flavour="flat" aria-pressed="false">Flat</button>
+              <p class="note ehr-simplified-note">View and export only — CDR posting uses Canonical JSON.</p>
+            </div>
+            <div class="tabs-mini">
+              <button type="button" id="copy-ehr-simplified">Copy</button>
+              <button type="button" id="download-ehr-simplified">Download</button>
+              <span id="ehr-simplified-stats" class="output-stats"></span>
+            </div>
+            <pre id="ehr-simplified" class="json"></pre>
+          </div>
+          <div id="ehr-zipehr-pane" hidden>
+            <div class="zipehr-view-tabs" role="tablist" aria-label="ZipEHR view">
+              <button type="button" class="zipehr-view-tab" data-zipehr-view="code" role="tab" aria-selected="false">Code</button>
+              <button type="button" class="zipehr-view-tab active" data-zipehr-view="document" role="tab" aria-selected="true">Document</button>
+            </div>
+            <div class="tabs-mini">
+              <label class="zipehr-css-label" for="zipehr-css-select">Stylesheet:</label>
+              <select id="zipehr-css-select" class="zipehr-css-select" aria-label="ZipEHR stylesheet">
+                ${ZIP_CSS_SELECT_OPTIONS.map(
+                  (opt) => `<option value="${escapeAttr(opt.value)}">${escapeText(opt.label)}</option>`,
+                ).join("")}
+              </select>
+              <button type="button" id="copy-zipehr">Copy</button>
+              <button type="button" id="download-zipehr">Download</button>
+              <span id="zipehr-stats" class="output-stats"></span>
+            </div>
+            <pre id="zipehr-code" class="json zipehr-code" hidden></pre>
+            <iframe id="zipehr-document" class="zipehr-document" title="ZipEHR document view" sandbox="allow-same-origin"></iframe>
           </div>
           <p id="ehr-badge" class="note"></p>
-          <pre id="ehr" class="json"></pre>
           <p id="ehr-errors" class="missing"></p>
         </section>
         <section class="panel" id="fhir-panel">
           <h2>FHIR</h2>
-          <p class="note">Generated at runtime from the approved public thumb-pain extract. <a href="https://github.com/erik-sundvalls-bots/clinergy-extractor/issues/7">Questionnaire / QuestionnaireResponse (extractor #7)</a>, SDC-style. <a href="https://github.com/erik-sundvalls-bots/clinergy-extractor/issues/8">Symptom Logical Model (extractor #8)</a>. Codes are only written when the mapping is verified; gaps are listed with the Symptoms export.</p>
+          <p class="note">The Visit bundle is an R4 collection for the same visit; examination findings are Observations in category exam. Posting to a CDR still uses canonical openEHR JSON. The thumb-form exports are generated at runtime from the approved public thumb-pain extract: <a href="https://github.com/erik-sundvalls-bots/clinergy-extractor/issues/7">Questionnaire / QuestionnaireResponse (extractor #7)</a>, SDC-style, and <a href="https://github.com/erik-sundvalls-bots/clinergy-extractor/issues/8">Symptom Logical Model (extractor #8)</a>. Codes are only written when the mapping is verified; gaps are listed with the Symptoms export.</p>
           <div class="tabs-mini">
-            <button type="button" id="tab-fhir-q" aria-pressed="true">Questionnaire</button>
+            <button type="button" id="tab-fhir-bundle" aria-pressed="true">Visit bundle</button>
+            <button type="button" id="tab-fhir-q" aria-pressed="false">Questionnaire</button>
             <button type="button" id="tab-fhir-qr" aria-pressed="false">Response</button>
             <button type="button" id="tab-fhir-symptom" aria-pressed="false">Symptoms IG</button>
             <button type="button" id="copy-fhir">Copy</button>
@@ -153,7 +251,7 @@ function page(): string {
         </section>
         <section class="panel" id="exam-note">
           <h2>On Examination</h2>
-          <p class="note">The 1998 summary put examination findings in their own block. This generator does not render that block. Selected examination values are listed here as data.</p>
+          <p class="note">The 1998 summary put examination findings in their own block. That block is part of the English summary, the exam archetype, and the FHIR Observations.</p>
           <div id="exam-list"></div>
         </section>
       </aside>
@@ -167,7 +265,7 @@ function page(): string {
 function descriptors(first: { feature?: string; values: unknown[]; multiple?: boolean }[], more: typeof first): string {
   const rows = first.map((row) => featureRow("pain", row)).join("");
   const moreRows = more.map((row) => featureRow("pain", row)).join("");
-  return `<fieldset class="group">
+  return `<fieldset class="group" data-show="ThumbPainSymptom">
     <h2>Descriptors</h2>
     <div class="hand"><img src="${handUrl}" alt="Line drawing of a hand, palm up, thumb on the left" /><span>Location: thumb</span></div>
     <div class="field">
@@ -182,11 +280,21 @@ function descriptors(first: { feature?: string; values: unknown[]; multiple?: bo
   </fieldset>`;
 }
 
-function featureRow(group: "pain" | "swelling", row: { feature?: string; values: unknown[]; multiple?: boolean }): string {
+function answerForm(group: string): FindingForm {
+  if (group === "pain") return state.pain;
+  if (group === "swelling") return state.swelling;
+  if (!state.formAnswers[group]) state.formAnswers[group] = emptyFinding();
+  return state.formAnswers[group];
+}
+
+function featureRow(group: string, row: { feature?: string; values: unknown[]; multiple?: boolean }): string {
   if (!row.feature) return "";
   const feature = row.feature;
   const label = FEATURE_LABEL[feature] ?? feature;
   const lat = feature === "laterality" ? " lat" : "";
+  if (feature === "QuantityTimeOcc") {
+    return `<p class="note">Time of occurrence is on this form. It is not stored: the extract has no clock time, and problem/diagnosis onset is a date/time.</p>`;
+  }
   if (feature === "QuantityDuration") {
     return `<div class="field"><span class="field-name">${label}</span><span class="duration">
       <button type="button" class="spin" data-spin="${group}" data-dir="-1" aria-label="Decrease duration">◂</button>
@@ -207,7 +315,7 @@ function featureRow(group: "pain" | "swelling", row: { feature?: string; values:
 }
 
 function associated(): string {
-  return `<fieldset class="group">
+  return `<fieldset class="group" data-show="ThumbSwellingSymptom">
     <h2>Associated symptoms</h2>
     <div class="field">
       <span class="field-name">Thumb swelling</span>
@@ -220,7 +328,7 @@ function associated(): string {
 }
 
 function historyAndExam(): string {
-  return `<fieldset class="group">
+  return `<fieldset class="group" data-show="ThumbExam">
     <h2>Examinations</h2>
     <div class="field"><span class="field-name">Left thumb</span>
       ${examStatusButtons("left")}
@@ -230,7 +338,7 @@ function historyAndExam(): string {
       ${examStatusButtons("right")}
       <button type="button" class="choice" data-exam-open="right">more…</button>
     </div>
-    <p class="note">Further history (FH, PMH, SH) is on the 1998 form and is not in this extract.</p>
+    <p class="note">Further history (FH, PMH, SH) and Interventions are on the 1998 screen. This extract has no rows for them.</p>
   </fieldset>`;
 }
 
@@ -252,7 +360,7 @@ function diagnoses(): string {
     ).join("");
     return `<div class="field"><span class="field-name">${escapeText(label)}</span>${buttons}</div>`;
   }).join("");
-  return `<fieldset class="group"><h2>Diagnoses</h2>${rows}</fieldset>`;
+  return `<fieldset class="group" data-show="ThumbPainSymptom"><h2>Diagnoses</h2>${rows}</fieldset>`;
 }
 
 function swellingDialog(): string {
@@ -323,7 +431,7 @@ function examDialog(): string {
       <fieldset class="group">
         <h2>Thumb joint</h2>
         ${movements}
-        <p class="note">These movement rows are the ones in the 1998 demo. They are stored here and listed under On Examination. They are not passed through the summary-sentence generator.</p>
+        <p class="note">These movement rows are the ones in the 1998 demo. They are written into the On Examination block of the summary.</p>
       </fieldset>
     </div>
   </dialog>`;
@@ -332,10 +440,10 @@ function examDialog(): string {
 function about(): string {
   return `<section class="about" id="about">
     <h2>About</h2>
-    <p>This is an experimental workbench for hackathon participants. It is part of the <a href="https://pen-pad-revival.github.io">PEN&amp;PAD revival</a>. The form follows the 1998 Clinergy thumb pain demo, screen by screen, as written up at <a href="https://pen-pad-revival.github.io/docs/clinergy-thumb-pain-demo/">the public walkthrough</a>. The sentence generator is vendored from <a href="https://github.com/erik-sundvalls-bots/clinergy-extractor">clinergy-extractor</a> main. The openEHR encounter is built in this page and checked with <a href="https://github.com/ErikSundvall/ehrtslib">ehrtslib</a>.</p>
+    <p>This is an experimental workbench for hackathon participants. It is part of the <a href="https://pen-pad-revival.github.io">PEN&amp;PAD revival</a>. The form follows the 1998 Clinergy thumb pain demo, screen by screen, as written up at <a href="https://pen-pad-revival.github.io/docs/clinergy-thumb-pain-demo/">the public walkthrough</a>. The sentence generator is vendored from <a href="https://github.com/erik-sundvalls-bots/clinergy-extractor">clinergy-extractor</a> main. The openEHR encounter is built in this page and checked with <a href="https://github.com/ErikSundvall/ehrtslib">ehrtslib</a>. Examination findings are a separate On Examination block, as in the 1998 summary.</p>
     <p>Clinergy content is © 1997-8 Semantic Technologies Ltd / Victoria University of Manchester. Only a small extract (the thumb pain, swelling, sign and diagnosis forms, the sentence rules those forms need, and the terminology bindings) is included, and only for demonstration.</p>
     <p>OpenGALEN names link to the <a href="https://erik-sundvalls-bots.github.io/opengalen-browser/">OpenGALEN browser</a> (<code>#concept=Name</code>). SNOMED CT codes link to the public browser. Swedish wording is ours and has not had a native-speaker review. The English summary is the only narrative stored in the composition, and it is also the QuestionnaireResponse narrative and the Symptom Logical Model <code>symptomDescription</code>.</p>
-    <p>The FHIR panel exports a FHIR R4 Questionnaire and a live QuestionnaireResponse for the published thumb form (<a href="https://github.com/erik-sundvalls-bots/clinergy-extractor/issues/7">clinergy-extractor #7</a>), and a <a href="https://build.fhir.org/ig/HL7/fhir-symptoms-ig/en/StructureDefinition-SymptomLogicalModel.html">Symptoms IG Symptom Logical Model</a> instance for the current finding (<a href="https://github.com/erik-sundvalls-bots/clinergy-extractor/issues/8">#8</a>). Unmapped elements are listed rather than guessed. These are shape-checked in the page; they are not sent to a FHIR server.</p>
+    <p>The FHIR panel exports the whole visit as an R4 collection Bundle, a FHIR R4 Questionnaire and a live QuestionnaireResponse for the published thumb form (<a href="https://github.com/erik-sundvalls-bots/clinergy-extractor/issues/7">clinergy-extractor #7</a>), and a <a href="https://build.fhir.org/ig/HL7/fhir-symptoms-ig/en/StructureDefinition-SymptomLogicalModel.html">Symptoms IG Symptom Logical Model</a> instance for the current finding (<a href="https://github.com/erik-sundvalls-bots/clinergy-extractor/issues/8">#8</a>). Unmapped elements are listed rather than guessed. These are shape-checked in the page; they are not sent to a FHIR server.</p>
   </section>`;
 }
 
@@ -347,6 +455,19 @@ function wire(): void {
     if (!button) return;
     if (button.id === "load-demo") {
       state = demoState();
+      paint();
+      return;
+    }
+    if (button.id === "load-gp") {
+      state = gpVisitState();
+      paint();
+      return;
+    }
+    if (button.dataset.pick) {
+      const id = button.dataset.pick;
+      state.selectedForms = state.selectedForms.includes(id)
+        ? state.selectedForms.filter((topic) => topic !== id)
+        : [...state.selectedForms, id];
       paint();
       return;
     }
@@ -389,23 +510,69 @@ function wire(): void {
       document.querySelector<HTMLDialogElement>("#exam-dialog")?.close();
       return;
     }
-    if (button.id === "tab-canonical") {
-      flatMode = false;
-      paint();
-      return;
-    }
-    if (button.id === "tab-flat") {
-      flatMode = true;
-      paint();
-      return;
-    }
     if (button.id === "copy-ehr") {
-      void navigator.clipboard?.writeText(document.querySelector("#ehr")?.textContent ?? "");
+      void navigator.clipboard?.writeText(cachedCanonicalJson);
       return;
     }
-    if (button.id === "tab-fhir-q" || button.id === "tab-fhir-qr" || button.id === "tab-fhir-symptom") {
-      fhirTab = button.id === "tab-fhir-q" ? "questionnaire" : button.id === "tab-fhir-qr" ? "response" : "symptoms";
-      paintFhir(englishText());
+    if (button.id === "download-ehr") {
+      downloadTextFile(
+        downloadBasenameForTab("canonical"),
+        cachedCanonicalJson,
+        "application/json",
+      );
+      return;
+    }
+    if (button.id === "copy-ehr-xml") {
+      void navigator.clipboard?.writeText(cachedXml);
+      return;
+    }
+    if (button.id === "download-ehr-xml") {
+      downloadTextFile(downloadBasenameForTab("xml"), cachedXml, "application/xml");
+      return;
+    }
+    if (button.id === "copy-ehr-simplified") {
+      void navigator.clipboard?.writeText(cachedSimplified);
+      return;
+    }
+    if (button.id === "download-ehr-simplified") {
+      downloadTextFile(
+        downloadBasenameForTab("simplified", simplifiedFlavour),
+        cachedSimplified,
+        "application/json",
+      );
+      return;
+    }
+    if (button.id === "copy-zipehr") {
+      void navigator.clipboard?.writeText(cachedZipehrHtml);
+      return;
+    }
+    if (button.id === "download-zipehr") {
+      downloadTextFile("thumb-encounter.zipehr.html5", cachedZipehrHtml, "text/html");
+      return;
+    }
+    if (
+      button.dataset.ehrFormat === "canonical" ||
+      button.dataset.ehrFormat === "xml" ||
+      button.dataset.ehrFormat === "simplified" ||
+      button.dataset.ehrFormat === "zipehr"
+    ) {
+      setEhrFormatTab(button.dataset.ehrFormat);
+      return;
+    }
+    if (button.dataset.simplifiedFlavour === "flat" || button.dataset.simplifiedFlavour === "structured") {
+      setSimplifiedFlavour(button.dataset.simplifiedFlavour);
+      return;
+    }
+    if (button.dataset.zipehrView === "code" || button.dataset.zipehrView === "document") {
+      setZipehrViewMode(button.dataset.zipehrView);
+      return;
+    }
+    if (button.id === "tab-fhir-bundle" || button.id === "tab-fhir-q" || button.id === "tab-fhir-qr" || button.id === "tab-fhir-symptom") {
+      fhirTab = button.id === "tab-fhir-bundle" ? "bundle"
+        : button.id === "tab-fhir-q" ? "questionnaire"
+        : button.id === "tab-fhir-qr" ? "response"
+        : "symptoms";
+      if (fhirCanonical) paintFhir(fhirCanonical, fhirNarrative);
       return;
     }
     if (button.id === "copy-fhir") {
@@ -413,7 +580,8 @@ function wire(): void {
       return;
     }
     if (button.id === "download-fhir") {
-      const name = fhirTab === "questionnaire" ? "thumb-pain-questionnaire.json"
+      const name = fhirTab === "bundle" ? "gp-visit.fhir.json"
+        : fhirTab === "questionnaire" ? "thumb-pain-questionnaire.json"
         : fhirTab === "response" ? "thumb-pain-questionnaireresponse.json"
         : "thumb-pain-symptom-logical-model.json";
       const blob = new Blob([fhirJson], { type: "application/fhir+json" });
@@ -426,18 +594,20 @@ function wire(): void {
       return;
     }
     if (button.dataset.spin && button.dataset.dir) {
-      const group = button.dataset.spin === "swelling" ? state.swelling : state.pain;
+      const group = answerForm(button.dataset.spin);
       const next = (group.durationNumber ?? 0) + Number(button.dataset.dir);
       group.durationNumber = Math.max(0, next);
       if (group.durationNumber === 0) group.durationNumber = null;
       paint();
       return;
     }
-    if (button.dataset.group === "pain" || button.dataset.group === "swelling") {
-      const form = button.dataset.group === "pain" ? state.pain : state.swelling;
-      applyFormClick(form, button);
-      paint();
-      return;
+    if (button.dataset.group && button.dataset.feature) {
+      const group = button.dataset.group;
+      if (group === "pain" || group === "swelling" || formOf(group)) {
+        applyFormClick(answerForm(group), button);
+        paint();
+        return;
+      }
     }
     if (button.dataset.group === "diagnosis" && button.dataset.item && button.dataset.value) {
       state.diagnoses[button.dataset.item] = toggleChoice(state.diagnoses[button.dataset.item] ?? null, button.dataset.value);
@@ -473,8 +643,13 @@ function wire(): void {
 
   root.addEventListener("input", (event) => {
     const target = event.target;
+    if (target instanceof HTMLTextAreaElement && target.id === "comment") {
+      state.comment = target.value;
+      paintOutputs();
+      return;
+    }
     if (!(target instanceof HTMLInputElement) || !target.dataset.duration) return;
-    const form = target.dataset.duration === "swelling" ? state.swelling : state.pain;
+    const form = answerForm(target.dataset.duration);
     const parsed = Number(target.value);
     form.durationNumber = target.value.trim() === "" || !Number.isFinite(parsed) ? null : Math.max(0, Math.floor(parsed));
     if (form.durationNumber === 0) form.durationNumber = null;
@@ -482,11 +657,124 @@ function wire(): void {
   });
   root.addEventListener("change", (event) => {
     const target = event.target;
+    if (target instanceof HTMLSelectElement && target.id === "zipehr-css-select") {
+      zipehrStylesheet = target.value;
+      void refreshZipehrDocument();
+      return;
+    }
+    if (target instanceof HTMLSelectElement && target.id === "ehr-cdr-profile") {
+      const value = target.value;
+      if (value === "better" || value === "ehrbase" || value === "ferroehr") {
+        simplifiedCdrProfile = value;
+        refreshSimplifiedOutput();
+      }
+      return;
+    }
     if (!(target instanceof HTMLSelectElement) || !target.dataset.unit) return;
-    const form = target.dataset.unit === "swelling" ? state.swelling : state.pain;
+    const form = answerForm(target.dataset.unit);
     form.durationUnit = target.value;
     paintOutputs();
   });
+}
+
+function downloadTextFile(filename: string, text: string, mime: string): void {
+  const blob = new Blob([text], { type: mime });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename;
+  link.click();
+  URL.revokeObjectURL(url);
+}
+
+function setEhrFormatTab(tab: EhrFormatTab): void {
+  ehrFormatTab = tab;
+  applyEhrFormatTab(document, tab);
+  if (tab === "zipehr") void refreshZipehrDocument();
+}
+
+function setSimplifiedFlavour(flavour: SimplifiedViewFlavour): void {
+  simplifiedFlavour = flavour;
+  for (const button of document.querySelectorAll<HTMLButtonElement>("[data-simplified-flavour]")) {
+    const on = button.dataset.simplifiedFlavour === flavour;
+    button.classList.toggle("active", on);
+    button.setAttribute("aria-pressed", on ? "true" : "false");
+  }
+  refreshSimplifiedOutput();
+}
+
+function refreshSimplifiedOutput(): void {
+  if (!canonicalForSimplified) return;
+  void (async () => {
+    try {
+      const { canonicalToSimplifiedJson } = await import("./openehr/serialization-views.ts");
+      cachedSimplified = await canonicalToSimplifiedJson(
+        canonicalForSimplified!,
+        simplifiedCdrProfile,
+        simplifiedFlavour,
+      );
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      cachedSimplified = `/* Simplified serialize failed: ${message} */`;
+    }
+    const pre = document.querySelector("#ehr-simplified");
+    if (pre) pre.textContent = cachedSimplified;
+    const stats = document.querySelector("#ehr-simplified-stats");
+    if (stats) {
+      const lineStats = zipehrTextStats(cachedSimplified);
+      stats.textContent = `${lineStats.characters.toLocaleString()} characters · ${lineStats.lines.toLocaleString()} lines`;
+    }
+  })();
+}
+
+function setZipehrViewMode(mode: "code" | "document"): void {
+  zipehrViewMode = mode;
+  const code = document.querySelector<HTMLElement>("#zipehr-code");
+  const frame = document.querySelector<HTMLElement>("#zipehr-document");
+  if (code) code.hidden = mode !== "code";
+  if (frame) frame.hidden = mode !== "document";
+  for (const button of document.querySelectorAll<HTMLButtonElement>("[data-zipehr-view]")) {
+    const on = button.dataset.zipehrView === mode;
+    button.classList.toggle("active", on);
+    button.setAttribute("aria-selected", on ? "true" : "false");
+  }
+}
+
+async function loadZipehrStylesheet(): Promise<string> {
+  const file = resolveZipehrCssFile(zipehrStylesheet);
+  if (!file) return "";
+  const baseUrl = import.meta.env.BASE_URL || "/";
+  const fetchCss = async (name: string) => {
+    const res = await fetch(`${baseUrl}zipehr-css/${name}`);
+    if (!res.ok) throw new Error(`ZipEHR stylesheet ${name}: HTTP ${res.status}`);
+    return res.text();
+  };
+  if (file === ZIP_QUIET_CSS) {
+    const [base, quiet] = await Promise.all([fetchCss(ZIP_DEFAULT_CSS), fetchCss(ZIP_QUIET_CSS)]);
+    return composeQuietStructureCss(base, quiet);
+  }
+  return fetchCss(file);
+}
+
+async function refreshZipehrDocument(): Promise<void> {
+  const frame = document.querySelector<HTMLIFrameElement>("#zipehr-document");
+  if (!frame || !cachedZipehrHtml) return;
+  const cssFile = resolveZipehrCssFile(zipehrStylesheet);
+  const quiet = cssFile === ZIP_QUIET_CSS;
+  frame.sandbox = quiet ? "allow-same-origin allow-scripts" : "allow-same-origin";
+  try {
+    const css = await loadZipehrStylesheet();
+    cachedZipehrCss = css;
+    frame.srcdoc = buildZipehrPreviewDocument(cachedZipehrHtml, css, {
+      quietStructureTooltips: quiet,
+    });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    frame.srcdoc = buildZipehrPreviewDocument(
+      cachedZipehrHtml,
+      `/* ${message} */\n`,
+    );
+  }
 }
 
 function applyFormClick(form: FindingForm, button: HTMLButtonElement): void {
@@ -513,6 +801,18 @@ function examSide(name: string): ExamSide {
 }
 
 function paint(): void {
+  for (const section of document.querySelectorAll<HTMLElement>("[data-show]")) {
+    const id = section.dataset.show ?? "";
+    section.hidden = !state.selectedForms.includes(id);
+  }
+  for (const button of document.querySelectorAll<HTMLButtonElement>("[data-pick]")) {
+    const on = state.selectedForms.includes(button.dataset.pick ?? "");
+    button.setAttribute("aria-pressed", on ? "true" : "false");
+  }
+  const details = document.querySelector("#disease-details");
+  if (details) details.innerHTML = diseaseDetails();
+  const comment = document.querySelector<HTMLTextAreaElement>("#comment");
+  if (comment && document.activeElement !== comment) comment.value = state.comment;
   const more = document.querySelector<HTMLElement>("#pain-more-layer");
   const moreButton = document.querySelector<HTMLButtonElement>("#pain-more");
   if (more) more.hidden = !state.painMore;
@@ -534,8 +834,8 @@ function pressed(button: HTMLButtonElement): boolean {
   const group = button.dataset.group;
   const feature = button.dataset.feature ?? "";
   const value = button.dataset.value ?? "";
-  if (group === "pain" || group === "swelling") {
-    const form = group === "pain" ? state.pain : state.swelling;
+  if (group === "pain" || group === "swelling" || (group && formOf(group))) {
+    const form = answerForm(group);
     if (feature === "summary") return form.summary === value;
     if (feature === "laterality") {
       const side = value === "rightSelection" ? "right" : "left";
@@ -557,8 +857,9 @@ function pressed(button: HTMLButtonElement): boolean {
 }
 
 function paintDurations(): void {
-  for (const group of ["pain", "swelling"] as const) {
-    const form = group === "pain" ? state.pain : state.swelling;
+  const groups = ["pain", "swelling", ...Object.keys(state.formAnswers)];
+  for (const group of groups) {
+    const form = answerForm(group);
     const input = document.querySelector<HTMLInputElement>(`#${group}-duration`);
     if (input && document.activeElement !== input) input.value = form.durationNumber == null ? "" : String(form.durationNumber);
     const unit = document.querySelector<HTMLSelectElement>(`select[data-unit="${group}"]`);
@@ -570,12 +871,12 @@ function paintOutputs(): void {
   swedish.missing.length = 0;
   const findings = currentFindings();
   const english = findings.map((finding) => render(finding, knowledge));
-  const swedishLines = findings.map((finding) => renderReport(finding, knowledge, swedish));
+  const swedishLines = findings.map((finding) => renderSwedishGp(finding));
   const enBox = document.querySelector("#summary-en");
   const svBox = document.querySelector("#summary-sv");
-  if (enBox) enBox.textContent = english.join("\n");
-  if (svBox) svBox.textContent = swedishLines.map((line) => line.sentence).join("\n");
-  const missing = [...new Set(swedishLines.flatMap((line) => line.missing))];
+  if (enBox) enBox.textContent = englishNote(english);
+  if (svBox) svBox.textContent = swedishNote(swedishLines);
+  const missing = [...swedish.missing];
   const missingEl = document.querySelector("#sv-missing");
   if (missingEl) {
     missingEl.textContent = missing.length ? `Swedish pack has no word for: ${missing.join(", ")}` : "";
@@ -598,7 +899,6 @@ function paintOutputs(): void {
   }
   paintGalen(findings);
   paintEhr(findings, english);
-  paintFhir(english.join("\n"));
   paintExam();
 }
 
@@ -606,8 +906,31 @@ function currentFindings(): Finding[] {
   return findingsFromState(state, painForm.diagnoses);
 }
 
+function englishNote(lines: string[]): string {
+  const exam = onExamination(state, "en");
+  return [lines.join("\n"), exam].filter((part) => part.length > 0).join("\n\n");
+}
+
+function swedishNote(lines: string[]): string {
+  const exam = onExamination(state, "sv");
+  const plan = localizePlan(state.plan, "sv");
+  return [lines.join("\n"), exam, plan].filter((part) => part.length > 0).join("\n\n");
+}
+
 function englishText(): string {
-  return currentFindings().map((finding) => render(finding, knowledge)).join("\n");
+  return englishNote(currentFindings().map((finding) => render(finding, knowledge)));
+}
+
+function diseaseDetails(): string {
+  const topics = ["ThumbSprain", "ThumbFracture"].filter((topic) => state.selectedForms.includes(topic));
+  return topics.map((topic) => {
+    const form = formOf(topic);
+    if (!form) return "";
+    const rows = [...(form.firstLayer ?? []), ...(form.moreLayer ?? [])]
+      .map((row) => featureRow(topic, row))
+      .join("");
+    return `<fieldset class="group"><h2>${escapeText(form.display)}</h2>${rows}</fieldset>`;
+  }).join("");
 }
 
 function paintGalen(findings: Finding[]): void {
@@ -631,17 +954,34 @@ function paintGalen(findings: Finding[]): void {
   host.innerHTML = `<table class="bindings"><thead><tr><th>Clinergy</th><th>OpenGALEN</th><th>SNOMED CT</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
-function paintEhr(_findings: Finding[], english: string[]): void {
-  const result = buildThumbEncounter(state, english.join("\n"));
-  const checked = validateComposition(result.canonical, result.flat);
+function historyNarrative(findings: Finding[]): string {
+  return findings
+    .filter((finding) => !isAssessmentTopic(finding.topic))
+    .map((finding) => render(finding, knowledge))
+    .join("\n");
+}
+
+function isAssessmentTopic(topic: string): boolean {
+  return painForm.diagnoses.some((link) =>
+    topic === link.item || topic === link.preCoordinated || topic === link.concept
+  );
+}
+
+function paintEhr(findings: Finding[], _english: string[]): void {
+  const narrative = historyNarrative(findings);
+  const result = buildVisit(state, narrative);
+  canonicalForSimplified = result.canonical;
+  const checked = validateComposition(result.canonical);
+  const jsonText = JSON.stringify(result.canonical, null, 2);
+  cachedCanonicalJson = jsonText;
   const pre = document.querySelector("#ehr");
-  if (pre) {
-    pre.textContent = flatMode
-      ? Object.entries(result.flat).sort(([a], [b]) => a.localeCompare(b)).map(([key, value]) => `${key}: ${value}`).join("\n")
-      : JSON.stringify(result.canonical, null, 2);
+  if (pre) pre.textContent = jsonText;
+  refreshSimplifiedOutput();
+  const canonicalStats = document.querySelector("#ehr-canonical-stats");
+  if (canonicalStats) {
+    const stats = zipehrTextStats(jsonText);
+    canonicalStats.textContent = `${stats.characters.toLocaleString()} characters · ${stats.lines.toLocaleString()} lines`;
   }
-  document.querySelector("#tab-canonical")?.setAttribute("aria-pressed", flatMode ? "false" : "true");
-  document.querySelector("#tab-flat")?.setAttribute("aria-pressed", flatMode ? "true" : "false");
   const badge = document.querySelector("#ehr-badge");
   if (badge) {
     badge.textContent = checked.valid
@@ -653,9 +993,58 @@ function paintEhr(_findings: Finding[], english: string[]): void {
     const lines = checked.errors.concat(checked.warnings).map((issue) => `${issue.severity}: ${issue.path} — ${issue.message}`);
     errors.textContent = lines.join("\n");
   }
+  paintFhir(result.canonical, narrative);
+  void (async () => {
+    try {
+      const { canonicalToXml } = await import("./openehr/serialization-views.ts");
+      cachedXml = await canonicalToXml(result.canonical);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      cachedXml = `<!-- XML serialize failed: ${message} -->`;
+    }
+    const xmlPre = document.querySelector("#ehr-xml");
+    if (xmlPre) xmlPre.textContent = cachedXml;
+    const xmlStats = document.querySelector("#ehr-xml-stats");
+    if (xmlStats) {
+      const stats = zipehrTextStats(cachedXml);
+      xmlStats.textContent = `${stats.characters.toLocaleString()} characters · ${stats.lines.toLocaleString()} lines`;
+    }
+    try {
+      cachedZipehrHtml = await canonicalToZipehrHtml5(result.canonical);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      cachedZipehrHtml = `<!-- ZipEHR serialize failed: ${message} -->`;
+    }
+    const code = document.querySelector("#zipehr-code");
+    if (code) code.textContent = cachedZipehrHtml;
+    const zipehrStats = document.querySelector("#zipehr-stats");
+    if (zipehrStats) {
+      const stats = zipehrTextStats(cachedZipehrHtml);
+      zipehrStats.textContent = `${stats.characters.toLocaleString()} characters · ${stats.lines.toLocaleString()} lines`;
+    }
+    if (ehrFormatTab === "zipehr") await refreshZipehrDocument();
+  })();
 }
 
-function paintFhir(narrative: string): void {
+function paintFhir(canonical: Record<string, unknown>, narrative: string): void {
+  fhirCanonical = canonical;
+  fhirNarrative = narrative;
+  document.querySelector("#tab-fhir-bundle")?.setAttribute("aria-pressed", fhirTab === "bundle" ? "true" : "false");
+  if (fhirTab === "bundle") {
+    const bundle = buildFhirBundle(state, canonical);
+    const issues = validateFhirBundle(bundle);
+    fhirJson = JSON.stringify(bundle, null, 2);
+    const pre = document.querySelector("#fhir");
+    if (pre) pre.textContent = fhirJson;
+    for (const id of ["#tab-fhir-q", "#tab-fhir-qr", "#tab-fhir-symptom"]) {
+      document.querySelector(id)?.setAttribute("aria-pressed", "false");
+    }
+    const badge = document.querySelector("#fhir-badge");
+    if (badge) badge.textContent = issues.length ? `Visit bundle: shape errors (${issues.length})` : "Visit bundle: shape ok";
+    const errors = document.querySelector("#fhir-errors");
+    if (errors) errors.textContent = issues.map((issue) => `${issue.path}: ${issue.message}`).join("\n");
+    return;
+  }
   const built = buildQuestionnaireExport(state, narrative);
   const symptoms = buildSymptomExport(state, narrative);
   const qCheck = validateQuestionnaire(built.questionnaire);
@@ -691,13 +1080,8 @@ function paintFhir(narrative: string): void {
 function paintExam(): void {
   const host = document.querySelector("#exam-list");
   if (!host) return;
-  const lines: string[] = [];
-  for (const side of ["left", "right"] as const) {
-    const exam = state.exam[side];
-    const bits = Object.entries(exam).filter(([, value]) => value).map(([key, value]) => `${key} ${value}`);
-    if (bits.length) lines.push(`${side} thumb: ${bits.join(", ")}`);
-  }
-  host.innerHTML = lines.length ? `<ul>${lines.map((line) => `<li>${escapeText(line)}</li>`).join("")}</ul>` : "<p class='note'>Nothing selected.</p>";
+  const block = onExamination(state);
+  host.textContent = block || "Nothing selected.";
 }
 
 function buttonLabel(value: string): string {

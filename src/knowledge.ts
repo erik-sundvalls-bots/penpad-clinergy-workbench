@@ -13,6 +13,8 @@ import { sentenceKnowledgeFromParsed, type SentenceKnowledge } from "../vendor/s
 
 export interface FormRow {
   feature?: string;
+  /** Consequence-style link (hasClinicalAbsence), not a descriptor row. */
+  criterialLink?: string;
   values: unknown[];
   multiple?: boolean;
 }
@@ -34,6 +36,8 @@ export interface FormExam {
 export interface ClinergyForm {
   topic: string;
   display: string;
+  /** symptom, sign or disease, as written by the extractor. */
+  category?: string;
   summaryType: string;
   location: string | null;
   firstLayer: FormRow[];

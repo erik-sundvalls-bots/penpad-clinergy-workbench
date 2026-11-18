@@ -1,6 +1,7 @@
+import gpOptXml from "../../templates/gp-encounter.opt?raw";
 import optXml from "../../templates/thumb-pain.opt?raw";
+import { GP_TEMPLATE_ID } from "./template.ts";
 import { parser, serialization, validation } from "../../vendor/ehrtslib/ehrtslib-0.13.0.min.js";
-import { webTemplate } from "./webtemplate.ts";
 
 export interface ValidationIssue {
   path: string;
@@ -14,7 +15,8 @@ export interface CompositionValidation {
   warnings: ValidationIssue[];
 }
 
-const operationalTemplate = parser.parseOptXml(optXml).operationalTemplate;
+const thumbTemplate = parser.parseOptXml(optXml).operationalTemplate;
+const gpTemplate = parser.parseOptXml(gpOptXml).operationalTemplate;
 
 const templateValidator = new validation.TemplateValidator({
   validateUnits: false,
@@ -22,12 +24,9 @@ const templateValidator = new validation.TemplateValidator({
   validateTerminology: true,
 });
 
-/**
- * ehrtslib counts each `_mapping` key as another instance of a max-1 coded
- * node. https://github.com/ErikSundvall/ehrtslib/issues/317
- */
-function mappingCardinalityFalsePositive(issue: ValidationIssue): boolean {
-  return issue.message.startsWith("instance count ");
+function templateFor(canonical: Record<string, unknown>): unknown {
+  const details = canonical.archetype_details as { template_id?: { value?: string } } | undefined;
+  return details?.template_id?.value === GP_TEMPLATE_ID ? gpTemplate : thumbTemplate;
 }
 
 function asIssues(value: unknown, severity: string): ValidationIssue[] {
@@ -42,22 +41,17 @@ function asIssues(value: unknown, severity: string): ValidationIssue[] {
   });
 }
 
-export function validateComposition(
-  canonical: Record<string, unknown>,
-  flat: Record<string, string | boolean>,
-): CompositionValidation {
+/** Canonical RM JSON only — no FLAT / validateFlatPayload. */
+export function validateComposition(canonical: Record<string, unknown>): CompositionValidation {
   const errors: ValidationIssue[] = [];
   const warnings: ValidationIssue[] = [];
-  const flatResult = serialization.validateFlatPayload(flat as Record<string, string>, webTemplate, { strictUnknownKeys: true });
-  errors.push(...asIssues(flatResult.errors, "error").filter((issue) => !mappingCardinalityFalsePositive(issue)));
-  warnings.push(...asIssues(flatResult.warnings, "warning"));
 
   const typed = serialization.toTypedRm(canonical);
   for (const issue of asIssues(new validation.RMSpecificationValidator().validate(typed), "error")) {
     (issue.severity === "warning" ? warnings : errors).push(issue);
   }
 
-  const templateResult = templateValidator.validate(typed, operationalTemplate);
+  const templateResult = templateValidator.validate(typed, templateFor(canonical));
   errors.push(...asIssues(templateResult.errors, "error"));
   warnings.push(...asIssues(templateResult.warnings, "warning"));
   return { valid: errors.length === 0, errors, warnings };

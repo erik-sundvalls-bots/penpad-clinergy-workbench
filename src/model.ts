@@ -1,3 +1,4 @@
+import { defaultSelectedForms } from "./forms/catalog.ts";
 import type { FormLink } from "./knowledge.ts";
 import type { Finding, Qualifier } from "../vendor/sentence.ts";
 
@@ -28,12 +29,23 @@ export interface WorkbenchState {
   pain: FindingForm;
   swellingOpen: boolean;
   swelling: FindingForm;
-  /** Consequence links on the swelling form. Not rendered by the sentence generator. */
+  /** Consequence links on the swelling form (criterialLink rows). */
   consequences: Record<string, string | null>;
   stiffness: string | null;
   diagnoses: Record<string, string | null>;
   exam: { left: ExamSide; right: ExamSide };
   examOpen: "left" | "right" | null;
+  /** Free-text comment from the 1998 form. Not part of the generated sentence. */
+  comment: string;
+  /** Recommendation narrative for the visit plan. */
+  plan: string;
+  /**
+   * Forms included in this visit. Symptom, exam and disease ids from the
+   * extracted YAML. Empty is treated as the thumb-pain shell.
+   */
+  selectedForms: string[];
+  /** Descriptor answers for a disease (or other) form addressed by topic. */
+  formAnswers: Record<string, FindingForm>;
 }
 
 const PAIN_FEATURES = [
@@ -89,7 +101,40 @@ export function emptyState(): WorkbenchState {
     diagnoses: {},
     exam: { left: emptyExam(), right: emptyExam() },
     examOpen: null,
+    comment: "",
+    plan: "",
+    selectedForms: [...defaultSelectedForms],
+    formAnswers: {},
   };
+}
+
+/**
+ * A general-practice visit about one thumb. The 1998 demo leaves swelling on
+ * the left because that control is separate from the pain laterality clicked
+ * afterwards. Here swelling follows the painful side, which is the right thumb,
+ * together with the examination and the sprain.
+ */
+export function gpVisitState(): WorkbenchState {
+  const state = demoState();
+  state.swelling.laterality = ["right"];
+  state.exam.right.flexionRange = "full";
+  state.exam.right.flexionPain = "mild";
+  state.exam.right.extensionRange = "reduced";
+  state.exam.right.abductionRange = "reduced";
+  state.diagnoses.ThumbSprain = "presence";
+  state.selectedForms = [
+    "ThumbPainSymptom",
+    "ThumbSwellingSymptom",
+    "ThumbExam",
+    "ThumbSprain",
+    "ThumbFracture",
+  ];
+  const sprain = emptyFinding();
+  sprain.laterality = ["right"];
+  sprain.choices.AbsoluteSeverity = "moderate";
+  state.formAnswers.ThumbSprain = sprain;
+  state.plan = "Review the right thumb in one week if the pain is no better.";
+  return state;
 }
 
 /** The state at the end of the public thumb-pain walkthrough (laterality right, swelling filled in). */
@@ -162,9 +207,16 @@ export function findingsFromState(state: WorkbenchState, diagnoses: FormLink[]):
   for (const link of diagnoses) {
     const summary = state.diagnoses[link.item];
     if (!summary) continue;
-    findings.push(link.preCoordinated
-      ? { topic: link.preCoordinated, summary, qualifiers: [] }
-      : { topic: link.concept, location: link.location ?? undefined, summary, qualifiers: [] });
+    const topic = link.preCoordinated ?? link.concept;
+    const answer = state.formAnswers?.[topic] ?? state.formAnswers?.[link.item];
+    const laterality = lateralityOf(answer?.laterality ?? []);
+    findings.push({
+      topic,
+      location: link.location ?? (laterality ? "Thumb" : undefined),
+      laterality,
+      summary,
+      qualifiers: [],
+    });
   }
   return findings;
 }
