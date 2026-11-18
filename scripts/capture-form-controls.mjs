@@ -27,7 +27,5 @@ await page.locator("aside").first().screenshot({ path: join(outDir, "form-contro
 await page.locator('[data-ehr-format="canonical"]').click();
 await page.waitForTimeout(200);
 await page.locator("#ehr-canonical-pane").screenshot({ path: join(outDir, "form-controls-openEHR-comment.png") });
-await page.locator('[data-ehr-format="fhir"]').click();
-await page.waitForTimeout(200);
 await page.locator("#fhir-panel").screenshot({ path: join(outDir, "form-controls-fhir-comment.png") });
 await browser.close();
