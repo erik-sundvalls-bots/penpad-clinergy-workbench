@@ -3,6 +3,7 @@ import { localizePlan } from "../exam/phrases.ts";
 import { examsByName, formOf } from "../forms/catalog.ts";
 import { knowledge, painForm, swellingForm, type FormLink } from "../knowledge.ts";
 import { render, type Finding } from "../../vendor/sentence.ts";
+import { renderEnglishGp } from "../en/gp-sentence.ts";
 import { renderSwedishGp } from "../sv/gp-sentence.ts";
 import { emptyExam, emptyFinding, type ExamSide, type FindingForm, type WorkbenchState } from "../model.ts";
 import { term, type Term } from "./terms.ts";
@@ -402,7 +403,7 @@ function diagnosisSentence(
     qualifiers: [],
   };
   if (language === "sv") return renderSwedishGp(finding);
-  return render(finding, knowledge);
+  return renderEnglishGp(finding);
 }
 
 function problemEvaluation(

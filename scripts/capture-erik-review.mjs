@@ -51,7 +51,7 @@ await page.locator("#load-gp").click();
 await page.locator('[data-group="pain"][data-feature="AbsolutePainDescriptor"][data-value="throbbingPain"]').click();
 await page.waitForTimeout(600);
 
-await page.locator("aside").screenshot({ path: join(outDir, "sidebar-reordered.png") });
+await page.locator("aside").first().screenshot({ path: join(outDir, "sidebar-reordered.png") });
 const en = await page.locator("#summary-en").innerText();
 const sv = await page.locator("#summary-sv").innerText();
 await page.setContent(
