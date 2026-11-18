@@ -51,6 +51,7 @@ import { validateQuestionnaire, validateQuestionnaireResponse, validateSymptomEx
 import optUrl from "../templates/thumb-pain.opt?url";
 import optPlainUrl from "../templates/thumb-pain-encounter.v2.opt?url";
 import { renderSwedishGp } from "./sv/gp-sentence.ts";
+import { expressionsFor, UNMAPPED_INFO } from "./snomed/expressions.ts";
 import { render, type Finding } from "../vendor/sentence.ts";
 
 const FEATURE_LABEL: Record<string, string> = {
@@ -102,6 +103,7 @@ let cachedSimplified = "";
 let cachedZipehrHtml = "";
 let cachedZipehrCss = "";
 let canonicalForSimplified: Record<string, unknown> | null = null;
+let cachedSnomedExpressions: string[] = [];
 let fhirTab: "bundle" | "questionnaire" | "response" | "symptoms" = "bundle";
 let fhirJson = "";
 let fhirCanonical: Record<string, unknown> | null = null;
@@ -115,7 +117,7 @@ function page(): string {
   <div class="wrap">
     <header class="mast">
       <h1>PEN&amp;PAD + Clinergy experimental workbench</h1>
-      <p>Fill a Clinergy general-practice visit. Thumb pain, swelling, examination and diagnoses can be combined. Summary sentences, including On Examination, OpenGALEN bindings, openEHR and FHIR update as you click. Nothing is installed and nothing is saved on a server.</p>
+      <p>Fill a Clinergy general-practice visit. Thumb pain, swelling, examination and diagnoses can be combined. Summary sentences, including On Examination, OpenGALEN bindings, SNOMED CT expressions, openEHR and FHIR update as you click. Nothing is installed and nothing is saved on a server.</p>
     </header>
     <div class="layout">
       <section class="window" aria-label="Thumb pain form">
@@ -158,10 +160,11 @@ function page(): string {
           <p id="summary-sv" class="sv-sentence" lang="sv" aria-live="polite"></p>
           <p id="sv-missing" class="missing"></p>
         </section>
-        <section class="panel">
-          <h2>OpenGALEN</h2>
-          <p class="note">Reviewed bindings for the values you have selected. Unverified means the code was not confirmed and is not written into the composition.</p>
+        <section class="panel" id="bindings-panel">
+          <h2>OpenGALEN and SNOMED CT</h2>
+          <p class="note">Reviewed bindings for the values you have selected. Unverified means the code was not confirmed and is not written into the composition. Post-coordinated SNOMED CT expressions use the same reviewed map and update as you click. Duration has no MRCM attribute and is listed as unmapped. Nothing is sent to a terminology server.</p>
           <div id="galen"></div>
+          <div id="snomed-expressions"></div>
         </section>
         <section class="panel" id="openehr-panel">
           <h2>openEHR</h2>
@@ -442,7 +445,7 @@ function about(): string {
     <h2>About</h2>
     <p>This is an experimental workbench for hackathon participants. It is part of the <a href="https://pen-pad-revival.github.io">PEN&amp;PAD revival</a>. The form follows the 1998 Clinergy thumb pain demo, screen by screen, as written up at <a href="https://pen-pad-revival.github.io/docs/clinergy-thumb-pain-demo/">the public walkthrough</a>. The sentence generator is vendored from <a href="https://github.com/erik-sundvalls-bots/clinergy-extractor">clinergy-extractor</a> main. The openEHR encounter is built in this page and checked with <a href="https://github.com/ErikSundvall/ehrtslib">ehrtslib</a>. Examination findings are a separate On Examination block, as in the 1998 summary.</p>
     <p>Clinergy content is © 1997-8 Semantic Technologies Ltd / Victoria University of Manchester. Only a small extract (the thumb pain, swelling, sign and diagnosis forms, the sentence rules those forms need, and the terminology bindings) is included, and only for demonstration.</p>
-    <p>OpenGALEN names link to the <a href="https://erik-sundvalls-bots.github.io/opengalen-browser/">OpenGALEN browser</a> (<code>#concept=Name</code>). SNOMED CT codes link to the public browser. Swedish wording is ours and has not had a native-speaker review. The English summary is the only narrative stored in the composition, and it is also the QuestionnaireResponse narrative and the Symptom Logical Model <code>symptomDescription</code>.</p>
+    <p>OpenGALEN names link to the <a href="https://erik-sundvalls-bots.github.io/opengalen-browser/">OpenGALEN browser</a> (<code>#concept=Name</code>). Pre-coordinated SNOMED CT codes link to the public browser. Post-coordinated expressions are built in the page from a reviewed map (clinergy-extractor PR #13); they are not sent to a terminology server, and unverified codes are listed as unmapped rather than guessed. Swedish wording is ours and has not had a native-speaker review. The English summary is the only narrative stored in the composition, and it is also the QuestionnaireResponse narrative and the Symptom Logical Model <code>symptomDescription</code>.</p>
     <p>The FHIR panel exports the whole visit as an R4 collection Bundle, a FHIR R4 Questionnaire and a live QuestionnaireResponse for the published thumb form (<a href="https://github.com/erik-sundvalls-bots/clinergy-extractor/issues/7">clinergy-extractor #7</a>), and a <a href="https://build.fhir.org/ig/HL7/fhir-symptoms-ig/en/StructureDefinition-SymptomLogicalModel.html">Symptoms IG Symptom Logical Model</a> instance for the current finding (<a href="https://github.com/erik-sundvalls-bots/clinergy-extractor/issues/8">#8</a>). Unmapped elements are listed rather than guessed. These are shape-checked in the page; they are not sent to a FHIR server.</p>
   </section>`;
 }
@@ -478,6 +481,11 @@ function wire(): void {
     }
     if (button.id === "copy-summary") {
       void navigator.clipboard?.writeText(englishText());
+      return;
+    }
+    if (button.dataset.copySnomed != null) {
+      const text = cachedSnomedExpressions[Number(button.dataset.copySnomed)] ?? "";
+      if (text) void navigator.clipboard?.writeText(text);
       return;
     }
     if (button.id === "pain-more") {
@@ -898,6 +906,7 @@ function paintOutputs(): void {
       : "Not answered";
   }
   paintGalen(findings);
+  paintSnomed(findings);
   paintEhr(findings, english);
   paintExam();
 }
@@ -931,6 +940,43 @@ function diseaseDetails(): string {
       .join("");
     return `<fieldset class="group"><h2>${escapeText(form.display)}</h2>${rows}</fieldset>`;
   }).join("");
+}
+
+function paintSnomed(findings: Finding[]): void {
+  const host = document.querySelector("#snomed-expressions");
+  if (!host) return;
+  const results = expressionsFor(findings);
+  cachedSnomedExpressions = results.map((row) => row.expression ?? "");
+  if (!results.length) {
+    host.innerHTML = "";
+    return;
+  }
+  const blocks = results.map((row, index) => {
+    const title = escapeText(conceptLabel(row.topic));
+    const expr = row.expression
+      ? `<pre class="snomed-expr" id="snomed-expr-${index}">${escapeText(row.expression)}</pre>`
+      : `<p class="note">No expression: no verified SNOMED focus for <code>${escapeText(row.topic)}</code>.</p>`;
+    const copy = row.expression
+      ? `<button type="button" data-copy-snomed="${index}">Copy</button>`
+      : "";
+    const unmapped = row.unmapped.length
+      ? `<aside class="snomed-info">
+          <span class="snomed-info-icon" aria-hidden="true">ⓘ</span>
+          <div>
+            <ul class="snomed-unmapped">${row.unmapped.map((item) =>
+              `<li><code>${escapeText(item.key)}</code> — ${escapeText(item.reason)}</li>`
+            ).join("")}</ul>
+            <p>${escapeText(UNMAPPED_INFO)}</p>
+          </div>
+        </aside>`
+      : `<p class="note">No unmapped parts.</p>`;
+    return `<article class="snomed-block">
+      <div class="snomed-head"><h3>${title}</h3>${copy}</div>
+      ${expr}
+      ${unmapped}
+    </article>`;
+  }).join("");
+  host.innerHTML = `<h3 class="snomed-title">SNOMED CT expressions</h3>${blocks}`;
 }
 
 function paintGalen(findings: Finding[]): void {

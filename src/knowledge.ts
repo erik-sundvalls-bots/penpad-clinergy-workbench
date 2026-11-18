@@ -7,8 +7,10 @@ import painRaw from "../data/ThumbPainSymptom.yaml?raw";
 import swellingRaw from "../data/ThumbSwellingSymptom.yaml?raw";
 import svRaw from "../lang/sv.yaml?raw";
 import openehrRaw from "../mappings/openehr.yaml?raw";
+import snomedRaw from "../mappings/snomed.yaml?raw";
 import { languageFromPack, packFromParsed } from "../vendor/language.ts";
 import { descriptorMapFromParsed, openGalenFromParsed, type DescriptorMap } from "../vendor/openehr.ts";
+import { snomedMapFromParsed, type SnomedMap } from "../vendor/snomed.ts";
 import { sentenceKnowledgeFromParsed, type SentenceKnowledge } from "../vendor/sentence.ts";
 
 export interface FormRow {
@@ -61,6 +63,7 @@ export const knowledge: SentenceKnowledge = sentenceKnowledgeFromParsed(
 );
 export const swedish = languageFromPack(packFromParsed(parse(svRaw)));
 export const descriptorMap: DescriptorMap = descriptorMapFromParsed(parse(openehrRaw));
+export const snomedMap: SnomedMap = snomedMapFromParsed(parse(snomedRaw));
 export const openGalenBindings = openGalenFromParsed(parse(mappingsRaw));
 export const galenRows = parse(mappingsRaw) as Record<string, GalenRow>;
 export const painForm = parse(painRaw) as ClinergyForm;

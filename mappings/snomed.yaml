@@ -1,0 +1,275 @@
+# Reviewed Clinergy/OpenGALEN -> SNOMED CT bindings used to build
+# post-coordinated expressions for the public thumb-pain demo findings.
+#
+# SNOMED CT is used under a national member licence (Sweden, Swedish
+# eHealth Agency). This file is not a distribution of the SNOMED CT
+# corpus: it holds a small set of identifiers and preferred terms only.
+# Using SNOMED CT requires an affiliate or national member licence.
+# SNOMED CT is a registered trademark of SNOMED International.
+#
+# Edition: SNOMED CT International
+#   http://snomed.info/sct/900000000000207008/version/20260801
+# Concept ids and preferred terms were first recorded in the workbench
+# file data/mappings/thumb-pain-terms.yaml (checked 2026-11-16) and
+# re-checked here on 2026-11-17 via HL7 Nordics
+# https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup and
+# CodeSystem/$validate-code (POST). Attribute ids, domains, ranges and
+# grouping come from the SNOMED CT Editorial Guide:
+#   Clinical Finding and Disorder Attributes Summary
+#   https://docs.snomed.org/snomed-ct-specifications/snomed-ct-editorial-guide/readme/authoring/domain-specific-modeling/clinical-finding-and-disorder/clinical-finding-attributes-summary
+#   Body Structure Attributes Summary
+#   https://docs.snomed.org/snomed-ct-specifications/snomed-ct-editorial-guide/readme/authoring/domain-specific-modeling/body-structure/body-structure-attributes-summary
+#   Clinical Finding Defining Attributes (Clinical course covers onset;
+#   there is no separate duration attribute)
+#   https://docs.snomed.org/snomed-ct-specifications/snomed-ct-editorial-guide/readme/authoring/domain-specific-modeling/clinical-finding-and-disorder/clinical-finding-defining-attributes
+# Range membership of the values below was confirmed on 2026-11-17 with
+# ValueSet/$validate-code against the Editorial Guide ECL on the same
+# Nordics server. Nothing unverified is used by the expression builder.
+#
+# verified: false means the row is not a binding. A `focus` on such a
+# topic row names the verified concept to use as the expression focus.
+# match: = equivalent, ? inexact.
+# requiresLocation: this body-structure code is only valid when the
+# finding's location is that key (the code is already "of thumb").
+edition: http://snomed.info/sct/900000000000207008/version/20260801
+verifiedOn: "2026-11-17"
+source: HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 (SNOMED CT International 20260801)
+attributes:
+  findingSite:
+    code: "363698007"
+    term: Finding site
+    verified: true
+    grouped: true
+    domain: "Clinical finding (404684003)"
+    range: "<< 442083009 |Anatomical or acquired body structure|"
+    source: >
+      Editorial Guide Clinical Finding attributes summary; id and preferred
+      term confirmed 2026-11-17 via Nordics CodeSystem/$lookup and
+      $validate-code, edition 20260801.
+  laterality:
+    code: "272741003"
+    term: Laterality
+    verified: true
+    grouped: false
+    domain: "Anatomical structure (91723000), not Clinical finding"
+    range: "<< 182353008 |Side|"
+    source: >
+      Editorial Guide Body Structure attributes summary (laterality is
+      applied to the body structure, cardinality 0..1, not grouped);
+      id and preferred term confirmed 2026-11-17 via Nordics
+      CodeSystem/$lookup and $validate-code, edition 20260801.
+  severity:
+    code: "246112005"
+    term: Severity
+    verified: true
+    grouped: true
+    domain: "Clinical finding (404684003)"
+    range: "<< 272141005 |Severities|"
+    source: >
+      Editorial Guide Clinical Finding attributes summary; id and preferred
+      term confirmed 2026-11-17 via Nordics CodeSystem/$lookup and
+      $validate-code, edition 20260801.
+  clinicalCourse:
+    code: "263502005"
+    term: Clinical course
+    verified: true
+    grouped: true
+    selfGrouped: true
+    domain: "Clinical finding (404684003)"
+    range: "<< 288524001 |Courses|"
+    source: >
+      Editorial Guide Clinical Finding attributes summary and Defining
+      attributes (Clinical course represents both onset and course; there
+      is no separate duration attribute). Id and preferred term confirmed
+      2026-11-17 via Nordics CodeSystem/$lookup and $validate-code,
+      edition 20260801.
+descriptors:
+  Severity:
+    attribute: severity
+  Onset:
+    attribute: clinicalCourse
+    note: >
+      The Editorial Guide says Clinical course is the attribute for onset
+      as well as course.
+  Duration:
+    attribute: null
+    reason: >
+      Clinical finding has no duration attribute in the MRCM. The Editorial
+      Guide (Clinical course) says onset and course are not split into
+      separate attributes, and a numeric length such as 2 weeks belongs in
+      the information model, not in a post-coordinated expression. Unit
+      concepts (day, week, ...) are recorded below as verified but are
+      not written into expressions.
+concepts:
+  ThumbPainSymptom:
+    code: "300955002"
+    term: Pain in thumb
+    fsn: Pain in thumb (finding)
+    match: "="
+    verified: true
+    includesLocation: Thumb
+    source: >
+      Workbench thumb-pain-terms.yaml (Nordics $lookup / $validate-code,
+      2026-11-16); re-checked 2026-11-17, edition 20260801, active.
+      Subtype of Clinical finding (ECL << 404684003, Nordics
+      ValueSet/$validate-code, 2026-11-17).
+  Pain:
+    code: "22253000"
+    term: Pain
+    fsn: Pain (finding)
+    match: "="
+    verified: true
+    source: >
+      Workbench thumb-pain-terms.yaml (2026-11-16); re-checked 2026-11-17,
+      edition 20260801, active. ECL << 404684003, 2026-11-17.
+  ThumbSwellingSymptom:
+    verified: false
+    focus: SwellingSymptom
+    note: >
+      No active precoordinated swelling of thumb (workbench review,
+      2026-11-16). The expression focus is the verified Swelling concept;
+      the site is added from the finding.
+  SwellingSymptom:
+    code: "65124004"
+    term: Swelling
+    fsn: Swelling (finding)
+    match: "="
+    verified: true
+    source: >
+      Workbench thumb-pain-terms.yaml (2026-11-16); re-checked 2026-11-17,
+      edition 20260801, active. ECL << 404684003, 2026-11-17.
+  Thumb:
+    code: "76505004"
+    term: Thumb structure
+    fsn: Thumb structure (body structure)
+    match: "="
+    verified: true
+    source: >
+      Workbench thumb-pain-terms.yaml (2026-11-16); re-checked 2026-11-17,
+      edition 20260801, active. In finding-site range (ECL << 442083009,
+      Nordics ValueSet/$validate-code, 2026-11-17).
+  DistalPhalanx:
+    code: "182007006"
+    term: Entire distal phalanx of thumb
+    fsn: Entire distal phalanx of thumb (body structure)
+    match: "?"
+    verified: true
+    requiresLocation: Thumb
+    aliases:
+      - distalPhalanx
+    note: >
+      Inexact. The code is the entire distal phalanx of the thumb, not a
+      general distal phalanx and not the bone-only concept recorded in the
+      workbench review. Used only when the finding location is Thumb.
+    source: >
+      Workbench thumb-pain-terms.yaml (2026-11-16); re-checked 2026-11-17,
+      edition 20260801, active. In finding-site range (ECL << 442083009,
+      2026-11-17).
+  left:
+    code: "7771000"
+    term: Left
+    fsn: Left (qualifier value)
+    match: "="
+    verified: true
+    aliases:
+      - leftSelection
+    source: >
+      Workbench thumb-pain-terms.yaml leftSelection (2026-11-16);
+      re-checked 2026-11-17, edition 20260801, active. In laterality
+      range (ECL << 182353008, 2026-11-17).
+  right:
+    code: "24028007"
+    term: Right
+    fsn: Right (qualifier value)
+    match: "="
+    verified: true
+    aliases:
+      - rightSelection
+    source: >
+      Workbench thumb-pain-terms.yaml rightSelection (2026-11-16);
+      re-checked 2026-11-17, edition 20260801, active. In laterality
+      range (ECL << 182353008, 2026-11-17).
+  mild:
+    code: "255604002"
+    term: Mild
+    fsn: Mild (qualifier value)
+    match: "="
+    verified: true
+    source: >
+      Workbench thumb-pain-terms.yaml (2026-11-16); re-checked 2026-11-17,
+      edition 20260801, active. In severity range (ECL << 272141005,
+      2026-11-17).
+  moderate:
+    code: "6736007"
+    term: Moderate severity
+    fsn: Moderate (severity modifier) (qualifier value)
+    match: "="
+    verified: true
+    source: >
+      Workbench thumb-pain-terms.yaml (2026-11-16); re-checked 2026-11-17,
+      edition 20260801, active. In severity range (ECL << 272141005,
+      2026-11-17). Preferred term on this edition is "Moderate severity".
+  severe:
+    code: "24484000"
+    term: Severe
+    fsn: Severe (severity modifier) (qualifier value)
+    match: "="
+    verified: true
+    source: >
+      Workbench thumb-pain-terms.yaml (2026-11-16); re-checked 2026-11-17,
+      edition 20260801, active. In severity range (ECL << 272141005,
+      2026-11-17).
+  gradual:
+    code: "61751001"
+    term: Gradual onset
+    fsn: Gradual onset (qualifier value)
+    match: "?"
+    verified: true
+    source: >
+      Workbench thumb-pain-terms.yaml (2026-11-16); re-checked 2026-11-17,
+      edition 20260801, active. In clinical-course range (ECL << 288524001,
+      2026-11-17). Match is inexact because the Clinergy value is "gradual".
+  sudden:
+    code: "385315009"
+    term: Sudden onset
+    fsn: Sudden onset (qualifier value)
+    match: "?"
+    verified: true
+    source: >
+      Workbench thumb-pain-terms.yaml (2026-11-16); re-checked 2026-11-17,
+      edition 20260801, active. In clinical-course range (ECL << 288524001,
+      2026-11-17).
+  rapid:
+    code: "1384228004"
+    term: Rapid onset
+    fsn: Rapid onset (qualifier value)
+    match: "?"
+    verified: true
+    source: >
+      Workbench thumb-pain-terms.yaml (2026-11-16); re-checked 2026-11-17,
+      edition 20260801, active. In clinical-course range (ECL << 288524001,
+      2026-11-17).
+  day:
+    code: "258703001"
+    term: day
+    fsn: day (qualifier value)
+    match: "="
+    verified: true
+    note: >
+      Verified unit concept only. Not written into expressions; see
+      descriptors.Duration.
+    source: >
+      Workbench thumb-pain-terms.yaml (2026-11-16); re-checked 2026-11-17,
+      edition 20260801, active.
+  week:
+    code: "258705008"
+    term: week
+    fsn: week (qualifier value)
+    match: "="
+    verified: true
+    note: >
+      Verified unit concept only. Not written into expressions; see
+      descriptors.Duration.
+    source: >
+      Workbench thumb-pain-terms.yaml (2026-11-16); re-checked 2026-11-17,
+      edition 20260801, active.
