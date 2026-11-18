@@ -22,7 +22,7 @@ console.log(`capture-log commit=${commit}`);
 
 const cssBase = readFileSync(join(process.cwd(), "public/zipehr-css/zipehr-html5-short.css"), "utf8");
 const cssQuiet = readFileSync(join(process.cwd(), "public/zipehr-css/zipehr-html5-quiet-structure.css"), "utf8");
-const css = composeQuietStructureCss(cssBase, cssQuiet);
+const css = await composeQuietStructureCss(cssBase, cssQuiet);
 
 const state = gpVisitState();
 const findings = findingsFromState(state, painForm.diagnoses);
@@ -36,7 +36,7 @@ async function previewHtml(lang) {
   const narrative = lang === "sv" ? svNarrative : enNarrative;
   const built = buildVisit(state, narrative, lang);
   const markup = await canonicalToZipehrHtml5(built.canonical, { templateRenderLang: lang });
-  return buildQuietZipehrPreviewDocument(markup, css, {
+  return await buildQuietZipehrPreviewDocument(markup, css, {
     quietStructureTooltips: true,
     templateRenderLang: lang,
   });

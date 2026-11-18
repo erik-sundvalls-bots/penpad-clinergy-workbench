@@ -1,5 +1,5 @@
 import type { NoteLanguage } from "../exam/phrases.ts";
-import { buildZipehrPreviewDocument } from "../../vendor/ehrtslib/ehrtslib-0.14.0.min.js";
+import { loadEhrtslib } from "./ehrtslib-loader.ts";
 import { WORKBENCH_ZIPEHR_LABEL_SV } from "./workbench-zipehr-l10n.ts";
 
 /** Wall-clock DV_DATE_TIME for tests (aligns with ehrtslib ZipEHR display, not host TZ). */
@@ -120,14 +120,15 @@ function postprocessQuietMarkup(markup: string, lang: NoteLanguage): string {
   return out;
 }
 
-export function buildQuietZipehrPreviewDocument(
+export async function buildQuietZipehrPreviewDocument(
   markup: string,
   css: string,
   options?: QuietZipehrPreviewOptions,
-): string {
+): Promise<string> {
   const lang = options?.templateRenderLang ?? "en";
   const processed = options?.quietStructureTooltips ? postprocessQuietMarkup(markup, lang) : markup;
-  const doc = buildZipehrPreviewDocument(processed, css, {
+  const vendor = await loadEhrtslib();
+  const doc = vendor.buildZipehrPreviewDocument(processed, css, {
     quietStructureTooltips: options?.quietStructureTooltips,
   });
   const domScript = `<script>${ZIP_QUIET_DOM_SCRIPT}</script>`;

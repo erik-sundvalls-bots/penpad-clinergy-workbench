@@ -42,25 +42,24 @@ import {
   downloadBasenameForTab,
   type EhrFormatTab,
 } from "./openehr/ehr-format-tabs.ts";
+import { loadEhrtslib, prefetchEhrtslib } from "./openehr/ehrtslib-loader.ts";
 import type { CdrProfile, SimplifiedViewFlavour } from "./openehr/view-types.ts";
-import { validateComposition } from "./openehr/validate.ts";
 import {
   ZIP_CSS_SELECT_OPTIONS,
   ZIP_EHR_HTML5_VARIANT,
   ZIP_VARIANT_OPTIONS,
-  buildQuietZipehrPreviewDocument,
-  canonicalToZipehr,
-  composeQuietStructureCss,
-  isZipehrMarkupVariant,
-  resolveZipehrCssFile,
-  zipehrDownloadBasename,
-  zipehrDownloadMime,
   ZIP_DEFAULT_CSS,
   ZIP_QUIET_CSS,
   zipehrTextStats,
   type ZipehrVariant,
-} from "./openehr/zipehr.ts";
-import { languageFromCanonical } from "./openehr/zipehr-template.ts";
+} from "./openehr/zipehr-constants.ts";
+import {
+  isZipehrMarkupVariant,
+  resolveZipehrCssFile,
+  zipehrDownloadBasename,
+  zipehrDownloadMime,
+} from "./openehr/zipehr-ui.ts";
+import { languageFromCanonical } from "./openehr/zipehr-lang.ts";
 import { term } from "./openehr/terms.ts";
 import gpOptUrl from "../templates/gp-encounter.opt?url";
 import { buildQuestionnaireExport } from "./fhir/questionnaire.ts";
@@ -96,6 +95,8 @@ let cachedZipehrCss = "";
 let cachedZipehrRenderLang: "en" | "sv" = "en";
 let canonicalForSimplified: Record<string, unknown> | null = null;
 let cachedSnomedExpressions: string[] = [];
+let ehrVendorReady = false;
+let ehrVendorPaintGen = 0;
 let fhirTab: "bundle" | "questionnaire" | "response" | "symptoms" = "bundle";
 let fhirJson = "";
 let fhirCanonical: Record<string, unknown> | null = null;
@@ -103,6 +104,7 @@ let fhirNarrative = "";
 root.innerHTML = page();
 wire();
 paint();
+scheduleEhrtslibPrefetch();
 
 function page(): string {
   return `
@@ -226,7 +228,7 @@ function page(): string {
             <pre id="zipehr-code" class="json zipehr-code" hidden></pre>
             <iframe id="zipehr-document" class="zipehr-document" title="ZipEHR document view" sandbox="allow-same-origin"></iframe>
           </div>
-          <p id="ehr-badge" class="note"></p>
+          <p id="ehr-badge" class="note">Loading openEHR…</p>
           <p id="ehr-errors" class="missing"></p>
         </section>
         <section class="panel" id="fhir-panel">
@@ -770,7 +772,8 @@ function setZipehrVariant(variant: ZipehrVariant): void {
 }
 
 async function refreshZipehrSerializedOutput(): Promise<void> {
-  if (!canonicalForSimplified) return;
+  if (!canonicalForSimplified || !ehrVendorReady) return;
+  const { canonicalToZipehr } = await import("./openehr/zipehr.ts");
   try {
     cachedZipehrHtml = await canonicalToZipehr(canonicalForSimplified, zipehrVariant, {
       templateRenderLang: cachedZipehrRenderLang,
@@ -819,6 +822,7 @@ async function loadZipehrStylesheet(): Promise<string> {
   };
   if (file === ZIP_QUIET_CSS) {
     const [base, quiet] = await Promise.all([fetchCss(ZIP_DEFAULT_CSS), fetchCss(ZIP_QUIET_CSS)]);
+    const { composeQuietStructureCss } = await import("./openehr/zipehr.ts");
     return composeQuietStructureCss(base, quiet);
   }
   return fetchCss(file);
@@ -833,18 +837,34 @@ async function refreshZipehrDocument(): Promise<void> {
   try {
     const css = await loadZipehrStylesheet();
     cachedZipehrCss = css;
-    frame.srcdoc = buildQuietZipehrPreviewDocument(cachedZipehrHtml, css, {
+    const { buildQuietZipehrPreviewDocument } = await import("./openehr/zipehr.ts");
+    frame.srcdoc = await buildQuietZipehrPreviewDocument(cachedZipehrHtml, css, {
       quietStructureTooltips: quiet,
       templateRenderLang: cachedZipehrRenderLang,
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
-    frame.srcdoc = buildQuietZipehrPreviewDocument(
+    const { buildQuietZipehrPreviewDocument } = await import("./openehr/zipehr.ts");
+    frame.srcdoc = await buildQuietZipehrPreviewDocument(
       cachedZipehrHtml,
       `/* ${message} */\n`,
       { templateRenderLang: cachedZipehrRenderLang },
     );
   }
+}
+
+function scheduleEhrtslibPrefetch(): void {
+  const start = () => {
+    prefetchEhrtslib();
+    void loadEhrtslib().then(() => {
+      ehrVendorReady = true;
+      const findings = currentFindings();
+      const english = summaryLines(findings, "en");
+      void paintEhrVendor(++ehrVendorPaintGen, findings, english);
+    });
+  };
+  if (typeof requestIdleCallback === "function") requestIdleCallback(start);
+  else setTimeout(start, 1);
 }
 
 function applyFormClick(form: FindingForm, button: HTMLButtonElement): void {
@@ -1089,22 +1109,34 @@ function paintGalen(findings: Finding[]): void {
   host.innerHTML = `<table class="bindings"><thead><tr><th>Clinergy</th><th>OpenGALEN</th><th>SNOMED CT</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
-function paintEhr(findings: Finding[], _english: string[]): void {
+function paintEhr(findings: Finding[], english: string[]): void {
   const narrative = historyNarrativeText(findings, "en");
   const result = buildVisit(state, narrative);
   canonicalForSimplified = result.canonical;
   cachedZipehrRenderLang = languageFromCanonical(result.canonical);
-  const checked = validateComposition(result.canonical);
   const jsonText = JSON.stringify(result.canonical, null, 2);
   cachedCanonicalJson = jsonText;
   const pre = document.querySelector("#ehr");
   if (pre) pre.textContent = jsonText;
-  refreshSimplifiedOutput();
   const canonicalStats = document.querySelector("#ehr-canonical-stats");
   if (canonicalStats) {
     const stats = zipehrTextStats(jsonText);
     canonicalStats.textContent = `${stats.characters.toLocaleString()} characters · ${stats.lines.toLocaleString()} lines`;
   }
+  const badge = document.querySelector("#ehr-badge");
+  if (badge && !ehrVendorReady) badge.textContent = "Loading openEHR…";
+  paintFhir(result.canonical, narrative);
+  if (!ehrVendorReady) return;
+  void paintEhrVendor(++ehrVendorPaintGen, findings, english);
+}
+
+async function paintEhrVendor(gen: number, findings: Finding[], _english: string[]): Promise<void> {
+  if (!canonicalForSimplified) return;
+  const narrative = historyNarrativeText(findings, "en");
+  const canonical = canonicalForSimplified;
+  const { validateComposition } = await import("./openehr/validate.ts");
+  const checked = await validateComposition(canonical);
+  if (gen !== ehrVendorPaintGen) return;
   const badge = document.querySelector("#ehr-badge");
   if (badge) {
     badge.textContent = checked.valid
@@ -1116,24 +1148,23 @@ function paintEhr(findings: Finding[], _english: string[]): void {
     const lines = checked.errors.concat(checked.warnings).map((issue) => `${issue.severity}: ${issue.path} — ${issue.message}`);
     errors.textContent = lines.join("\n");
   }
-  paintFhir(result.canonical, narrative);
-  void (async () => {
-    try {
-      const { canonicalToXml } = await import("./openehr/serialization-views.ts");
-      cachedXml = await canonicalToXml(result.canonical);
-    } catch (error) {
-      const message = error instanceof Error ? error.message : String(error);
-      cachedXml = `<!-- XML serialize failed: ${message} -->`;
-    }
-    const xmlPre = document.querySelector("#ehr-xml");
-    if (xmlPre) xmlPre.textContent = cachedXml;
-    const xmlStats = document.querySelector("#ehr-xml-stats");
-    if (xmlStats) {
-      const stats = zipehrTextStats(cachedXml);
-      xmlStats.textContent = `${stats.characters.toLocaleString()} characters · ${stats.lines.toLocaleString()} lines`;
-    }
-    await refreshZipehrSerializedOutput();
-  })();
+  refreshSimplifiedOutput();
+  try {
+    const { canonicalToXml } = await import("./openehr/serialization-views.ts");
+    cachedXml = await canonicalToXml(canonical);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    cachedXml = `<!-- XML serialize failed: ${message} -->`;
+  }
+  if (gen !== ehrVendorPaintGen) return;
+  const xmlPre = document.querySelector("#ehr-xml");
+  if (xmlPre) xmlPre.textContent = cachedXml;
+  const xmlStats = document.querySelector("#ehr-xml-stats");
+  if (xmlStats) {
+    const stats = zipehrTextStats(cachedXml);
+    xmlStats.textContent = `${stats.characters.toLocaleString()} characters · ${stats.lines.toLocaleString()} lines`;
+  }
+  await refreshZipehrSerializedOutput();
 }
 
 function paintFhir(canonical: Record<string, unknown>, narrative: string): void {

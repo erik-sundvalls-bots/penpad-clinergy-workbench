@@ -22,13 +22,13 @@ const expectedById: Record<string, unknown> = {
 
 describe("FerroEHR regression cases (canonical)", () => {
   for (const item of ferroRegressionCases) {
-    it(`${item.id} matches the accepted canonical composition and validates`, () => {
+    it(`${item.id} matches the accepted canonical composition and validates`, async () => {
       const result = buildThumbEncounter(item.state, item.narrative);
       expect(result.canonical).toEqual(expectedById[item.id]);
       expect(JSON.stringify(result.canonical)).not.toContain('"match":"~"');
       const names = result.canonical.content as { name: { value: string }; items: unknown[] }[];
       expect(names.every((section) => section.items.length > 0)).toBe(true);
-      const checked = validateComposition(result.canonical);
+      const checked = await validateComposition(result.canonical);
       expect(checked.errors, JSON.stringify(checked.errors, null, 2)).toEqual([]);
       expect(checked.warnings, JSON.stringify(checked.warnings, null, 2)).toEqual([]);
     });

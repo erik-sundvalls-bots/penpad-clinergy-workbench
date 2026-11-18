@@ -13,7 +13,7 @@ describe("ZipEHR html5.short (demo options)", () => {
       const templateId = (built.canonical.archetype_details as { template_id?: { value?: string } })
         ?.template_id?.value;
       expect(html).toContain(templateId ?? "thumb-pain-encounter.v2");
-      const roundTrip = zipehrHtml5ToCanonicalRecord(html);
+      const roundTrip = await zipehrHtml5ToCanonicalRecord(html);
       expect(roundTrip).toEqual(built.canonical);
     });
   }

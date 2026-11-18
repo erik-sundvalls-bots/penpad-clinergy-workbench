@@ -117,6 +117,23 @@ describe("workbench UI (preview)", () => {
     await page.close();
   });
 
+  it("paints summaries and canonical JSON before ehrtslib finishes, then fills validation", async () => {
+    const page = await browser.newPage({ viewport: { width: 1480, height: 1100 } });
+    await page.goto(baseUrl, { waitUntil: "domcontentloaded" });
+    await page.locator("#load-gp").click();
+    const en = await page.locator("#summary-en").innerText();
+    expect(en).toMatch(/Pain in right thumb/i);
+    const ehr = await page.locator("#ehr").innerText();
+    expect(ehr).toContain("COMPOSITION");
+    const badge = page.locator("#ehr-badge");
+    const badgeText = await badge.innerText();
+    expect(badgeText === "Loading openEHR…" || badgeText.startsWith("ehrtslib:")).toBe(true);
+    await expect
+      .poll(async () => badge.innerText(), { timeout: 30_000 })
+      .toMatch(/^ehrtslib: (valid|invalid)/);
+    await page.close();
+  });
+
   it("defaults ZipEHR panel and toggles Code/Document visibility by variant", async () => {
     const page = await browser.newPage({ viewport: { width: 1480, height: 1100 } });
     await page.goto(baseUrl, { waitUntil: "networkidle" });
