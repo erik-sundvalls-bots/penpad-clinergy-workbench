@@ -26,6 +26,51 @@ async function waitForPreview(timeoutMs = 60_000): Promise<void> {
 }
 
 describe("workbench UI (preview)", () => {
+  it("does not render the former topic bar", async () => {
+    const page = await browser.newPage();
+    await page.goto(baseUrl, { waitUntil: "networkidle" });
+    expect(await page.locator(".picks").count()).toBe(0);
+    await page.close();
+  });
+
+  it("translates duration units in SV form-label mode", async () => {
+    const page = await browser.newPage({ viewport: { width: 1280, height: 800 } });
+    await page.goto(baseUrl, { waitUntil: "networkidle" });
+    await page.locator("#load-gp").click();
+    await page.waitForTimeout(300);
+    await page.locator("#ui-sv-labels").check();
+    await page.waitForTimeout(300);
+    expect(await page.locator('select[data-unit="ThumbSprain"] option[value="day"]').innerText()).toBe("dagar");
+    expect(await page.locator('select[data-unit="ThumbSprain"] option[value="week"]').innerText()).toBe("veckor");
+    expect(await page.locator("#diagnoses-heading").innerText()).toBe("Diagnoser");
+    await page.close();
+  });
+
+  it("shows human labels on the fracture detail form", async () => {
+    const page = await browser.newPage({ viewport: { width: 1280, height: 800 } });
+    await page.goto(baseUrl, { waitUntil: "networkidle" });
+    await page.locator('[data-group="diagnosis"][data-item="ThumbFracture"][data-value="possible"]').click();
+    await page.waitForTimeout(300);
+    const text = await page.locator("#disease-details").innerText();
+    expect(text).toContain("Healing");
+    expect(text).toContain("partially healed");
+    expect(text).not.toMatch(/AbsoluteHealingCharacter/i);
+    expect(text).not.toMatch(/partially Healed/);
+    expect(await page.locator("#disease-details h2").innerText()).toBe("Thumb fracture");
+    await page.close();
+  });
+
+  it("shows fracture detail when diagnosis is possible and hides it when excluded", async () => {
+    const page = await browser.newPage({ viewport: { width: 1280, height: 800 } });
+    await page.goto(baseUrl, { waitUntil: "networkidle" });
+    await page.locator('[data-group="diagnosis"][data-item="ThumbFracture"][data-value="possible"]').click();
+    await page.waitForTimeout(300);
+    expect(await page.locator("#disease-details h2", { hasText: /fracture/i }).count()).toBe(1);
+    await page.locator('[data-group="diagnosis"][data-item="ThumbFracture"][data-value="excluded"]').click();
+    await page.waitForTimeout(300);
+    expect(await page.locator("#disease-details h2", { hasText: /fracture/i }).count()).toBe(0);
+    await page.close();
+  });
   beforeAll(async () => {
     execSync("npm run build", { cwd: process.cwd(), stdio: "inherit" });
     preview = spawn("npm", ["run", "preview"], {
@@ -69,6 +114,23 @@ describe("workbench UI (preview)", () => {
     expect(sv.toLowerCase()).toContain("bultande");
     expect(sv).toContain("Stukning av höger tumme");
     expect(sv).not.toContain("Tumstukning");
+    await page.close();
+  });
+
+  it("paints summaries and canonical JSON before ehrtslib finishes, then fills validation", async () => {
+    const page = await browser.newPage({ viewport: { width: 1480, height: 1100 } });
+    await page.goto(baseUrl, { waitUntil: "domcontentloaded" });
+    await page.locator("#load-gp").click();
+    const en = await page.locator("#summary-en").innerText();
+    expect(en).toMatch(/Pain in right thumb/i);
+    const ehr = await page.locator("#ehr").innerText();
+    expect(ehr).toContain("COMPOSITION");
+    const badge = page.locator("#ehr-badge");
+    const badgeText = await badge.innerText();
+    expect(badgeText === "Loading openEHR…" || badgeText.startsWith("ehrtslib:")).toBe(true);
+    await expect
+      .poll(async () => badge.innerText(), { timeout: 30_000 })
+      .toMatch(/^ehrtslib: (valid|invalid)/);
     await page.close();
   });
 

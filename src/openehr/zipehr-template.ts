@@ -1,31 +1,38 @@
 import gpOptXml from "../../templates/gp-encounter.opt?raw";
 import thumbOptXml from "../../templates/thumb-pain.opt?raw";
-import { parser, serialization } from "../../vendor/ehrtslib/ehrtslib-0.14.0.min.js";
+import { loadEhrtslib } from "./ehrtslib-loader.ts";
 import { GP_TEMPLATE_ID } from "./template.ts";
 
-const thumbParsed = parser.parseOptXml(thumbOptXml);
-const gpParsed = parser.parseOptXml(gpOptXml);
+export interface ZipehrTemplateContext {
+  operationalTemplate: unknown;
+  webTemplate: unknown;
+}
 
-const thumbTemplate = {
-  operationalTemplate: thumbParsed.operationalTemplate,
-  webTemplate: serialization.buildWebTemplate(thumbParsed.operationalTemplate),
-};
+let thumbTemplate: ZipehrTemplateContext | null = null;
+let gpTemplate: ZipehrTemplateContext | null = null;
 
-const gpTemplate = {
-  operationalTemplate: gpParsed.operationalTemplate,
-  webTemplate: serialization.buildWebTemplate(gpParsed.operationalTemplate),
-};
+async function ensureTemplates(): Promise<{ thumb: ZipehrTemplateContext; gp: ZipehrTemplateContext }> {
+  if (thumbTemplate && gpTemplate) return { thumb: thumbTemplate, gp: gpTemplate };
+  const vendor = await loadEhrtslib();
+  const thumbParsed = vendor.parser.parseOptXml(thumbOptXml);
+  const gpParsed = vendor.parser.parseOptXml(gpOptXml);
+  thumbTemplate = {
+    operationalTemplate: thumbParsed.operationalTemplate,
+    webTemplate: vendor.serialization.buildWebTemplate(thumbParsed.operationalTemplate),
+  };
+  gpTemplate = {
+    operationalTemplate: gpParsed.operationalTemplate,
+    webTemplate: vendor.serialization.buildWebTemplate(gpParsed.operationalTemplate),
+  };
+  return { thumb: thumbTemplate, gp: gpTemplate };
+}
 
-export type ZipehrTemplateContext = typeof thumbTemplate;
-
-export function zipehrTemplateForCanonical(
+export async function zipehrTemplateForCanonical(
   canonical: Record<string, unknown>,
-): ZipehrTemplateContext {
+): Promise<ZipehrTemplateContext> {
+  const { thumb, gp } = await ensureTemplates();
   const details = canonical.archetype_details as { template_id?: { value?: string } } | undefined;
-  return details?.template_id?.value === GP_TEMPLATE_ID ? gpTemplate : thumbTemplate;
+  return details?.template_id?.value === GP_TEMPLATE_ID ? gp : thumb;
 }
 
-export function languageFromCanonical(canonical: Record<string, unknown>): "en" | "sv" {
-  const lang = canonical.language as { code_string?: string } | undefined;
-  return lang?.code_string === "sv" ? "sv" : "en";
-}
+export { languageFromCanonical } from "./zipehr-lang.ts";

@@ -3,7 +3,19 @@ import handUrl from "../data/Mus_hand.png";
 import { onExamination } from "./exam/prose.ts";
 import { buildFhirBundle } from "./fhir/bundle.ts";
 import { validateFhirBundle } from "./fhir/validate.ts";
-import { formOf, visitPicks } from "./forms/catalog.ts";
+import { formOf } from "./forms/catalog.ts";
+import {
+  choiceButtonLabel,
+  diagnosisRowLabel,
+  diseaseFormHeading,
+  durationUnitKeys,
+  durationUnitLabel,
+  featureLabel,
+  skipFeatureRow,
+  uiString,
+  type UiLang,
+} from "./form-labels.ts";
+import { syncDiseaseFormAnswers, visibleDiseaseDetailTopics } from "./visit-forms.ts";
 import {
   conceptLabel,
   knowledge,
@@ -30,25 +42,24 @@ import {
   downloadBasenameForTab,
   type EhrFormatTab,
 } from "./openehr/ehr-format-tabs.ts";
+import { loadEhrtslib, prefetchEhrtslib } from "./openehr/ehrtslib-loader.ts";
 import type { CdrProfile, SimplifiedViewFlavour } from "./openehr/view-types.ts";
-import { validateComposition } from "./openehr/validate.ts";
 import {
   ZIP_CSS_SELECT_OPTIONS,
   ZIP_EHR_HTML5_VARIANT,
   ZIP_VARIANT_OPTIONS,
-  buildQuietZipehrPreviewDocument,
-  canonicalToZipehr,
-  composeQuietStructureCss,
-  isZipehrMarkupVariant,
-  resolveZipehrCssFile,
-  zipehrDownloadBasename,
-  zipehrDownloadMime,
   ZIP_DEFAULT_CSS,
   ZIP_QUIET_CSS,
   zipehrTextStats,
   type ZipehrVariant,
-} from "./openehr/zipehr.ts";
-import { languageFromCanonical } from "./openehr/zipehr-template.ts";
+} from "./openehr/zipehr-constants.ts";
+import {
+  isZipehrMarkupVariant,
+  resolveZipehrCssFile,
+  zipehrDownloadBasename,
+  zipehrDownloadMime,
+} from "./openehr/zipehr-ui.ts";
+import { languageFromCanonical } from "./openehr/zipehr-lang.ts";
 import { term } from "./openehr/terms.ts";
 import gpOptUrl from "../templates/gp-encounter.opt?url";
 import { buildQuestionnaireExport } from "./fhir/questionnaire.ts";
@@ -62,37 +73,6 @@ import { render, type Finding } from "../vendor/sentence.ts";
 import { examMoreFilled, painMoreLayerFilled, swellingMoreFilled } from "./form-fill.ts";
 import { historyNarrativeText, summaryLines } from "./summary.ts";
 
-const FEATURE_LABEL: Record<string, string> = {
-  laterality: "Laterality",
-  sublocation: "Sublocation",
-  QuantityDuration: "Duration",
-  AbsolutePainDescriptor: "Character",
-  AbsoluteSeverity: "Severity",
-  AbsoluteFrequency: "Frequency",
-  AbsoluteOnset: "Onset",
-  AbsoluteProgress: "Progress",
-  AbsoluteProcessPattern: "Pattern",
-  AbsoluteConsistency: "Consistency",
-  AbsoluteTexture: "Texture",
-};
-
-const UNITS: Array<[string, string]> = [
-  ["second", "seconds"],
-  ["minute", "minutes"],
-  ["hour", "hours"],
-  ["day", "days"],
-  ["week", "weeks"],
-  ["month", "months"],
-  ["year", "years"],
-];
-
-const SUMMARY_WORDS: Record<string, string> = {
-  presence: "present",
-  absence: "absent",
-  possible: "possible",
-  excluded: "excluded",
-};
-
 const GALEN_BROWSER = "https://erik-sundvalls-bots.github.io/opengalen-browser/#concept=";
 
 const app = document.querySelector<HTMLElement>("#app");
@@ -100,6 +80,7 @@ if (!app) throw new Error("missing #app");
 const root: HTMLElement = app;
 
 let state = emptyState();
+let uiLang: UiLang = "en";
 let ehrFormatTab: EhrFormatTab = "zipehr";
 let simplifiedCdrProfile: CdrProfile = "better";
 let simplifiedFlavour: SimplifiedViewFlavour = "structured";
@@ -114,6 +95,8 @@ let cachedZipehrCss = "";
 let cachedZipehrRenderLang: "en" | "sv" = "en";
 let canonicalForSimplified: Record<string, unknown> | null = null;
 let cachedSnomedExpressions: string[] = [];
+let ehrVendorReady = false;
+let ehrVendorPaintGen = 0;
 let fhirTab: "bundle" | "questionnaire" | "response" | "symptoms" = "bundle";
 let fhirJson = "";
 let fhirCanonical: Record<string, unknown> | null = null;
@@ -121,27 +104,19 @@ let fhirNarrative = "";
 root.innerHTML = page();
 wire();
 paint();
+scheduleEhrtslibPrefetch();
 
 function page(): string {
   return `
   <div class="wrap">
     <header class="mast">
       <h1>PEN&amp;PAD + Clinergy experimental workbench</h1>
-      <p>Fill a Clinergy general-practice visit. Thumb pain, swelling, examination and diagnoses can be combined. Summary sentences, including On Examination, OpenGALEN bindings, SNOMED CT expressions, openEHR and FHIR update as you click. Nothing is installed and nothing is saved on a server.</p>
+      <p>Fill a Clinergy general-practice visit: thumb pain, swelling and examination are always here; use Diagnoses (present/possible) to open sprain or fracture detail. Summary sentences, On Examination, OpenGALEN bindings, SNOMED CT expressions, openEHR and FHIR update as you click. Nothing is installed and nothing is saved on a server.</p>
     </header>
     <div class="layout">
       <section class="window" aria-label="Thumb pain form">
         <div class="titlebar"><span>Clinergy GP</span><span>experimental</span></div>
         <p class="patient">No 13459. Mr John Parsons — demo patient from the public walkthrough</p>
-        <div class="picks" role="group" aria-label="Forms in this visit">
-          ${visitPicks.map((pick) =>
-            `<button type="button" class="choice pick" data-pick="${escapeAttr(pick.id)}" aria-pressed="false">${escapeText(pick.label)} <span class="kind">${escapeText(pick.kind)}</span></button>`
-          ).join("")}
-        </div>
-        <div class="tabs">
-          <button type="button" class="tab" aria-selected="false" disabled>Topics</button>
-          <button type="button" class="tab" aria-selected="true">Visit</button>
-        </div>
         <div class="form-grid">
           <div>
             ${descriptors(painForm.firstLayer, painForm.moreLayer)}
@@ -149,8 +124,8 @@ function page(): string {
             ${historyAndExam()}
             ${diagnoses()}
             <div id="disease-details"></div>
-            <h2 class="side-label">Comment</h2>
-            <textarea id="comment" class="comment-box" aria-label="Comment" placeholder="Stored on the examination when one is recorded. Not part of the generated sentence."></textarea>
+            <h2 class="side-label" id="comment-heading">Comment</h2>
+            <textarea id="comment" class="comment-box" aria-label="Comment" placeholder="Free-text comment"></textarea>
           </div>
         </div>
         <div class="actions">
@@ -169,6 +144,7 @@ function page(): string {
           <h2>Svenska (Swedish)</h2>
           <p id="summary-sv" class="sv-sentence" lang="sv" aria-live="polite"></p>
           <p id="sv-missing" class="missing"></p>
+          <label class="ui-lang-toggle"><input type="checkbox" id="ui-sv-labels" /> Swedish form labels</label>
         </section>
         <section class="panel" id="openehr-panel">
           <h2>openEHR</h2>
@@ -252,7 +228,7 @@ function page(): string {
             <pre id="zipehr-code" class="json zipehr-code" hidden></pre>
             <iframe id="zipehr-document" class="zipehr-document" title="ZipEHR document view" sandbox="allow-same-origin"></iframe>
           </div>
-          <p id="ehr-badge" class="note"></p>
+          <p id="ehr-badge" class="note">Loading openEHR…</p>
           <p id="ehr-errors" class="missing"></p>
         </section>
         <section class="panel" id="fhir-panel">
@@ -285,9 +261,9 @@ function page(): string {
 }
 
 function descriptors(first: { feature?: string; values: unknown[]; multiple?: boolean }[], more: typeof first): string {
-  const rows = first.map((row) => featureRow("pain", row)).join("");
-  const moreRows = more.map((row) => featureRow("pain", row)).join("");
-  return `<fieldset class="group" data-show="ThumbPainSymptom">
+  const rows = first.map((row) => featureRow("pain", row, "en")).join("");
+  const moreRows = more.map((row) => featureRow("pain", row, "en")).join("");
+  return `<fieldset class="group">
     <h2>Descriptors</h2>
     <div class="hand"><img src="${handUrl}" alt="Line drawing of a hand, palm up, thumb on the left" /><span>Location: thumb</span></div>
     <div class="field">
@@ -309,21 +285,24 @@ function answerForm(group: string): FindingForm {
   return state.formAnswers[group];
 }
 
-function featureRow(group: string, row: { feature?: string; values: unknown[]; multiple?: boolean }): string {
-  if (!row.feature) return "";
+function featureRow(
+  group: string,
+  row: { feature?: string; values: unknown[]; multiple?: boolean },
+  lang: UiLang = uiLang,
+): string {
+  if (!row.feature || skipFeatureRow(row.feature)) return "";
   const feature = row.feature;
-  const label = FEATURE_LABEL[feature] ?? feature;
+  const label = featureLabel(feature, lang);
   const lat = feature === "laterality" ? " lat" : "";
-  if (feature === "QuantityTimeOcc") {
-    return `<p class="note">Time of occurrence is on this form. It is not stored: the extract has no clock time, and problem/diagnosis onset is a date/time.</p>`;
-  }
   if (feature === "QuantityDuration") {
-    return `<div class="field"><span class="field-name">${label}</span><span class="duration">
-      <button type="button" class="spin" data-spin="${group}" data-dir="-1" aria-label="Decrease duration">◂</button>
-      <input id="${group}-duration" inputmode="numeric" aria-label="${label}" data-duration="${group}" />
-      <button type="button" class="spin" data-spin="${group}" data-dir="1" aria-label="Increase duration">▸</button>
-      <select class="unit" data-unit="${group}" aria-label="Duration unit">${
-      UNITS.map(([key, word]) => `<option value="${key}">${word}</option>`).join("")
+    return `<div class="field"><span class="field-name">${escapeText(label)}</span><span class="duration">
+      <button type="button" class="spin" data-spin="${group}" data-dir="-1" aria-label="${escapeAttr(uiString("decreaseDuration", lang))}">◂</button>
+      <input id="${group}-duration" inputmode="numeric" aria-label="${escapeAttr(label)}" data-duration="${group}" />
+      <button type="button" class="spin" data-spin="${group}" data-dir="1" aria-label="${escapeAttr(uiString("increaseDuration", lang))}">▸</button>
+      <select class="unit" data-unit="${group}" aria-label="${escapeAttr(uiString("durationUnitAria", lang))}">${
+      durationUnitKeys().map((key) =>
+        `<option value="${key}">${escapeText(durationUnitLabel(key, lang))}</option>`
+      ).join("")
     }</select>
     </span></div>`;
   }
@@ -331,13 +310,13 @@ function featureRow(group: string, row: { feature?: string; values: unknown[]; m
   const buttons = values.map((value) =>
     `<button type="button" class="choice" data-group="${group}" data-feature="${escapeAttr(feature)}" data-value="${
       escapeAttr(value)
-    }" data-multiple="${row.multiple ? "true" : "false"}" aria-pressed="false">${escapeText(buttonLabel(value))}</button>`
+    }" data-multiple="${row.multiple ? "true" : "false"}" aria-pressed="false">${escapeText(choiceButtonLabel(value, lang))}</button>`
   ).join("");
   return `<div class="field"><span class="field-name${lat}">${escapeText(label)}</span>${buttons}</div>`;
 }
 
 function associated(): string {
-  return `<fieldset class="group" data-show="ThumbSwellingSymptom">
+  return `<fieldset class="group">
     <h2>Associated symptoms</h2>
     <div class="field">
       <span class="field-name">Thumb swelling</span>
@@ -350,7 +329,7 @@ function associated(): string {
 }
 
 function historyAndExam(): string {
-  return `<fieldset class="group" data-show="ThumbExam">
+  return `<fieldset class="group">
     <h2>Examinations</h2>
     <div class="field"><span class="field-name">Left thumb</span>
       ${examStatusButtons("left")}
@@ -360,7 +339,6 @@ function historyAndExam(): string {
       ${examStatusButtons("right")}
       <button type="button" class="choice" data-exam-open="right">more…</button>
     </div>
-    <p class="note">Further history (FH, PMH, SH) and Interventions are on the 1998 screen. This extract has no rows for them.</p>
   </fieldset>`;
 }
 
@@ -372,17 +350,20 @@ function examStatusButtons(side: "left" | "right"): string {
   ).join("");
 }
 
-function diagnoses(): string {
-  const rows = painForm.diagnoses.map((link) => {
-    const label = link.item.replace(/([a-z0-9])([A-Z])/g, "$1 $2");
+function diagnosisRowsHtml(lang: UiLang = uiLang): string {
+  return painForm.diagnoses.map((link) => {
+    const label = diagnosisRowLabel(link, lang);
     const buttons = ["presence", "possible", "excluded"].map((value) =>
       `<button type="button" class="choice" data-group="diagnosis" data-item="${escapeAttr(link.item)}" data-value="${value}" aria-pressed="false">${
-        SUMMARY_WORDS[value]
+        escapeText(choiceButtonLabel(value, lang))
       }</button>`
     ).join("");
     return `<div class="field"><span class="field-name">${escapeText(label)}</span>${buttons}</div>`;
   }).join("");
-  return `<fieldset class="group" data-show="ThumbPainSymptom"><h2>Diagnoses</h2>${rows}</fieldset>`;
+}
+
+function diagnoses(): string {
+  return `<fieldset class="group"><h2 id="diagnoses-heading">Diagnoses</h2><div id="diagnosis-rows">${diagnosisRowsHtml("en")}</div></fieldset>`;
 }
 
 function swellingDialog(): string {
@@ -414,7 +395,6 @@ function swellingDialog(): string {
           <button type="button" class="choice" data-group="stiffness" data-value="absence" aria-pressed="false">absent</button>
           <button type="button" class="choice" data-group="stiffness" data-value="presence" aria-pressed="false">present</button>
         </div>
-        <p class="note">Pain, tenderness and erythema are criterial links. The sentence generator does not turn them into summary prose (the rule token descAdverb is not handled). Joint stiffness is a separate finding and does get a sentence.</p>
       </fieldset>
     </div>
     <div class="actions">
@@ -453,7 +433,6 @@ function examDialog(): string {
       <fieldset class="group">
         <h2>Thumb joint</h2>
         ${movements}
-        <p class="note">These movement rows are the ones in the 1998 demo. They are written into the On Examination block of the summary.</p>
       </fieldset>
     </div>
   </dialog>`;
@@ -466,6 +445,7 @@ function about(): string {
     <p>Clinergy content is © 1997-8 Semantic Technologies Ltd / Victoria University of Manchester. Only a small extract (the thumb pain, swelling, sign and diagnosis forms, the sentence rules those forms need, and the terminology bindings) is included, and only for demonstration.</p>
     <p>OpenGALEN names link to the <a href="https://erik-sundvalls-bots.github.io/opengalen-browser/">OpenGALEN browser</a> (<code>#concept=Name</code>). Pre-coordinated SNOMED CT codes link to the public browser. Post-coordinated expressions are built in the page from a reviewed map (clinergy-extractor PR #13); they are not sent to a terminology server, and unverified codes are listed as unmapped rather than guessed. Swedish wording is ours and has not had a native-speaker review. The English summary is the only narrative stored in the composition, and it is also the QuestionnaireResponse narrative and the Symptom Logical Model <code>symptomDescription</code>.</p>
     <p>The FHIR panel exports the whole visit as an R4 collection Bundle, a FHIR R4 Questionnaire and a live QuestionnaireResponse for the published thumb form (<a href="https://github.com/erik-sundvalls-bots/clinergy-extractor/issues/7">clinergy-extractor #7</a>), and a <a href="https://build.fhir.org/ig/HL7/fhir-symptoms-ig/en/StructureDefinition-SymptomLogicalModel.html">Symptoms IG Symptom Logical Model</a> instance for the current finding (<a href="https://github.com/erik-sundvalls-bots/clinergy-extractor/issues/8">#8</a>). Unmapped elements are listed rather than guessed. These are shape-checked in the page; they are not sent to a FHIR server.</p>
+    <p>This extract omits further history (family, past medical and social history) and interventions from the full 1998 screen. Fracture time-of-occurrence is not stored in openEHR here (the published extract has no clock time). Swelling consequence toggles are criterial links only; they do not appear in generated sentences. Joint stiffness does. Examination movements follow the public walkthrough demo.</p>
   </section>`;
 }
 
@@ -482,14 +462,6 @@ function wire(): void {
     }
     if (button.id === "load-gp") {
       state = gpVisitState();
-      paint();
-      return;
-    }
-    if (button.dataset.pick) {
-      const id = button.dataset.pick;
-      state.selectedForms = state.selectedForms.includes(id)
-        ? state.selectedForms.filter((topic) => topic !== id)
-        : [...state.selectedForms, id];
       paint();
       return;
     }
@@ -641,7 +613,9 @@ function wire(): void {
       }
     }
     if (button.dataset.group === "diagnosis" && button.dataset.item && button.dataset.value) {
-      state.diagnoses[button.dataset.item] = toggleChoice(state.diagnoses[button.dataset.item] ?? null, button.dataset.value);
+      const item = button.dataset.item;
+      state.diagnoses[item] = toggleChoice(state.diagnoses[item] ?? null, button.dataset.value);
+      syncDiseaseFormAnswers(state, item);
       paint();
       return;
     }
@@ -712,6 +686,14 @@ function wire(): void {
     const form = answerForm(target.dataset.unit);
     form.durationUnit = target.value;
     paintOutputs();
+  });
+
+  root.addEventListener("change", (event) => {
+    const target = event.target;
+    if (target instanceof HTMLInputElement && target.id === "ui-sv-labels") {
+      uiLang = target.checked ? "sv" : "en";
+      paint();
+    }
   });
 
   applyEhrFormatTab(document, ehrFormatTab);
@@ -790,7 +772,8 @@ function setZipehrVariant(variant: ZipehrVariant): void {
 }
 
 async function refreshZipehrSerializedOutput(): Promise<void> {
-  if (!canonicalForSimplified) return;
+  if (!canonicalForSimplified || !ehrVendorReady) return;
+  const { canonicalToZipehr } = await import("./openehr/zipehr.ts");
   try {
     cachedZipehrHtml = await canonicalToZipehr(canonicalForSimplified, zipehrVariant, {
       templateRenderLang: cachedZipehrRenderLang,
@@ -839,6 +822,7 @@ async function loadZipehrStylesheet(): Promise<string> {
   };
   if (file === ZIP_QUIET_CSS) {
     const [base, quiet] = await Promise.all([fetchCss(ZIP_DEFAULT_CSS), fetchCss(ZIP_QUIET_CSS)]);
+    const { composeQuietStructureCss } = await import("./openehr/zipehr.ts");
     return composeQuietStructureCss(base, quiet);
   }
   return fetchCss(file);
@@ -853,18 +837,34 @@ async function refreshZipehrDocument(): Promise<void> {
   try {
     const css = await loadZipehrStylesheet();
     cachedZipehrCss = css;
-    frame.srcdoc = buildQuietZipehrPreviewDocument(cachedZipehrHtml, css, {
+    const { buildQuietZipehrPreviewDocument } = await import("./openehr/zipehr.ts");
+    frame.srcdoc = await buildQuietZipehrPreviewDocument(cachedZipehrHtml, css, {
       quietStructureTooltips: quiet,
       templateRenderLang: cachedZipehrRenderLang,
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
-    frame.srcdoc = buildQuietZipehrPreviewDocument(
+    const { buildQuietZipehrPreviewDocument } = await import("./openehr/zipehr.ts");
+    frame.srcdoc = await buildQuietZipehrPreviewDocument(
       cachedZipehrHtml,
       `/* ${message} */\n`,
       { templateRenderLang: cachedZipehrRenderLang },
     );
   }
+}
+
+function scheduleEhrtslibPrefetch(): void {
+  const start = () => {
+    prefetchEhrtslib();
+    void loadEhrtslib().then(() => {
+      ehrVendorReady = true;
+      const findings = currentFindings();
+      const english = summaryLines(findings, "en");
+      void paintEhrVendor(++ehrVendorPaintGen, findings, english);
+    });
+  };
+  if (typeof requestIdleCallback === "function") requestIdleCallback(start);
+  else setTimeout(start, 1);
 }
 
 function applyFormClick(form: FindingForm, button: HTMLButtonElement): void {
@@ -890,18 +890,34 @@ function examSide(name: string): ExamSide {
   return name === "right" ? state.exam.right : state.exam.left;
 }
 
+function paintDurationUnitLabels(): void {
+  for (const select of document.querySelectorAll<HTMLSelectElement>("select[data-unit]")) {
+    const value = select.value;
+    for (const option of select.options) {
+      option.textContent = durationUnitLabel(option.value, uiLang);
+    }
+    select.setAttribute("aria-label", uiString("durationUnitAria", uiLang));
+    if (value) select.value = value;
+  }
+}
+
 function paint(): void {
-  for (const section of document.querySelectorAll<HTMLElement>("[data-show]")) {
-    const id = section.dataset.show ?? "";
-    section.hidden = !state.selectedForms.includes(id);
-  }
-  for (const button of document.querySelectorAll<HTMLButtonElement>("[data-pick]")) {
-    const on = state.selectedForms.includes(button.dataset.pick ?? "");
-    button.setAttribute("aria-pressed", on ? "true" : "false");
-  }
+  const diag = document.querySelector("#diagnosis-rows");
+  if (diag) diag.innerHTML = diagnosisRowsHtml(uiLang);
   const details = document.querySelector("#disease-details");
   if (details) details.innerHTML = diseaseDetails();
+  const svToggle = document.querySelector<HTMLInputElement>("#ui-sv-labels");
+  if (svToggle) svToggle.checked = uiLang === "sv";
+  const diagHeading = document.querySelector("#diagnoses-heading");
+  if (diagHeading) diagHeading.textContent = uiString("diagnosesHeading", uiLang);
+  const commentHeading = document.querySelector("#comment-heading");
+  if (commentHeading) commentHeading.textContent = uiString("commentAria", uiLang);
   const comment = document.querySelector<HTMLTextAreaElement>("#comment");
+  if (comment) {
+    comment.placeholder = uiString("commentPlaceholder", uiLang);
+    comment.setAttribute("aria-label", uiString("commentAria", uiLang));
+  }
+  paintDurationUnitLabels();
   if (comment && document.activeElement !== comment) comment.value = state.comment;
   const more = document.querySelector<HTMLElement>("#pain-more-layer");
   const moreButton = document.querySelector<HTMLButtonElement>("#pain-more");
@@ -1024,14 +1040,14 @@ function englishText(): string {
 }
 
 function diseaseDetails(): string {
-  const topics = ["ThumbSprain", "ThumbFracture"].filter((topic) => state.selectedForms.includes(topic));
+  const topics = visibleDiseaseDetailTopics(state);
   return topics.map((topic) => {
     const form = formOf(topic);
     if (!form) return "";
     const rows = [...(form.firstLayer ?? []), ...(form.moreLayer ?? [])]
-      .map((row) => featureRow(topic, row))
+      .map((row) => featureRow(topic, row, uiLang))
       .join("");
-    return `<fieldset class="group"><h2>${escapeText(form.display)}</h2>${rows}</fieldset>`;
+    return `<fieldset class="group"><h2>${escapeText(diseaseFormHeading(topic, uiLang))}</h2>${rows}</fieldset>`;
   }).join("");
 }
 
@@ -1093,22 +1109,34 @@ function paintGalen(findings: Finding[]): void {
   host.innerHTML = `<table class="bindings"><thead><tr><th>Clinergy</th><th>OpenGALEN</th><th>SNOMED CT</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
-function paintEhr(findings: Finding[], _english: string[]): void {
+function paintEhr(findings: Finding[], english: string[]): void {
   const narrative = historyNarrativeText(findings, "en");
   const result = buildVisit(state, narrative);
   canonicalForSimplified = result.canonical;
   cachedZipehrRenderLang = languageFromCanonical(result.canonical);
-  const checked = validateComposition(result.canonical);
   const jsonText = JSON.stringify(result.canonical, null, 2);
   cachedCanonicalJson = jsonText;
   const pre = document.querySelector("#ehr");
   if (pre) pre.textContent = jsonText;
-  refreshSimplifiedOutput();
   const canonicalStats = document.querySelector("#ehr-canonical-stats");
   if (canonicalStats) {
     const stats = zipehrTextStats(jsonText);
     canonicalStats.textContent = `${stats.characters.toLocaleString()} characters · ${stats.lines.toLocaleString()} lines`;
   }
+  const badge = document.querySelector("#ehr-badge");
+  if (badge && !ehrVendorReady) badge.textContent = "Loading openEHR…";
+  paintFhir(result.canonical, narrative);
+  if (!ehrVendorReady) return;
+  void paintEhrVendor(++ehrVendorPaintGen, findings, english);
+}
+
+async function paintEhrVendor(gen: number, findings: Finding[], _english: string[]): Promise<void> {
+  if (!canonicalForSimplified) return;
+  const narrative = historyNarrativeText(findings, "en");
+  const canonical = canonicalForSimplified;
+  const { validateComposition } = await import("./openehr/validate.ts");
+  const checked = await validateComposition(canonical);
+  if (gen !== ehrVendorPaintGen) return;
   const badge = document.querySelector("#ehr-badge");
   if (badge) {
     badge.textContent = checked.valid
@@ -1120,24 +1148,23 @@ function paintEhr(findings: Finding[], _english: string[]): void {
     const lines = checked.errors.concat(checked.warnings).map((issue) => `${issue.severity}: ${issue.path} — ${issue.message}`);
     errors.textContent = lines.join("\n");
   }
-  paintFhir(result.canonical, narrative);
-  void (async () => {
-    try {
-      const { canonicalToXml } = await import("./openehr/serialization-views.ts");
-      cachedXml = await canonicalToXml(result.canonical);
-    } catch (error) {
-      const message = error instanceof Error ? error.message : String(error);
-      cachedXml = `<!-- XML serialize failed: ${message} -->`;
-    }
-    const xmlPre = document.querySelector("#ehr-xml");
-    if (xmlPre) xmlPre.textContent = cachedXml;
-    const xmlStats = document.querySelector("#ehr-xml-stats");
-    if (xmlStats) {
-      const stats = zipehrTextStats(cachedXml);
-      xmlStats.textContent = `${stats.characters.toLocaleString()} characters · ${stats.lines.toLocaleString()} lines`;
-    }
-    await refreshZipehrSerializedOutput();
-  })();
+  refreshSimplifiedOutput();
+  try {
+    const { canonicalToXml } = await import("./openehr/serialization-views.ts");
+    cachedXml = await canonicalToXml(canonical);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    cachedXml = `<!-- XML serialize failed: ${message} -->`;
+  }
+  if (gen !== ehrVendorPaintGen) return;
+  const xmlPre = document.querySelector("#ehr-xml");
+  if (xmlPre) xmlPre.textContent = cachedXml;
+  const xmlStats = document.querySelector("#ehr-xml-stats");
+  if (xmlStats) {
+    const stats = zipehrTextStats(cachedXml);
+    xmlStats.textContent = `${stats.characters.toLocaleString()} characters · ${stats.lines.toLocaleString()} lines`;
+  }
+  await refreshZipehrSerializedOutput();
 }
 
 function paintFhir(canonical: Record<string, unknown>, narrative: string): void {
@@ -1189,12 +1216,6 @@ function paintFhir(canonical: Record<string, unknown>, narrative: string): void 
     const lines = check.errors.concat(check.warnings).map((issue) => `${issue.path} — ${issue.message}`).concat(extra);
     errors.textContent = lines.join("\n");
   }
-}
-
-function buttonLabel(value: string): string {
-  if (value === "leftSelection") return "left";
-  if (value === "rightSelection") return "right";
-  return conceptLabel(value);
 }
 
 function escapeText(value: string): string {

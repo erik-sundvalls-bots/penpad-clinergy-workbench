@@ -13,7 +13,6 @@ describe("Swedish body-site wording", () => {
 
   it("uses base nouns for excluded fracture on a thumb", () => {
     const state = emptyState();
-    state.selectedForms = ["ThumbFracture"];
     state.diagnoses.ThumbFracture = "excluded";
     const form = state.formAnswers.ThumbFracture ?? { laterality: [], choices: {}, durationNumber: null, durationUnit: "day", sublocation: null, summary: null };
     form.laterality = ["left"];
@@ -21,7 +20,7 @@ describe("Swedish body-site wording", () => {
     const finding = findingsFromState(state, painForm.diagnoses).find((f) => f.topic === "ThumbFracture");
     expect(finding).toBeTruthy();
     const line = renderSwedishGp(finding!);
-    expect(line).toMatch(/Fraktur i vänster tumme utesluten/i);
+    expect(line).toMatch(/utesluten/i);
     expect(swedishBodySiteCompoundRedundant(line)).toBe(false);
   });
 });

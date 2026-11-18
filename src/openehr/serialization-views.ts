@@ -1,24 +1,23 @@
 import optXml from "../../templates/thumb-pain.opt?raw";
 import type { CdrProfile, SimplifiedViewFlavour } from "./view-types.ts";
+import { loadEhrtslib, type EhrtslibModule } from "./ehrtslib-loader.ts";
 
 export type { CdrProfile, SimplifiedViewFlavour };
 
-type Vendor = typeof import("../../vendor/ehrtslib/ehrtslib-0.14.0.min.js");
-
 interface SerializationDeps {
-  vendor: Vendor;
+  vendor: EhrtslibModule;
   operationalTemplate: unknown;
-  xmlSerializer: InstanceType<Vendor["XmlSerializer"]>;
-  xmlDeserializer: InstanceType<Vendor["XmlDeserializer"]>;
-  jsonDeserializer: InstanceType<Vendor["serialization"]["JsonConfigurableDeserializer"]>;
-  jsonSerializer: InstanceType<Vendor["serialization"]["JsonConfigurableSerializer"]>;
+  xmlSerializer: InstanceType<EhrtslibModule["XmlSerializer"]>;
+  xmlDeserializer: InstanceType<EhrtslibModule["XmlDeserializer"]>;
+  jsonDeserializer: InstanceType<EhrtslibModule["serialization"]["JsonConfigurableDeserializer"]>;
+  jsonSerializer: InstanceType<EhrtslibModule["serialization"]["JsonConfigurableSerializer"]>;
 }
 
 let depsPromise: Promise<SerializationDeps> | null = null;
 
 function loadDeps(): Promise<SerializationDeps> {
   if (!depsPromise) {
-    depsPromise = import("../../vendor/ehrtslib/ehrtslib-0.14.0.min.js").then((vendor) => {
+    depsPromise = loadEhrtslib().then((vendor) => {
       const operationalTemplate = vendor.parser.parseOptXml(optXml).operationalTemplate;
       const xmlSerializer = new vendor.XmlSerializer({
         prettyPrint: true,

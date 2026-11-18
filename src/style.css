@@ -82,20 +82,6 @@ a:hover { text-decoration: none; }
   font-size: 0.82rem;
 }
 
-.picks {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  padding: 8px 10px 0;
-}
-
-.pick .kind {
-  display: block;
-  font-size: 0.72rem;
-  font-weight: 500;
-  opacity: 0.8;
-}
-
 .tabs {
   display: flex;
   gap: 4px;
@@ -579,6 +565,12 @@ dialog .body { padding: 10px; overflow: auto; max-height: calc(100vh - 120px); }
 dialog .actions { padding: 0 10px 10px; }
 
 .note { font-size: 0.88rem; color: #333; }
+
+.ui-lang-toggle {
+  display: block;
+  margin-top: 0.75rem;
+  font-size: 0.88rem;
+}
 
 @media (max-width: 980px) {
   .layout, .form-grid { grid-template-columns: 1fr; }

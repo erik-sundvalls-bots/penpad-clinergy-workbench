@@ -89,15 +89,15 @@ describe("thumb encounter composition", () => {
     expect(codes.filter((c) => c === "ThumbSprain")).toHaveLength(1);
   });
 
-  it("accepts the demo composition against the coded OPT", () => {
+  it("accepts the demo composition against the coded OPT", async () => {
     const result = buildThumbEncounter(demoState(), "Pain in right thumb");
-    const checked = validateComposition(result.canonical);
+    const checked = await validateComposition(result.canonical);
     expect(checked.errors, JSON.stringify(checked.errors, null, 2)).toEqual([]);
     expect(checked.warnings, JSON.stringify(checked.warnings, null, 2)).toEqual([]);
     expect(checked.valid).toBe(true);
   });
 
-  it("flags an injected empty section", () => {
+  it("flags an injected empty section", async () => {
     const result = buildThumbEncounter(emptyState(), "Thumb pain");
     const cloned = JSON.parse(JSON.stringify(result.canonical)) as { content: unknown[] };
     cloned.content.push({
@@ -106,18 +106,18 @@ describe("thumb encounter composition", () => {
       archetype_node_id: "openEHR-EHR-SECTION.adhoc.v1",
       items: [],
     });
-    const checked = validateComposition(cloned);
+    const checked = await validateComposition(cloned);
     expect(checked.valid).toBe(false);
     expect(checked.errors.some((issue) => issue.message.includes("Items_valid"))).toBe(true);
   });
 
-  it("flags an injected inexact match that is not an openEHR match code", () => {
+  it("flags an injected inexact match that is not an openEHR match code", async () => {
     const result = buildThumbEncounter(demoState(), "Pain in right thumb");
     const cloned = JSON.parse(JSON.stringify(result.canonical)) as Record<string, unknown>;
     const mapping = firstMapping(cloned);
     expect(mapping).toBeTruthy();
     mapping!.match = "~";
-    const checked = validateComposition(cloned);
+    const checked = await validateComposition(cloned);
     expect(checked.valid).toBe(false);
     expect(checked.errors.some((issue) => issue.message.includes("Match_valid"))).toBe(true);
   });

@@ -31,7 +31,6 @@ function fillSwellingQualifiers(state: ReturnType<typeof emptyState>) {
 describe("present/absent toggles", () => {
   it("marks pain absent in EN/SV notes and openEHR screening, not story cluster", () => {
     const state = emptyState();
-    state.selectedForms = ["ThumbPainSymptom"];
     state.pain.laterality = ["right"];
     state.pain.summary = "absence";
     const findings = findingsFromState(state, painForm.diagnoses);
@@ -52,7 +51,6 @@ describe("present/absent toggles", () => {
 
   it("ignores qualifier answers on absent pain (EN/SV, story, symptom logical model)", () => {
     const state = emptyState();
-    state.selectedForms = ["ThumbPainSymptom"];
     state.pain.laterality = ["right"];
     state.pain.summary = "absence";
     fillPainQualifiers(state);
@@ -69,7 +67,6 @@ describe("present/absent toggles", () => {
 
   it("ignores qualifier answers on absent swelling", () => {
     const state = emptyState();
-    state.selectedForms = ["ThumbPainSymptom", "ThumbSwellingSymptom"];
     state.pain.laterality = ["right"];
     state.swelling.laterality = ["right"];
     state.swelling.summary = "absence";

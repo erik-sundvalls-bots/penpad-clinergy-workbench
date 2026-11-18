@@ -43,23 +43,6 @@ export interface ExamDefinition {
 const examDoc = parse(examsRaw) as Record<string, ExamDefinition>;
 export const examsByName: Record<string, ExamDefinition> = examDoc;
 
-/** A form the visit picker can turn on. Kinds are the YAML category, or exam. */
-export interface VisitPick {
-  id: string;
-  label: string;
-  kind: "symptom" | "sign" | "disease" | "exam";
-}
-
-export const visitPicks: VisitPick[] = [
-  { id: "ThumbPainSymptom", label: "Thumb pain", kind: "symptom" },
-  { id: "ThumbSwellingSymptom", label: "Thumb swelling", kind: "symptom" },
-  { id: "ThumbExam", label: "Examination", kind: "exam" },
-  { id: "ThumbSprain", label: "Thumb sprain", kind: "disease" },
-  { id: "ThumbFracture", label: "Thumb fracture", kind: "disease" },
-];
-
-export const defaultSelectedForms = ["ThumbPainSymptom", "ThumbSwellingSymptom", "ThumbExam"];
-
 export function formOf(topic: string): ClinergyForm | undefined {
   return formsByTopic[topic];
 }

@@ -25,7 +25,7 @@ async function main(): Promise<void> {
 
   for (const item of ferroRegressionCases) {
     const built = buildThumbEncounter(item.state, item.narrative);
-    const checked = validateComposition(built.canonical);
+    const checked = await validateComposition(built.canonical);
     if (!checked.valid) {
       throw new Error(`${item.id}: canonical validation failed: ${JSON.stringify(checked.errors)}`);
     }

@@ -20,7 +20,7 @@ mkdirSync(outDir, { recursive: true });
 const commit = process.env.CAPTURE_COMMIT ?? "unknown";
 console.log(`capture-log commit=${commit}`);
 
-const css = composeQuietStructureCss(
+const css = await composeQuietStructureCss(
   readFileSync(join(process.cwd(), "public/zipehr-css/zipehr-html5-short.css"), "utf8"),
   readFileSync(join(process.cwd(), "public/zipehr-css/zipehr-html5-quiet-structure.css"), "utf8"),
 );
@@ -39,7 +39,7 @@ async function quietDoc(lang) {
       : historyNarrativeText(findings, "en");
   const built = buildVisit(state, narrative, lang);
   const markup = await canonicalToZipehrHtml5(built.canonical, { templateRenderLang: lang });
-  return buildQuietZipehrPreviewDocument(markup, css, {
+  return await buildQuietZipehrPreviewDocument(markup, css, {
     quietStructureTooltips: true,
     templateRenderLang: lang,
   });

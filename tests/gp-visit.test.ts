@@ -20,8 +20,8 @@ const WALKTHROUGH_EXAM = [
   " Right thumb joint: flexion full range, mildly painful; extension reduced range; abduction reduced range",
 ].join("\n");
 
-function assertValid(canonical: Record<string, unknown>, label: string): void {
-  const checked = validateComposition(canonical);
+async function assertValid(canonical: Record<string, unknown>, label: string): Promise<void> {
+  const checked = await validateComposition(canonical);
   expect(checked.errors, `${label} errors ${JSON.stringify(checked.errors, null, 2)}`).toEqual([]);
   expect(checked.warnings, `${label} warnings ${JSON.stringify(checked.warnings, null, 2)}`).toEqual([]);
   expect(checked.valid).toBe(true);
@@ -32,10 +32,8 @@ describe("On Examination prose", () => {
     expect(onExamination(gpVisitState())).toBe(WALKTHROUGH_EXAM);
   });
 
-  it("stays empty when the examination form is not selected", () => {
-    const state = gpVisitState();
-    state.selectedForms = state.selectedForms.filter((topic) => topic !== "ThumbExam");
-    expect(onExamination(state)).toBe("");
+  it("stays empty when no examination answers are recorded", () => {
+    expect(onExamination(emptyState())).toBe("");
   });
 });
 
@@ -45,7 +43,7 @@ describe("general practice visit", () => {
     expect(buildVisit(demoState(), narrative).canonical).toEqual(buildThumbEncounter(demoState(), narrative).canonical);
   });
 
-  it("keeps Story to the history narrative", () => {
+  it("keeps Story to the history narrative", async () => {
     const state = gpVisitState();
     const findings = findingsFromState(state, painForm.diagnoses);
     const history = historyNarrativeText(
@@ -69,17 +67,17 @@ describe("general practice visit", () => {
     expect(coded).toContain("openEHR-EHR-CLUSTER.range_of_motion.v1");
     expect(coded).toContain("openEHR-EHR-EVALUATION.problem_diagnosis.v1");
     expect(coded).not.toMatch(/openEHR-EHR-EVALUATION\.recommendation/);
-    assertValid(built.canonical, "gp visit");
+    await assertValid(built.canonical, "gp visit");
   });
 
   it("round-trips the visit through ZipEHR html5 with no validation warnings", async () => {
     const state = gpVisitState();
     const built = buildVisit(state, "Pain in right thumb");
-    assertValid(built.canonical, "gp zipehr");
+    await assertValid(built.canonical, "gp zipehr");
     const html = await canonicalToZipehrHtml5(built.canonical);
     expect(html).toMatch(/<o-co[\s>]/);
     expect(html).toContain("gp-encounter.v1");
-    expect(zipehrHtml5ToCanonicalRecord(html)).toEqual(built.canonical);
+    expect(await zipehrHtml5ToCanonicalRecord(html)).toEqual(built.canonical);
   });
 
   it("round-trips the visit through canonical XML", async () => {
@@ -91,9 +89,8 @@ describe("general practice visit", () => {
     expect(await xmlToCanonicalRecord(xml)).toEqual(built.canonical);
   });
 
-  it("validates a fracture recorded only through the disease form", () => {
+  it("validates a fracture recorded only through the disease form", async () => {
     const state = emptyState();
-    state.selectedForms = ["ThumbPainSymptom", "ThumbFracture"];
     state.diagnoses.ThumbFracture = "presence";
     const fracture = emptyFinding();
     fracture.choices.AbsoluteHealingCharacter = "partiallyHealed";
@@ -103,19 +100,19 @@ describe("general practice visit", () => {
     expect(JSON.stringify(built.canonical)).toContain("ThumbFracture");
     expect(JSON.stringify(built.canonical)).toContain("partiallyHealed");
     expect(JSON.stringify(built.canonical)).toContain("at0047");
-    assertValid(built.canonical, "fracture");
+    await assertValid(built.canonical, "fracture");
   });
 
-  it("stores a comment on the examination cluster", () => {
+  it("stores a comment on the examination cluster", async () => {
     const state = emptyState();
     state.exam.right.status = "normal";
     state.comment = "Patient is right-handed.";
     const built = buildVisit(state, "Thumb pain");
     expect(JSON.stringify(built.canonical)).toContain("Patient is right-handed.");
-    assertValid(built.canonical, "comment");
+    await assertValid(built.canonical, "comment");
   });
 
-  it("records joint stiffness and a swelling consequence with the symptom generator", () => {
+  it("records joint stiffness and a swelling consequence with the symptom generator", async () => {
     const state = emptyState();
     state.stiffness = "presence";
     state.consequences.ConseqErythemaSign = "absence";
@@ -123,14 +120,14 @@ describe("general practice visit", () => {
     const coded = JSON.stringify(built.canonical);
     expect(coded).toContain("JointStiffnessSymptom");
     expect(coded).toContain("ConseqErythemaSign");
-    assertValid(built.canonical, "stiffness");
+    await assertValid(built.canonical, "stiffness");
   });
 
-  it("validates swelling, a movement examination and a sprain on their own", () => {
+  it("validates swelling, a movement examination and a sprain on their own", async () => {
     const swelling = emptyState();
     swelling.swelling.summary = "presence";
     swelling.swelling.laterality = ["left"];
-    assertValid(buildVisit(swelling, "Swelling of left thumb present").canonical, "swelling");
+    await assertValid(buildVisit(swelling, "Swelling of left thumb present").canonical, "swelling");
 
     const exam = emptyState();
     exam.exam.left.status = "normal";
@@ -138,12 +135,11 @@ describe("general practice visit", () => {
     const examined = buildVisit(exam, "Thumb pain");
     expect(historyStoryText(examined.canonical)).toBe("Thumb pain");
     expect(historyStoryText(examined.canonical)).not.toContain("normal");
-    assertValid(examined.canonical, "exam");
+    await assertValid(examined.canonical, "exam");
 
     const sprain = emptyState();
-    sprain.selectedForms = ["ThumbPainSymptom", "ThumbSprain"];
     sprain.diagnoses.ThumbSprain = "possible";
-    assertValid(buildVisit(sprain, "Possible thumb sprain").canonical, "sprain");
+    await assertValid(buildVisit(sprain, "Possible thumb sprain").canonical, "sprain");
   });
 });
 
@@ -195,7 +191,7 @@ describe("Swedish GP visit note", () => {
       .map((finding) => renderSwedishGp(finding))
       .join("\n");
     const built = buildVisit(state, history, "sv");
-    assertValid(built.canonical, "swedish visit");
+    await assertValid(built.canonical, "swedish visit");
     const story = historyStoryText(built.canonical) ?? "";
     expect(story).toContain("Smärta i höger tumme");
     expect(story).not.toContain("On Examination");
@@ -225,7 +221,7 @@ describe("Swedish GP visit note", () => {
       expect(joined, fragment).not.toContain(fragment);
     }
     const html = await canonicalToZipehrHtml5(built.canonical);
-    expect(zipehrHtml5ToCanonicalRecord(html)).toEqual(built.canonical);
+    expect(await zipehrHtml5ToCanonicalRecord(html)).toEqual(built.canonical);
   });
 });
 

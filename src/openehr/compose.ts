@@ -670,26 +670,13 @@ function examSides(state: WorkbenchState): Array<"left" | "right"> {
   return sides.length ? sides : ["left", "right"];
 }
 
-function diagnosisLinks(state: WorkbenchState): FormLink[] {
-  const selected = state.selectedForms?.length ? state.selectedForms : ["ThumbPainSymptom"];
-  const topics = selected.includes("ThumbPainSymptom")
-    ? ["ThumbPainSymptom", ...selected.filter((topic) => topic !== "ThumbPainSymptom")]
-    : selected;
-  const links: FormLink[] = [];
-  const seen = new Set<string>();
-  for (const topic of topics) {
-    const form = topic === "ThumbPainSymptom" ? painForm : formOf(topic);
-    if (!form?.diagnoses) continue;
-    for (const link of form.diagnoses) {
-      if (seen.has(link.item)) continue;
-      seen.add(link.item);
-      links.push(link);
-    }
-  }
-  return links;
+function diagnosisLinks(_state: WorkbenchState): FormLink[] {
+  return painForm.diagnoses;
 }
 
 function diseaseAnswer(state: WorkbenchState, link: FormLink): FindingForm | undefined {
+  const summary = state.diagnoses[link.item];
+  if (summary !== "presence" && summary !== "possible") return undefined;
   const key = link.preCoordinated ?? link.item;
   return state.formAnswers?.[key] ?? state.formAnswers?.[link.item];
 }
@@ -718,18 +705,7 @@ export function buildVisit(
   narrative: string,
   language: NoteLanguage = "en",
 ): ThumbComposition {
-  const selected = state.selectedForms ?? [];
-  const view: WorkbenchState = {
-    ...state,
-    pain: selected.length && !selected.includes("ThumbPainSymptom") ? emptyFinding() : state.pain,
-    swelling: selected.length && !selected.includes("ThumbSwellingSymptom") ? emptyFinding() : state.swelling,
-    stiffness: selected.length && !selected.includes("ThumbSwellingSymptom") ? null : state.stiffness,
-    consequences: selected.length && !selected.includes("ThumbSwellingSymptom") ? {} : state.consequences,
-    exam: selected.length && !selected.includes("ThumbExam")
-      ? { left: emptyExam(), right: emptyExam() }
-      : state.exam,
-  };
-  return buildThumbEncounter(view, narrative, { clinicalDescription: true, embedDiagnosisText: true, language });
+  return buildThumbEncounter(state, narrative, { clinicalDescription: true, embedDiagnosisText: true, language });
 }
 
 function isoDuration(n: number, unit: string): string {
