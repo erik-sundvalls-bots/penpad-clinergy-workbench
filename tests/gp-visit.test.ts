@@ -98,7 +98,7 @@ describe("general practice visit", () => {
     state.formAnswers.ThumbFracture = fracture;
     const built = buildVisit(state, "Thumb fracture");
     expect(JSON.stringify(built.canonical)).toContain("ThumbFracture");
-    expect(JSON.stringify(built.canonical)).toContain("partiallyHealed");
+    expect(JSON.stringify(built.canonical)).toContain("at0085");
     expect(JSON.stringify(built.canonical)).toContain("at0047");
     await assertValid(built.canonical, "fracture");
   });

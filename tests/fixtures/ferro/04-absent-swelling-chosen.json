@@ -258,7 +258,21 @@
                                 "value": "Clinergy"
                               },
                               "code_string": "ThumbSwellingSymptom"
-                            }
+                            },
+                            "mappings": [
+                              {
+                                "_type": "TERM_MAPPING",
+                                "match": "=",
+                                "target": {
+                                  "_type": "CODE_PHRASE",
+                                  "terminology_id": {
+                                    "_type": "TERMINOLOGY_ID",
+                                    "value": "Clinergy"
+                                  },
+                                  "code_string": "ThumbSwellingSymptom"
+                                }
+                              }
+                            ]
                           }
                         },
                         {
@@ -280,6 +294,18 @@
                               "code_string": "at0024"
                             },
                             "mappings": [
+                              {
+                                "_type": "TERM_MAPPING",
+                                "match": "=",
+                                "target": {
+                                  "_type": "CODE_PHRASE",
+                                  "terminology_id": {
+                                    "_type": "TERMINOLOGY_ID",
+                                    "value": "Clinergy"
+                                  },
+                                  "code_string": "absence"
+                                }
+                              },
                               {
                                 "_type": "TERM_MAPPING",
                                 "match": "=",

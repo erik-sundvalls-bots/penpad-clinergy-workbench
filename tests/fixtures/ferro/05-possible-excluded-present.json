@@ -249,6 +249,18 @@
                   "mappings": [
                     {
                       "_type": "TERM_MAPPING",
+                      "match": "=",
+                      "target": {
+                        "_type": "CODE_PHRASE",
+                        "terminology_id": {
+                          "_type": "TERMINOLOGY_ID",
+                          "value": "Clinergy"
+                        },
+                        "code_string": "ThumbSprain"
+                      }
+                    },
+                    {
+                      "_type": "TERM_MAPPING",
                       "match": "?",
                       "target": {
                         "_type": "CODE_PHRASE",
@@ -297,6 +309,18 @@
                         "code_string": "Thumb"
                       },
                       "mappings": [
+                        {
+                          "_type": "TERM_MAPPING",
+                          "match": "=",
+                          "target": {
+                            "_type": "CODE_PHRASE",
+                            "terminology_id": {
+                              "_type": "TERMINOLOGY_ID",
+                              "value": "Clinergy"
+                            },
+                            "code_string": "Thumb"
+                          }
+                        },
                         {
                           "_type": "TERM_MAPPING",
                           "match": "=",
@@ -417,6 +441,18 @@
                         "_type": "CODE_PHRASE",
                         "terminology_id": {
                           "_type": "TERMINOLOGY_ID",
+                          "value": "Clinergy"
+                        },
+                        "code_string": "Paronychia"
+                      }
+                    },
+                    {
+                      "_type": "TERM_MAPPING",
+                      "match": "=",
+                      "target": {
+                        "_type": "CODE_PHRASE",
+                        "terminology_id": {
+                          "_type": "TERMINOLOGY_ID",
                           "value": "OpenGALEN"
                         },
                         "code_string": "Paronychia"
@@ -472,6 +508,18 @@
                         "code_string": "Thumb"
                       },
                       "mappings": [
+                        {
+                          "_type": "TERM_MAPPING",
+                          "match": "=",
+                          "target": {
+                            "_type": "CODE_PHRASE",
+                            "terminology_id": {
+                              "_type": "TERMINOLOGY_ID",
+                              "value": "Clinergy"
+                            },
+                            "code_string": "Thumb"
+                          }
+                        },
                         {
                           "_type": "TERM_MAPPING",
                           "match": "=",
@@ -573,6 +621,18 @@
                     "code_string": "ThumbFracture"
                   },
                   "mappings": [
+                    {
+                      "_type": "TERM_MAPPING",
+                      "match": "=",
+                      "target": {
+                        "_type": "CODE_PHRASE",
+                        "terminology_id": {
+                          "_type": "TERMINOLOGY_ID",
+                          "value": "Clinergy"
+                        },
+                        "code_string": "ThumbFracture"
+                      }
+                    },
                     {
                       "_type": "TERM_MAPPING",
                       "match": ">",

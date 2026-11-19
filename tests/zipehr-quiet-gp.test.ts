@@ -29,7 +29,6 @@ const SV_ENGLISH_STRUCTURE = [
   "Problem/Diagnosis",
   "Recommendation",
   "Topic",
-  "Clinical management",
   "Clinical interpretation",
   "21 Oct 2021",
   "2 weeks",

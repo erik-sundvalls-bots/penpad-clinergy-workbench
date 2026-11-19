@@ -204,6 +204,18 @@
                                   "_type": "CODE_PHRASE",
                                   "terminology_id": {
                                     "_type": "TERMINOLOGY_ID",
+                                    "value": "Clinergy"
+                                  },
+                                  "code_string": "ThumbPainSymptom"
+                                }
+                              },
+                              {
+                                "_type": "TERM_MAPPING",
+                                "match": "=",
+                                "target": {
+                                  "_type": "CODE_PHRASE",
+                                  "terminology_id": {
+                                    "_type": "TERMINOLOGY_ID",
                                     "value": "SNOMED-CT"
                                   },
                                   "code_string": "300955002"
@@ -247,6 +259,18 @@
                                   "code_string": "Thumb"
                                 },
                                 "mappings": [
+                                  {
+                                    "_type": "TERM_MAPPING",
+                                    "match": "=",
+                                    "target": {
+                                      "_type": "CODE_PHRASE",
+                                      "terminology_id": {
+                                        "_type": "TERMINOLOGY_ID",
+                                        "value": "Clinergy"
+                                      },
+                                      "code_string": "Thumb"
+                                    }
+                                  },
                                   {
                                     "_type": "TERM_MAPPING",
                                     "match": "=",
@@ -300,6 +324,18 @@
                                       "_type": "CODE_PHRASE",
                                       "terminology_id": {
                                         "_type": "TERMINOLOGY_ID",
+                                        "value": "Clinergy"
+                                      },
+                                      "code_string": "rightSelection"
+                                    }
+                                  },
+                                  {
+                                    "_type": "TERM_MAPPING",
+                                    "match": "=",
+                                    "target": {
+                                      "_type": "CODE_PHRASE",
+                                      "terminology_id": {
+                                        "_type": "TERMINOLOGY_ID",
                                         "value": "OpenGALEN"
                                       },
                                       "code_string": "rightSelection"
@@ -341,6 +377,18 @@
                               "code_string": "gradual"
                             },
                             "mappings": [
+                              {
+                                "_type": "TERM_MAPPING",
+                                "match": "=",
+                                "target": {
+                                  "_type": "CODE_PHRASE",
+                                  "terminology_id": {
+                                    "_type": "TERMINOLOGY_ID",
+                                    "value": "Clinergy"
+                                  },
+                                  "code_string": "gradual"
+                                }
+                              },
                               {
                                 "_type": "TERM_MAPPING",
                                 "match": "=",
@@ -417,6 +465,18 @@
                                 "mappings": [
                                   {
                                     "_type": "TERM_MAPPING",
+                                    "match": "=",
+                                    "target": {
+                                      "_type": "CODE_PHRASE",
+                                      "terminology_id": {
+                                        "_type": "TERMINOLOGY_ID",
+                                        "value": "Clinergy"
+                                      },
+                                      "code_string": "infrequent"
+                                    }
+                                  },
+                                  {
+                                    "_type": "TERM_MAPPING",
                                     "match": "?",
                                     "target": {
                                       "_type": "CODE_PHRASE",
@@ -470,6 +530,18 @@
                                   "_type": "CODE_PHRASE",
                                   "terminology_id": {
                                     "_type": "TERMINOLOGY_ID",
+                                    "value": "Clinergy"
+                                  },
+                                  "code_string": "moderate"
+                                }
+                              },
+                              {
+                                "_type": "TERM_MAPPING",
+                                "match": "=",
+                                "target": {
+                                  "_type": "CODE_PHRASE",
+                                  "terminology_id": {
+                                    "_type": "TERMINOLOGY_ID",
                                     "value": "SNOMED-CT"
                                   },
                                   "code_string": "6736007"
@@ -497,6 +569,18 @@
                               "code_string": "achingPain"
                             },
                             "mappings": [
+                              {
+                                "_type": "TERM_MAPPING",
+                                "match": "=",
+                                "target": {
+                                  "_type": "CODE_PHRASE",
+                                  "terminology_id": {
+                                    "_type": "TERMINOLOGY_ID",
+                                    "value": "Clinergy"
+                                  },
+                                  "code_string": "achingPain"
+                                }
+                              },
                               {
                                 "_type": "TERM_MAPPING",
                                 "match": "?",
@@ -538,6 +622,18 @@
                                   "_type": "CODE_PHRASE",
                                   "terminology_id": {
                                     "_type": "TERMINOLOGY_ID",
+                                    "value": "Clinergy"
+                                  },
+                                  "code_string": "worse"
+                                }
+                              },
+                              {
+                                "_type": "TERM_MAPPING",
+                                "match": "=",
+                                "target": {
+                                  "_type": "CODE_PHRASE",
+                                  "terminology_id": {
+                                    "_type": "TERMINOLOGY_ID",
                                     "value": "SNOMED-CT"
                                   },
                                   "code_string": "231877006"
@@ -565,6 +661,18 @@
                               "code_string": "single"
                             },
                             "mappings": [
+                              {
+                                "_type": "TERM_MAPPING",
+                                "match": "=",
+                                "target": {
+                                  "_type": "CODE_PHRASE",
+                                  "terminology_id": {
+                                    "_type": "TERMINOLOGY_ID",
+                                    "value": "Clinergy"
+                                  },
+                                  "code_string": "single"
+                                }
+                              },
                               {
                                 "_type": "TERM_MAPPING",
                                 "match": "=",

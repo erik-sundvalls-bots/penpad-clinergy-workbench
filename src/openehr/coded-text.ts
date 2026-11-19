@@ -87,10 +87,24 @@ const CLUSTER_VALUE_KEYS = new Set([
   "soft", "firm", "hard", "fluctuant",
   "smooth", "rough", "nodular", "irregular",
   "full", "reduced", "limited", "minimal", "fixed",
+  "better", "same", "worse",
+  "healed", "partiallyHealed", "nonHealed",
 ]);
+
+const QUALIFIER_SV: Record<string, string> = {
+  better: "Förbättras",
+  same: "Stabil",
+  worse: "Försämras",
+  healed: "Gått tillbaka",
+  partiallyHealed: "Resolution",
+  nonHealed: "Ej resolution",
+};
 
 /** English rubrics for EN compositions; Swedish only for new cluster value sets. */
 export function localCodedText(_at: string, text: string, language: NoteLanguage, clinergyKey?: string): string {
+  if (language === "sv" && clinergyKey && QUALIFIER_SV[clinergyKey]) {
+    return QUALIFIER_SV[clinergyKey];
+  }
   if (language === "sv" && clinergyKey && CLUSTER_VALUE_KEYS.has(clinergyKey)) {
     return localValueRubric(clinergyKey, text, language);
   }

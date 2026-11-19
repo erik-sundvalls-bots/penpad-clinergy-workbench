@@ -548,6 +548,33 @@ terms:
       source: SNOMED CT International via HL7 Nordics https://tx-nordics.fhir.org/fhir/r4 CodeSystem/$lookup
         (display, FSN designation 900000000000003001, inactive) and CodeSystem/$validate-code. Edition
         http://snomed.info/sct/900000000000207008/version/20260801. Checked active on 2026-11-16.
+  healed:
+    clinergy: healed
+    preferred: Healed
+    opengalen:
+      verified: false
+      note: healed is not in the verified OpenGALEN extract.
+    snomed:
+      verified: false
+      note: Not mapped for this demo; coded as problem_qualifier at0084 Resolved.
+  partiallyHealed:
+    clinergy: partiallyHealed
+    preferred: Partially healed
+    opengalen:
+      verified: false
+      note: partiallyHealed is not in the verified OpenGALEN extract.
+    snomed:
+      verified: false
+      note: Not mapped for this demo; coded as problem_qualifier at0085 Resolving.
+  nonHealed:
+    clinergy: nonHealed
+    preferred: Not healed
+    opengalen:
+      verified: false
+      note: nonHealed is not in the verified OpenGALEN extract.
+    snomed:
+      verified: false
+      note: Not mapped for this demo; coded as problem_qualifier at0086 Not resolving.
   worse:
     clinergy: worse
     preferred: Worse

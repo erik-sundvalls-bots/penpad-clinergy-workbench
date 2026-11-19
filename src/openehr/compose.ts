@@ -1,10 +1,11 @@
 import { examinationProseForSide, movementKeys, presenceKey, type NoteLanguage } from "../exam/prose.ts";
-import { localizePlan } from "../exam/phrases.ts";
 import { displayOf, examsByName, formOf } from "../forms/catalog.ts";
 import { knowledge, painForm, swellingForm, type FormLink } from "../knowledge.ts";
 import { render, type Finding } from "../../vendor/sentence.ts";
 import { renderEnglishGp } from "../en/gp-sentence.ts";
 import { renderSwedishGp } from "../sv/gp-sentence.ts";
+import { findingsFromState } from "../model.ts";
+import { historyNarrativeText } from "../summary.ts";
 import { emptyExam, emptyFinding, type ExamSide, type FindingForm, type WorkbenchState } from "../model.ts";
 import { term, type Term } from "./terms.ts";
 import { GP_TEMPLATE_ID, TEMPLATE_ID } from "./template.ts";
@@ -38,6 +39,18 @@ const PROGRESS: Record<string, [string, string]> = {
   better: ["at0181", "Improving"],
   same: ["at0182", "Unchanged"],
   worse: ["at0183", "Worsening"],
+};
+/** CKM problem_qualifier.v2 Progression at0102. */
+const QUALIFIER_PROGRESS: Record<string, [string, string]> = {
+  better: ["at0103", "Improving"],
+  same: ["at0104", "Stable"],
+  worse: ["at0105", "Worsening"],
+};
+/** CKM problem_qualifier.v2 Resolution phase at0083. */
+const QUALIFIER_HEALING: Record<string, [string, string]> = {
+  healed: ["at0084", "Resolved"],
+  partiallyHealed: ["at0085", "Resolving"],
+  nonHealed: ["at0086", "Not resolving"],
 };
 const FREQUENCY: Record<string, [string, string]> = {
   infrequent: ["at0002", "Infrequent"],
@@ -138,10 +151,10 @@ export function buildThumbEncounter(
       ? diagnosisSentence(link, status, language, answer?.laterality ?? [])
       : "";
     if (status === "excluded") exclusions.push(exclusionEvaluation(key, touch));
-    else problems.push(problemEvaluation(key, link.location, status === "possible", touch, answer, sentence, language));
+    else problems.push(problemEvaluation(key, link, status === "possible", touch, answer, sentence, state, language));
   }
 
-  const planText = localizePlan(state.plan?.trim() ?? "", language);
+  const planText = state.plan?.trim() ?? "";
   const planItems = planText ? [recommendationEvaluation(planText, touch, language)] : [];
   const content = [
     section("History", historyItems),
@@ -476,13 +489,15 @@ function diagnosisSentence(
 
 function problemEvaluation(
   key: string,
-  location: string | null,
+  link: FormLink,
   suspected: boolean,
   touch: (key: string) => void,
-  answer?: FindingForm,
-  sentence = "",
+  answer: FindingForm | undefined,
+  sentence: string,
+  state: WorkbenchState,
   language: NoteLanguage = "en",
 ): Record<string, unknown> {
+  const location = link.location;
   const laterality = answer?.laterality?.length ? answer.laterality : [];
   const items = [
     element("at0002", rmLabel(language, "Problem/Diagnosis name", "Diagnosnamn"), writeCoded(key, touch, language)),
@@ -495,9 +510,20 @@ function problemEvaluation(
       element("at0005", rmLabel(language, "Severity", "Svårighetsgrad"), writeLocal(code, text, severity, touch, language)),
     );
   }
-  const note = [sentence, unmappedDiseaseText(answer)].filter((part) => part && part.length > 0).join(". ");
-  if (note) {
-    items.push(element("at0009", rmLabel(language, "Clinical description", "Klinisk beskrivning"), dvText(note)));
+  const onset = problemDiagnosisOnset(state, link, answer);
+  if (onset) {
+    items.push(
+      element(
+        "at0077",
+        rmLabel(language, "Date/time of onset", "Datum/tid för debut"),
+        { _type: "DV_DATE_TIME", value: onset },
+      ),
+    );
+  }
+  const qualifier = problemQualifierCluster(answer, touch, language);
+  if (qualifier) items.push(qualifier);
+  if (sentence) {
+    items.push(element("at0009", rmLabel(language, "Clinical description", "Klinisk beskrivning"), dvText(sentence)));
   }
   if (suspected) {
     items.push(
@@ -529,11 +555,6 @@ function recommendationEvaluation(
     "openEHR-EHR-EVALUATION.recommendation.v2",
     rmLabel(language, "Recommendation", "Rekommendation"),
     [
-      element(
-        "at0006",
-        rmLabel(language, "Topic", "Ämne"),
-        dvText(rmLabel(language, "Clinical management", "Klinisk handläggning")),
-      ),
       element("at0002", rmLabel(language, "Recommendation", "Rekommendation"), dvText(text)),
     ],
     language,
@@ -572,6 +593,9 @@ function writeLocal(
 function mappingList(row: Term | undefined): Record<string, unknown>[] {
   if (!row) return [];
   const out: Record<string, unknown>[] = [];
+  if (row.clinergy) {
+    out.push(termMapping("=", "Clinergy", row.clinergy));
+  }
   if (row.opengalen.verified && row.opengalen.name) {
     out.push(termMapping(openEhrMatch(row.opengalen.match), "OpenGALEN", row.opengalen.name));
   }
@@ -748,18 +772,119 @@ function diseaseAnswer(state: WorkbenchState, link: FormLink): FindingForm | und
   return state.formAnswers?.[key] ?? state.formAnswers?.[link.item];
 }
 
-/** Disease-form values that problem_diagnosis has no element for. */
-function unmappedDiseaseText(answer: FindingForm | undefined): string | null {
+function problemQualifierCluster(
+  answer: FindingForm | undefined,
+  touch: (key: string) => void,
+  language: NoteLanguage,
+): Record<string, unknown> | null {
   if (!answer) return null;
-  const bits: string[] = [];
-  if (answer.durationNumber != null && answer.durationNumber > 0) {
-    bits.push(`duration ${answer.durationNumber} ${answer.durationUnit}`);
-  }
+  const items: Record<string, unknown>[] = [];
   const progress = answer.choices?.AbsoluteProgress;
-  if (progress) bits.push(`progress ${progress}`);
+  if (progress && QUALIFIER_PROGRESS[progress]) {
+    const [code, text] = QUALIFIER_PROGRESS[progress];
+    items.push(
+      element(
+        "at0102",
+        rmLabel(language, "Progression", "Progression"),
+        writeLocal(code, text, progress, touch, language),
+      ),
+    );
+  }
   const healing = answer.choices?.AbsoluteHealingCharacter;
-  if (healing) bits.push(healing);
-  return bits.length ? bits.join("; ") : null;
+  if (healing && QUALIFIER_HEALING[healing]) {
+    const [code, text] = QUALIFIER_HEALING[healing];
+    items.push(
+      element(
+        "at0083",
+        rmLabel(language, "Resolution phase", "Resolutionsfas"),
+        writeLocal(code, text, healing, touch, language),
+      ),
+    );
+  }
+  if (!items.length) return null;
+  return {
+    _type: "CLUSTER",
+    name: dvText(rmLabel(language, "Status", "Status")),
+    archetype_node_id: "at0046",
+    archetype_details: archetyped("openEHR-EHR-CLUSTER.problem_qualifier.v2"),
+    items,
+  };
+}
+
+function linkedSymptomDuration(state: WorkbenchState): { amount: number; unit: string } | null {
+  if (state.pain.durationNumber != null && state.pain.durationNumber > 0) {
+    return { amount: state.pain.durationNumber, unit: state.pain.durationUnit };
+  }
+  return null;
+}
+
+function problemDiagnosisOnset(
+  state: WorkbenchState,
+  link: FormLink,
+  answer: FindingForm | undefined,
+): string | null {
+  const topic = link.preCoordinated ?? link.item;
+  if (topic === "ThumbFracture") {
+    if (answer?.durationNumber != null && answer.durationNumber > 0) {
+      return onsetDateTimeMinus(TIME, answer.durationNumber, answer.durationUnit);
+    }
+    return null;
+  }
+  if (topic === "ThumbSprain" || topic === "ThumbJointDislocation") {
+    if (answer?.durationNumber != null && answer.durationNumber > 0) return null;
+    const linked = linkedSymptomDuration(state);
+    if (!linked) return null;
+    return null;
+  }
+  return null;
+}
+
+function onsetDateTimeMinus(endIso: string, amount: number, unit: string): string {
+  const end = new Date(endIso);
+  if (Number.isNaN(end.getTime())) throw new Error(`Invalid composition time: ${endIso}`);
+  const start = new Date(end.getTime());
+  const n = Math.max(0, Math.floor(amount));
+  switch (unit) {
+    case "second":
+      start.setUTCSeconds(start.getUTCSeconds() - n);
+      return formatOnsetPrecision(start, "second");
+    case "minute":
+      start.setUTCMinutes(start.getUTCMinutes() - n);
+      return formatOnsetPrecision(start, "minute");
+    case "hour":
+      start.setUTCHours(start.getUTCHours() - n);
+      return formatOnsetPrecision(start, "hour");
+    case "day":
+      start.setUTCDate(start.getUTCDate() - n);
+      return formatOnsetPrecision(start, "day");
+    case "week":
+      start.setUTCDate(start.getUTCDate() - n * 7);
+      return formatOnsetPrecision(start, "day");
+    case "month":
+      start.setUTCMonth(start.getUTCMonth() - n);
+      return formatOnsetPrecision(start, "month");
+    case "year":
+      start.setUTCFullYear(start.getUTCFullYear() - n);
+      return formatOnsetPrecision(start, "year");
+    default:
+      throw new Error(`Unknown duration unit: ${unit}`);
+  }
+}
+
+function formatOnsetPrecision(date: Date, unit: string): string {
+  const pad = (v: number) => String(v).padStart(2, "0");
+  const y = date.getUTCFullYear();
+  const m = pad(date.getUTCMonth() + 1);
+  const d = pad(date.getUTCDate());
+  const h = pad(date.getUTCHours());
+  const min = pad(date.getUTCMinutes());
+  const s = pad(date.getUTCSeconds());
+  if (unit === "year") return `${y}`;
+  if (unit === "month") return `${y}-${m}`;
+  if (unit === "day" || unit === "week") return `${y}-${m}-${d}`;
+  if (unit === "hour") return `${y}-${m}-${d}T${h}`;
+  if (unit === "minute") return `${y}-${m}-${d}T${h}:${min}`;
+  return `${y}-${m}-${d}T${h}:${min}:${s}`;
 }
 
 /**
@@ -769,10 +894,12 @@ function unmappedDiseaseText(answer: FindingForm | undefined): string | null {
  */
 export function buildVisit(
   state: WorkbenchState,
-  narrative: string,
+  narrative: string | undefined,
   language: NoteLanguage = "en",
 ): ThumbComposition {
-  return buildThumbEncounter(state, narrative, { clinicalDescription: true, embedDiagnosisText: true, language });
+  const findings = findingsFromState(state, painForm.diagnoses);
+  const story = narrative ?? historyNarrativeText(findings, language);
+  return buildThumbEncounter(state, story, { clinicalDescription: true, embedDiagnosisText: true, language });
 }
 
 function isoDuration(n: number, unit: string): string {

@@ -14,7 +14,11 @@ function fillDiseaseDetail(topic: string) {
   const form = emptyFinding();
   form.laterality = ["right"];
   form.choices.AbsoluteSeverity = "moderate";
-  form.choices.AbsoluteHealingCharacter = "partiallyHealed";
+  if (topic === "ThumbFracture") {
+    form.choices.AbsoluteHealingCharacter = "partiallyHealed";
+  } else {
+    form.choices.AbsoluteProgress = "worse";
+  }
   return form;
 }
 
@@ -34,7 +38,7 @@ describe("diagnosis drives disease detail forms", () => {
         const built = buildVisit(state, historyNarrativeText(findings, "en"));
         const coded = JSON.stringify(built.canonical);
         expect(coded).toContain(topic);
-        expect(coded).toContain("partiallyHealed");
+        expect(coded).toMatch(/at0105|at0085/);
         const bundle = buildFhirBundle(state, built.canonical);
         expect(JSON.stringify(bundle)).toMatch(/Condition|Sprain of thumb|Fracture of thumb/i);
       });
@@ -47,7 +51,7 @@ describe("diagnosis drives disease detail forms", () => {
       syncDiseaseFormAnswers(state, topic);
       expect(state.formAnswers[topic]).toBeUndefined();
       const built = buildVisit(state, "visit");
-      expect(JSON.stringify(built.canonical)).not.toContain("partiallyHealed");
+      expect(JSON.stringify(built.canonical)).not.toMatch(/at0085|at0105/);
       const finding = findingsFromState(state, painForm.diagnoses).find((f) => f.topic === topic);
       expect(finding?.laterality).toBeUndefined();
       if (topic === "ThumbFracture") {
@@ -64,7 +68,7 @@ describe("diagnosis drives disease detail forms", () => {
       expect(visibleDiseaseDetailTopics(state)).not.toContain(topic);
       expect(findingsFromState(state, painForm.diagnoses).some((f) => f.topic === topic)).toBe(false);
       const built = buildVisit(state, "visit");
-      expect(JSON.stringify(built.canonical)).not.toContain("partiallyHealed");
+      expect(JSON.stringify(built.canonical)).not.toMatch(/at0085|at0105/);
     });
   }
 

@@ -27,7 +27,11 @@ Checked against the published Clinical Knowledge Manager archetypes on 16 Novemb
 
 ## problem_qualifier
 
-`CLUSTER.problem_qualifier.v2` (revision 2.1.1, CID 1013.1.6653) does not carry the Clinergy scales this form needs:
+`CLUSTER.problem_qualifier.v2` (revision 2.1.1) is used on `problem_diagnosis` **Status** (`at0046`): **Progression** (`at0102`: better/same/worse → at0103–at0105) for sprain/dislocation, **Resolution phase** (`at0083`: healing → at0084–at0086) for fracture. OPT templates constrain coded values only (no `DV_TEXT` alternative). Fracture **Date/time of onset** (`at0077`) is derived from time-since-injury; sprain/dislocation duration stays on the linked symptom `at0028`.
+
+Previously noted gaps (now addressed in templates, not in CKM):
+
+`CLUSTER.problem_qualifier.v2` (revision 2.1.1, CID 1013.1.6653) did not carry the Clinergy scales this form needs:
 
 - Progression (at0102) repeats Improving / Stable / Worsening, which `symptom_sign` at0180 already has (at0181 Improving, at0182 Unchanged, at0183 Worsening). The thumb form uses the symptom_sign element.
 - Course label (at0077) is Acute / Acute-on-chronic / Chronic. That is not single / intermittent / persistent / continuous.
