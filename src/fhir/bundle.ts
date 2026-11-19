@@ -7,6 +7,9 @@ export const SNOMED = "http://snomed.info/sct";
 export const OBS_CATEGORY = "http://terminology.hl7.org/CodeSystem/observation-category";
 export const CONDITION_CLINICAL = "http://terminology.hl7.org/CodeSystem/condition-clinical";
 export const CONDITION_VER = "http://terminology.hl7.org/CodeSystem/condition-ver-status";
+/** Mirrors openEHR problem_qualifier coded progression / resolution on Condition. */
+export const CLINERGY_QUALIFIER_EXT =
+  "https://erik-sundvalls-bots.github.io/penpad-clinergy-workbench/fhir/StructureDefinition/problem-qualifier";
 export const ACT_CODE = "http://terminology.hl7.org/CodeSystem/v3-ActCode";
 export const DEMO_PATIENT_ID = "demo-john-parsons";
 const TIME = "2021-10-21T14:21:00+01:00";
@@ -212,6 +215,33 @@ function textOf(node: Record<string, unknown> | undefined): string {
   return value?._type === "DV_TEXT" ? String(value.value ?? "") : "";
 }
 
+function problemQualifierExtensions(entry: Record<string, unknown>): Record<string, unknown>[] {
+  const data = entry.data as { items?: Record<string, unknown>[] } | undefined;
+  const cluster = data?.items?.find(
+    (item) =>
+      item._type === "CLUSTER" &&
+      item.archetype_node_id === "at0046" &&
+      (item.archetype_details as { archetype_id?: { value?: string } })?.archetype_id?.value?.includes(
+        "problem_qualifier",
+      ),
+  );
+  if (!cluster) return [];
+  const hits: CodedHit[] = [];
+  walkCoded(cluster, hits);
+  const locals = hits.filter((hit) => hit.code.startsWith("at0"));
+  if (!locals.length) return [];
+  return [{
+    url: CLINERGY_QUALIFIER_EXT,
+    extension: locals.map((hit) => ({
+      url: "qualifier",
+      valueCodeableConcept: {
+        coding: [{ system: "local", code: hit.code, display: hit.text }],
+        text: hit.text,
+      },
+    })),
+  }];
+}
+
 /**
  * FHIR R4 collection for the same visit the openEHR composition records.
  * Examination findings are Observations in category `exam`.
@@ -303,6 +333,11 @@ export function buildFhirBundle(
     conditionIndex += 1;
     const verification = excluded ? "refuted" : suspected ? "provisional" : "confirmed";
     const clinical = excluded ? "inactive" : "active";
+    const data = entry.data as { items?: Record<string, unknown>[] } | undefined;
+    const qualifierExt = problemQualifierExtensions(entry);
+    const description = textOf(
+      (data?.items ?? []).find((item) => item.archetype_node_id === "at0009") as Record<string, unknown> | undefined,
+    );
     resources.push({
       resourceType: "Condition",
       id: `condition-${conditionIndex}`,
@@ -314,6 +349,8 @@ export function buildFhirBundle(
       },
       code: codeable(name.code, name.text),
       ...bodySiteFrom(hits),
+      ...(description ? { note: [{ text: description }] } : {}),
+      ...(qualifierExt.length ? { extension: qualifierExt } : {}),
       subject: { reference: `Patient/${DEMO_PATIENT_ID}` },
       encounter: { reference: `Encounter/${encounterId}` },
     });

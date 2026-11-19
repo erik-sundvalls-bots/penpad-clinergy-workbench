@@ -293,6 +293,18 @@
                                   "_type": "CODE_PHRASE",
                                   "terminology_id": {
                                     "_type": "TERMINOLOGY_ID",
+                                    "value": "Clinergy"
+                                  },
+                                  "code_string": "Thumb"
+                                }
+                              },
+                              {
+                                "_type": "TERM_MAPPING",
+                                "match": "=",
+                                "target": {
+                                  "_type": "CODE_PHRASE",
+                                  "terminology_id": {
+                                    "_type": "TERMINOLOGY_ID",
                                     "value": "OpenGALEN"
                                   },
                                   "code_string": "Thumb"
@@ -355,6 +367,18 @@
                                       "_type": "CODE_PHRASE",
                                       "terminology_id": {
                                         "_type": "TERMINOLOGY_ID",
+                                        "value": "Clinergy"
+                                      },
+                                      "code_string": "Thumb"
+                                    }
+                                  },
+                                  {
+                                    "_type": "TERM_MAPPING",
+                                    "match": "=",
+                                    "target": {
+                                      "_type": "CODE_PHRASE",
+                                      "terminology_id": {
+                                        "_type": "TERMINOLOGY_ID",
                                         "value": "OpenGALEN"
                                       },
                                       "code_string": "Thumb"
@@ -394,6 +418,18 @@
                                   "code_string": "at0004"
                                 },
                                 "mappings": [
+                                  {
+                                    "_type": "TERM_MAPPING",
+                                    "match": "=",
+                                    "target": {
+                                      "_type": "CODE_PHRASE",
+                                      "terminology_id": {
+                                        "_type": "TERMINOLOGY_ID",
+                                        "value": "Clinergy"
+                                      },
+                                      "code_string": "rightSelection"
+                                    }
+                                  },
                                   {
                                     "_type": "TERM_MAPPING",
                                     "match": "=",
@@ -442,6 +478,18 @@
                               "code_string": "normal"
                             },
                             "mappings": [
+                              {
+                                "_type": "TERM_MAPPING",
+                                "match": "=",
+                                "target": {
+                                  "_type": "CODE_PHRASE",
+                                  "terminology_id": {
+                                    "_type": "TERMINOLOGY_ID",
+                                    "value": "Clinergy"
+                                  },
+                                  "code_string": "normal"
+                                }
+                              },
                               {
                                 "_type": "TERM_MAPPING",
                                 "match": "?",
@@ -564,6 +612,18 @@
                                   "_type": "CODE_PHRASE",
                                   "terminology_id": {
                                     "_type": "TERMINOLOGY_ID",
+                                    "value": "Clinergy"
+                                  },
+                                  "code_string": "TendernessSign"
+                                }
+                              },
+                              {
+                                "_type": "TERM_MAPPING",
+                                "match": "=",
+                                "target": {
+                                  "_type": "CODE_PHRASE",
+                                  "terminology_id": {
+                                    "_type": "TERMINOLOGY_ID",
                                     "value": "OpenGALEN"
                                   },
                                   "code_string": "Tenderness"
@@ -603,6 +663,18 @@
                               "code_string": "at0024"
                             },
                             "mappings": [
+                              {
+                                "_type": "TERM_MAPPING",
+                                "match": "=",
+                                "target": {
+                                  "_type": "CODE_PHRASE",
+                                  "terminology_id": {
+                                    "_type": "TERMINOLOGY_ID",
+                                    "value": "Clinergy"
+                                  },
+                                  "code_string": "absence"
+                                }
+                              },
                               {
                                 "_type": "TERM_MAPPING",
                                 "match": "=",

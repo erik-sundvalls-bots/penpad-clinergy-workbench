@@ -126,6 +126,8 @@ function page(): string {
             <div id="disease-details"></div>
             <h2 class="side-label" id="comment-heading">Comment</h2>
             <textarea id="comment" class="comment-box" aria-label="Comment" placeholder="Free-text comment"></textarea>
+            <h2 class="side-label" id="plan-heading">Plan</h2>
+            <textarea id="plan" class="comment-box" aria-label="Plan" placeholder="Clinician plan (typed text only)"></textarea>
           </div>
         </div>
         <div class="actions">
@@ -653,6 +655,11 @@ function wire(): void {
       paintOutputs();
       return;
     }
+    if (target instanceof HTMLTextAreaElement && target.id === "plan") {
+      state.plan = target.value;
+      paintOutputs();
+      return;
+    }
     if (!(target instanceof HTMLInputElement) || !target.dataset.duration) return;
     const form = answerForm(target.dataset.duration);
     const parsed = Number(target.value);
@@ -919,6 +926,8 @@ function paint(): void {
   }
   paintDurationUnitLabels();
   if (comment && document.activeElement !== comment) comment.value = state.comment;
+  const plan = document.querySelector<HTMLTextAreaElement>("#plan");
+  if (plan && document.activeElement !== plan) plan.value = state.plan;
   const more = document.querySelector<HTMLElement>("#pain-more-layer");
   const moreButton = document.querySelector<HTMLButtonElement>("#pain-more");
   if (more) more.hidden = !state.painMore;
