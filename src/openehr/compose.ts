@@ -1,11 +1,13 @@
 import { examinationProseForSide, movementKeys, presenceKey, type NoteLanguage } from "../exam/prose.ts";
 import { displayOf, examsByName, formOf } from "../forms/catalog.ts";
-import { knowledge, painForm, swellingForm, type FormLink } from "../knowledge.ts";
+import { knowledge, painForm, snomedMap, swellingForm, type FormLink } from "../knowledge.ts";
 import { render, type Finding } from "../../vendor/sentence.ts";
 import { renderEnglishGp } from "../en/gp-sentence.ts";
 import { renderSwedishGp } from "../sv/gp-sentence.ts";
 import { findingsFromState } from "../model.ts";
-import { historyNarrativeText } from "../summary.ts";
+import { historyFindings, historyNarrativeText } from "../summary.ts";
+import { narrativeMappings, type NarrativeMapping } from "../snomed/narrative-mappings.ts";
+import type { SnomedMap } from "../../vendor/snomed.ts";
 import { emptyExam, emptyFinding, type ExamSide, type FindingForm, type WorkbenchState } from "../model.ts";
 import { term, type Term } from "./terms.ts";
 import { GP_TEMPLATE_ID, TEMPLATE_ID } from "./template.ts";
@@ -104,6 +106,12 @@ export interface ComposeOptions {
   embedDiagnosisText?: boolean;
   /** Language of the narrative fields (story is supplied by the caller in this language). */
   language?: NoteLanguage;
+  /**
+   * Reviewed SNOMED CT map. When set, generated narrative text (story,
+   * diagnosis description) gets the sidebar's post-coordinated expressions
+   * as TERM_MAPPINGs. A story the caller wrote is not mapped.
+   */
+  snomed?: SnomedMap;
 }
 
 export function buildThumbEncounter(
@@ -115,7 +123,11 @@ export function buildThumbEncounter(
   const touch = (key: string) => used.add(key);
   const language = options?.language ?? "en";
 
-  const historyItems: Record<string, unknown>[] = [storyObservation(narrative, state, touch, language)];
+  const findings = options?.snomed ? findingsFromState(state, painForm.diagnoses) : [];
+  const storyMappings = options?.snomed && narrative === historyNarrativeText(findings, language)
+    ? narrativeMappings(historyFindings(findings), options.snomed)
+    : [];
+  const historyItems: Record<string, unknown>[] = [storyObservation(narrative, state, touch, language, storyMappings)];
   const absent = absentSymptoms(state);
   if (absent.length) historyItems.push(screeningObservation(absent, touch, language));
 
@@ -150,8 +162,16 @@ export function buildThumbEncounter(
     const sentence = options?.embedDiagnosisText && status !== "excluded"
       ? diagnosisSentence(link, status, language, answer?.laterality ?? [])
       : "";
+    const diagnosisFinding = findings.find((finding) => finding.topic === key);
+    const sentenceMappings = sentence && diagnosisFinding && options?.snomed
+      ? narrativeMappings([diagnosisFinding], options.snomed)
+      : [];
     if (status === "excluded") exclusions.push(exclusionEvaluation(key, touch));
-    else problems.push(problemEvaluation(key, link, status === "possible", touch, answer, sentence, state, language));
+    else {
+      problems.push(
+        problemEvaluation(key, link, status === "possible", touch, answer, sentence, sentenceMappings, state, language),
+      );
+    }
   }
 
   const planText = state.plan?.trim() ?? "";
@@ -177,6 +197,7 @@ function storyObservation(
   state: WorkbenchState,
   touch: (key: string) => void,
   language: NoteLanguage,
+  mappings: NarrativeMapping[],
 ): Record<string, unknown> {
   const symptoms: Record<string, unknown>[] = [];
   if (positiveSymptom(state.pain)) {
@@ -193,7 +214,7 @@ function storyObservation(
   }
   const storyName = language === "sv" ? "Berättelse" : "Story/History";
   return observation("openEHR-EHR-OBSERVATION.story.v1", storyName, [
-    element("at0004", rmLabel(language, "Story", "Berättelse"), dvText(narrative)),
+    element("at0004", rmLabel(language, "Story", "Berättelse"), dvText(narrative, mappings)),
     ...symptoms,
   ], language);
 }
@@ -494,6 +515,7 @@ function problemEvaluation(
   touch: (key: string) => void,
   answer: FindingForm | undefined,
   sentence: string,
+  sentenceMappings: NarrativeMapping[],
   state: WorkbenchState,
   language: NoteLanguage = "en",
 ): Record<string, unknown> {
@@ -523,7 +545,7 @@ function problemEvaluation(
   const qualifier = problemQualifierCluster(answer, touch, language);
   if (qualifier) items.push(qualifier);
   if (sentence) {
-    items.push(element("at0009", rmLabel(language, "Clinical description", "Klinisk beskrivning"), dvText(sentence)));
+    items.push(element("at0009", rmLabel(language, "Clinical description", "Klinisk beskrivning"), dvText(sentence, sentenceMappings)));
   }
   if (suspected) {
     items.push(
@@ -721,8 +743,13 @@ function cluster(archetype: string, name: string, items: Record<string, unknown>
   };
 }
 
-function dvText(value: string): Record<string, unknown> {
-  return { _type: "DV_TEXT", value };
+function dvText(value: string, mappings: NarrativeMapping[] = []): Record<string, unknown> {
+  if (!mappings.length) return { _type: "DV_TEXT", value };
+  return {
+    _type: "DV_TEXT",
+    value,
+    mappings: mappings.map((row) => termMapping(row.match, "SNOMED-CT", row.expression)),
+  };
 }
 function codePhrase(terminology: string, code: string): Record<string, unknown> {
   return { _type: "CODE_PHRASE", terminology_id: { _type: "TERMINOLOGY_ID", value: terminology }, code_string: code };
@@ -890,7 +917,8 @@ function formatOnsetPrecision(date: Date, unit: string): string {
 /**
  * The visit builder used by the page. Examination prose is stored on the
  * exam cluster. A non-empty plan becomes a Plan section. Symptom and exam
- * forms that are not selected are left out.
+ * forms that are not selected are left out. Generated story and diagnosis
+ * text get SNOMED CT expression mappings from the reviewed map.
  */
 export function buildVisit(
   state: WorkbenchState,
@@ -899,7 +927,12 @@ export function buildVisit(
 ): ThumbComposition {
   const findings = findingsFromState(state, painForm.diagnoses);
   const story = narrative ?? historyNarrativeText(findings, language);
-  return buildThumbEncounter(state, story, { clinicalDescription: true, embedDiagnosisText: true, language });
+  return buildThumbEncounter(state, story, {
+    clinicalDescription: true,
+    embedDiagnosisText: true,
+    language,
+    snomed: snomedMap,
+  });
 }
 
 function isoDuration(n: number, unit: string): string {
