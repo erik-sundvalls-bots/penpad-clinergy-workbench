@@ -56,19 +56,6 @@ export function painOnMovementRubric(key: string, english: string, language: Not
   return PAIN_MOVEMENT_SV[key] ?? english;
 }
 
-const LOCAL_LABELS: Record<string, { en: string; sv: string }> = {
-  at0006: { en: "Flexion", sv: "Flexion" },
-  at0005: { en: "Extension", sv: "Extension" },
-  at0003: { en: "Abduction", sv: "Abduktion" },
-  at0004: { en: "Adduction", sv: "Adduktion" },
-  at0024: { en: "Moderate", sv: "Måttlig" },
-  at0023: { en: "Mild", sv: "Lätt" },
-  at0025: { en: "Severe", sv: "Svår" },
-  at0048: { en: "Moderate", sv: "Måttlig" },
-  at0047: { en: "Mild", sv: "Lätt" },
-  at0049: { en: "Severe", sv: "Svår" },
-};
-
 export function clinergyCodedText(key: string, language: NoteLanguage): string {
   if (language === "sv") {
     const mapped = CLINERGY_SV[key];
@@ -82,33 +69,24 @@ export function clinergyCodedText(key: string, language: NoteLanguage): string {
   return term(key)?.preferred ?? key;
 }
 
-const CLUSTER_VALUE_KEYS = new Set([
-  "infrequent", "occasional", "frequent",
-  "soft", "firm", "hard", "fluctuant",
-  "smooth", "rough", "nodular", "irregular",
-  "full", "reduced", "limited", "minimal", "fixed",
-  "better", "same", "worse",
-  "healed", "partiallyHealed", "nonHealed",
-]);
-
-const QUALIFIER_SV: Record<string, string> = {
+const LOCAL_SV_OVERRIDES: Record<string, string> = {
   better: "Förbättras",
   same: "Stabil",
   worse: "Försämras",
   healed: "Gått tillbaka",
   partiallyHealed: "Resolution",
   nonHealed: "Ej resolution",
+  absence: "Nej",
+  possible: "Misstänkt",
+  bilateral: "Höger och vänster",
 };
 
-/** English rubrics for EN compositions; Swedish only for new cluster value sets. */
-export function localCodedText(_at: string, text: string, language: NoteLanguage, clinergyKey?: string): string {
-  if (language === "sv" && clinergyKey && QUALIFIER_SV[clinergyKey]) {
-    return QUALIFIER_SV[clinergyKey];
-  }
-  if (language === "sv" && clinergyKey && CLUSTER_VALUE_KEYS.has(clinergyKey)) {
-    return localValueRubric(clinergyKey, text, language);
-  }
-  return text;
+/** Local archetype coded-text rubric matching the OPT term_definitions for `language`. */
+export function localCodedText(at: string, text: string, language: NoteLanguage, clinergyKey?: string): string {
+  if (language !== "sv" || !clinergyKey) return text;
+  if (at === "at0182" && clinergyKey === "same") return "Oförändrad";
+  if (LOCAL_SV_OVERRIDES[clinergyKey]) return LOCAL_SV_OVERRIDES[clinergyKey];
+  return localValueRubric(clinergyKey, text, language);
 }
 
 export function durationDisplay(number: number, unit: string, language: NoteLanguage): string | undefined {

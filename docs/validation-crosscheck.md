@@ -4,7 +4,7 @@ FerroEHR 5.5.0 accepts the coded OPT and all seven canonical fixtures under `tes
 
 ## Canonical output and validation
 
-The workbench uses ehrtslib 0.13.0. Compositions are built as **canonical RM JSON** in `src/openehr/compose.ts`. The live page validates with `RMSpecificationValidator` and `TemplateValidator` against `templates/thumb-pain.opt`. **Canonical XML**, **Simplified** (FLAT/STRUCTURED with `cdrProfile`), and **ZipEHR** tabs are view/export only (`src/openehr/serialization-views.ts`, `src/openehr/zipehr.ts`); CDR posting uses canonical JSON only. The Simplified tab does not run `validateFlatPayload` or post to a CDR.
+The workbench uses ehrtslib 0.15.0. Compositions are built as **canonical RM JSON** in `src/openehr/compose.ts`. The live page validates with `RMSpecificationValidator` and `TemplateValidator` against `templates/thumb-pain.opt`. **Canonical XML**, **Simplified** (FLAT/STRUCTURED with `cdrProfile`), and **ZipEHR** tabs are view/export only (`src/openehr/serialization-views.ts`, `src/openehr/zipehr.ts`); CDR posting uses canonical JSON only. The Simplified tab does not run `validateFlatPayload` or post to a CDR.
 
 `RMSpecificationValidator.validate(instance)` walks the composition and checks `TERM_MAPPING.Match_valid` (`=`, `<`, `>`, `?`). `TemplateValidator` runs with invariant checking on. An empty SECTION fails `SECTION.Items_valid`.
 

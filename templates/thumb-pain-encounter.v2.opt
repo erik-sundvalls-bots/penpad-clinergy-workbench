@@ -11642,6 +11642,22 @@
         </value>
       </items>
     </term_bindings>
+    <term_definitions language="sv">
+      <items code="at0000"><items id="text">Symtom/tecken</items></items>
+      <items code="at0001"><items id="text">Symtom/teckennamn</items></items>
+      <items code="at0003"><items id="text">Mönster</items></items>
+      <items code="at0021"><items id="text">Svårighetsgrad</items></items>
+      <items code="at0023"><items id="text">Lätt</items></items>
+      <items code="at0024"><items id="text">Måttlig</items></items>
+      <items code="at0025"><items id="text">Svår</items></items>
+      <items code="at0028"><items id="text">Episodlängd</items></items>
+      <items code="at0164"><items id="text">Debut</items></items>
+      <items code="at0180"><items id="text">Förlopp</items></items>
+      <items code="at0181"><items id="text">Förbättras</items></items>
+      <items code="at0182"><items id="text">Oförändrad</items></items>
+      <items code="at0183"><items id="text">Försämras</items></items>
+      <items code="at0189"><items id="text">Karaktär</items></items>
+    </term_definitions>
   </component_ontologies>
   <component_ontologies archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1">
     <term_definitions language="en">
@@ -11820,6 +11836,15 @@
         </value>
       </items>
     </term_bindings>
+    <term_definitions language="sv">
+      <items code="at0000"><items id="text">Anatomisk lokalisation</items></items>
+      <items code="at0001"><items id="text">Kroppsplats</items></items>
+      <items code="at0002"><items id="text">Lateralitet</items></items>
+      <items code="at0003"><items id="text">Vänster</items></items>
+      <items code="at0004"><items id="text">Höger</items></items>
+      <items code="at0065"><items id="text">Specifik plats</items></items>
+      <items code="at0083"><items id="text">Höger och vänster</items></items>
+    </term_definitions>
   </component_ontologies>
   <component_ontologies archetype_id="openEHR-EHR-CLUSTER.symptom_sign_frequency.v0">
     <term_definitions language="en">
@@ -11893,6 +11918,11 @@
       <items code="at0.9"><items id="text">Lätt smärta</items></items>
       <items code="at0.10"><items id="text">Måttlig smärta</items></items>
       <items code="at0.11"><items id="text">Svår smärta</items></items>
+      <items code="at0002"><items id="text">Rörelse</items></items>
+      <items code="at0003"><items id="text">Abduktion</items></items>
+      <items code="at0004"><items id="text">Adduktion</items></items>
+      <items code="at0005"><items id="text">Extension</items></items>
+      <items code="at0006"><items id="text">Flexion</items></items>
     </term_definitions>
   </component_ontologies>
   <component_ontologies archetype_id="openEHR-EHR-OBSERVATION.symptom_sign_screening.v1">
@@ -12048,6 +12078,12 @@
         </value>
       </items>
     </term_bindings>
+    <term_definitions language="sv">
+      <items code="at0004"><items id="text">Symtom/teckennamn</items></items>
+      <items code="at0005"><items id="text">Närvaro?</items></items>
+      <items code="at0023"><items id="text">Ja</items></items>
+      <items code="at0024"><items id="text">Nej</items></items>
+    </term_definitions>
   </component_ontologies>
   <component_ontologies archetype_id="openEHR-EHR-OBSERVATION.exam.v1">
     <term_definitions language="en">
@@ -12471,6 +12507,19 @@
         <items id="text">Tree</items>
         <items id="description">Tree</items>
       </items>
+    </term_definitions>
+    <term_definitions language="sv">
+      <items code="at0000"><items id="text">Problem/diagnos</items></items>
+      <items code="at0002"><items id="text">Diagnosnamn</items></items>
+      <items code="at0005"><items id="text">Svårighetsgrad</items></items>
+      <items code="at0009"><items id="text">Klinisk beskrivning</items></items>
+      <items code="at0047"><items id="text">Lätt</items></items>
+      <items code="at0048"><items id="text">Måttlig</items></items>
+      <items code="at0049"><items id="text">Svår</items></items>
+      <items code="at0073"><items id="text">Diagnostisk säkerhet</items></items>
+      <items code="at0074"><items id="text">Misstänkt</items></items>
+      <items code="at0075"><items id="text">Sannolik</items></items>
+      <items code="at0076"><items id="text">Bekräftad</items></items>
     </term_definitions>
   </component_ontologies>
   <component_ontologies archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1">
