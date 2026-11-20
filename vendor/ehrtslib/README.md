@@ -1,6 +1,8 @@
 Runtime browser bundle for this workbench, built from [ErikSundvall/ehrtslib](https://github.com/ErikSundvall/ehrtslib) tag **[v0.14](https://github.com/ErikSundvall/ehrtslib/releases/tag/v0.14)** (library release **0.14.0**, GitHub Release *library v0.14*).
 
-**Source commit:** `9e96d8f3bceca4976875ca31db773df14910f142` (`chore: release library 0.14.0`, 2026-11-17).
+**Release base commit:** `9e96d8f3bceca4976875ca31db773df14910f142` (`chore: release library 0.14.0`, 2026-11-17).
+
+**Unreleased fix vendored:** the bundle is built from ehrtslib PR [#326](https://github.com/ErikSundvall/ehrtslib/pull/326) (branch `grokbot/zipehr-tm-escaping`, commit `000b23d1feb93bb34ead377be924dfa33927a824`), which is v0.14 plus escaping of `%`, `|` and `;` in the ZipEHR html5 `tm` attribute ([#325](https://github.com/ErikSundvall/ehrtslib/issues/325)). Re-vendor from the release that includes it once it is merged.
 
 **Published asset (when the release workflow has finished):** [https://eriksundvall.github.io/ehrtslib/lib/v0.14/ehrtslib-0.14.0.min.js](https://eriksundvall.github.io/ehrtslib/lib/v0.14/ehrtslib-0.14.0.min.js)
 
