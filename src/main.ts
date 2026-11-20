@@ -250,7 +250,7 @@ function page(): string {
         </section>
         <section class="panel">
           <h2>Possible Terminology system similarities</h2>
-          <p class="note">Reviewed bindings for the values you have selected. Unverified means the code was not confirmed and is not written into the composition. Post-coordinated SNOMED CT expressions use the same reviewed map and update as you click. Duration has no MRCM attribute and is listed as unmapped. Nothing is sent to a terminology server.</p>
+          <p class="note">Reviewed bindings for the values you have selected. Unverified means the code was not confirmed and is not written into the composition. Post-coordinated SNOMED CT expressions use the same reviewed map and update as you click. The generated story and diagnosis text carry them as SNOMED CT term mappings (openEHR) and codings (FHIR). Duration has no MRCM attribute and is listed as unmapped. Nothing is sent to a terminology server.</p>
           <div id="galen"></div>
           <div id="snomed-expressions"></div>
         </section>

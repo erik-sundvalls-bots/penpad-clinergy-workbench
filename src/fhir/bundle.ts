@@ -1,7 +1,10 @@
 import { displayOf } from "../forms/catalog.ts";
 import { sideExaminations, type ExamMovement, type NoteLanguage, type SideExamination } from "../exam/prose.ts";
-import type { WorkbenchState } from "../model.ts";
+import { findingsFromState, type WorkbenchState } from "../model.ts";
+import { painForm } from "../knowledge.ts";
 import { term } from "../openehr/terms.ts";
+import { narrativeMappings } from "../snomed/narrative-mappings.ts";
+import { historyFindings } from "../summary.ts";
 
 export const SNOMED = "http://snomed.info/sct";
 export const OBS_CATEGORY = "http://terminology.hl7.org/CodeSystem/observation-category";
@@ -56,9 +59,45 @@ function conceptText(key: string): string {
   return displayOf(key).replace(/ sign$/i, "");
 }
 
-function codeable(key: string, text: string): Record<string, unknown> {
+function codeable(key: string, text: string, extra: FhirCoding[] = []): Record<string, unknown> {
   const coding = snomedOf(key);
-  return coding ? { coding: [coding], text } : { text };
+  const codings = [...(coding ? [coding] : []), ...extra];
+  return codings.length ? { coding: codings, text } : { text };
+}
+
+/**
+ * A post-coordinated expression as a SNOMED CT coding. FHIR `code` allows
+ * no line breaks or repeated spaces, so the code has its whitespace
+ * collapsed (insignificant in Compositional Grammar). The display keeps the
+ * expression exactly as the openEHR mapping and the sidebar have it.
+ */
+export function expressionCoding(expression: string): FhirCoding {
+  return { system: SNOMED, code: expression.replace(/\s+/g, " ").trim(), display: expression };
+}
+
+/** SNOMED CT expressions on a DV_TEXT's TERM_MAPPINGs. */
+function snomedMappingsOf(value: unknown): string[] {
+  const mappings = (value as { mappings?: unknown } | undefined)?.mappings;
+  if (!Array.isArray(mappings)) return [];
+  return mappings
+    .map((row) => (row as { target?: { terminology_id?: { value?: string }; code_string?: string } }).target)
+    .filter((target) => target?.terminology_id?.value === "SNOMED-CT" && target.code_string)
+    .map((target) => String(target?.code_string));
+}
+
+/**
+ * Story expressions by finding topic. Only expressions the composition's
+ * story text actually carries are returned, so a caller-written story adds
+ * nothing.
+ */
+function storyExpressions(state: WorkbenchState, storyValue: unknown): Map<string, string> {
+  const carried = new Set(snomedMappingsOf(storyValue));
+  const out = new Map<string, string>();
+  if (!carried.size) return out;
+  for (const row of narrativeMappings(historyFindings(findingsFromState(state, painForm.diagnoses)))) {
+    if (carried.has(row.expression)) out.set(row.topic, row.expression);
+  }
+  return out;
 }
 
 export function demoPatient(): Record<string, unknown> {
@@ -277,6 +316,7 @@ export function buildFhirBundle(
     const items = data.events?.[0]?.data?.items ?? [];
     const narrative = items.find((item) => item.archetype_node_id === "at0004");
     const storyText = textOf(narrative);
+    const expressions = storyExpressions(state, narrative?.value);
     if (storyText) {
       resources.push({
         resourceType: "Observation",
@@ -296,11 +336,12 @@ export function buildFhirBundle(
       const name = hits.find((hit) => hit.code.endsWith("Symptom") || hit.code.startsWith("Conseq")) ?? hits[0];
       if (!name) continue;
       symptomIndex += 1;
+      const expression = expressions.get(name.code);
       resources.push({
         resourceType: "Observation",
         id: `symptom-${symptomIndex}`,
         status: "final",
-        code: codeable(name.code, name.text),
+        code: codeable(name.code, name.text, expression ? [expressionCoding(expression)] : []),
         ...bodySiteFrom(hits),
         subject: { reference: `Patient/${DEMO_PATIENT_ID}` },
         encounter: { reference: `Encounter/${encounterId}` },
@@ -335,9 +376,9 @@ export function buildFhirBundle(
     const clinical = excluded ? "inactive" : "active";
     const data = entry.data as { items?: Record<string, unknown>[] } | undefined;
     const qualifierExt = problemQualifierExtensions(entry);
-    const description = textOf(
-      (data?.items ?? []).find((item) => item.archetype_node_id === "at0009") as Record<string, unknown> | undefined,
-    );
+    const descriptionItem = (data?.items ?? []).find((item) => item.archetype_node_id === "at0009");
+    const description = textOf(descriptionItem);
+    const diagnosisExpressions = snomedMappingsOf(descriptionItem?.value).map(expressionCoding);
     resources.push({
       resourceType: "Condition",
       id: `condition-${conditionIndex}`,
@@ -347,7 +388,7 @@ export function buildFhirBundle(
       verificationStatus: {
         coding: [{ system: CONDITION_VER, code: verification, display: verification }],
       },
-      code: codeable(name.code, name.text),
+      code: codeable(name.code, name.text, diagnosisExpressions),
       ...bodySiteFrom(hits),
       ...(description ? { note: [{ text: description }] } : {}),
       ...(qualifierExt.length ? { extension: qualifierExt } : {}),

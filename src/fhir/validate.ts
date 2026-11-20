@@ -48,8 +48,36 @@ export function validateFhirBundle(bundle: unknown): FhirIssue[] {
     if (type === "Patient") {
       need(issues, `${path}.name`, Array.isArray(resource.name) && resource.name.length > 0, "Patient.name is required");
     }
+    checkCodings(issues, path, resource);
   });
   return issues;
+}
+
+/** FHIR `code`: no leading, trailing or repeated whitespace (R4 datatypes). */
+const FHIR_CODE = /^[^\s]+( [^\s]+)*$/;
+
+function checkCodings(issues: FhirIssue[], path: string, node: unknown): void {
+  if (Array.isArray(node)) {
+    node.forEach((child, index) => checkCodings(issues, `${path}[${index}]`, child));
+    return;
+  }
+  const record = asRecord(node);
+  if (!record) return;
+  for (const [key, value] of Object.entries(record)) {
+    if (key === "coding" && Array.isArray(value)) {
+      value.forEach((coding, index) => {
+        const code = asRecord(coding)?.code;
+        need(
+          issues,
+          `${path}.coding[${index}].code`,
+          typeof code === "string" && FHIR_CODE.test(code),
+          "Coding.code must be a FHIR code (no line breaks or repeated spaces)",
+        );
+      });
+    } else {
+      checkCodings(issues, `${path}.${key}`, value);
+    }
+  }
 }
 
 function checkEncounter(issues: FhirIssue[], path: string, resource: Record<string, unknown>): void {
