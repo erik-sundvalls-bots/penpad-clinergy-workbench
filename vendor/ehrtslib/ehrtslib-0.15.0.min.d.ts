@@ -12,10 +12,12 @@ export function serializeToXZipehr(
   obj: unknown,
   options?: {
     symbolVariant?: "emoji" | "lettercode";
+    layout?: "oneliner" | "linesaving" | "fluffy";
     propertyMode?: "omit" | "attribute" | "comment";
     lang?: string;
     templateRenderLang?: string;
     template?: unknown;
+    archetypeRepository?: unknown;
   },
 ): Promise<string>;
 
@@ -28,6 +30,10 @@ export function serializeToHtml5Variant(
     symbolVariant?: "emoji" | "lettercode";
     layout?: "oneliner" | "linesaving" | "fluffy";
     propertyMode?: "omit" | "attribute" | "comment";
+    lang?: string;
+    templateRenderLang?: string;
+    template?: unknown;
+    archetypeRepository?: unknown;
   },
 ): Promise<string>;
 

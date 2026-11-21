@@ -1,6 +1,6 @@
 #!/usr/bin/env -S deno run -A
 /**
- * Build vendor/ehrtslib/ehrtslib-0.13.0.min.js from an ehrtslib checkout.
+ * Build vendor/ehrtslib/ehrtslib-<version>.min.js from an ehrtslib checkout.
  *
  *   EHR_TSLIB_ROOT=/path/to/ehrtslib deno run -A scripts/build_workbench_bundle.ts
  */

@@ -31,8 +31,8 @@ async function quietText(html: string, lang: "en" | "sv"): Promise<string> {
     templateRenderLang: lang,
   });
   const win = new Window({ url: "https://example.test/" });
-  win.document.write(doc.replace(/<script>[\s\S]*?<\/script>\s*(?=<\/body>)/, ""));
-  applyZipQuietDomScript(win);
+  win.document.write(doc.replace(/<script>[\s\S]*?<\/script>\s*(?=<\/body>)/g, ""));
+  await applyZipQuietDomScript(win);
   return win.document.body.innerText.replace(/\s+/g, " ").trim();
 }
 

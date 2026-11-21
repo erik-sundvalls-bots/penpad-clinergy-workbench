@@ -59,14 +59,14 @@ export async function canonicalToZipehr(
       return serializeToXZipehr(canonical, {
         ...ZIP_EHR_SERIALIZE_OPTIONS,
         ...shared,
-      } as never);
+      });
     case "zipehr.html5.short":
     case "zipehr.html5.full":
     case "zipehr.html5.emoji":
       return serializeToHtml5Variant(canonical, variant, {
         ...ZIP_EHR_SERIALIZE_OPTIONS,
         ...shared,
-      } as never);
+      });
   }
 }
 
@@ -96,6 +96,5 @@ export async function composeQuietStructureCss(
 
 export {
   buildQuietZipehrPreviewDocument,
-  ZIP_L10N_PREVIEW_SCRIPT,
   ZIP_QUIET_DOM_SCRIPT,
 } from "./zipehr-preview.ts";

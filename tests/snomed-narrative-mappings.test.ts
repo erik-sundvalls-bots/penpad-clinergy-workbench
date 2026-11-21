@@ -312,8 +312,8 @@ describe("round-trips keep the mappings", () => {
       const css = await composeQuietStructureCss(base, quiet);
       const doc = await buildQuietZipehrPreviewDocument(html, css, { quietStructureTooltips: true, templateRenderLang: lang });
       const win = new Window({ url: "https://example.test/" });
-      win.document.write(doc.replace(/<script>[\s\S]*?<\/script>\s*(?=<\/body>)/, ""));
-      applyZipQuietDomScript(win);
+      win.document.write(doc.replace(/<script>[\s\S]*?<\/script>\s*(?=<\/body>)/g, ""));
+      await applyZipQuietDomScript(win);
       const text = win.document.body.innerText;
       expect(text).toContain(lang === "sv" ? "Smärta i höger tumme." : "Pain in right thumb.");
       expect(text).not.toContain("363698007");
