@@ -4,7 +4,7 @@ import { loadEhrtslib } from "./ehrtslib-loader.ts";
 /**
  * Strip direct label text/spans from `pass-through` containers so wrapped
  * exam clusters do not repeat their parent observation heading in quiet view.
- * (Display localization is handled natively by ehrtslib >= 0.15 via
+ * (Display localization is handled natively by ehrtslib >= 0.16 via
  * `.zs-display-value` / `.zs-canonical-value` spans.)
  */
 export const ZIP_QUIET_DOM_SCRIPT = `(() => {

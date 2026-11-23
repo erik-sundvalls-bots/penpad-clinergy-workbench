@@ -107,7 +107,7 @@ describe("ZipEHR quiet GP visit", () => {
     }
   });
 
-  it("Swedish quiet view uses native ehrtslib 0.15 L10n and does not leak English UI labels", async () => {
+  it("Swedish quiet view uses native ehrtslib 0.16 L10n and does not leak English UI labels", async () => {
     const state = gpVisitState();
     const history = historyNarrativeText(
       findingsFromState(state, painForm.diagnoses).filter(
