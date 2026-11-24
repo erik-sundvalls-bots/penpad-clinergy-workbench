@@ -1,3 +1,3 @@
-Stylesheets copied from [ehrtslib `examples/demo-app/public/zipehr-css`](https://github.com/ErikSundvall/ehrtslib/tree/v0.16/examples/demo-app/public/zipehr-css) (library **v0.16.0**). Used by the ZipEHR **Document** view.
+Stylesheets copied from [ehrtslib `examples/demo-app/public/zipehr-css`](https://github.com/ErikSundvall/ehrtslib/tree/v0.17/examples/demo-app/public/zipehr-css) (library **v0.17.0**). Used by the ZipEHR **Document** view.
 
 **Quiet mode:** select `zipehr-html5-quiet-structure.css`. The app inlines dialect default (`zipehr-html5-short.css`) plus the quiet overlay via `composeQuietStructureCss`, then runs the upstream `ZIP_QUIET_PREVIEW_SCRIPT` in the iframe (anchor strips for RM containers only; archetype headings stay visible).
