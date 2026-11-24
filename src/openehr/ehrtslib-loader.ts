@@ -1,11 +1,11 @@
-export type EhrtslibModule = typeof import("../../vendor/ehrtslib/ehrtslib-0.17.0.min.js");
+export type EhrtslibModule = typeof import("../../vendor/ehrtslib/ehrtslib-0.18.0.min.js");
 
 let loadPromise: Promise<EhrtslibModule> | null = null;
 
 /** Single cached dynamic import of the browser ehrtslib bundle. */
 export function loadEhrtslib(): Promise<EhrtslibModule> {
   if (!loadPromise) {
-    loadPromise = import("../../vendor/ehrtslib/ehrtslib-0.17.0.min.js");
+    loadPromise = import("../../vendor/ehrtslib/ehrtslib-0.18.0.min.js");
   }
   return loadPromise;
 }

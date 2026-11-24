@@ -7,7 +7,7 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id) {
-          if (id.includes("ehrtslib-0.17.0.min.js")) return "ehrtslib";
+          if (id.includes("ehrtslib-0.18.0.min.js")) return "ehrtslib";
         },
       },
     },
