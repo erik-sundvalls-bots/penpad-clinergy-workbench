@@ -1,5 +1,8 @@
 :root {
-  --bg: #cfc8b8;
+  --bg: #3d6e86;
+  --desktop: #3d6e86;
+  --win-face: #d4cbb8;
+  --win-title: #203a6a;
   --paper: #f6f1e6;
   --ink: #222018;
   --muted: #5c564c;
@@ -205,3 +208,76 @@ button { cursor: pointer; }
   position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0);
 }
 .pack-error { color: #8a1f1f; font-size: 0.85rem; margin: 4px 0 0; max-width: 36rem; white-space: pre-wrap; }
+
+/* Overlapping Gen Demo-style windows (host stays visible; more… is a child window). */
+body, #app { background: var(--desktop); }
+.desktop { min-height: 100vh; }
+.desktop .mast { color: #f3efe4; max-width: 1100px; margin: 0 auto; padding: 8px 16px 0; }
+.desktop .mast h1 { color: #f3efe4; }
+.desktop .mast .tag, .desktop .workbench-link, .desktop .workbench-link a { color: #dbe7df; }
+.desktop .banner { max-width: 1100px; margin: 8px auto; }
+
+.desktop-stage {
+  position: relative;
+  min-height: calc(100vh - 5rem);
+  padding: 8px 16px 48px;
+}
+
+.win {
+  position: absolute;
+  background: var(--win-face);
+  border: 2px solid #ece6d8;
+  border-right-color: #5c564c;
+  border-bottom-color: #5c564c;
+  box-shadow: 2px 2px 0 #0004, 0 8px 24px #0003;
+  min-width: 16rem;
+  max-width: calc(100vw - 24px);
+}
+.win.inert { pointer-events: none; filter: none; }
+.win-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  background: var(--win-title);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 650;
+  padding: 3px 6px;
+  cursor: move;
+  user-select: none;
+}
+.win-close { padding: 0 8px; line-height: 1.2; background: var(--btn); color: var(--ink); }
+.win-body { padding: 8px 10px 10px; }
+.win-host {
+  position: relative;
+  width: min(34rem, 100%);
+  z-index: 1;
+}
+.win-host .records {
+  background: #101010;
+  color: #ffe56a;
+  border: 1px solid #444;
+  font-family: "Consolas", "Lucida Console", monospace;
+  min-height: 14rem;
+}
+.win-host .records h2 { color: #ffe56a; }
+.win-host .records li { border-bottom-color: #333; color: #f6f1e6; }
+.win-host .records .when { color: #ffe56a; }
+.win-host .win-body { background: var(--win-face); }
+.win-gp {
+  left: min(18rem, 24vw);
+  top: 3.5rem;
+  width: min(64rem, calc(100vw - 2rem));
+  z-index: 3;
+}
+.win-popup { width: min(38rem, calc(100vw - 2rem)); }
+.win-about { left: 6rem; top: 4rem; width: min(40rem, calc(100vw - 2rem)); z-index: 5; }
+.win-tabs { display: flex; gap: 2px; margin-bottom: 8px; }
+.win-tabs .btn { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+.win-tabs .btn.on { background: var(--win-face); outline: none; border-bottom-color: var(--win-face); font-weight: 650; }
+
+@media (max-width: 800px) {
+  .win-gp, .win-popup, .win-about { left: 8px !important; top: 4.5rem; width: calc(100vw - 16px); }
+  .win-host { width: 100%; }
+}
