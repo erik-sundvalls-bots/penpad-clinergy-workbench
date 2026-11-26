@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="330" viewBox="0 0 240 330" role="img" aria-label="male system select (placeholder)">
+  <title>male system select (placeholder) — PLACEHOLDER · CC0</title>
+  <!-- Independent outline artwork for the PEN&amp;PAD-style body-map remake.
+       Not traced from the 1998 Clinergy bitmaps. Dedicated to the public domain (CC0 1.0). -->
+  <rect width="240" height="330" fill="#f4f1ea" stroke="#b7b1a4" stroke-width="1"/>
+  
+  <text x="120.0" y="20" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#8a6a28">PLACEHOLDER · CC0</text>
+  <ellipse cx="78" cy="64" rx="20" ry="22" fill="#efe8d8" stroke="#2c4a38" stroke-width="1.6"/>
+<circle cx="72" cy="62" r="1.4" fill="#2c4a38"/>
+        <circle cx="84" cy="62" r="1.4" fill="#2c4a38"/>
+        <path d="M73 74 Q78 78 83 74" fill="none" stroke="#2c4a38" stroke-width="1"/>
+<line x1="78" y1="86" x2="78" y2="96" stroke="#2c4a38" stroke-width="3"/>
+<path d="M58 96 L98 96 L104 142 L52 142 Z" fill="#efe8d8" stroke="#2c4a38" stroke-width="1.6"/>
+<path d="M52 142 L104 142 L100 186 L56 186 Z" fill="#efe8d8" stroke="#2c4a38" stroke-width="1.6"/>
+<path d="M56 186 L100 186 L96 204 L60 204 Z" fill="#efe8d8" stroke="#2c4a38" stroke-width="1.6"/>
+<path d="M62 204 L78 204 L76 288 L60 288 Z" fill="#efe8d8" stroke="#2c4a38" stroke-width="1.6"/>
+        <path d="M80 204 L96 204 L98 288 L82 288 Z" fill="#efe8d8" stroke="#2c4a38" stroke-width="1.6"/>
+<ellipse cx="68" cy="300" rx="14" ry="8" fill="#efe8d8" stroke="#2c4a38" stroke-width="1.6"/>
+        <ellipse cx="90" cy="300" rx="14" ry="8" fill="#efe8d8" stroke="#2c4a38" stroke-width="1.6"/>
+<path d="M58 100 L32 168" fill="none" stroke="#2c4a38" stroke-width="6" stroke-linecap="round"/>
+        <path d="M98 100 L124 168" fill="none" stroke="#2c4a38" stroke-width="6" stroke-linecap="round"/>
+        <ellipse cx="24" cy="184" rx="12" ry="16" fill="#efe8d8" stroke="#2c4a38" stroke-width="1.6"/>
+        <ellipse cx="132" cy="184" rx="12" ry="16" fill="#efe8d8" stroke="#2c4a38" stroke-width="1.6"/>
+<line x1="68" y1="198" x2="88" y2="198" stroke="#2c4a38" stroke-width="1"/>
+  <rect x="10" y="40" width="220" height="270" fill="#f4f1ea" fill-opacity="0.55" stroke="none"/>
+  <text x="120.0" y="165.0" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#3d3a34">male system select</text>
+  <text x="120.0" y="181.0" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#5c564c">system map not drawn in this slice</text>
+
+  <text x="4" y="326" font-family="system-ui,sans-serif" font-size="8" fill="#9a8f7c">PLACEHOLDER · CC0</text>
+
+</svg>

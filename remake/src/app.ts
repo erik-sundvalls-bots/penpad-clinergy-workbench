@@ -1,5 +1,4 @@
 import {
-  bodyMap,
   conceptDisplay,
   formOf,
   implementedTopics,
@@ -8,9 +7,16 @@ import {
   topicsForSelector,
   type SelectorKind,
   type MapRegion,
+  type BodyMapData,
 } from "./knowledge-data.ts";
 import { anatomyMapFor, hitTest, insetForConcept, regionsOf, type Hotspot } from "./selector/hit.ts";
-import { imageUrl, modeFromWindow, persistMode, type ImageMode } from "./images/source.ts";
+import { imageUrl, setActivePack } from "./images/source.ts";
+import {
+  installPackZip,
+  resolveStartupPack,
+  revertToBuiltin,
+  type ActivePack,
+} from "./pack/load.ts";
 import { PATIENTS, ageInYears, patientById, type Patient } from "./patients.ts";
 import {
   emptyStore,
@@ -78,8 +84,9 @@ interface AppState {
   formStack: Array<{ parent: FormState; bag: "associated" | "diagnoses"; key: string; form: RemakeForm }>;
   menu: { x: number; y: number; items: MenuItem[] } | null;
   confirm: Confirm | null;
-  imageMode: ImageMode;
-  localBroken: Set<string>;
+  pack: ActivePack;
+  packError: string | null;
+  localFallback: boolean;
 }
 
 const LAUNCH: Array<{ kind: SelectorKind; key: string; hint: string }> = [
@@ -96,7 +103,22 @@ let state: AppState;
 let root: HTMLElement;
 
 export function mount(el: HTMLElement): void {
+  void mountAsync(el);
+}
+
+export async function mountAsync(el: HTMLElement): Promise<void> {
   root = el;
+  root.textContent = "Loading image pack…";
+  let pack: ActivePack;
+  try {
+    pack = await resolveStartupPack();
+  } catch (err) {
+    root.textContent = err instanceof Error ? err.message : String(err);
+    throw err;
+  }
+  setActivePack(pack);
+  const wantedLocal = typeof window !== "undefined" &&
+    ["local", "local-originals", "originals"].includes(new URL(window.location.href).searchParams.get("images") ?? "");
   state = {
     store: typeof localStorage === "undefined" ? emptyStore() : loadStore(),
     screen: "host",
@@ -112,11 +134,29 @@ export function mount(el: HTMLElement): void {
     formStack: [],
     menu: null,
     confirm: null,
-    imageMode: typeof window === "undefined" ? "placeholders" : modeFromWindow(),
-    localBroken: new Set(),
+    pack,
+    packError: null,
+    localFallback: wantedLocal && pack.origin !== "local",
   };
   render();
   window.addEventListener("keydown", onKey);
+}
+
+function maps(): BodyMapData {
+  return state.pack.bodyMap;
+}
+
+function canvas(): { width: number; height: number } {
+  return state.pack.config.canvas;
+}
+
+function currentMapName(): string {
+  const sex = patient().sex === "female" ? "F" : "M";
+  const selector = maps().selectors.find((s) => s.tsFlagType === (state.selectorKind === "DIS" ? "disease" : "symptom"))
+    ?? maps().selectors[0];
+  const opt = selector?.options.find((o) => o.sex === sex && o.system === state.system);
+  if (opt?.anatomyMap) return opt.anatomyMap;
+  return anatomyMapFor(maps(), patient().sex);
 }
 
 function patient(): Patient {
@@ -131,9 +171,8 @@ function render(): void {
   root.innerHTML = "";
   const shell = el("div", { class: "shell" });
   shell.append(mast());
-  if (state.imageMode === "local-originals") {
-    shell.append(banner(localBannerText()));
-  }
+  const packBanner = packBannerText();
+  if (packBanner) shell.append(banner(packBanner));
   if (state.screen === "host") shell.append(hostView());
   else if (state.screen === "selector") shell.append(selectorView());
   else if (state.screen === "form") shell.append(formView());
@@ -165,8 +204,18 @@ function mast(): HTMLElement {
   return m;
 }
 
-function localBannerText(): string {
-  return "Local-originals mode is on. Images load from remake/local-originals/ (gitignored). If a file is missing, the CC0 placeholder is used. This mode is for private machines only — originals must never be committed or published.";
+function packBannerText(): string | null {
+  if (state.localFallback) {
+    return "No pack.yaml was found under remake/local-originals/, so the built-in CC0 pack is shown. Unzip a local image pack into that folder (gitignored) and reload with ?images=local. Original 1998 images must never be committed or published.";
+  }
+  if (state.pack.origin === "local") {
+    return `Local dev pack “${state.pack.config.name}” is loaded from remake/local-originals/ (gitignored, ?images=local). This is for private machines only — original 1998 images must never be committed or published.`;
+  }
+  if (state.pack.origin === "idb") {
+    const notice = state.pack.config.license.notice ? ` ${state.pack.config.license.notice}` : "";
+    return `Using uploaded image pack “${state.pack.config.name}” (stored in this browser’s IndexedDB).${notice}`;
+  }
+  return null;
 }
 
 function hostView(): HTMLElement {
@@ -244,29 +293,66 @@ function hostView(): HTMLElement {
       };
       render();
     }, "danger"),
-    imageModeToggle(),
+    packControls(),
   );
   panel.append(tools);
   return panel;
 }
 
-function imageModeToggle(): HTMLElement {
-  const wrap = el("div", { class: "row" });
-  wrap.append(el("span", { class: "note" }, "Images:"));
-  const ph = btn("CC0 placeholders", () => {
-    state.imageMode = "placeholders";
-    persistMode("placeholders");
-    state.localBroken = new Set();
-    render();
+function clearImagesQuery(): void {
+  const url = new URL(window.location.href);
+  url.searchParams.delete("images");
+  window.history.replaceState(null, "", url);
+}
+
+function applyPack(next: ActivePack): void {
+  setActivePack(next);
+  state.pack = next;
+  state.packError = null;
+  state.localFallback = false;
+  state.openInset = null;
+  state.hover = null;
+}
+
+function packControls(): HTMLElement {
+  const wrap = el("div", { class: "pack-controls" });
+  const origin = state.pack.origin === "builtin"
+    ? "Built-in pack"
+    : state.pack.origin === "local"
+      ? "Local dev pack"
+      : "Uploaded pack";
+  wrap.append(el("div", { class: "note" }, `${origin}: ${state.pack.config.name} (${state.pack.config.id} v${state.pack.config.version})`));
+  const row = el("div", { class: "row" });
+  const file = document.createElement("input");
+  file.type = "file";
+  file.accept = ".zip,application/zip";
+  file.className = "pack-file";
+  file.addEventListener("change", () => {
+    const f = file.files?.[0];
+    if (!f) return;
+    void (async () => {
+      try {
+        const bytes = new Uint8Array(await f.arrayBuffer());
+        applyPack(await installPackZip(bytes));
+        clearImagesQuery();
+      } catch (err) {
+        state.packError = err instanceof Error ? err.message : String(err);
+      }
+      render();
+    })();
   });
-  const loc = btn("Local originals", () => {
-    state.imageMode = "local-originals";
-    persistMode("local-originals");
-    render();
-  });
-  if (state.imageMode === "placeholders") ph.classList.add("on");
-  else loc.classList.add("on");
-  wrap.append(ph, loc);
+  row.append(btn("Upload image pack…", () => file.click()), file);
+  if (state.pack.origin !== "builtin") {
+    row.append(btn("Revert to built-in pack", () => {
+      void (async () => {
+        applyPack(await revertToBuiltin());
+        clearImagesQuery();
+        render();
+      })();
+    }));
+  }
+  wrap.append(row);
+  if (state.packError) wrap.append(el("p", { class: "pack-error" }, state.packError));
   return wrap;
 }
 
@@ -330,8 +416,8 @@ function selectorView(): HTMLElement {
 function systemBar(): HTMLElement {
   const bar = el("div", { class: "sysbar" });
   const sex = patient().sex === "female" ? "F" : "M";
-  const selector = bodyMap.selectors.find((s) => s.tsFlagType === (state.selectorKind === "DIS" ? "disease" : "symptom"))
-    ?? bodyMap.selectors[0];
+  const selector = maps().selectors.find((s) => s.tsFlagType === (state.selectorKind === "DIS" ? "disease" : "symptom"))
+    ?? maps().selectors[0];
   const options = selector.options.filter((o) => o.sex === sex);
   for (const opt of options) {
     const id = state.system === opt.system ? opt.buttonIds[1] ?? opt.buttonIds[0] : opt.buttonIds[0];
@@ -344,7 +430,12 @@ function systemBar(): HTMLElement {
     applySrc(img, id);
     b.append(img);
     b.addEventListener("click", () => {
+      const prevMap = currentMapName();
       state.system = opt.system;
+      if (currentMapName() !== prevMap) {
+        state.openInset = null;
+        state.hover = null;
+      }
       render();
     });
     bar.append(b);
@@ -354,12 +445,17 @@ function systemBar(): HTMLElement {
 
 function graphic(): HTMLElement {
   const wrap = el("div", { class: "graphic-wrap" });
-  const mapName = anatomyMapFor(bodyMap, patient().sex);
-  const graphicId = bodyMap.mainGraphics[mapName]?.imageId ?? (patient().sex === "female" ? "F_main" : "M_main");
+  const { width: cw, height: ch } = canvas();
+  wrap.style.width = `${cw}px`;
+  wrap.style.height = `${ch}px`;
+  const mapName = currentMapName();
+  const graphicId = maps().mainGraphics[mapName]?.imageId ?? (patient().sex === "female" ? "F_main" : "M_main");
   const main = document.createElement("img");
   main.className = "main";
-  main.width = 240;
-  main.height = 330;
+  main.width = cw;
+  main.height = ch;
+  main.style.width = `${cw}px`;
+  main.style.height = `${ch}px`;
   main.alt = `${patient().sex} surface anatomy`;
   applySrc(main, graphicId);
   wrap.append(main);
@@ -393,7 +489,7 @@ function graphic(): HTMLElement {
     const r = wrap.getBoundingClientRect();
     return { x: ev.clientX - r.left, y: ev.clientY - r.top };
   };
-  const map = regionsOf(bodyMap, mapName);
+  const map = regionsOf(maps(), mapName);
   const paintHover = (next: Hover | null) => {
     state.hover = next;
     wrap.querySelectorAll(".hot-hl, .hot-label").forEach((n) => n.remove());
@@ -842,7 +938,7 @@ function aboutView(): HTMLElement {
     el(
       "p",
       {},
-      "Artwork in the public build is newly made, clearly marked PLACEHOLDER · CC0, and is not traced from the 1998 bitmaps. A replacement image set (also CC0) is being prepared. A private, local-only mode can load the original extracted images from a gitignored folder on your machine for comparison; those files must never be committed or published.",
+      "Artwork in the public build comes from the built-in CC0 placeholder image pack (newly made outlines, marked PLACEHOLDER · CC0, not traced from the 1998 bitmaps). You can upload a different image pack zip in the browser; it is stored only in this browser’s IndexedDB. A pack produced locally from the 1998 demo (via the extractor’s --image-pack option) must never be committed or published. Developers can also load an unpacked pack from remake/local-originals/ with ?images=local.",
     ),
   );
   panel.append(
@@ -858,13 +954,10 @@ function aboutView(): HTMLElement {
 }
 
 function applySrc(img: HTMLImageElement, id: string): void {
-  const fallback = imageUrl(id, "placeholders");
-  const src = state.localBroken.has(id) ? fallback : imageUrl(id, state.imageMode);
-  img.src = src;
+  if (!id) return;
+  img.src = imageUrl(id);
   img.addEventListener("error", () => {
-    if (img.src === fallback) return;
-    state.localBroken.add(id);
-    img.src = fallback;
+    img.alt = `${id} (missing in this pack)`;
   });
 }
 

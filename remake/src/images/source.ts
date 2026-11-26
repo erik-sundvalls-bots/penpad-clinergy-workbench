@@ -1,42 +1,38 @@
-import { imageManifest } from "../knowledge-data.ts";
+import type { ActivePack } from "../pack/load.ts";
 
-export type ImageMode = "placeholders" | "local-originals";
+/**
+ * Image URLs and sizes come from the active image pack (built-in CC0 pack,
+ * a zip uploaded into IndexedDB, or `?images=local` unpacked under
+ * remake/local-originals/). The previous two-mode helper is kept only as a
+ * thin wrapper around the pack.
+ */
 
-const STORAGE_KEY = "penpad-remake-image-mode";
+let active: ActivePack | null = null;
 
-export function modeFromWindow(win: Window = window): ImageMode {
-  const q = new URL(win.location.href).searchParams.get("images");
-  if (q === "local" || q === "local-originals" || q === "originals") return "local-originals";
-  if (q === "placeholders" || q === "cc0" || q === "placeholder") return "placeholders";
-  const stored = win.localStorage.getItem(STORAGE_KEY);
-  if (stored === "local-originals" || stored === "placeholders") return stored;
-  return "placeholders";
+export function setActivePack(pack: ActivePack): void {
+  active?.dispose();
+  active = pack;
 }
 
-export function persistMode(mode: ImageMode, win: Window = window): void {
-  win.localStorage.setItem(STORAGE_KEY, mode);
-  const url = new URL(win.location.href);
-  if (mode === "local-originals") url.searchParams.set("images", "local");
-  else url.searchParams.delete("images");
-  win.history.replaceState(null, "", url);
+export function getActivePack(): ActivePack | null {
+  return active;
 }
 
-export function imageUrl(id: string, mode: ImageMode, base: string = import.meta.env.BASE_URL): string {
-  const rec = imageManifest.images[id];
-  const root = base.endsWith("/") ? base : `${base}/`;
-  if (mode === "local-originals" && rec) {
-    return `${root}remake/local-originals/${rec.originalRel}`;
-  }
-  if (rec) return `${root}remake/placeholders/${rec.placeholder}`;
-  return `${root}remake/placeholders/fallback.svg`;
-}
-
-export function placeholderUrl(id: string, base: string = import.meta.env.BASE_URL): string {
-  return imageUrl(id, "placeholders", base);
+export function imageUrl(id: string, _mode?: unknown, _base?: string): string {
+  if (!active) return "";
+  return active.urlFor(id);
 }
 
 export function imageSize(id: string): { width: number; height: number } | null {
-  const rec = imageManifest.images[id];
-  if (!rec?.width || !rec?.height) return null;
+  const rec = active?.config.images[id];
+  if (!rec) return null;
   return { width: rec.width, height: rec.height };
 }
+
+/** @deprecated pack mechanism replaced mode persistence; kept so old calls compile during the transition */
+export function persistMode(_mode: unknown, _win?: Window): void {}
+export function modeFromWindow(_win?: Window): "placeholders" | "local-originals" {
+  return "placeholders";
+}
+
+export type ImageMode = "placeholders" | "local-originals";

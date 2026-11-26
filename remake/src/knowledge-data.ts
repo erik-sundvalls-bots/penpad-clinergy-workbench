@@ -58,6 +58,7 @@ export interface BodyMapData {
     rect: [number, number, number, number];
   }>;
   maps: Record<string, MapRegion[]>;
+  defaultMaps?: { male: string; female: string };
 }
 
 export interface FormRow {
