@@ -55,7 +55,10 @@ coordinates:
   hotspot: "top,bottom,left,right"     # pixels on the picture being clicked
   insetRect: "left,top,width,height"   # placement of an inset on the graphic canvas
 
-canvas: { width: 240, height: 330 }    # selector graphic size in pixels
+canvas: { width: 240, height: 330 }    # selector graphic size in 1× pixels
+# Optional. Files’ native pixels = width/height × pixelRatio. 1, 2 or 4; default 1.
+# Canvas, hotspots and inset rects always stay in 1× space. One pack per ratio is fine.
+pixelRatio: 1
 defaultMaps:
   male: MaleSurfaceAnatomy
   female: FemaleSurfaceAnatomy
@@ -63,9 +66,10 @@ defaultMaps:
 images:
   M_main:
     path: images/bodymap/M_main.svg    # required, relative to pack.yaml
-    width: 240                         # native pixel size of the file
+    width: 240                         # logical 1× size (hotspot / inset coordinate space)
     height: 330
     role: bodymap                      # optional: bodymap | inset | button | other
+    # pixelRatio: 4                    # optional per-image override of the pack default
   B_fhnd:
     path: images/bodymap/B_fhnd.svg
     width: 96
@@ -118,6 +122,17 @@ selectors:
 - Every `images.*.path` must exist in the zip / folder.
 - Map `image`, inset `image`, and button ids must refer to keys under `images`.
 - `defaultMaps` and each option’s `anatomyMap` must refer to keys under `maps`.
+- `images.*.width` and `images.*.height` are the **logical 1× size** in the
+  same coordinate space as hotspots and inset rects (for the main figures
+  this is 240×330). They are not the file’s native pixel size when the pack
+  ships a 2× or 4× raster.
+- Optional `pixelRatio` (pack-level default, or a per-image override) is
+  `1`, `2` or `4`. The file’s native pixels should be approximately
+  `width × pixelRatio` by `height × pixelRatio`. The remake draws each
+  picture at its logical 1× size so a 2× or 4× file stays sharp. A decoded
+  size that does not match is a **warning**, not a validation failure.
+  SVGs have no native raster size and are not size-checked. Shipping one
+  pack per ratio (a 2× pack and a 4× pack) is the usual arrangement.
 - JSON is accepted (`pack.json`) with the same fields. YAML is the usual form.
 
 ## How the remake uses a pack
