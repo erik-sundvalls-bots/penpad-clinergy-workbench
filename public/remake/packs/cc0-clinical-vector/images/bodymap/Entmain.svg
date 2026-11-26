@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Original CC0 1.0 clinical body-map illustration: Ear, Nose and Throat Anatomy Overview -->
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="330" viewBox="0 0 240 330" shape-rendering="geometricPrecision">
+  <title>Ear, Nose and Throat Anatomy Overview</title>
+  <defs>
+    <linearGradient id="skinGrad" x1="15%" y1="0%" x2="85%" y2="100%">
+      <stop offset="0%" stop-color="#F3EFEA"/>
+      <stop offset="55%" stop-color="#E7E0D7"/>
+      <stop offset="100%" stop-color="#D6CCC0"/>
+    </linearGradient>
+    <linearGradient id="skinHoriz" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#D6CCC0"/>
+      <stop offset="30%" stop-color="#F3EFEA"/>
+      <stop offset="70%" stop-color="#E7E0D7"/>
+      <stop offset="100%" stop-color="#D6CCC0"/>
+    </linearGradient>
+    <linearGradient id="hairGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5E6E7E"/>
+      <stop offset="100%" stop-color="#3E4C5B"/>
+    </linearGradient>
+    <linearGradient id="lungGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EED2CC"/>
+      <stop offset="100%" stop-color="#D4A69E"/>
+    </linearGradient>
+    <linearGradient id="brainGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F0E0D9"/>
+      <stop offset="100%" stop-color="#D6B9AE"/>
+    </linearGradient>
+    
+  </defs>
+  <rect width="240" height="330" fill="#FFFFFF"/>
+
+  <g id="ent-main">
+    <!-- === TOP PANEL: CORONAL EAR ANATOMY === -->
+    <!-- Outer Ear (Pinna & external auditory canal) [30..166, 169..221] -->
+    <path d="
+      M 174,64
+      C 182,42 198,32 212,42
+      C 224,52 223,78 214,106
+      C 206,130 198,158 184,162
+      C 174,164 168,154 170,140
+      C 172,126 175,114 172,108
+      L 132,106 L 132,88 L 172,86 Z
+      " fill="url(#skinGrad)" stroke="#2B3A4A" stroke-width="1.35" stroke-linejoin="round"/>
+    <!-- Pinna helix & antihelix folds -->
+    <path d="M 183,68 C 190,48 206,46 211,60 C 214,74 206,104 196,126 C 190,140 180,146 178,136"
+          fill="none" stroke="#5A6C7E" stroke-width="1.15" stroke-linecap="round"/>
+    <path d="M 186,82 C 194,76 200,84 196,98 C 193,108 186,112 182,106" fill="none" stroke="#5A6C7E" stroke-width="1.0" stroke-linecap="round"/>
+    <!-- External auditory canal lumen -->
+    <path d="M 132,90 C 146,89 162,88 176,86 L 176,106 C 162,104 146,103 132,102 Z" fill="#F2E4DC" stroke="#2B3A4A" stroke-width="1.1"/>
+
+    <!-- Middle Ear [79..113, 80..170]: Tympanic membrane, ossicles (malleus/incus/stapes) & Eustachian tube -->
+    <path d="M 104,78 L 132,84 L 132,106 L 114,114 L 84,142 L 74,134 L 102,106 Z"
+          fill="#FAF0EB" stroke="#2B3A4A" stroke-width="1.15" stroke-linejoin="round"/>
+    <!-- Tympanic membrane (eardrum) -->
+    <ellipse cx="132" cy="95" rx="3.2" ry="11" transform="rotate(14 132 95)" fill="#E4C6BC" stroke="#2B3A4A" stroke-width="1.2"/>
+    <!-- Ossicles chain -->
+    <path d="M 130,96 L 122,86 L 114,91 L 105,91" fill="none" stroke="#2B3A4A" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="122" cy="86" r="2.6" fill="#E8E4DC" stroke="#2B3A4A" stroke-width="0.9"/>
+    <circle cx="114" cy="90" r="2.2" fill="#E8E4DC" stroke="#2B3A4A" stroke-width="0.9"/>
+
+    <!-- Inner Ear [54..100, 38..105]: Semicircular canals, vestibule & cochlea -->
+    <g fill="#E2ECF4" stroke="#2B3A4A" stroke-width="1.2">
+      <!-- Three semicircular canals -->
+      <path d="M 88,82 C 84,64 96,55 103,65 C 106,72 102,81 97,85" fill="none" stroke="#2B3A4A" stroke-width="2.4"/>
+      <path d="M 88,82 C 74,70 64,78 73,88 C 78,92 86,91 91,88" fill="none" stroke="#2B3A4A" stroke-width="2.2"/>
+      <path d="M 94,76 C 100,66 108,74 103,85" fill="none" stroke="#5A6C7E" stroke-width="1.6"/>
+      <!-- Vestibule & spiral Cochlea -->
+      <circle cx="94" cy="89" r="7.5" fill="#DCE9F5" stroke="#2B3A4A" stroke-width="1.2"/>
+      <path d="
+        M 88,91
+        C 78,94 64,96 54,90
+        C 44,84 44,72 54,67
+        C 64,62 74,69 72,78
+        C 70,85 60,86 57,80
+        C 55,75 61,72 64,76
+        " fill="#DCE9F5" stroke="#2B3A4A" stroke-width="1.35" stroke-linecap="round"/>
+    </g>
+    <!-- Vestibulocochlear nerve exiting left -->
+    <path d="M 46,74 L 30,68 M 46,82 L 30,80" stroke="#9C7823" stroke-width="2.2" stroke-linecap="round"/>
+
+    <!-- Subtle divider between Ear panel and Nose/Throat panel -->
+    <line x1="26" y1="176" x2="214" y2="176" stroke="#C5D2DF" stroke-width="1"/>
+
+    <!-- === BOTTOM PANEL: SAGITTAL NOSE, SINUS & THROAT === -->
+    <!-- Head profile facing left: Nose [209..232, 71..90], Sinus [208..232, 90..112], Throat [234..271, 106..131] -->
+    <path d="
+      M 62,314
+      C 70,304 82,299 95,295
+      L 96,274
+      C 88,274 82,271 80,265
+      C 80,261 83,258 85,256
+      C 80,253 80,248 85,245
+      C 79,243 75,240 77,235
+      C 80,229 84,221 86,213
+      C 88,200 98,188 118,188
+      C 138,188 152,202 152,226
+      C 152,248 144,264 139,278
+      L 140,295
+      C 154,299 166,304 174,314
+      " fill="#F8F9FB" stroke="#2B3A4A" stroke-width="1.3" stroke-linecap="round"/>
+
+    <!-- Nasal cavity, Paranasal Sinus & Pharynx/Throat -->
+    <!-- Frontal & ethmoid/maxillary sinus cavities [208..232, 90..112] -->
+    <ellipse cx="94" cy="215" rx="4.5" ry="6" fill="#DCE9F5" stroke="#5A6C7E" stroke-width="1.0"/>
+    <ellipse cx="104" cy="224" rx="7" ry="5.5" fill="#DCE9F5" stroke="#5A6C7E" stroke-width="1.0"/>
+    <!-- Nasal vestibule & pharynx descending through Throat [234..271, 106..131] -->
+    <path d="
+      M 79,235
+      C 87,228 102,225 114,229
+      C 124,233 128,244 127,264
+      L 126,298 L 114,298 L 114,266
+      C 113,254 106,248 92,247
+      L 84,245
+      C 90,242 104,241 114,242
+      C 117,237 104,234 86,237
+      Z" fill="#D8A39B" opacity="0.72" stroke="#2B3A4A" stroke-width="1.1" stroke-linejoin="round"/>
+    <!-- Tracheal rings below throat -->
+    <path d="M 114,282 L 126,282 M 114,289 L 126,289 M 114,296 L 126,296" stroke="#5A6C7E" stroke-width="0.95"/>
+  </g>
+</svg>

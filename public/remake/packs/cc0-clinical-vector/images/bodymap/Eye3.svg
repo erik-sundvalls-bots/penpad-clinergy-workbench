@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Original CC0 1.0 clinical body-map illustration: Visual System / Sagittal Eye Anatomy -->
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="330" viewBox="0 0 240 330" shape-rendering="geometricPrecision">
+  <title>Visual System / Sagittal Eye Anatomy</title>
+  <defs>
+    <linearGradient id="skinGrad" x1="15%" y1="0%" x2="85%" y2="100%">
+      <stop offset="0%" stop-color="#F3EFEA"/>
+      <stop offset="55%" stop-color="#E7E0D7"/>
+      <stop offset="100%" stop-color="#D6CCC0"/>
+    </linearGradient>
+    <linearGradient id="skinHoriz" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#D6CCC0"/>
+      <stop offset="30%" stop-color="#F3EFEA"/>
+      <stop offset="70%" stop-color="#E7E0D7"/>
+      <stop offset="100%" stop-color="#D6CCC0"/>
+    </linearGradient>
+    <linearGradient id="hairGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5E6E7E"/>
+      <stop offset="100%" stop-color="#3E4C5B"/>
+    </linearGradient>
+    <linearGradient id="lungGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EED2CC"/>
+      <stop offset="100%" stop-color="#D4A69E"/>
+    </linearGradient>
+    <linearGradient id="brainGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F0E0D9"/>
+      <stop offset="100%" stop-color="#D6B9AE"/>
+    </linearGradient>
+    
+  </defs>
+  <rect width="240" height="330" fill="#FFFFFF"/>
+
+  <g id="eye-sagittal">
+    <!-- Orbital fat & extraocular context backdrop -->
+    <path d="M 28,108 C 68,94 128,94 176,108 L 194,108 L 194,252 L 176,252 C 128,262 68,262 28,248 Z"
+          fill="#F6F2EC" stroke="none"/>
+
+    <!-- Superior & Inferior Rectus Eye Muscles: MusUp [100..128, 54..155] & MusLo [218..244, 86..170] -->
+    <path d="M 38,126 C 72,114 114,108 158,118 C 166,120 171,126 170,130 C 154,124 116,120 82,126 L 38,136 Z"
+          fill="#BD6D6B" stroke="#2B3A4A" stroke-width="1.15" stroke-linejoin="round"/>
+    <path d="M 44,230 C 78,238 122,242 162,231 C 169,229 172,223 169,219 C 152,226 116,230 82,226 L 44,220 Z"
+          fill="#BD6D6B" stroke="#2B3A4A" stroke-width="1.15" stroke-linejoin="round"/>
+    <!-- Muscle fiber striations -->
+    <path d="M 60,124 Q 108,115 154,122 M 66,228 Q 112,236 156,227" fill="none" stroke="#8C4240" stroke-width="0.75" opacity="0.7"/>
+
+    <!-- Optic Nerve exiting left [164..195, 21..81] -->
+    <path d="M 22,170 C 42,172 60,174 79,174 L 79,190 C 60,190 42,188 22,186 Z"
+          fill="#E8D8B8" stroke="#2B3A4A" stroke-width="1.25"/>
+    <path d="M 22,178 L 78,182" fill="none" stroke="#C43C3C" stroke-width="1.1" opacity="0.8"/>
+
+    <!-- Outer Globe / Sclera [115..249, 61..197] & Sclera hotspot [132..162, 166..184] -->
+    <circle cx="129" cy="180" r="53" fill="#FFFFFF" stroke="#2B3A4A" stroke-width="1.6"/>
+    <!-- Choroid layer -->
+    <circle cx="129" cy="180" r="47.5" fill="#B8766E" stroke="#2B3A4A" stroke-width="0.9"/>
+    <!-- Retina lining [136..218, 83..108] -->
+    <circle cx="129" cy="180" r="43.5" fill="#E6B27A" stroke="#2B3A4A" stroke-width="0.9"/>
+    <!-- Vitreous Humour chamber [143..214, 111..154] -->
+    <circle cx="129" cy="180" r="39.5" fill="#EBF2F7" stroke="none"/>
+    <!-- Optic disc (blind spot where optic nerve enters retina) -->
+    <path d="M 79,176 C 85,176 89,178 90,182 C 89,186 85,188 79,188" fill="#E8D8B8" stroke="#2B3A4A" stroke-width="0.95"/>
+
+    <!-- Cornea dome bulging right [161..199, 177..193] -->
+    <path d="M 176,154 C 193,163 195,197 176,206" fill="#E5F2FA" stroke="#2B3A4A" stroke-width="1.5"/>
+    <path d="M 174,158 C 188,166 189,194 174,202" fill="none" stroke="#5A6C7E" stroke-width="0.85"/>
+
+    <!-- Anterior chamber backdrop -->
+    <path d="M 174,158 C 187,166 188,194 174,202 L 166,202 L 166,158 Z" fill="#EDF6FC" stroke="none"/>
+
+    <!-- Crystalline Lens [161..196, 154..171] + suspensory zonules -->
+    <path d="M 162,158 C 154,167 154,193 162,202 C 170,193 170,167 162,158 Z"
+          fill="#DCEAF5" stroke="#2B3A4A" stroke-width="1.2"/>
+    <path d="M 162,146 L 162,158 M 162,202 L 162,214" stroke="#5A6C7E" stroke-width="1.0" stroke-dasharray="1.5,1.5"/>
+
+    <!-- Iris [162..196, 167..179] (upper & lower iris leaves framing pupil) -->
+    <path d="M 174,155 L 174,171 C 174,173 170,173 170,171 L 168,155 Z" fill="#4A759E" stroke="#2B3A4A" stroke-width="1.1"/>
+    <path d="M 174,205 L 174,189 C 174,187 170,187 170,189 L 168,205 Z" fill="#4A759E" stroke="#2B3A4A" stroke-width="1.1"/>
+
+    <!-- Conjunctiva [197..225, 170..184] lining inner lower eyelid & scleral fornix -->
+    <path d="M 176,206 C 174,214 174,220 179,222 C 184,223 185,215 184,207"
+          fill="none" stroke="#A86D64" stroke-width="2.0" stroke-linecap="round"/>
+
+    <!-- Upper Eyelid [119..163, 176..205] & Lower Eyelid [200..243, 173..198] -->
+    <path d="M 172,114 C 186,118 202,126 206,144 C 207,154 202,163 194,162 C 187,161 183,152 179,142 C 174,132 169,124 172,114 Z"
+          fill="url(#skinGrad)" stroke="#2B3A4A" stroke-width="1.35" stroke-linejoin="round"/>
+    <!-- Upper eyelashes -->
+    <path d="M 197,158 L 207,154 M 195,161 L 206,159" stroke="#2B3A4A" stroke-width="1.1" stroke-linecap="round"/>
+
+    <path d="M 170,244 C 184,240 198,232 201,216 C 202,206 196,199 189,200 C 183,201 180,210 177,219 C 173,228 168,236 170,244 Z"
+          fill="url(#skinGrad)" stroke="#2B3A4A" stroke-width="1.35" stroke-linejoin="round"/>
+    <!-- Lower eyelashes -->
+    <path d="M 194,203 L 204,206 M 192,201 L 202,202" stroke="#2B3A4A" stroke-width="1.0" stroke-linecap="round"/>
+  </g>
+</svg>

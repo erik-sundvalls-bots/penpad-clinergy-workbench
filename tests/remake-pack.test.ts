@@ -10,7 +10,9 @@ import { buildPackZip, openPackZip } from "../remake/src/pack/zip.ts";
 import { anatomyMapFor, hitTest, insetForConcept, regionsOf } from "../remake/src/selector/hit.ts";
 import type { ImagePack } from "../remake/src/pack/types.ts";
 
-const BUILTIN = join(import.meta.dirname, "../public/remake/packs/cc0-placeholders");
+const CLINICAL = join(import.meta.dirname, "../public/remake/packs/cc0-clinical-vector");
+const PLACEHOLDERS = join(import.meta.dirname, "../public/remake/packs/cc0-placeholders");
+const BUILTIN = CLINICAL;
 
 function walkFiles(dir: string, prefix = ""): string[] {
   const out: string[] = [];
@@ -103,7 +105,8 @@ describe("built-in CC0 pack", () => {
     const issues = validatePack(raw, files);
     expect(issues).toEqual([]);
     const pack = assertValidPack(raw, files);
-    expect(pack.id).toBe("cc0-placeholders");
+    expect(pack.id).toBe("cc0-clinical-vector");
+    expect(pack.license.spdx).toBe("CC0-1.0");
     expect(pack.license.spdx).toBe("CC0-1.0");
     expect(pack.maps.MaleSurfaceAnatomy.image).toBe("M_main");
     const hand = pack.maps.MaleSurfaceAnatomy.regions.find((r) => r.concept === "Hand" && r.inset?.image === "B_fhnd");
@@ -177,8 +180,79 @@ describe("repo relative path for docs", () => {
   it("keeps the format doc at docs/image-pack.md", () => {
     const doc = readFileSync(join(import.meta.dirname, "../docs/image-pack.md"), "utf8");
     expect(doc).toContain("penpad-image-pack/v1");
-    expect(relative(join(import.meta.dirname, ".."), BUILTIN).replace(/\\/g, "/")).toBe(
+    expect(relative(join(import.meta.dirname, ".."), CLINICAL).replace(/\\/g, "/")).toBe(
+      "public/remake/packs/cc0-clinical-vector",
+    );
+    expect(relative(join(import.meta.dirname, ".."), PLACEHOLDERS).replace(/\\/g, "/")).toBe(
       "public/remake/packs/cc0-placeholders",
     );
+  });
+});
+
+
+describe("built-in CC0 placeholder pack (still shipped)", () => {
+  it("validates pack.yaml against the files on disk", () => {
+    const raw = parseYaml(readFileSync(join(PLACEHOLDERS, "pack.yaml"), "utf8"));
+    const files = walkFiles(PLACEHOLDERS);
+    expect(validatePack(raw, files)).toEqual([]);
+    const pack = assertValidPack(raw, files);
+    expect(pack.id).toBe("cc0-placeholders");
+    expect(pack.license.spdx).toBe("CC0-1.0");
+  });
+});
+
+describe("pack catalog helpers", () => {
+  it("merges built-in, uploaded, and local packs and marks the active one", async () => {
+    const { mergePackList, nextActiveAfterRemove, userPackKey, resolvePackQueryUrl, DEFAULT_BUILTIN_KEY } = await import("../remake/src/pack/catalog.ts");
+    const license = { name: "CC0 1.0", spdx: "CC0-1.0" as const };
+    const item = (key: string, origin: "builtin" | "idb" | "local", id: string) => ({
+      key, origin, id, name: id, version: "1.0.0", license, imageCount: 2, removable: origin === "idb", active: false,
+    });
+    const list = mergePackList(
+      [item(DEFAULT_BUILTIN_KEY, "builtin", "cc0-clinical-vector")],
+      [item("user:extra", "idb", "extra")],
+      item("local", "local", "dev"),
+      "user:extra",
+    );
+    expect(list.map((r) => r.key)).toEqual([DEFAULT_BUILTIN_KEY, "user:extra", "local"]);
+    expect(list.find((r) => r.key === "user:extra")?.active).toBe(true);
+    expect(list.find((r) => r.key === DEFAULT_BUILTIN_KEY)?.active).toBe(false);
+    expect(nextActiveAfterRemove("user:extra", "user:extra", DEFAULT_BUILTIN_KEY)).toBe(DEFAULT_BUILTIN_KEY);
+    expect(nextActiveAfterRemove("user:keep", "user:extra", DEFAULT_BUILTIN_KEY)).toBe("user:keep");
+    expect(userPackKey("My Pack!")).toBe("user:My-Pack");
+    expect(resolvePackQueryUrl("https://example.org/a.zip")).toBe("https://example.org/a.zip");
+    expect(resolvePackQueryUrl("/packs/a.zip", "https://example.org/remake/")).toBe("https://example.org/packs/a.zip");
+    expect(() => resolvePackQueryUrl("javascript:alert(1)")).toThrow(/http or https/i);
+    expect(() => resolvePackQueryUrl("")).toThrow(/empty/i);
+  });
+});
+
+describe("plain-language pack errors", () => {
+  it("explains a missing pack.yaml, a bad schema, and a failed download", async () => {
+    const { formatPackError, formatPackIssues } = await import("../remake/src/pack/errors.ts");
+    expect(formatPackError(new Error("This zip is not an image pack: missing pack.yaml or pack.json (at the root or inside a single folder).")))
+      .toMatch(/not an image pack/i);
+    expect(formatPackError(new Error('Invalid image pack:\n - schema: must be "penpad-image-pack/v1" (got "nope")')))
+      .toMatch(/not supported/i);
+    expect(formatPackError(new Error("The pack could not be downloaded (HTTP 404).")))
+      .toMatch(/HTTP 404/);
+    expect(formatPackError(new Error("Failed to fetch"))).toMatch(/could not be downloaded/i);
+    expect(formatPackIssues([{ path: "images.M_main.path", message: "file missing from pack: images/bodymap/M_main.svg" }]))
+      .toMatch(/missing a picture/i);
+  });
+});
+
+describe("clinical pack zip round-trip", () => {
+  it("opens a zip built from the shipped clinical folder", () => {
+    const files = walkFiles(CLINICAL);
+    const entries = files
+      .filter((rel) => rel !== "pack.yaml" && rel !== "pack.json" && rel !== "CC0-LICENSE.txt")
+      .map((rel) => ({ path: rel, bytes: new Uint8Array(readFileSync(join(CLINICAL, rel))) }));
+    const yaml = readFileSync(join(CLINICAL, "pack.yaml"), "utf8");
+    const zip = buildPackZip(yaml, "pack.yaml", entries);
+    const opened = openPackZip(zip);
+    expect(opened.config.id).toBe("cc0-clinical-vector");
+    expect(opened.files.has("images/bodymap/M_main.svg")).toBe(true);
+    expect(opened.files.has("images/bodymap/B_fhnd.svg")).toBe(true);
   });
 });

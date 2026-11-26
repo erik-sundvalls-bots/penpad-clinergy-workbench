@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Original CC0 1.0 clinical body-map illustration: Adult Female Pelvic and Urinary Diagram -->
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="330" viewBox="0 0 240 330" shape-rendering="geometricPrecision">
+  <title>Adult Female Pelvic and Urinary Diagram</title>
+  <defs>
+    <linearGradient id="skinGrad" x1="15%" y1="0%" x2="85%" y2="100%">
+      <stop offset="0%" stop-color="#F3EFEA"/>
+      <stop offset="55%" stop-color="#E7E0D7"/>
+      <stop offset="100%" stop-color="#D6CCC0"/>
+    </linearGradient>
+    <linearGradient id="skinHoriz" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#D6CCC0"/>
+      <stop offset="30%" stop-color="#F3EFEA"/>
+      <stop offset="70%" stop-color="#E7E0D7"/>
+      <stop offset="100%" stop-color="#D6CCC0"/>
+    </linearGradient>
+    <linearGradient id="hairGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5E6E7E"/>
+      <stop offset="100%" stop-color="#3E4C5B"/>
+    </linearGradient>
+    <linearGradient id="lungGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EED2CC"/>
+      <stop offset="100%" stop-color="#D4A69E"/>
+    </linearGradient>
+    <linearGradient id="brainGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F0E0D9"/>
+      <stop offset="100%" stop-color="#D6B9AE"/>
+    </linearGradient>
+    
+    <linearGradient id="pelvShade" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F3EFEA"/>
+      <stop offset="60%" stop-color="#E7E0D7"/>
+      <stop offset="100%" stop-color="#C9BCB0"/>
+    </linearGradient>
+  </defs>
+  <rect width="240" height="330" fill="#FFFFFF"/>
+
+    <!-- Paired Kidneys, Ureters & Urinary Bladder (upper half) -->
+    <!-- Right kidney (viewer's left) -->
+    <path d="M 54,48 C 36,48 28,64 30,82 C 32,98 44,106 58,103 C 68,100 72,91 69,81 C 67,76 68,70 71,63 C 73,54 66,48 54,48 Z"
+          fill="#9E534A" stroke="#2B3A4A" stroke-width="1.35"/>
+    <path d="M 52,58 C 41,60 37,73 40,86 C 43,94 52,96 60,92" fill="none" stroke="#D89A92" stroke-width="1.1" stroke-linecap="round"/>
+    <!-- Left kidney (viewer's right) -->
+    <path d="M 154,42 C 172,42 180,58 178,76 C 176,92 164,100 150,97 C 140,94 136,85 139,75 C 141,70 140,64 137,57 C 135,48 142,42 154,42 Z"
+          fill="#9E534A" stroke="#2B3A4A" stroke-width="1.35"/>
+    <path d="M 156,52 C 167,54 171,67 168,80 C 165,88 156,90 148,86" fill="none" stroke="#D89A92" stroke-width="1.1" stroke-linecap="round"/>
+    <!-- Ureters -->
+    <path d="M 66,81 C 74,108 78,136 82,162 M 142,75 C 134,104 130,134 126,162"
+          fill="none" stroke="#D6B792" stroke-width="5.5" stroke-linecap="round"/>
+    <path d="M 66,81 C 74,108 78,136 82,162 M 142,75 C 134,104 130,134 126,162"
+          fill="none" stroke="#2B3A4A" stroke-width="1.15" stroke-linecap="round"/>
+    <!-- Bladder & Urethra -->
+    <path d="M 66,174 C 66,158 84,155 104,155 C 124,155 142,158 142,174 C 142,191 124,200 104,200 C 84,200 66,191 66,174 Z"
+          fill="#D6B792" stroke="#2B3A4A" stroke-width="1.35"/>
+    <path d="M 99,200 L 99,222 L 109,222 L 109,200 Z" fill="#D6B792" stroke="#2B3A4A" stroke-width="1.2"/>
+
+    <g id="female-repro-lower" transform="translate(0, 12)">
+      <!-- Left & right fallopian tubes -->
+      <path d="M 102,226 C 82,224 62,222 48,229 C 40,234 38,242 42,248" fill="none" stroke="#BD6D6B" stroke-width="6.5" stroke-linecap="round"/>
+      <path d="M 102,226 C 82,224 62,222 48,229 C 40,234 38,242 42,248" fill="none" stroke="#2B3A4A" stroke-width="1.15" stroke-linecap="round"/>
+      <path d="M 150,226 C 170,224 190,222 204,229 C 212,234 214,242 210,248" fill="none" stroke="#BD6D6B" stroke-width="6.5" stroke-linecap="round"/>
+      <path d="M 150,226 C 170,224 190,222 204,229 C 212,234 214,242 210,248" fill="none" stroke="#2B3A4A" stroke-width="1.15" stroke-linecap="round"/>
+      <!-- Ovaries -->
+      <ellipse cx="64" cy="245" rx="13" ry="8.5" fill="#EFE1D1" stroke="#2B3A4A" stroke-width="1.2"/>
+      <ellipse cx="188" cy="245" rx="13" ry="8.5" fill="#EFE1D1" stroke="#2B3A4A" stroke-width="1.2"/>
+      <!-- Uterus -->
+      <path d="M 96,222 C 103,208 118,206 126,206 C 134,206 149,208 156,222 C 160,232 151,254 139,268 L 113,268 C 101,254 92,232 96,222 Z"
+            fill="#BD6D6B" stroke="#2B3A4A" stroke-width="1.35" stroke-linejoin="round"/>
+      <path d="M 108,224 C 117,220 135,220 144,224 C 138,238 132,251 129,264 L 123,264 C 120,251 114,238 108,224 Z"
+            fill="#8E3D3C" stroke="#2B3A4A" stroke-width="0.9"/>
+      <!-- Cervix & Vagina -->
+      <path d="M 113,266 L 139,266 L 137,306 L 115,306 Z" fill="#E3BCB6" stroke="#2B3A4A" stroke-width="1.25"/>
+      <path d="M 118,278 Q 126,281 134,278 M 118,289 Q 126,292 134,289 M 118,299 Q 126,302 134,299"
+            fill="none" stroke="#A86D64" stroke-width="0.85" stroke-linecap="round"/>
+    </g>
+</svg>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Original CC0 1.0 clinical body-map illustration: Neck Vessels Selector -->
+<svg xmlns="http://www.w3.org/2000/svg" width="149" height="150" viewBox="0 0 149 150" shape-rendering="geometricPrecision">
+  <title>Neck Vessels Selector</title>
+  <defs>
+    <linearGradient id="skinGrad" x1="15%" y1="0%" x2="85%" y2="100%">
+      <stop offset="0%" stop-color="#F3EFEA"/>
+      <stop offset="55%" stop-color="#E7E0D7"/>
+      <stop offset="100%" stop-color="#D6CCC0"/>
+    </linearGradient>
+    <linearGradient id="skinHoriz" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#D6CCC0"/>
+      <stop offset="30%" stop-color="#F3EFEA"/>
+      <stop offset="70%" stop-color="#E7E0D7"/>
+      <stop offset="100%" stop-color="#D6CCC0"/>
+    </linearGradient>
+    <linearGradient id="hairGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5E6E7E"/>
+      <stop offset="100%" stop-color="#3E4C5B"/>
+    </linearGradient>
+    <linearGradient id="lungGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EED2CC"/>
+      <stop offset="100%" stop-color="#D4A69E"/>
+    </linearGradient>
+    <linearGradient id="brainGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F0E0D9"/>
+      <stop offset="100%" stop-color="#D6B9AE"/>
+    </linearGradient>
+    
+  </defs>
+  <rect width="149" height="150" fill="#FFFFFF"/>
+
+  <g id='neckcvs'>
+  <rect x="7" y="25" width="135" height="22" rx="3.5" fill="#F4F7FA" stroke="#C5D2DF" stroke-width="0.9"/><rect x="7" y="25" width="3.5" height="22" rx="1.5" fill="#C43C3C"/>
+  <text x="15" y="39.5" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.2" font-weight="600" fill="#2B3A4A">vertebral artery</text>
+  <rect x="7" y="55" width="135" height="22" rx="3.5" fill="#F4F7FA" stroke="#C5D2DF" stroke-width="0.9"/><rect x="7" y="55" width="3.5" height="22" rx="1.5" fill="#C43C3C"/>
+  <text x="15" y="69.5" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.2" font-weight="600" fill="#2B3A4A">carotid artery</text>
+  <rect x="7" y="85" width="135" height="22" rx="3.5" fill="#F4F7FA" stroke="#C5D2DF" stroke-width="0.9"/><rect x="7" y="85" width="3.5" height="22" rx="1.5" fill="#C43C3C"/>
+  <text x="15" y="99.5" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.2" font-weight="600" fill="#2B3A4A">internal jugular vein</text>
+  <rect x="7" y="115" width="135" height="22" rx="3.5" fill="#F4F7FA" stroke="#C5D2DF" stroke-width="0.9"/><rect x="7" y="115" width="3.5" height="22" rx="1.5" fill="#C43C3C"/>
+  <text x="15" y="129.5" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.2" font-weight="600" fill="#2B3A4A">external jugular vein</text>
+  </g>
+</svg>

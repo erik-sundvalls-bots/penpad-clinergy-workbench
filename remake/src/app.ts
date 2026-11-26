@@ -12,11 +12,17 @@ import {
 import { anatomyMapFor, hitTest, insetForConcept, regionsOf, type Hotspot } from "./selector/hit.ts";
 import { imageUrl, setActivePack } from "./images/source.ts";
 import {
+  installPackFromUrl,
   installPackZip,
+  listAvailablePacks,
+  removeUserPack,
   resolveStartupPack,
   revertToBuiltin,
+  switchToPack,
   type ActivePack,
 } from "./pack/load.ts";
+import { formatPackError } from "./pack/errors.ts";
+import type { PackListItem } from "./pack/catalog.ts";
 import { PATIENTS, ageInYears, patientById, type Patient } from "./patients.ts";
 import {
   emptyStore,
@@ -98,6 +104,9 @@ interface AppState {
   confirm: Confirm | null;
   pack: ActivePack;
   packError: string | null;
+  packWindowOpen: boolean;
+  packList: PackListItem[] | null;
+  packBusy: boolean;
   localFallback: boolean;
 }
 
@@ -121,16 +130,15 @@ export function mount(el: HTMLElement): void {
 export async function mountAsync(el: HTMLElement): Promise<void> {
   root = el;
   root.textContent = "Loading image pack…";
-  let pack: ActivePack;
+  let started;
   try {
-    pack = await resolveStartupPack();
+    started = await resolveStartupPack();
   } catch (err) {
     root.textContent = err instanceof Error ? err.message : String(err);
     throw err;
   }
+  const pack = started.pack;
   setActivePack(pack);
-  const wantedLocal = typeof window !== "undefined" &&
-    ["local", "local-originals", "originals"].includes(new URL(window.location.href).searchParams.get("images") ?? "");
   state = {
     store: typeof localStorage === "undefined" ? emptyStore() : loadStore(),
     gpOpen: false,
@@ -149,9 +157,13 @@ export async function mountAsync(el: HTMLElement): Promise<void> {
     menu: null,
     confirm: null,
     pack,
-    packError: null,
-    localFallback: wantedLocal && pack.origin !== "local",
+    packError: started.error,
+    packWindowOpen: !!started.error,
+    packList: null,
+    packBusy: false,
+    localFallback: started.localFallback,
   };
+  if (state.packWindowOpen) void refreshPackList();
   render();
   window.addEventListener("keydown", onKey);
 }
@@ -193,7 +205,8 @@ function render(): void {
     className: "win-host",
     fill: hostView(),
     close: null,
-    inert: state.popups.length > 0,
+    inert: state.popups.length > 0 || state.packWindowOpen,
+    menuItems: windowMenuItems(),
   });
   stage.append(host);
   if (state.gpOpen) stage.append(gpWindow());
@@ -204,8 +217,22 @@ function render(): void {
       className: "win-about",
       fill: aboutView(),
       close: () => { state.aboutOpen = false; render(); },
-      inert: state.popups.length > 0,
+      inert: state.popups.length > 0 || state.packWindowOpen,
     }));
+  }
+  if (state.packWindowOpen) {
+    const packWin = windowFrame({
+      title: "Image pack",
+      className: "win-pack",
+      fill: packWindowView(),
+      close: () => { state.packWindowOpen = false; render(); },
+      inert: state.popups.length > 0,
+      z: 6,
+    });
+    packWin.setAttribute("role", "dialog");
+    packWin.setAttribute("aria-modal", "true");
+    trapFocus(packWin, !state.packList && !state.packBusy);
+    stage.append(packWin);
   }
   desktop.append(stage);
   if (state.menu) desktop.append(menuView());
@@ -222,6 +249,7 @@ interface WindowOpts {
   top?: string;
   left?: string;
   z?: number;
+  menuItems?: MenuItem[];
 }
 
 function windowFrame(opts: WindowOpts): HTMLElement {
@@ -234,6 +262,15 @@ function windowFrame(opts: WindowOpts): HTMLElement {
     win.setAttribute("aria-hidden", "true");
   }
   const title = el("div", { class: "win-title" });
+  if (opts.menuItems?.length) {
+    const sys = el("button", { class: "btn win-sys", type: "button", title: "Window menu", "aria-label": "Window menu" }, "▾") as HTMLButtonElement;
+    sys.addEventListener("click", (ev) => {
+      ev.stopPropagation();
+      const r = sys.getBoundingClientRect();
+      openMenu(r.left, r.bottom + 2, opts.menuItems!);
+    });
+    title.append(sys);
+  }
   title.append(el("span", { class: "win-title-text" }, opts.title));
   if (opts.close) {
     const x = btn("×", opts.close);
@@ -299,8 +336,9 @@ function gpWindow(): HTMLElement {
     className: "win-gp",
     fill,
     close: () => closeGpWindow(),
-    inert: state.popups.length > 0,
+    inert: state.popups.length > 0 || state.packWindowOpen,
     z: 3,
+    menuItems: windowMenuItems(),
   });
 }
 
@@ -357,7 +395,7 @@ function popupWindow(popup: FormPopup, index: number): HTMLElement {
   return win;
 }
 
-function trapFocus(box: HTMLElement): void {
+function trapFocus(box: HTMLElement, autofocus = true): void {
   const focusables = () =>
     [...box.querySelectorAll<HTMLElement>('button:not([disabled]), input, select, textarea, a[href], [tabindex]:not([tabindex="-1"])')];
   box.addEventListener("keydown", (ev) => {
@@ -374,7 +412,7 @@ function trapFocus(box: HTMLElement): void {
       ev.preventDefault();
     }
   });
-  setTimeout(() => focusables()[0]?.focus(), 0);
+  if (autofocus) setTimeout(() => focusables()[0]?.focus(), 0);
 }
 
 function mast(): HTMLElement {
@@ -386,6 +424,7 @@ function mast(): HTMLElement {
   );
   const right = el("div", { class: "row" });
   right.append(
+    btn("Image pack…", () => { void openPackWindow(); }, "primary"),
     btn(state.aboutOpen ? "Back to host" : "About / credits", () => {
       state.aboutOpen = !state.aboutOpen;
       render();
@@ -502,12 +541,69 @@ function clearImagesQuery(): void {
 }
 
 function applyPack(next: ActivePack): void {
+  if (state.pack && state.pack !== next) state.pack.dispose();
   setActivePack(next);
   state.pack = next;
   state.packError = null;
   state.localFallback = false;
   state.openInset = null;
   state.hover = null;
+}
+
+function windowMenuItems(): MenuItem[] {
+  return [
+    { label: "Image pack…", action: () => { void openPackWindow(); } },
+    { label: "About / credits", action: () => { state.aboutOpen = true; } },
+  ];
+}
+
+async function refreshPackList(): Promise<void> {
+  try {
+    state.packList = await listAvailablePacks(state.pack.key);
+  } catch (err) {
+    state.packError = formatPackError(err);
+  }
+  render();
+}
+
+async function openPackWindow(): Promise<void> {
+  state.packWindowOpen = true;
+  state.menu = null;
+  render();
+  await refreshPackList();
+}
+
+function clearPackQuery(): void {
+  const url = new URL(window.location.href);
+  url.searchParams.delete("pack");
+  window.history.replaceState(null, "", url);
+}
+
+async function ingestPackBytes(bytes: Uint8Array): Promise<void> {
+  state.packBusy = true;
+  state.packError = null;
+  render();
+  try {
+    applyPack(await installPackZip(bytes));
+    clearImagesQuery();
+    clearPackQuery();
+    state.packList = await listAvailablePacks(state.pack.key);
+  } catch (err) {
+    state.packError = formatPackError(err);
+  } finally {
+    state.packBusy = false;
+    render();
+  }
+}
+
+async function ingestPackFile(file: File): Promise<void> {
+  if (!file) return;
+  if (file.name && !file.name.toLowerCase().endsWith(".zip") && file.type && file.type !== "application/zip" && file.type !== "application/x-zip-compressed") {
+    state.packError = "Please choose a .zip image pack.";
+    render();
+    return;
+  }
+  await ingestPackBytes(new Uint8Array(await file.arrayBuffer()));
 }
 
 function packControls(): HTMLElement {
@@ -518,38 +614,191 @@ function packControls(): HTMLElement {
       ? "Local dev pack"
       : "Uploaded pack";
   wrap.append(el("div", { class: "note" }, `${origin}: ${state.pack.config.name} (${state.pack.config.id} v${state.pack.config.version})`));
-  const row = el("div", { class: "row" });
+  wrap.append(btn("Image pack…", () => { void openPackWindow(); }));
+  return wrap;
+}
+
+function packWindowView(): HTMLElement {
+  const panel = el("div", { class: "panel pack-window" });
+  panel.append(el("p", { class: "note" }, "Artwork and click-area coordinates come from an image pack. The packs listed below stay in this browser until you remove them."));
+
+  const zone = el("div", { class: "pack-drop" });
+  zone.append(
+    el("strong", {}, "Drop a pack .zip here"),
+    el("div", { class: "note" }, "or choose a file from your computer"),
+  );
   const file = document.createElement("input");
   file.type = "file";
   file.accept = ".zip,application/zip";
   file.className = "pack-file";
   file.addEventListener("change", () => {
     const f = file.files?.[0];
-    if (!f) return;
-    void (async () => {
-      try {
-        const bytes = new Uint8Array(await f.arrayBuffer());
-        applyPack(await installPackZip(bytes));
-        clearImagesQuery();
-      } catch (err) {
-        state.packError = err instanceof Error ? err.message : String(err);
-      }
+    if (f) void ingestPackFile(f);
+    file.value = "";
+  });
+  zone.addEventListener("dragover", (ev) => {
+    ev.preventDefault();
+    zone.classList.add("over");
+  });
+  zone.addEventListener("dragleave", () => zone.classList.remove("over"));
+  zone.addEventListener("drop", (ev) => {
+    ev.preventDefault();
+    zone.classList.remove("over");
+    const f = ev.dataTransfer?.files?.[0];
+    if (f) void ingestPackFile(f);
+  });
+  const choose = btn("Choose .zip…", () => file.click(), "primary");
+  if (state.packBusy) choose.disabled = true;
+  const row = el("div", { class: "row" });
+  row.append(choose, file);
+  zone.append(row);
+  panel.append(zone);
+
+  const urlRow = el("div", { class: "row pack-url-row" });
+  const urlInput = el("input", { type: "url", placeholder: "https://…/pack.zip", "aria-label": "Pack zip URL" }) as HTMLInputElement;
+  const loadUrl = btn("Load from URL", () => {
+    const href = urlInput.value.trim();
+    if (!href) {
+      state.packError = "That pack address is empty.";
       render();
+      return;
+    }
+    void (async () => {
+      state.packBusy = true;
+      state.packError = null;
+      render();
+      try {
+        applyPack(await installPackFromUrl(href, window.location.href));
+        clearImagesQuery();
+        clearPackQuery();
+        state.packList = await listAvailablePacks(state.pack.key);
+      } catch (err) {
+        state.packError = formatPackError(err);
+      } finally {
+        state.packBusy = false;
+        render();
+      }
     })();
   });
-  row.append(btn("Upload image pack…", () => file.click()), file);
-  if (state.pack.origin !== "builtin") {
-    row.append(btn("Revert to built-in pack", () => {
-      void (async () => {
+  if (state.packBusy) loadUrl.disabled = true;
+  urlRow.append(el("span", { class: "note" }, "Or load a pack zip from a URL:"), urlInput, loadUrl);
+  panel.append(urlRow);
+
+  if (state.packError) panel.append(el("p", { class: "pack-error" }, state.packError));
+  if (state.packBusy) panel.append(el("p", { class: "note" }, "Working…"));
+
+  panel.append(el("h3", {}, "Installed packs"));
+  const list = el("div", { class: "pack-list" });
+  const items = state.packList;
+  if (!items) {
+    list.append(el("p", { class: "note" }, "Loading pack list…"));
+  } else if (!items.length) {
+    list.append(el("p", { class: "note" }, "No packs were found."));
+  } else {
+    for (const item of items) {
+      list.append(packListRow(item));
+    }
+  }
+  panel.append(list);
+
+  const actions = el("div", { class: "actions" });
+  const revert = btn("Revert to built-in pack", () => {
+    void (async () => {
+      state.packBusy = true;
+      render();
+      try {
         applyPack(await revertToBuiltin());
         clearImagesQuery();
+        clearPackQuery();
+        state.packList = await listAvailablePacks(state.pack.key);
+      } catch (err) {
+        state.packError = formatPackError(err);
+      } finally {
+        state.packBusy = false;
         render();
+      }
+    })();
+  });
+  const onDefault = state.pack.key === "builtin:cc0-clinical-vector" || (state.pack.origin === "builtin" && state.pack.config.id === "cc0-clinical-vector");
+  revert.disabled = onDefault || state.packBusy;
+  actions.append(
+    revert,
+    btn("Close", () => { state.packWindowOpen = false; render(); }),
+  );
+  panel.append(actions);
+  return panel;
+}
+
+function packListRow(item: PackListItem): HTMLElement {
+  const row = el("div", { class: "pack-item" + (item.active ? " active" : "") });
+  const head = el("div", { class: "spread" });
+  const title = el("div");
+  const name = el("strong", {}, item.name);
+  const marks: string[] = [];
+  if (item.active) marks.push("active");
+  if (item.origin === "builtin") marks.push("built-in");
+  else if (item.origin === "idb") marks.push("uploaded");
+  else marks.push("local dev");
+  title.append(name, el("span", { class: "pack-flags" }, ` · ${marks.join(" · ")}`));
+  title.append(el("div", { class: "note" }, `${item.id} v${item.version} · ${item.imageCount} pictures`));
+  head.append(title);
+  const btns = el("div", { class: "row" });
+  if (!item.active) {
+    const use = btn("Use this pack", () => {
+      void (async () => {
+        state.packBusy = true;
+        state.packError = null;
+        render();
+        try {
+          applyPack(await switchToPack(item.key));
+          clearImagesQuery();
+          if (item.origin !== "idb") clearPackQuery();
+          state.packList = await listAvailablePacks(state.pack.key);
+        } catch (err) {
+          state.packError = formatPackError(err);
+        } finally {
+          state.packBusy = false;
+          render();
+        }
       })();
-    }));
+    }, "primary");
+    if (state.packBusy) use.disabled = true;
+    btns.append(use);
+  } else {
+    btns.append(el("span", { class: "note" }, "This is the pack in use."));
   }
-  wrap.append(row);
-  if (state.packError) wrap.append(el("p", { class: "pack-error" }, state.packError));
-  return wrap;
+  if (item.removable) {
+    const rm = btn("Remove", () => {
+      state.confirm = {
+        title: "Remove this pack?",
+        message: `“${item.name}” will be deleted from this browser’s storage. The built-in packs are not deleted.`,
+        yes: "Remove",
+        onYes: () => {
+          void (async () => {
+            try {
+              applyPack(await removeUserPack(item.key));
+              state.packList = await listAvailablePacks(state.pack.key);
+            } catch (err) {
+              state.packError = formatPackError(err);
+            }
+            render();
+          })();
+        },
+      };
+      render();
+    }, "danger");
+    if (state.packBusy) rm.disabled = true;
+    btns.append(rm);
+  }
+  head.append(btns);
+  row.append(head);
+  const credits: string[] = [];
+  credits.push(`Licence: ${item.license.name}` + (item.license.spdx ? ` (${item.license.spdx})` : ""));
+  if (item.license.notice) credits.push(item.license.notice);
+  if (item.attribution) credits.push(item.attribution);
+  if (item.description) credits.push(item.description);
+  row.append(el("p", { class: "note pack-credits" }, credits.join(" ")));
+  return row;
 }
 
 function openSelector(kind: SelectorKind): void {
@@ -1115,7 +1364,7 @@ function aboutView(): HTMLElement {
     el(
       "p",
       {},
-      "Artwork in the public build comes from the built-in CC0 placeholder image pack (newly made outlines, marked PLACEHOLDER · CC0, not traced from the 1998 bitmaps). You can upload a different image pack zip in the browser; it is stored only in this browser’s IndexedDB. A pack produced locally from the 1998 demo (via the extractor’s --image-pack option) must never be committed or published. Developers can also load an unpacked pack from remake/local-originals/ with ?images=local.",
+      "Artwork in the public build comes from a built-in CC0 clinical vector image pack (new original drawings, dedicated to the public domain, not copied or traced from the 1998 bitmaps). A simpler CC0 outline pack is also shipped and can be chosen in the Image pack window. You can upload further pack zips; they stay in this browser’s IndexedDB until you remove them. A pack produced locally from the 1998 demo (via the extractor’s --image-pack option) must never be committed or published. Developers can also load an unpacked pack from remake/local-originals/ with ?images=local, or pass ?pack= with the URL of a pack zip.",
     ),
   );
   panel.append(
@@ -1216,6 +1465,7 @@ function onKey(ev: KeyboardEvent): void {
     if (state.menu) { state.menu = null; render(); ev.preventDefault(); return; }
     if (state.confirm) { state.confirm = null; render(); ev.preventDefault(); return; }
     if (state.popups.length) { state.popups = cancelTopPopup(state.popups); render(); ev.preventDefault(); return; }
+    if (state.packWindowOpen) { state.packWindowOpen = false; render(); ev.preventDefault(); return; }
     if (state.aboutOpen) { state.aboutOpen = false; render(); ev.preventDefault(); return; }
     if (state.gpOpen && state.gpTab === "topics") { closeGpWindow(); ev.preventDefault(); return; }
     return;
@@ -1228,7 +1478,7 @@ function onKey(ev: KeyboardEvent): void {
     }
   }
   if (typing) return;
-  if (!state.gpOpen && !state.aboutOpen) {
+  if (!state.gpOpen && !state.aboutOpen && !state.packWindowOpen) {
     if (ev.key === "F4") { openSelector("QDE"); ev.preventDefault(); }
     else if (ev.key === "s" || ev.key === "S") openSelector("SYM");
     else if (ev.key === "d" || ev.key === "D") openSelector("DIS");

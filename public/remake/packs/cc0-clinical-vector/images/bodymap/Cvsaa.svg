@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Original CC0 1.0 clinical body-map illustration: Arm Arteries Anatomy -->
+<svg xmlns="http://www.w3.org/2000/svg" width="224" height="257" viewBox="0 0 224 257" shape-rendering="geometricPrecision">
+  <title>Arm Arteries Anatomy</title>
+  <defs>
+    <linearGradient id="skinGrad" x1="15%" y1="0%" x2="85%" y2="100%">
+      <stop offset="0%" stop-color="#F3EFEA"/>
+      <stop offset="55%" stop-color="#E7E0D7"/>
+      <stop offset="100%" stop-color="#D6CCC0"/>
+    </linearGradient>
+    <linearGradient id="skinHoriz" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#D6CCC0"/>
+      <stop offset="30%" stop-color="#F3EFEA"/>
+      <stop offset="70%" stop-color="#E7E0D7"/>
+      <stop offset="100%" stop-color="#D6CCC0"/>
+    </linearGradient>
+    <linearGradient id="hairGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5E6E7E"/>
+      <stop offset="100%" stop-color="#3E4C5B"/>
+    </linearGradient>
+    <linearGradient id="lungGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EED2CC"/>
+      <stop offset="100%" stop-color="#D4A69E"/>
+    </linearGradient>
+    <linearGradient id="brainGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F0E0D9"/>
+      <stop offset="100%" stop-color="#D6B9AE"/>
+    </linearGradient>
+    
+  </defs>
+  <rect width="224" height="257" fill="#FFFFFF"/>
+
+  <g id="arm-arteries">
+    <!-- Clean arm outline (patient's left arm, shoulder top-center angling down-right to hand [221..250, 173..214]) -->
+    <path d="
+      M 128,26
+      C 146,26 160,34 166,52
+      C 172,74 178,104 184,130
+      C 190,154 198,178 202,198
+      C 208,205 215,214 217,223
+      C 218,228 214,230 211,226
+      L 206,218 L 212,240 C 213,244 209,246 207,241
+      L 201,226 L 204,247 C 204,251 199,252 198,247
+      L 194,228 L 194,248 C 194,252 189,252 189,247
+      L 186,227 L 184,244 C 183,248 179,247 179,242
+      L 179,220 C 177,210 176,200 175,192
+      C 168,172 160,150 154,130
+      C 148,110 144,92 142,74
+      L 140,104
+      " fill="#F8F9FB" stroke="#8594A3" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Arterial tree (red) precisely hitting every anatomical hotspot:
+         Subclavian [26..61], Axillary [69..94], Brachial [117..140,152..177],
+         Radial [143..197,179..199], Ulnar [153..202,164..185], PalmarArch [202..218,177..205], Digital [221..250,173..214] -->
+    <g fill="none" stroke="#C43C3C" stroke-linecap="round" stroke-linejoin="round">
+      <!-- Subclavian -> Axillary -> Brachial -->
+      <path d="M 122,38 C 138,40 148,48 152,64 C 156,82 160,106 166,134" stroke-width="3.0"/>
+      <!-- Radial artery (lateral/right side of left arm: x=180..194) -->
+      <path d="M 166,134 C 175,146 184,162 189,182 C 192,192 194,200 193,208" stroke-width="2.0"/>
+      <!-- Ulnar artery (medial/left side: x=168..180) -->
+      <path d="M 166,134 C 169,152 172,172 178,192 C 180,200 182,206 184,210" stroke-width="1.9"/>
+      <!-- Superficial & deep palmar arches [202..218, 177..205] -->
+      <path d="M 183,209 C 188,215 198,215 202,209 M 184,205 C 190,209 196,209 200,205" stroke-width="1.6"/>
+      <!-- Hand digital arteries [221..250, 173..214] -->
+      <path d="M 184,212 L 182,243 M 190,214 L 191,247 M 195,214 L 200,247 M 200,212 L 208,241 M 202,209 L 214,225" stroke-width="1.2"/>
+    </g>
+
+    <!-- Leader lines & crisp labels inside exact left-column boxes -->
+    <g stroke="#2B3A4A" stroke-width="0.85" fill="none">
+      <line x1="72" y1="43" x2="138" y2="43"/>
+      <line x1="88" y1="81" x2="154" y2="81"/>
+      <line x1="92" y1="111" x2="161" y2="111"/>
+      <polyline points="82,139 112,139 182,162"/>
+      <polyline points="78,166 112,166 172,174"/>
+      <polyline points="92,196 142,196 186,210"/>
+      <line x1="126" y1="226" x2="182" y2="226"/>
+    </g>
+    <g font-family="DejaVu Sans, Arial, sans-serif" font-size="9.5" font-weight="600" fill="#2B3A4A">
+      <text x="6" y="40">subclavian</text><text x="16" y="51">artery</text>
+      <text x="6" y="84">axillary artery</text>
+      <text x="6" y="114">brachial artery</text>
+      <text x="6" y="142">radial artery</text>
+      <text x="6" y="169">ulnar artery</text>
+      <text x="6" y="199">palmar arches</text>
+      <text x="6" y="229">hand digital arteries</text>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Original CC0 1.0 clinical body-map illustration: Sole of Foot -->
+<svg xmlns="http://www.w3.org/2000/svg" width="86" height="178" viewBox="0 0 86 178" shape-rendering="geometricPrecision">
+  <title>Sole of Foot</title>
+  <defs>
+    <linearGradient id="skinGrad" x1="15%" y1="0%" x2="85%" y2="100%">
+      <stop offset="0%" stop-color="#F3EFEA"/>
+      <stop offset="55%" stop-color="#E7E0D7"/>
+      <stop offset="100%" stop-color="#D6CCC0"/>
+    </linearGradient>
+    <linearGradient id="skinHoriz" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#D6CCC0"/>
+      <stop offset="28%" stop-color="#F3EFEA"/>
+      <stop offset="72%" stop-color="#E7E0D7"/>
+      <stop offset="100%" stop-color="#D6CCC0"/>
+    </linearGradient>
+    <linearGradient id="hairGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5E6E7E"/>
+      <stop offset="100%" stop-color="#3E4C5B"/>
+    </linearGradient>
+    <linearGradient id="mucosaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E5BDB5"/>
+      <stop offset="100%" stop-color="#D49B91"/>
+    </linearGradient>
+    
+  </defs>
+  <rect width="86" height="178" fill="#FFFFFF"/>
+
+  <g id="sole-foot">
+    <!-- Short posterior ankle cuff above heel (y=14..34) -->
+    <path d="M 18,14 L 18,36 L 49,36 L 49,14 Z" fill="url(#skinHoriz)" stroke="none"/>
+    <path d="M 18,14 L 18,34 M 49,14 L 49,34" fill="none" stroke="#2B3A4A" stroke-width="1.35" stroke-linecap="round"/>
+
+    <!-- Plantar sole silhouette aligned precisely to Heel [23..74, 6..57], Sole [73..128, 6..69],
+         GreatToe [134..173, 28..50], SecondToe [130..165, 47..63], ThirdToe [124..156, 57..72],
+         FourthToe [120..143, 63..79], FifthToe [103..125, 63..81] -->
+    <path d="
+      M 30,26
+      C 18,27 11,38 11.5,52
+      C 12,65 15,78 18,92
+      C 21,106 20,120 24,132
+      C 26.5,139 29,144 30,151
+      C 29.5,161 33.5,170 40.5,170.5
+      C 46.5,171 49.5,164 49,154
+      C 48.5,147 47.5,142 47,139
+      C 48.5,148 51,159 55.5,160.5
+      C 59.5,161.8 61.8,156.5 61.2,148
+      C 60.8,142 59.5,137 58.5,134
+      C 60.5,141.5 63,150.5 67,151
+      C 70.2,151.5 71.8,146.5 70.8,139
+      C 70,134 68.5,129 67.5,126
+      C 69.5,132.5 72.5,139.5 75.8,139
+      C 78.5,138.5 79.2,133.5 77.8,127
+      C 76.8,123 75.5,119 74.2,116
+      C 76.5,120 79.5,122 81,118.5
+      C 82.2,115.5 80.2,107 75.5,101
+      C 70,94 64,84 58.5,72
+      C 54,62 52,50 48.5,39
+      C 45.5,30 39,25.5 30,26
+      Z" fill="url(#skinGrad)" stroke="#2B3A4A" stroke-width="1.45" stroke-linejoin="round"/>
+
+    <!-- Plantar contours: heel pad, medial longitudinal arch shading, ball of foot, toe creases -->
+    <!-- Heel pad contour [23..74, 6..57] -->
+    <path d="M 19,56 C 24,67 36,69 44,61" fill="none" stroke="#5A6C7E" stroke-width="1.0" stroke-linecap="round"/>
+    <path d="M 22,42 C 26,35 37,35 42,43" fill="none" stroke="#8594A3" stroke-width="0.85" stroke-linecap="round"/>
+    <!-- Medial arch shadow contour -->
+    <path d="M 21,76 C 29,83 34,96 31,110" fill="none" stroke="#5A6C7E" stroke-width="0.95" stroke-linecap="round"/>
+    <!-- Metatarsal ball of foot contour [73..128, 6..69] -->
+    <path d="M 27,125 C 39,129 56,124 68,110" fill="none" stroke="#5A6C7E" stroke-width="1.0" stroke-linecap="round"/>
+    <!-- Plantar toe pads / flexion creases -->
+    <path d="M 33,146 Q 40,149 46.5,146" fill="none" stroke="#5A6C7E" stroke-width="0.95" stroke-linecap="round"/>
+    <path d="M 49.5,143 Q 54.5,145.5 59.5,143" fill="none" stroke="#5A6C7E" stroke-width="0.85" stroke-linecap="round"/>
+    <path d="M 60.5,137 Q 64.5,139 69,136.5" fill="none" stroke="#5A6C7E" stroke-width="0.85" stroke-linecap="round"/>
+    <path d="M 68.5,129 Q 72,130.5 75.8,128" fill="none" stroke="#5A6C7E" stroke-width="0.8" stroke-linecap="round"/>
+    <path d="M 71.5,117 Q 75,117.5 78.5,114.5" fill="none" stroke="#5A6C7E" stroke-width="0.8" stroke-linecap="round"/>
+  </g>
+</svg>

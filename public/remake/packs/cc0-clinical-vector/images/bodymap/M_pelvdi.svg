@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Original CC0 1.0 clinical body-map illustration: Adult Male Pelvic and Urinary Diagram -->
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="330" viewBox="0 0 240 330" shape-rendering="geometricPrecision">
+  <title>Adult Male Pelvic and Urinary Diagram</title>
+  <defs>
+    <linearGradient id="skinGrad" x1="15%" y1="0%" x2="85%" y2="100%">
+      <stop offset="0%" stop-color="#F3EFEA"/>
+      <stop offset="55%" stop-color="#E7E0D7"/>
+      <stop offset="100%" stop-color="#D6CCC0"/>
+    </linearGradient>
+    <linearGradient id="skinHoriz" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#D6CCC0"/>
+      <stop offset="30%" stop-color="#F3EFEA"/>
+      <stop offset="70%" stop-color="#E7E0D7"/>
+      <stop offset="100%" stop-color="#D6CCC0"/>
+    </linearGradient>
+    <linearGradient id="hairGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5E6E7E"/>
+      <stop offset="100%" stop-color="#3E4C5B"/>
+    </linearGradient>
+    <linearGradient id="lungGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EED2CC"/>
+      <stop offset="100%" stop-color="#D4A69E"/>
+    </linearGradient>
+    <linearGradient id="brainGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F0E0D9"/>
+      <stop offset="100%" stop-color="#D6B9AE"/>
+    </linearGradient>
+    
+    <linearGradient id="pelvShade" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F3EFEA"/>
+      <stop offset="60%" stop-color="#E7E0D7"/>
+      <stop offset="100%" stop-color="#C9BCB0"/>
+    </linearGradient>
+  </defs>
+  <rect width="240" height="330" fill="#FFFFFF"/>
+
+    <!-- Paired Kidneys, Ureters & Urinary Bladder (upper half) -->
+    <!-- Right kidney (viewer's left) -->
+    <path d="M 54,48 C 36,48 28,64 30,82 C 32,98 44,106 58,103 C 68,100 72,91 69,81 C 67,76 68,70 71,63 C 73,54 66,48 54,48 Z"
+          fill="#9E534A" stroke="#2B3A4A" stroke-width="1.35"/>
+    <path d="M 52,58 C 41,60 37,73 40,86 C 43,94 52,96 60,92" fill="none" stroke="#D89A92" stroke-width="1.1" stroke-linecap="round"/>
+    <!-- Left kidney (viewer's right) -->
+    <path d="M 154,42 C 172,42 180,58 178,76 C 176,92 164,100 150,97 C 140,94 136,85 139,75 C 141,70 140,64 137,57 C 135,48 142,42 154,42 Z"
+          fill="#9E534A" stroke="#2B3A4A" stroke-width="1.35"/>
+    <path d="M 156,52 C 167,54 171,67 168,80 C 165,88 156,90 148,86" fill="none" stroke="#D89A92" stroke-width="1.1" stroke-linecap="round"/>
+    <!-- Ureters -->
+    <path d="M 66,81 C 74,108 78,136 82,162 M 142,75 C 134,104 130,134 126,162"
+          fill="none" stroke="#D6B792" stroke-width="5.5" stroke-linecap="round"/>
+    <path d="M 66,81 C 74,108 78,136 82,162 M 142,75 C 134,104 130,134 126,162"
+          fill="none" stroke="#2B3A4A" stroke-width="1.15" stroke-linecap="round"/>
+    <!-- Bladder & Urethra -->
+    <path d="M 66,174 C 66,158 84,155 104,155 C 124,155 142,158 142,174 C 142,191 124,200 104,200 C 84,200 66,191 66,174 Z"
+          fill="#D6B792" stroke="#2B3A4A" stroke-width="1.35"/>
+    <path d="M 99,200 L 99,222 L 109,222 L 109,200 Z" fill="#D6B792" stroke="#2B3A4A" stroke-width="1.2"/>
+
+    <g transform="translate(86, 198) scale(0.76)">
+      <g id="male-pelvis-clinical">
+    <!-- Background thigh/medial leg continuation -->
+    <path d="M 65,104 L 68,152 L 152,152 L 154,108 Z" fill="#D6CCC0" stroke="none"/>
+    <path d="M 68,125 L 69,152 M 151,115 L 151,152" fill="none" stroke="#2B3A4A" stroke-width="1.35" stroke-linecap="round"/>
+
+    <!-- Main anatomical pelvic & gluteal contour -->
+    <path d="
+      M 38,16
+      C 37,32 35,44 30,55
+      C 26,64 20,76 14,91
+      C 10,101 8.5,112 10.5,120
+      C 12.2,126.5 18.5,129 24.5,126
+      C 29.5,123.5 33,115 36,105
+      C 38.5,97 40,90 41,85
+      C 39,98 38,118 41.5,134
+      C 44.5,146.5 55.5,151 64.5,146
+      C 71.5,142 74.5,130 75,116
+      C 88,119 104,117 118,110
+      C 127,118 140,122 153,116
+      C 169,108 179,88 181,62
+      C 182.5,43 180,28 177,16
+      Z" fill="url(#pelvShade)" stroke="none"/>
+
+    <!-- Subtle anatomical volume shading: gluteal cleft, perineal furrow, scrotal contour -->
+    <path d="M 118,108 C 122,94 128,74 134,54 C 139,38 144,24 148,18 C 151,28 148,50 143,72 C 138,90 132,104 126,112 Z"
+          fill="#C9BCB0" opacity="0.52"/>
+    <path d="M 38,106 C 39,124 43,142 54,147 C 46,144 43,128 43,108 Z" fill="#C9BCB0" opacity="0.45"/>
+    <path d="M 74,114 C 89,117 104,115 117,108 C 106,109 89,110 74,108 Z" fill="#C9BCB0" opacity="0.4"/>
+    <path d="M 36,42 C 47,48 56,57 62,70" fill="none" stroke="#8594A3" stroke-width="0.9" stroke-linecap="round"/>
+
+    <!-- Anterior abdomen -> penile shaft -> coronal sulcus & glans [43..130, 6..38] -->
+    <path d="
+      M 38,16
+      C 37,32 35,44 30,55
+      C 26,64 20,76 14,91
+      C 10,101 8.5,112 10.5,120
+      C 12.2,126.5 18.5,129 24.5,126
+      C 29.5,123.5 33,115 36,105
+      C 38.5,97 40,89 41.5,80
+      " fill="none" stroke="#2B3A4A" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M 10.5,111 C 14.5,113.5 22,113.5 29.5,109.5" fill="none" stroke="#5A6C7E" stroke-width="1.05" stroke-linecap="round"/>
+    <path d="M 14.5,125 C 16.5,123 18.5,122 20,124" fill="none" stroke="#5A6C7E" stroke-width="0.85" stroke-linecap="round"/>
+    <path d="M 29,68 C 25,79 21,91 17,103" fill="none" stroke="#8594A3" stroke-width="0.75" stroke-linecap="round"/>
+
+    <!-- Scrotum [99..151, 37..72] -->
+    <path d="
+      M 40,94
+      C 38.5,110 38.5,128 42.5,139
+      C 46,148 57,150.5 64.5,145.5
+      C 71.5,141 74.5,128 74.5,113
+      " fill="none" stroke="#2B3A4A" stroke-width="1.45" stroke-linecap="round"/>
+    <path d="M 55.5,104 C 54,119 54.5,134 56.5,147" fill="none" stroke="#5A6C7E" stroke-width="0.9" stroke-linecap="round"/>
+    <path d="M 45,120 C 48,123 51,123 53,121 M 60,124 C 63,126 67,125 69,122" fill="none" stroke="#8594A3" stroke-width="0.7" stroke-linecap="round"/>
+
+    <!-- Perineum & perineal raphe [86..122, 71..119] -->
+    <path d="M 74.5,114 C 89,118 105,116 119,108" fill="none" stroke="#2B3A4A" stroke-width="1.4" stroke-linecap="round"/>
+    <path d="M 77,109 C 91,111 106,109 118,103" fill="none" stroke="#5A6C7E" stroke-width="0.9" stroke-linecap="round"/>
+
+    <!-- Posterior buttock & natal cleft (Rectum region [38..85, 111..153]) -->
+    <path d="
+      M 177,16
+      C 180,29 182.5,45 180.5,65
+      C 178.5,89 167,109 152,116.5
+      C 141,122 128,119 119,110
+      " fill="none" stroke="#2B3A4A" stroke-width="1.45" stroke-linecap="round"/>
+    <path d="M 145,26 C 141,46 135,68 128,88 C 125,96 121,103 118,108" fill="none" stroke="#2B3A4A" stroke-width="1.25" stroke-linecap="round"/>
+    <path d="M 134,38 C 131,54 127,70 123,86" fill="none" stroke="#5A6C7E" stroke-width="0.85" stroke-linecap="round"/>
+    <path d="M 164,66 C 158,86 149,101 136,110" fill="none" stroke="#5A6C7E" stroke-width="1.05" stroke-linecap="round"/>
+
+    <!-- Anal verge & perianal folds [79..109, 118..142] -->
+    <ellipse cx="127" cy="96" rx="7.2" ry="5.0" fill="#D4A39B" stroke="#2B3A4A" stroke-width="1.1"/>
+    <path d="M 122.5,96 Q 127,95 131.5,96" fill="none" stroke="#2B3A4A" stroke-width="1.0" stroke-linecap="round"/>
+    <path d="M 124,93.5 L 125.5,95 M 127,92.5 L 127,94.5 M 130,93.5 L 128.5,95 M 124.5,98.5 L 125.8,97 M 129.5,98.5 L 128.2,97"
+          fill="none" stroke="#8C5D55" stroke-width="0.7" stroke-linecap="round"/>
+  </g>
+
+    </g>
+</svg>

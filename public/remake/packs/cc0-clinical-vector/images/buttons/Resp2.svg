@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Original CC0 1.0 clinical body-system filter icon: Respiratory System — Selected (Down) -->
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" shape-rendering="geometricPrecision">
+  <title>Respiratory System — Selected (Down)</title>
+  <rect x="0.75" y="0.75" width="30.5" height="30.5" rx="4.5" fill="#1E3A5F" stroke="#102542" stroke-width="1.2"/>
+  <rect x="1.5" y="1.5" width="29" height="29" rx="4" fill="none" stroke="#0C1D35" stroke-width="1.2" opacity="0.65"/>
+  <g stroke-linecap="round" stroke-linejoin="round">
+    
+    <path d="M 16,5.5 L 16,14.5 M 16,13.5 L 12.5,17 M 16,13.5 L 19.5,17" fill="none" stroke="#FFFFFF" stroke-width="1.8"/>
+    <path d="M 13.2,11 C 9.2,11.5 6.5,16 6.2,21.5 C 6,24.8 8.2,26.2 11.2,25.2 C 13,24.6 13.8,23.2 13.8,20.5 L 13.8,13.5 C 13.8,12 13.6,11.2 13.2,11 Z"
+          fill="#4F83B8" stroke="#FFFFFF" stroke-width="1.9"/>
+    <path d="M 18.8,11 C 22.8,11.5 25.5,16 25.8,21.5 C 26,24.8 23.8,26.2 20.8,25.2 C 19,24.6 18.2,23.2 18.2,20.5 L 18.2,13.5 C 18.2,12 18.4,11.2 18.8,11 Z"
+          fill="#4F83B8" stroke="#FFFFFF" stroke-width="1.9"/>
+
+  </g>
+</svg>

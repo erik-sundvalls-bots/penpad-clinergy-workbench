@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Original CC0 1.0 clinical body-map illustration: Heart Structures Selector -->
+<svg xmlns="http://www.w3.org/2000/svg" width="189" height="208" viewBox="0 0 189 208" shape-rendering="geometricPrecision">
+  <title>Heart Structures Selector</title>
+  <defs>
+    <linearGradient id="skinGrad" x1="15%" y1="0%" x2="85%" y2="100%">
+      <stop offset="0%" stop-color="#F3EFEA"/>
+      <stop offset="55%" stop-color="#E7E0D7"/>
+      <stop offset="100%" stop-color="#D6CCC0"/>
+    </linearGradient>
+    <linearGradient id="skinHoriz" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#D6CCC0"/>
+      <stop offset="30%" stop-color="#F3EFEA"/>
+      <stop offset="70%" stop-color="#E7E0D7"/>
+      <stop offset="100%" stop-color="#D6CCC0"/>
+    </linearGradient>
+    <linearGradient id="hairGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5E6E7E"/>
+      <stop offset="100%" stop-color="#3E4C5B"/>
+    </linearGradient>
+    <linearGradient id="lungGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EED2CC"/>
+      <stop offset="100%" stop-color="#D4A69E"/>
+    </linearGradient>
+    <linearGradient id="brainGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F0E0D9"/>
+      <stop offset="100%" stop-color="#D6B9AE"/>
+    </linearGradient>
+    
+  </defs>
+  <rect width="189" height="208" fill="#FFFFFF"/>
+
+  <g id='heart'>
+  <rect x="5" y="28" width="170" height="20" rx="3.5" fill="#F4F7FA" stroke="#C5D2DF" stroke-width="0.9"/><rect x="5" y="28" width="3.5" height="20" rx="1.5" fill="#C43C3C"/>
+  <text x="13" y="41.5" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.2" font-weight="600" fill="#2B3A4A">cardiac conduction pathway</text>
+  <rect x="5" y="55" width="85" height="20" rx="3.5" fill="#F4F7FA" stroke="#C5D2DF" stroke-width="0.9"/><rect x="5" y="55" width="3.5" height="20" rx="1.5" fill="#C43C3C"/>
+  <text x="13" y="68.5" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.2" font-weight="600" fill="#2B3A4A">heart valve</text>
+  <rect x="5" y="83" width="85" height="21" rx="3.5" fill="#F4F7FA" stroke="#C5D2DF" stroke-width="0.9"/><rect x="5" y="83" width="3.5" height="21" rx="1.5" fill="#C43C3C"/>
+  <text x="13" y="97.0" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.2" font-weight="600" fill="#2B3A4A">endocardium</text>
+  <rect x="5" y="111" width="85" height="20" rx="3.5" fill="#F4F7FA" stroke="#C5D2DF" stroke-width="0.9"/><rect x="5" y="111" width="3.5" height="20" rx="1.5" fill="#C43C3C"/>
+  <text x="13" y="124.5" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.2" font-weight="600" fill="#2B3A4A">myocardium</text>
+  <rect x="5" y="140" width="85" height="20" rx="3.5" fill="#F4F7FA" stroke="#C5D2DF" stroke-width="0.9"/><rect x="5" y="140" width="3.5" height="20" rx="1.5" fill="#C43C3C"/>
+  <text x="13" y="153.5" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.2" font-weight="600" fill="#2B3A4A">pericardium</text>
+  <rect x="5" y="168" width="114" height="22" rx="3.5" fill="#F4F7FA" stroke="#C5D2DF" stroke-width="0.9"/><rect x="5" y="168" width="3.5" height="22" rx="1.5" fill="#C43C3C"/>
+  <text x="13" y="182.5" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.2" font-weight="600" fill="#2B3A4A">coronary arteries</text>
+  </g>
+</svg>

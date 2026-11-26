@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Original CC0 1.0 clinical body-map illustration: Respiratory System Overview -->
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="330" viewBox="0 0 240 330" shape-rendering="geometricPrecision">
+  <title>Respiratory System Overview</title>
+  <defs>
+    <linearGradient id="skinGrad" x1="15%" y1="0%" x2="85%" y2="100%">
+      <stop offset="0%" stop-color="#F3EFEA"/>
+      <stop offset="55%" stop-color="#E7E0D7"/>
+      <stop offset="100%" stop-color="#D6CCC0"/>
+    </linearGradient>
+    <linearGradient id="skinHoriz" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#D6CCC0"/>
+      <stop offset="30%" stop-color="#F3EFEA"/>
+      <stop offset="70%" stop-color="#E7E0D7"/>
+      <stop offset="100%" stop-color="#D6CCC0"/>
+    </linearGradient>
+    <linearGradient id="hairGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5E6E7E"/>
+      <stop offset="100%" stop-color="#3E4C5B"/>
+    </linearGradient>
+    <linearGradient id="lungGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EED2CC"/>
+      <stop offset="100%" stop-color="#D4A69E"/>
+    </linearGradient>
+    <linearGradient id="brainGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F0E0D9"/>
+      <stop offset="100%" stop-color="#D6B9AE"/>
+    </linearGradient>
+    
+  </defs>
+  <rect width="240" height="330" fill="#FFFFFF"/>
+
+  <g id="respiratory-main">
+    <!-- Head-in-profile (left) & anterior thorax outline -->
+    <path d="
+      M 42,320
+      C 40,290 40,256 44,232
+      C 47,214 55,204 72,199
+      C 86,195 95,191 96,180
+      C 96,172 95,165 92,162
+      C 83,163 72,163 66,158
+      C 63,154 64,148 67,144
+      C 64,142 63,138 66,136
+      C 63,134 62,130 66,128
+      C 61,126 57,124 58,119
+      C 60,114 66,105 69,96
+      C 70,84 74,68 88,58
+      C 104,46 132,46 149,58
+      C 164,70 170,92 167,118
+      C 164,140 156,156 151,168
+      C 150,180 156,192 171,197
+      C 188,202 197,212 200,232
+      C 204,256 204,290 202,320
+      " fill="#F8F9FB" stroke="#2B3A4A" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Upper Airway [97..185, 53..145]: nasal cavity, sinuses, nasopharynx, oropharynx, epiglottis, larynx -->
+    <path d="
+      M 66,121
+      C 75,112 94,108 112,113
+      C 124,117 129,129 128,148
+      L 127,188
+      L 114,188
+      L 114,158
+      C 112,147 104,141 88,140
+      C 76,139 68,139 66,136
+      C 72,133 88,132 104,134
+      C 111,135 116,131 115,125
+      C 113,120 96,118 76,122
+      Z" fill="#D8A39B" opacity="0.7" stroke="#2B3A4A" stroke-width="1.15" stroke-linejoin="round"/>
+    <!-- Nasal turbinates & larynx cartilage -->
+    <path d="M 79,116 Q 94,114 108,118 M 82,122 Q 96,121 107,124" fill="none" stroke="#A86D64" stroke-width="0.9" stroke-linecap="round"/>
+    <path d="M 113,166 L 128,166 M 113,174 L 128,174 M 113,182 L 128,182" fill="none" stroke="#2B3A4A" stroke-width="0.95"/>
+
+    <!-- Lower Airway [185..318, 61..184]: trachea, carina, bronchi & paired anatomical lungs -->
+    <!-- Right Lung (viewer's left) -->
+    <path d="
+      M 111,210
+      C 97,208 81,222 73,245
+      C 66,266 64,292 67,308
+      C 70,316 83,316 97,311
+      C 107,307 112,300 113,286
+      L 113,220
+      Z" fill="url(#lungGrad)" stroke="#2B3A4A" stroke-width="1.35" stroke-linejoin="round"/>
+    <!-- Right lung oblique & horizontal fissures -->
+    <path d="M 71,264 C 84,264 98,266 112,265 M 69,296 C 84,282 99,272 112,265" fill="none" stroke="#A86D64" stroke-width="0.95" stroke-linecap="round"/>
+
+    <!-- Left Lung (viewer's right, with cardiac notch) -->
+    <path d="
+      M 131,210
+      C 145,208 161,222 169,245
+      C 176,266 178,292 175,308
+      C 172,316 159,316 145,311
+      C 138,308 134,302 135,291
+      C 136,281 131,274 129,264
+      L 129,220
+      Z" fill="url(#lungGrad)" stroke="#2B3A4A" stroke-width="1.35" stroke-linejoin="round"/>
+    <!-- Left lung oblique fissure -->
+    <path d="M 173,294 C 158,280 144,268 130,256" fill="none" stroke="#A86D64" stroke-width="0.95" stroke-linecap="round"/>
+
+    <!-- Trachea & primary/secondary bronchial tree -->
+    <path d="
+      M 114,186 L 127,186 L 127,232
+      L 146,248 L 142,254 L 121,239
+      L 100,254 L 96,248 L 114,232 Z
+      " fill="#F2E4DF" stroke="#2B3A4A" stroke-width="1.15" stroke-linejoin="round"/>
+    <!-- Tracheal cartilage rings -->
+    <g stroke="#5A6C7E" stroke-width="0.9">
+      <line x1="115" y1="193" x2="126" y2="193"/>
+      <line x1="115" y1="201" x2="126" y2="201"/>
+      <line x1="115" y1="209" x2="126" y2="209"/>
+      <line x1="115" y1="217" x2="126" y2="217"/>
+      <line x1="115" y1="225" x2="126" y2="225"/>
+    </g>
+    <!-- Bronchial sub-branches -->
+    <g fill="none" stroke="#2B3A4A" stroke-width="1.05" stroke-linecap="round">
+      <path d="M 98,251 L 84,244 M 98,251 L 84,262 M 94,254 L 88,278"/>
+      <path d="M 144,251 L 158,244 M 144,251 L 158,262 M 148,254 L 154,278"/>
+    </g>
+  </g>
+</svg>

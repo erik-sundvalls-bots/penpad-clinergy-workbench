@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Original CC0 1.0 clinical body-map illustration: Dorsum of Foot -->
+<svg xmlns="http://www.w3.org/2000/svg" width="86" height="178" viewBox="0 0 86 178" shape-rendering="geometricPrecision">
+  <title>Dorsum of Foot</title>
+  <defs>
+    <linearGradient id="skinGrad" x1="15%" y1="0%" x2="85%" y2="100%">
+      <stop offset="0%" stop-color="#F3EFEA"/>
+      <stop offset="55%" stop-color="#E7E0D7"/>
+      <stop offset="100%" stop-color="#D6CCC0"/>
+    </linearGradient>
+    <linearGradient id="skinHoriz" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#D6CCC0"/>
+      <stop offset="28%" stop-color="#F3EFEA"/>
+      <stop offset="72%" stop-color="#E7E0D7"/>
+      <stop offset="100%" stop-color="#D6CCC0"/>
+    </linearGradient>
+    <linearGradient id="hairGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5E6E7E"/>
+      <stop offset="100%" stop-color="#3E4C5B"/>
+    </linearGradient>
+    <linearGradient id="mucosaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E5BDB5"/>
+      <stop offset="100%" stop-color="#D49B91"/>
+    </linearGradient>
+    
+  </defs>
+  <rect width="86" height="178" fill="#FFFFFF"/>
+
+  <g id="dorsum-foot">
+    <!-- Right foot anterior-dorsal silhouette (great toe shifted slightly left so all 5 toenails sit inside x=5..65) -->
+    <path d="
+      M 40,14
+      C 40,26 40,38 38.5,46
+      C 35.5,51 34,56 35,61
+      C 31,74 23,90 16.5,108
+      C 12.5,119 9.5,129 9,138
+      C 8.5,144.5 11.8,148 15.2,147.5
+      C 17.5,147.2 19,144.5 19.6,141.5
+      C 18.2,147.5 19.2,153.5 23,154.5
+      C 26,155.2 28.4,152 29.6,147.5
+      C 28.4,154 29.8,160.5 34.2,161
+      C 37.5,161.5 39.8,157.5 40.8,151.5
+      C 40.4,158.5 42.2,165.5 46.8,166
+      C 50.4,166.5 52.5,162 53.2,155.5
+      C 53.4,163 56.5,169 61.8,168.5
+      C 67,168 69.5,161 68.8,151
+      C 68.2,140 68,126 69.5,112
+      C 71.5,96 75.5,82 77,68
+      C 78.2,58 76.5,49 74,43
+      C 72.5,35 72,25 72,14
+      Z" fill="url(#skinGrad)" stroke="none"/>
+
+    <!-- Open-top outline -->
+    <path d="
+      M 40,14
+      C 40,26 40,38 38.5,46
+      C 35.5,51 34,56 35,61
+      C 31,74 23,90 16.5,108
+      C 12.5,119 9.5,129 9,138
+      C 8.5,144.5 11.8,148 15.2,147.5
+      C 17.5,147.2 19,144.5 19.6,141.5
+      C 18.2,147.5 19.2,153.5 23,154.5
+      C 26,155.2 28.4,152 29.6,147.5
+      C 28.4,154 29.8,160.5 34.2,161
+      C 37.5,161.5 39.8,157.5 40.8,151.5
+      C 40.4,158.5 42.2,165.5 46.8,166
+      C 50.4,166.5 52.5,162 53.2,155.5
+      C 53.4,163 56.5,169 61.8,168.5
+      C 67,168 69.5,161 68.8,151
+      C 68.2,140 68,126 69.5,112
+      C 71.5,96 75.5,82 77,68
+      C 78.2,58 76.5,49 74,43
+      C 72.5,35 72,25 72,14
+      " fill="none" stroke="#2B3A4A" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Toe web lines -->
+    <path d="M 19.6,141.5 L 22,131 M 29.6,147.5 L 31.8,135 M 40.8,151.5 L 42,137 M 53.2,155.5 L 53,138"
+          fill="none" stroke="#2B3A4A" stroke-width="1.2" stroke-linecap="round"/>
+
+    <!-- Lateral malleolus [28..60, 30..55] & Medial malleolus [28..60, 55..80] contours -->
+    <path d="M 38.5,46 C 42,49 43,55 39.5,58" fill="none" stroke="#5A6C7E" stroke-width="1.0" stroke-linecap="round"/>
+    <path d="M 73.5,43 C 69,46 68,52 71.5,56" fill="none" stroke="#5A6C7E" stroke-width="1.0" stroke-linecap="round"/>
+    <path d="M 43,54 Q 56,59 69,53" fill="none" stroke="#8594A3" stroke-width="0.9" stroke-linecap="round"/>
+
+    <!-- Dorsal extensor tendons [68..122, 12..81] -->
+    <path d="M 50,66 C 42,84 32,106 22,124" fill="none" stroke="#8594A3" stroke-width="0.85" stroke-linecap="round"/>
+    <path d="M 55,66 C 49,86 41,108 35,128" fill="none" stroke="#8594A3" stroke-width="0.85" stroke-linecap="round"/>
+    <path d="M 60,67 C 56,88 52,110 47,130" fill="none" stroke="#8594A3" stroke-width="0.85" stroke-linecap="round"/>
+    <path d="M 65,69 C 63,90 61,112 60,132" fill="none" stroke="#8594A3" stroke-width="0.9" stroke-linecap="round"/>
+
+    <!-- Five crisp toenails — ALL 100% inside ToeNail [121..170, 5..65] -->
+    <path d="M 55.2,151.5 C 55.8,147.5 62.2,147.5 63.6,151.5 L 63.8,160.5 C 62.5,163.5 56.2,163.5 55.2,160 Z"
+          fill="#F8F6F3" stroke="#2B3A4A" stroke-width="1.0"/>
+    <path d="M 43.8,153 C 44.3,150.5 49.2,150.5 50,153 L 50,159.5 C 49,161.5 44.5,161.5 43.8,159 Z"
+          fill="#F8F6F3" stroke="#2B3A4A" stroke-width="0.95"/>
+    <path d="M 32,149.5 C 32.5,147.2 37,147.2 37.5,149.5 L 37.5,155 C 36.5,156.8 32.5,156.8 32,154.8 Z"
+          fill="#F8F6F3" stroke="#2B3A4A" stroke-width="0.95"/>
+    <path d="M 21,144.5 C 21.6,142.5 25.6,142.5 26.2,144.5 L 26.2,149.2 C 25.2,150.8 21.5,150.8 21,149 Z"
+          fill="#F8F6F3" stroke="#2B3A4A" stroke-width="0.9"/>
+    <path d="M 11.2,137.5 C 11.6,135.8 15.2,135.8 15.8,137.5 L 15.6,141.5 C 14.6,143 11.6,143 11.2,141.2 Z"
+          fill="#F8F6F3" stroke="#2B3A4A" stroke-width="0.85"/>
+  </g>
+</svg>

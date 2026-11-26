@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Original CC0 1.0 clinical body-map illustration: Sagittal Upper Airway Anatomy -->
+<svg xmlns="http://www.w3.org/2000/svg" width="220" height="250" viewBox="0 0 220 250" shape-rendering="geometricPrecision">
+  <title>Sagittal Upper Airway Anatomy</title>
+  <defs>
+    <linearGradient id="skinGrad" x1="15%" y1="0%" x2="85%" y2="100%">
+      <stop offset="0%" stop-color="#F3EFEA"/>
+      <stop offset="55%" stop-color="#E7E0D7"/>
+      <stop offset="100%" stop-color="#D6CCC0"/>
+    </linearGradient>
+    <linearGradient id="skinHoriz" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#D6CCC0"/>
+      <stop offset="30%" stop-color="#F3EFEA"/>
+      <stop offset="70%" stop-color="#E7E0D7"/>
+      <stop offset="100%" stop-color="#D6CCC0"/>
+    </linearGradient>
+    <linearGradient id="hairGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5E6E7E"/>
+      <stop offset="100%" stop-color="#3E4C5B"/>
+    </linearGradient>
+    <linearGradient id="lungGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EED2CC"/>
+      <stop offset="100%" stop-color="#D4A69E"/>
+    </linearGradient>
+    <linearGradient id="brainGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F0E0D9"/>
+      <stop offset="100%" stop-color="#D6B9AE"/>
+    </linearGradient>
+    
+  </defs>
+  <rect width="220" height="250" fill="#FFFFFF"/>
+
+  <g id="upper-airway">
+    <!-- Head & neck profile silhouette facing left -->
+    <path d="
+      M 188,246
+      C 182,226 178,204 178,184
+      C 192,162 204,132 204,98
+      C 204,52 174,18 126,16
+      C 84,14 54,38 48,72
+      C 46,84 44,94 38,105
+      C 31,117 24,126 27,132
+      C 30,136 37,137 42,139
+      C 40,145 36,150 40,155
+      C 44,158 46,161 42,165
+      C 39,170 42,177 48,180
+      C 47,190 50,202 62,206
+      C 74,210 88,208 94,212
+      C 97,222 97,234 97,246
+      " fill="url(#skinGrad)" stroke="#2B3A4A" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Frontal & Sphenoid/Ethmoid Paranasal Sinuses [101..133, 42..73] -->
+    <path d="M 48,88 C 54,84 62,88 61,99 C 60,106 52,107 48,101 Z" fill="#DCE9F5" stroke="#5A6C7E" stroke-width="1.05"/>
+    <path d="M 47,108 C 56,104 68,106 72,116 C 74,124 65,131 53,130 C 46,129 44,117 47,108 Z"
+          fill="#DCE9F5" stroke="#5A6C7E" stroke-width="1.05"/>
+
+    <!-- Nasal cavity & Nasopharynx [94..134, 57..118], Oropharynx [132..161, 46..125], Larynx [161..201, 94..134], Trachea [201..250, 107..136] -->
+    <path d="
+      M 37,132
+      C 48,118 72,102 98,102
+      C 118,102 128,116 130,142
+      L 132,200
+      L 134,248
+      L 108,248
+      L 106,198
+      C 104,178 100,164 98,158
+      C 84,158 62,158 46,154
+      C 54,148 76,144 96,144
+      C 106,144 114,136 112,126
+      C 108,116 88,114 66,120
+      C 54,124 44,130 37,132
+      Z" fill="#FAF0ED" stroke="#2B3A4A" stroke-width="1.25" stroke-linejoin="round"/>
+
+    <!-- Nasal conchae / turbinates inside nasal cavity -->
+    <path d="M 60,111 Q 82,107 100,113 M 62,119 Q 84,116 102,121 M 62,127 Q 82,125 98,128"
+          fill="none" stroke="#A86D64" stroke-width="1.0" stroke-linecap="round"/>
+
+    <!-- Hard & soft palate separating Nasopharynx from Oropharynx -->
+    <path d="M 48,136 C 64,130 88,130 104,136 C 110,139 112,145 109,147 C 106,148 102,144 96,141 C 82,137 64,138 48,141 Z"
+          fill="#D8A39B" stroke="#2B3A4A" stroke-width="1.1"/>
+
+    <!-- Tongue body below Oropharynx -->
+    <path d="M 52,156 C 64,150 86,150 98,159 C 105,165 106,176 102,184 C 92,186 72,185 56,178 Z"
+          fill="#D8A39B" stroke="#2B3A4A" stroke-width="1.15"/>
+
+    <!-- Epiglottis [132..152, 95..113] (leaf-shaped cartilage guarding laryngeal inlet) -->
+    <path d="M 105,164 C 104,152 101,142 104,136 C 107,134 110,140 110,152 C 110,160 108,165 105,164 Z"
+          fill="#D99B92" stroke="#2B3A4A" stroke-width="1.15"/>
+
+    <!-- Larynx [161..201, 94..134]: thyroid cartilage & vocal fold contour -->
+    <path d="M 103,166 L 130,166 L 132,199 L 106,199 Z" fill="#F0D8D2" stroke="#2B3A4A" stroke-width="1.15"/>
+    <path d="M 107,178 Q 118,181 128,178 M 108,185 Q 118,188 128,185" fill="none" stroke="#2B3A4A" stroke-width="1.1"/>
+    <!-- Posterior esophagus hint behind trachea -->
+    <path d="M 134,196 L 136,248 L 145,248 L 142,194" fill="#E8D2CB" stroke="#5A6C7E" stroke-width="0.9"/>
+
+    <!-- Trachea [201..250, 107..136] with crisp C-shaped cartilage rings -->
+    <rect x="108" y="201" width="26" height="47" fill="#F4E6E2" stroke="#2B3A4A" stroke-width="1.2"/>
+    <g stroke="#5A6C7E" stroke-width="1.1">
+      <line x1="110" y1="208" x2="132" y2="208"/>
+      <line x1="110" y1="216" x2="132" y2="216"/>
+      <line x1="110" y1="224" x2="132" y2="224"/>
+      <line x1="110" y1="232" x2="132" y2="232"/>
+      <line x1="110" y1="240" x2="132" y2="240"/>
+    </g>
+  </g>
+</svg>

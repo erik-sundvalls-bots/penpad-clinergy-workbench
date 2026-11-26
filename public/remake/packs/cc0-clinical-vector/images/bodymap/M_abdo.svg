@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Original CC0 1.0 clinical body-map illustration: Adult Male Abdomen -->
+<svg xmlns="http://www.w3.org/2000/svg" width="181" height="212" viewBox="0 0 181 212" shape-rendering="geometricPrecision">
+  <title>Adult Male Abdomen</title>
+  <defs>
+    <linearGradient id="skinGrad" x1="15%" y1="0%" x2="85%" y2="100%">
+      <stop offset="0%" stop-color="#F3EFEA"/>
+      <stop offset="55%" stop-color="#E7E0D7"/>
+      <stop offset="100%" stop-color="#D6CCC0"/>
+    </linearGradient>
+    <linearGradient id="skinHoriz" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#D6CCC0"/>
+      <stop offset="28%" stop-color="#F3EFEA"/>
+      <stop offset="72%" stop-color="#E7E0D7"/>
+      <stop offset="100%" stop-color="#D6CCC0"/>
+    </linearGradient>
+    <linearGradient id="hairGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5E6E7E"/>
+      <stop offset="100%" stop-color="#3E4C5B"/>
+    </linearGradient>
+    <linearGradient id="mucosaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E5BDB5"/>
+      <stop offset="100%" stop-color="#D49B91"/>
+    </linearGradient>
+    
+  </defs>
+  <rect width="181" height="212" fill="#FFFFFF"/>
+
+  <g id="male-abdomen">
+    <!-- Male torso & hip fill -->
+    <path d="
+      M 24,14
+      C 25,38 27,62 29,82
+      C 30.5,98 30.5,114 27.5,129
+      C 23.5,146 16.5,164 14.5,184
+      C 14,192 14,198 14.5,204
+      L 167.5,204
+      C 168,198 168,192 167.5,184
+      C 165.5,164 158.5,146 154.5,129
+      C 151.5,114 151.5,98 153,82
+      C 155,62 157,38 158,14
+      Z" fill="url(#skinHoriz)" stroke="none"/>
+
+    <!-- Outer lateral torso & hip outlines -->
+    <path d="M 24,14 C 25,38 27,62 29,82 C 30.5,98 30.5,114 27.5,129 C 23.5,146 16.5,164 14.5,184 C 14,192 14,198 14.5,204"
+          fill="none" stroke="#2B3A4A" stroke-width="1.45" stroke-linecap="round"/>
+    <path d="M 158,14 C 157,38 155,62 153,82 C 151.5,98 151.5,114 154.5,129 C 158.5,146 165.5,164 167.5,184 C 168,192 168,198 167.5,204"
+          fill="none" stroke="#2B3A4A" stroke-width="1.45" stroke-linecap="round"/>
+
+    <!-- Lower chest / pectoral border context at top (y=16..42) -->
+    <path d="M 31,26 C 42,35 64,37 82,32 C 86,30.5 88,26 88,18" fill="none" stroke="#5A6C7E" stroke-width="1.05" stroke-linecap="round"/>
+    <path d="M 151,26 C 140,35 118,37 100,32 C 96,30.5 94,26 94,18" fill="none" stroke="#5A6C7E" stroke-width="1.05" stroke-linecap="round"/>
+
+    <!-- Subcostal arch (marks Epigastrium & Hypochondria [49..95]) -->
+    <path d="M 38,76 C 54,64 72,56 91,52 C 110,56 128,64 144,76" fill="none" stroke="#8594A3" stroke-width="1.0" stroke-linecap="round"/>
+    <!-- Subtle linea alba & rectus abdominis lateral hints -->
+    <path d="M 91,56 L 91,105" fill="none" stroke="#8594A3" stroke-width="0.75" stroke-linecap="round"/>
+    <path d="M 66,80 C 65,102 66,128 70,152 M 116,80 C 117,102 116,128 112,152" fill="none" stroke="#8594A3" stroke-width="0.7" stroke-linecap="round" opacity="0.6"/>
+
+    <!-- Umbilicus [94..134, 72..114] -->
+    <path d="M 86.5,113.5 C 88.5,116.5 93.5,116.5 95.5,113.5" fill="none" stroke="#2B3A4A" stroke-width="1.2" stroke-linecap="round"/>
+    <path d="M 88,111.5 Q 91,110 94,111.5" fill="none" stroke="#5A6C7E" stroke-width="0.8" stroke-linecap="round"/>
+
+    <!-- Iliac crests & inguinal / Groin crease [167..202, 6..174] -->
+    <path d="M 28,144 C 36,158 50,172 68,184 C 76,189 83,193 87,199" fill="none" stroke="#5A6C7E" stroke-width="1.15" stroke-linecap="round"/>
+    <path d="M 154,144 C 146,158 132,172 114,184 C 106,189 99,193 95,199" fill="none" stroke="#5A6C7E" stroke-width="1.15" stroke-linecap="round"/>
+    <!-- Modest neutral suprapubic / groin horizontal hint -->
+    <path d="M 73,174 Q 91,177 109,174" fill="none" stroke="#8594A3" stroke-width="0.85" stroke-linecap="round"/>
+  </g>
+</svg>

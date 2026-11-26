@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Original CC0 1.0 clinical body-map illustration: Leg Arteries Anatomy -->
+<svg xmlns="http://www.w3.org/2000/svg" width="224" height="276" viewBox="0 0 224 276" shape-rendering="geometricPrecision">
+  <title>Leg Arteries Anatomy</title>
+  <defs>
+    <linearGradient id="skinGrad" x1="15%" y1="0%" x2="85%" y2="100%">
+      <stop offset="0%" stop-color="#F3EFEA"/>
+      <stop offset="55%" stop-color="#E7E0D7"/>
+      <stop offset="100%" stop-color="#D6CCC0"/>
+    </linearGradient>
+    <linearGradient id="skinHoriz" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#D6CCC0"/>
+      <stop offset="30%" stop-color="#F3EFEA"/>
+      <stop offset="70%" stop-color="#E7E0D7"/>
+      <stop offset="100%" stop-color="#D6CCC0"/>
+    </linearGradient>
+    <linearGradient id="hairGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5E6E7E"/>
+      <stop offset="100%" stop-color="#3E4C5B"/>
+    </linearGradient>
+    <linearGradient id="lungGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EED2CC"/>
+      <stop offset="100%" stop-color="#D4A69E"/>
+    </linearGradient>
+    <linearGradient id="brainGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F0E0D9"/>
+      <stop offset="100%" stop-color="#D6B9AE"/>
+    </linearGradient>
+    
+  </defs>
+  <rect width="224" height="276" fill="#FFFFFF"/>
+
+  <g id="leg-arteries" transform="scale(1,1.0000)">
+    <!-- Clean leg outline on left (x=34..78, y=10..272) -->
+    <path d="
+      M 38,10 C 37,48 39,88 42,118
+      C 40,132 39,144 41,158
+      C 38,176 37,196 40,218
+      C 41,230 39,240 36,252
+      C 33,262 34,271 42,272
+      C 54,273 66,271 70,264
+      C 72,258 66,246 62,232
+      C 64,212 68,186 70,162
+      C 71,148 68,134 67,120
+      C 72,88 76,48 76,10
+      " fill="#F8F9FB" stroke="#8594A3" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Arterial tree (red) matching every anatomical hotspot:
+         Femoral [4..102,48..64], Popliteal [106..149,49..68],
+         AnteriorTibial [168..228,54..68], PosteriorTibial [180..240,41..52],
+         DorsalisPedis [239..251,38..67], PlantarArch [250..261,37..67], FootDigital [261..276,32..74] -->
+    <g fill="none" stroke="#C43C3C" stroke-linecap="round" stroke-linejoin="round">
+      <!-- Femoral & profunda femoris -> Popliteal -->
+      <path d="M 57,10 C 56,42 56,78 57,114 C 57,132 56,146 55,158" stroke-width="2.8"/>
+      <path d="M 56,38 C 62,54 64,74 63,92" stroke-width="1.5"/>
+      <!-- Anterior tibial artery (x=60, y=158..236) -> Dorsalis pedis -->
+      <path d="M 55,158 C 60,174 61,202 58,236 C 55,244 51,250 48,255" stroke-width="1.9"/>
+      <!-- Posterior tibial artery (x=47, y=158..244) -> Plantar arch -->
+      <path d="M 55,158 C 49,174 46,204 46,238 C 46,247 50,254 58,256" stroke-width="1.8"/>
+      <!-- Dorsalis pedis & Plantar arch -->
+      <path d="M 41,256 Q 52,260 63,256" stroke-width="1.6"/>
+      <!-- Foot digital arteries -->
+      <path d="M 41,257 L 38,270 M 46,258 L 45,271 M 52,259 L 53,271 M 58,258 L 60,270 M 62,257 L 66,267" stroke-width="1.2"/>
+    </g>
+
+    <!-- Leader lines & crisp labels -->
+    <g stroke="#2B3A4A" stroke-width="0.85" fill="none">
+      <line x1="94" y1="43" x2="58" y2="43"/>
+      <line x1="94" y1="130" x2="57" y2="130"/>
+      <line x1="94" y1="172" x2="60" y2="172"/>
+      <polyline points="94,196 68,196 47,204"/>
+      <polyline points="94,221 72,221 56,244"/>
+      <polyline points="94,242 74,242 62,255"/>
+      <line x1="94" y1="264" x2="66" y2="264"/>
+    </g>
+    <g font-family="DejaVu Sans, Arial, sans-serif" font-size="9.5" font-weight="600" fill="#2B3A4A">
+      <text x="98" y="46">femoral artery</text>
+      <text x="98" y="133">popliteal artery</text>
+      <text x="98" y="175">anterior tibial artery</text>
+      <text x="98" y="199">posterior tibial artery</text>
+      <text x="98" y="224">dorsalis pedis artery</text>
+      <text x="98" y="245">plantar arch</text>
+      <text x="98" y="267">foot digital arteries</text>
+    </g>
+  </g>
+</svg>

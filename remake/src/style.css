@@ -93,7 +93,7 @@ button { cursor: pointer; }
 @media (max-width: 700px) { .selector { grid-template-columns: 1fr; } }
 .sysbar { display: flex; flex-wrap: wrap; gap: 3px; margin-bottom: 6px; }
 .sysbar .icon-btn { padding: 1px; width: 36px; height: 36px; display: grid; place-items: center; }
-.sysbar img { width: 32px; height: 32px; image-rendering: pixelated; }
+.sysbar img { width: 32px; height: 32px; image-rendering: auto; }
 .graphic-wrap { position: relative; width: 240px; height: 330px; background: #e8e2d4; border: 1px solid var(--line); user-select: none; }
 .graphic-wrap img.main { width: 240px; height: 330px; display: block; pointer-events: none; }
 .graphic-wrap img.inset {
@@ -203,8 +203,8 @@ button { cursor: pointer; }
 .workbench-link { font-size: 0.85rem; }
 .workbench-link a { color: var(--accent); }
 
-.pack-controls { display: flex; flex-direction: column; gap: 4px; }
-.pack-controls .pack-file {
+.pack-controls { display: flex; flex-direction: column; gap: 4px; align-items: flex-start; }
+.pack-file {
   position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0);
 }
 .pack-error { color: #8a1f1f; font-size: 0.85rem; margin: 4px 0 0; max-width: 36rem; white-space: pre-wrap; }
@@ -281,3 +281,27 @@ body, #app { background: var(--desktop); }
   .win-gp, .win-popup, .win-about { left: 8px !important; top: 4.5rem; width: calc(100vw - 16px); }
   .win-host { width: 100%; }
 }
+
+.win-sys { padding: 0 6px; line-height: 1.2; margin-right: 6px; background: var(--btn); color: var(--ink); font-size: 0.85rem; }
+.win-pack { left: 4.5rem; top: 3.2rem; width: min(42rem, calc(100vw - 2rem)); z-index: 6; }
+.pack-window h3 { font-size: 0.95rem; margin: 12px 0 6px; }
+.pack-drop {
+  border: 2px dashed var(--line);
+  background: #efe8d8;
+  padding: 14px 12px;
+  text-align: center;
+  margin: 8px 0;
+}
+.pack-drop.over { background: #d9efe0; border-color: var(--accent); }
+.pack-drop .row { justify-content: center; margin-top: 8px; }
+.pack-url-row { margin: 8px 0; align-items: center; }
+.pack-url-row input[type="url"] { flex: 1; min-width: 12rem; padding: 4px 6px; }
+.pack-list { display: flex; flex-direction: column; gap: 8px; }
+.pack-item {
+  border: 1px solid var(--line);
+  background: #fffdf8;
+  padding: 8px 10px;
+}
+.pack-item.active { outline: 2px solid var(--accent); background: #f3faf5; }
+.pack-flags { color: var(--muted); font-weight: 400; font-size: 0.85rem; }
+.pack-credits { margin: 6px 0 0; }

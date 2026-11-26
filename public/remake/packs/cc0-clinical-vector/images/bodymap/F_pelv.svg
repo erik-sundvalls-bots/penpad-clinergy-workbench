@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Original CC0 1.0 clinical body-map illustration: Adult Female Pelvic and Perineal Anatomy -->
+<svg xmlns="http://www.w3.org/2000/svg" width="196" height="142" viewBox="0 0 196 142" shape-rendering="geometricPrecision">
+  <title>Adult Female Pelvic and Perineal Anatomy</title>
+  <defs>
+    <linearGradient id="skinGrad" x1="15%" y1="0%" x2="85%" y2="100%">
+      <stop offset="0%" stop-color="#F3EFEA"/>
+      <stop offset="55%" stop-color="#E7E0D7"/>
+      <stop offset="100%" stop-color="#D6CCC0"/>
+    </linearGradient>
+    <linearGradient id="skinHoriz" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#D6CCC0"/>
+      <stop offset="28%" stop-color="#F3EFEA"/>
+      <stop offset="72%" stop-color="#E7E0D7"/>
+      <stop offset="100%" stop-color="#D6CCC0"/>
+    </linearGradient>
+    <linearGradient id="hairGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5E6E7E"/>
+      <stop offset="100%" stop-color="#3E4C5B"/>
+    </linearGradient>
+    <linearGradient id="mucosaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E5BDB5"/>
+      <stop offset="100%" stop-color="#D49B91"/>
+    </linearGradient>
+    
+    <radialGradient id="breastShadeL" cx="42%" cy="38%" r="65%">
+      <stop offset="0%" stop-color="#F3EFEA" stop-opacity="0.7"/>
+      <stop offset="68%" stop-color="#E7E0D7" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#C9BCB0" stop-opacity="0.65"/>
+    </radialGradient>
+    <radialGradient id="breastShadeR" cx="58%" cy="38%" r="65%">
+      <stop offset="0%" stop-color="#F3EFEA" stop-opacity="0.7"/>
+      <stop offset="68%" stop-color="#E7E0D7" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#C9BCB0" stop-opacity="0.65"/>
+    </radialGradient>
+    <linearGradient id="pelvShade" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F3EFEA"/>
+      <stop offset="60%" stop-color="#E7E0D7"/>
+      <stop offset="100%" stop-color="#C9BCB0"/>
+    </linearGradient>
+    <linearGradient id="cleftShade" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#C9BCB0" stop-opacity="0.0"/>
+      <stop offset="50%" stop-color="#C9BCB0" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#B4A394" stop-opacity="0.35"/>
+    </linearGradient>
+
+  </defs>
+  <rect width="196" height="142" fill="#FFFFFF"/>
+
+  <g id="female-pelvis-clinical">
+    <!-- Background thigh framing -->
+    <path d="M 29,70 L 29,136 L 149,136 L 151,105 Z" fill="#D6CCC0" stroke="none"/>
+    <path d="M 29,70 L 29,136 M 149,108 L 149,136" fill="none" stroke="#2B3A4A" stroke-width="1.35" stroke-linecap="round"/>
+
+    <!-- Main anatomical pelvic, mons pubis, perineal & gluteal contour -->
+    <path d="
+      M 15,20
+      C 17,44 26,68 42,87
+      C 54,102 72,115 95,119
+      C 118,123 142,118 160,104
+      C 175,92 182,70 182,42
+      C 182,32 181,25 180,20
+      Z" fill="url(#pelvShade)" stroke="none"/>
+
+    <!-- Soft anatomical contours: inguinal crease, vulval cleft & natal/gluteal cleft -->
+    <path d="M 48,88 C 64,108 92,118 119,113 C 131,106 141,91 148,70 C 138,88 127,102 114,106 C 92,112 66,104 48,88 Z"
+          fill="#C9BCB0" opacity="0.5"/>
+    <path d="M 26,44 C 36,56 48,66 62,72" fill="none" stroke="#8594A3" stroke-width="0.85" stroke-linecap="round"/>
+
+    <!-- Crisp outer pelvic & gluteal outlines -->
+    <path d="
+      M 15,20
+      C 17,44 26,68 42,87
+      C 54,102 72,115 95,119
+      C 118,123 142,118 160,104
+      C 175,92 182,70 182,42
+      C 182,32 181,25 180,20
+      " fill="none" stroke="#2B3A4A" stroke-width="1.45" stroke-linecap="round"/>
+
+    <!-- Gluteal natal cleft sweeping down through posterior pelvis (Rectum [65..94, 112..144]) to Anus [93..111, 109..127] -->
+    <path d="M 152,48 C 147,66 139,83 128,96 C 124,101 119,105 114,108" fill="none" stroke="#2B3A4A" stroke-width="1.2" stroke-linecap="round"/>
+    <path d="M 139,62 C 134,76 128,88 120,97" fill="none" stroke="#5A6C7E" stroke-width="0.85" stroke-linecap="round"/>
+    <path d="M 164,62 C 159,82 149,98 135,108" fill="none" stroke="#5A6C7E" stroke-width="1.0" stroke-linecap="round"/>
+
+    <!-- Labia majora (outer vulval fold spanning Vulva [103..120, 59..122]) -->
+    <path d="M 48,86 C 58,104 78,115 101,115 C 109,115 115,113 119,110" fill="none" stroke="#2B3A4A" stroke-width="1.35" stroke-linecap="round"/>
+    <path d="M 55,83 C 68,94 84,99 102,99 C 108,99 113,97 117,95" fill="none" stroke="#5A6C7E" stroke-width="1.05" stroke-linecap="round"/>
+
+    <!-- Vestibule & labia minora (anatomically proportioned clinical detail) -->
+    <path d="
+      M 59,95
+      C 66,89 78,89 92,92
+      C 103,94 111,99 112,104
+      C 111,109 102,112 90,111
+      C 76,110 64,104 59,95
+      Z" fill="#D4A39B" opacity="0.55" stroke="#8C5D55" stroke-width="0.95"/>
+    <path d="M 61,95 C 71,90 86,91 103,97 C 108,99 111,102 110,105" fill="none" stroke="#2B3A4A" stroke-width="1.0" stroke-linecap="round"/>
+    <path d="M 62,97 C 72,105 88,110 105,108 C 108,107.5 110,106 110,105" fill="none" stroke="#2B3A4A" stroke-width="1.0" stroke-linecap="round"/>
+
+    <!-- Clitoral hood & glans [85..104, 54..73] -->
+    <path d="M 58,94 C 61,89.5 67,89.5 70,93.5" fill="none" stroke="#2B3A4A" stroke-width="1.05" stroke-linecap="round"/>
+    <ellipse cx="64.5" cy="95.2" rx="3.2" ry="2.4" fill="#D4A39B" stroke="#2B3A4A" stroke-width="0.95"/>
+
+    <!-- Female urethral meatus [73..107, 78..94] -->
+    <ellipse cx="85.5" cy="99" rx="2.6" ry="2.0" fill="#8C5D55" opacity="0.78" stroke="#2B3A4A" stroke-width="0.85"/>
+
+    <!-- Vaginal introitus & posterior fourchette [58..110, 93..112] -->
+    <ellipse cx="101.5" cy="102.5" rx="6.2" ry="4.0" fill="#D4A39B" stroke="#2B3A4A" stroke-width="1.05"/>
+    <path d="M 97.5,102.5 Q 101.5,104 105.5,102.5" fill="none" stroke="#8C5D55" stroke-width="0.9" stroke-linecap="round"/>
+
+    <!-- Anus [93..111, 109..127] -->
+    <ellipse cx="118.5" cy="102" rx="5.5" ry="3.8" fill="#D4A39B" stroke="#2B3A4A" stroke-width="1.05"/>
+    <path d="M 115,102 Q 118.5,101.5 122,102" fill="none" stroke="#2B3A4A" stroke-width="0.9" stroke-linecap="round"/>
+    <path d="M 116.5,100 L 117.5,101.2 M 118.5,99.2 L 118.5,100.8 M 120.5,100 L 119.5,101.2 M 116.8,104 L 117.8,102.8 M 120.2,104 L 119.2,102.8"
+          fill="none" stroke="#8C5D55" stroke-width="0.65" stroke-linecap="round"/>
+
+    <!-- Perineal body contour [99..130, 80..150] -->
+    <path d="M 92,122 C 110,126 128,123 142,115" fill="none" stroke="#5A6C7E" stroke-width="0.95" stroke-linecap="round"/>
+  </g>
+</svg>
