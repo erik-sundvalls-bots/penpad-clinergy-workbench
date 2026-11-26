@@ -10,8 +10,9 @@ This is an independent recreation of a PEN&PAD / 1998 Clinergy-style data-entry 
 
 - Gen-Demo-style host: patient header, record list, launch buttons (QDE SYM DIS CHK FH PMH INT).
 - Patients: Lars Nyström and Eva Holmgren, from the [TermViz V8 demo](https://erik-sundvalls-bots.github.io/TermViz/prototyping/v8-multilingual-stack-demo.html?lang=en) (year of birth and sex only; nothing else is invented). Records are stored in `localStorage`. **Reset demo** clears those records; it is separate from **Reset** on a form.
+- A Gen Demo-style host window (patient header, record, topic launch buttons) stays on a desktop-like background. The topic selector and form open as an overlapping data-entry window with Topics / form tabs, so the host remains visible.
 - Symptom selector with a surface-anatomy body map (hover highlight, click to zoom insets, location filters the topic list).
-- Thumb pain form (and thumb swelling / thumb diagnoses opened from it) with constrained-option controls, a live original-equivalent summary sentence, and Accept to save to the patient record.
+- Thumb pain form with constrained-option controls, a live original-equivalent summary sentence, and Accept to save to the patient record. **more…** (for example thumb swelling) opens an overlapping child window, not a new page; Esc cancels it, Enter accepts when enabled, and the parent form plus its summary stay visible.
 - Mouse and keyboard only in this version.
 
 ## Images and image packs
