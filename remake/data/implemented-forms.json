@@ -1,0 +1,10 @@
+{
+  "note": "Forms whose definitions are loaded in this slice. Other topics appear in lists but open a stub. The engine is generic over the extractor form YAML shape.",
+  "topics": [
+    "ThumbPainSymptom",
+    "ThumbSwellingSymptom",
+    "ThumbSprain",
+    "ThumbJointDislocation",
+    "ThumbFracture"
+  ]
+}

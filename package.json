@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build",
+    "build": "tsc --noEmit && vite build && node scripts/guard-original-images.mjs --dist",
     "test": "vitest run",
     "post:cdr": "npx vite-node scripts/post-thumb-cases.ts",
     "preview": "vite preview --host 127.0.0.1 --port 4173"

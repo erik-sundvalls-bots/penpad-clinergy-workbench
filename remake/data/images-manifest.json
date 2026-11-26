@@ -1,0 +1,3901 @@
+{
+  "version": 1,
+  "images": {
+    "B_back": {
+      "id": "B_back",
+      "originalRel": "bitmaps/B_back.png",
+      "placeholder": "B_back.svg",
+      "folder": "bitmaps",
+      "width": 166,
+      "height": 264
+    },
+    "B_pleg": {
+      "id": "B_pleg",
+      "originalRel": "bitmaps/B_pleg.png",
+      "placeholder": "B_pleg.svg",
+      "folder": "bitmaps",
+      "width": 66,
+      "height": 283
+    },
+    "Banner": {
+      "id": "Banner",
+      "originalRel": "bitmaps/Banner.png",
+      "placeholder": "Banner.svg",
+      "folder": "bitmaps",
+      "width": 600,
+      "height": 200
+    },
+    "CLBAN16": {
+      "id": "CLBAN16",
+      "originalRel": "bitmaps/CLBAN16.png",
+      "placeholder": "CLBAN16.svg",
+      "folder": "bitmaps",
+      "width": 600,
+      "height": 200
+    },
+    "Clban256": {
+      "id": "Clban256",
+      "originalRel": "bitmaps/Clban256.png",
+      "placeholder": "Clban256.svg",
+      "folder": "bitmaps",
+      "width": 600,
+      "height": 200
+    },
+    "Clinicon": {
+      "id": "Clinicon",
+      "originalRel": "bitmaps/Clinicon.png",
+      "placeholder": "Clinicon.svg",
+      "folder": "bitmaps",
+      "width": 32,
+      "height": 32
+    },
+    "F_main.jk": {
+      "id": "F_main.jk",
+      "originalRel": "bitmaps/F_main.jk.png",
+      "placeholder": "F_main.jk.svg",
+      "folder": "bitmaps",
+      "width": 240,
+      "height": 330
+    },
+    "Icon": {
+      "id": "Icon",
+      "originalRel": "bitmaps/Icon.png",
+      "placeholder": "Icon.svg",
+      "folder": "bitmaps",
+      "width": 64,
+      "height": 64
+    },
+    "M_abdo.hf": {
+      "id": "M_abdo.hf",
+      "originalRel": "bitmaps/M_abdo.hf.png",
+      "placeholder": "M_abdo.hf.svg",
+      "folder": "bitmaps",
+      "width": 181,
+      "height": 212
+    },
+    "M_abdo.jk": {
+      "id": "M_abdo.jk",
+      "originalRel": "bitmaps/M_abdo.jk.png",
+      "placeholder": "M_abdo.jk.svg",
+      "folder": "bitmaps",
+      "width": 182,
+      "height": 248
+    },
+    "Mss1": {
+      "id": "Mss1",
+      "originalRel": "bitmaps/Mss1.png",
+      "placeholder": "Mss1.svg",
+      "folder": "bitmaps",
+      "width": 32,
+      "height": 32
+    },
+    "Mss2": {
+      "id": "Mss2",
+      "originalRel": "bitmaps/Mss2.png",
+      "placeholder": "Mss2.svg",
+      "folder": "bitmaps",
+      "width": 32,
+      "height": 32
+    },
+    "Tsdis1": {
+      "id": "Tsdis1",
+      "originalRel": "bitmaps/Tsdis1.png",
+      "placeholder": "Tsdis1.svg",
+      "folder": "bitmaps",
+      "width": 32,
+      "height": 32
+    },
+    "Tsdis2": {
+      "id": "Tsdis2",
+      "originalRel": "bitmaps/Tsdis2.png",
+      "placeholder": "Tsdis2.svg",
+      "folder": "bitmaps",
+      "width": 32,
+      "height": 32
+    },
+    "Tsfh1": {
+      "id": "Tsfh1",
+      "originalRel": "bitmaps/Tsfh1.png",
+      "placeholder": "Tsfh1.svg",
+      "folder": "bitmaps",
+      "width": 32,
+      "height": 32
+    },
+    "Tsfh2": {
+      "id": "Tsfh2",
+      "originalRel": "bitmaps/Tsfh2.png",
+      "placeholder": "Tsfh2.svg",
+      "folder": "bitmaps",
+      "width": 32,
+      "height": 32
+    },
+    "Tshc1": {
+      "id": "Tshc1",
+      "originalRel": "bitmaps/Tshc1.png",
+      "placeholder": "Tshc1.svg",
+      "folder": "bitmaps",
+      "width": 32,
+      "height": 32
+    },
+    "Tshc2": {
+      "id": "Tshc2",
+      "originalRel": "bitmaps/Tshc2.png",
+      "placeholder": "Tshc2.svg",
+      "folder": "bitmaps",
+      "width": 32,
+      "height": 32
+    },
+    "Tspmh1": {
+      "id": "Tspmh1",
+      "originalRel": "bitmaps/Tspmh1.png",
+      "placeholder": "Tspmh1.svg",
+      "folder": "bitmaps",
+      "width": 32,
+      "height": 32
+    },
+    "Tspmh2": {
+      "id": "Tspmh2",
+      "originalRel": "bitmaps/Tspmh2.png",
+      "placeholder": "Tspmh2.svg",
+      "folder": "bitmaps",
+      "width": 32,
+      "height": 32
+    },
+    "Tsproc1": {
+      "id": "Tsproc1",
+      "originalRel": "bitmaps/Tsproc1.png",
+      "placeholder": "Tsproc1.svg",
+      "folder": "bitmaps",
+      "width": 32,
+      "height": 32
+    },
+    "Tsproc2": {
+      "id": "Tsproc2",
+      "originalRel": "bitmaps/Tsproc2.png",
+      "placeholder": "Tsproc2.svg",
+      "folder": "bitmaps",
+      "width": 32,
+      "height": 32
+    },
+    "Tssh1": {
+      "id": "Tssh1",
+      "originalRel": "bitmaps/Tssh1.png",
+      "placeholder": "Tssh1.svg",
+      "folder": "bitmaps",
+      "width": 32,
+      "height": 32
+    },
+    "Tssh2": {
+      "id": "Tssh2",
+      "originalRel": "bitmaps/Tssh2.png",
+      "placeholder": "Tssh2.svg",
+      "folder": "bitmaps",
+      "width": 32,
+      "height": 32
+    },
+    "Tssym1": {
+      "id": "Tssym1",
+      "originalRel": "bitmaps/Tssym1.png",
+      "placeholder": "Tssym1.svg",
+      "folder": "bitmaps",
+      "width": 32,
+      "height": 32
+    },
+    "Tssym2": {
+      "id": "Tssym2",
+      "originalRel": "bitmaps/Tssym2.png",
+      "placeholder": "Tssym2.svg",
+      "folder": "bitmaps",
+      "width": 32,
+      "height": 32
+    },
+    "installer/CLBAN16": {
+      "id": "installer/CLBAN16",
+      "originalRel": "bitmaps/installer/CLBAN16.png",
+      "placeholder": "CLBAN16.svg",
+      "folder": "installer",
+      "width": 600,
+      "height": 200
+    },
+    "DLGIMAGE": {
+      "id": "DLGIMAGE",
+      "originalRel": "bitmaps/installer/DLGIMAGE.png",
+      "placeholder": "DLGIMAGE.svg",
+      "folder": "installer",
+      "width": 120,
+      "height": 258
+    },
+    "tsProc3": {
+      "id": "tsProc3",
+      "originalRel": "bitmaps/tsProc3.png",
+      "placeholder": "tsProc3.svg",
+      "folder": "bitmaps",
+      "width": 32,
+      "height": 32
+    },
+    "tspmh3": {
+      "id": "tspmh3",
+      "originalRel": "bitmaps/tspmh3.png",
+      "placeholder": "tspmh3.svg",
+      "folder": "bitmaps",
+      "width": 32,
+      "height": 32
+    },
+    "windemo-vb-42712": {
+      "id": "windemo-vb-42712",
+      "originalRel": "bitmaps/vb-forms/windemo-vb-42712.png",
+      "placeholder": "windemo-vb-42712.svg",
+      "folder": "vb-forms",
+      "width": 1,
+      "height": 1
+    },
+    "Abdcvs": {
+      "id": "Abdcvs",
+      "originalRel": "bodymap/Abdcvs.png",
+      "placeholder": "Abdcvs.svg",
+      "folder": "bodymap",
+      "width": 189,
+      "height": 208
+    },
+    "Arm_art2": {
+      "id": "Arm_art2",
+      "originalRel": "bodymap/Arm_art2.png",
+      "placeholder": "Arm_art2.svg",
+      "folder": "bodymap",
+      "width": 224,
+      "height": 257
+    },
+    "Armnrv2": {
+      "id": "Armnrv2",
+      "originalRel": "bodymap/Armnrv2.png",
+      "placeholder": "Armnrv2.svg",
+      "folder": "bodymap",
+      "width": 224,
+      "height": 257
+    },
+    "Armvein2": {
+      "id": "Armvein2",
+      "originalRel": "bodymap/Armvein2.png",
+      "placeholder": "Armvein2.svg",
+      "folder": "bodymap",
+      "width": 224,
+      "height": 257
+    },
+    "B_aleg": {
+      "id": "B_aleg",
+      "originalRel": "bodymap/B_aleg.png",
+      "placeholder": "B_aleg.svg",
+      "folder": "bodymap",
+      "width": 66,
+      "height": 283
+    },
+    "B_bhnd": {
+      "id": "B_bhnd",
+      "originalRel": "bodymap/B_bhnd.png",
+      "placeholder": "B_bhnd.svg",
+      "folder": "bodymap",
+      "width": 96,
+      "height": 148
+    },
+    "B_dfoot": {
+      "id": "B_dfoot",
+      "originalRel": "bodymap/B_dfoot.png",
+      "placeholder": "B_dfoot.svg",
+      "folder": "bodymap",
+      "width": 86,
+      "height": 178
+    },
+    "B_fhnd": {
+      "id": "B_fhnd",
+      "originalRel": "bodymap/B_fhnd.png",
+      "placeholder": "B_fhnd.svg",
+      "folder": "bodymap",
+      "width": 96,
+      "height": 152
+    },
+    "B_mth": {
+      "id": "B_mth",
+      "originalRel": "bodymap/B_mth.png",
+      "placeholder": "B_mth.svg",
+      "folder": "bodymap",
+      "width": 176,
+      "height": 218
+    },
+    "B_sfoot": {
+      "id": "B_sfoot",
+      "originalRel": "bodymap/B_sfoot.png",
+      "placeholder": "B_sfoot.svg",
+      "folder": "bodymap",
+      "width": 86,
+      "height": 178
+    },
+    "Bckspc": {
+      "id": "Bckspc",
+      "originalRel": "bodymap/Bckspc.png",
+      "placeholder": "Bckspc.svg",
+      "folder": "bodymap",
+      "width": 166,
+      "height": 264
+    },
+    "Brain": {
+      "id": "Brain",
+      "originalRel": "bodymap/Brain.png",
+      "placeholder": "Brain.svg",
+      "folder": "bodymap",
+      "width": 220,
+      "height": 200
+    },
+    "Brainext": {
+      "id": "Brainext",
+      "originalRel": "bodymap/Brainext.png",
+      "placeholder": "Brainext.svg",
+      "folder": "bodymap",
+      "width": 180,
+      "height": 206
+    },
+    "Crannerv": {
+      "id": "Crannerv",
+      "originalRel": "bodymap/Crannerv.png",
+      "placeholder": "Crannerv.svg",
+      "folder": "bodymap",
+      "width": 210,
+      "height": 300
+    },
+    "Cvsaa": {
+      "id": "Cvsaa",
+      "originalRel": "bodymap/Cvsaa.png",
+      "placeholder": "Cvsaa.svg",
+      "folder": "bodymap",
+      "width": 224,
+      "height": 257
+    },
+    "Cvsav": {
+      "id": "Cvsav",
+      "originalRel": "bodymap/Cvsav.png",
+      "placeholder": "Cvsav.svg",
+      "folder": "bodymap",
+      "width": 224,
+      "height": 257
+    },
+    "Cvsla": {
+      "id": "Cvsla",
+      "originalRel": "bodymap/Cvsla.png",
+      "placeholder": "Cvsla.svg",
+      "folder": "bodymap",
+      "width": 224,
+      "height": 257
+    },
+    "Cvslv": {
+      "id": "Cvslv",
+      "originalRel": "bodymap/Cvslv.png",
+      "placeholder": "Cvslv.svg",
+      "folder": "bodymap",
+      "width": 224,
+      "height": 257
+    },
+    "Cvsmain": {
+      "id": "Cvsmain",
+      "originalRel": "bodymap/Cvsmain.png",
+      "placeholder": "Cvsmain.svg",
+      "folder": "bodymap",
+      "width": 240,
+      "height": 330
+    },
+    "Digmain": {
+      "id": "Digmain",
+      "originalRel": "bodymap/Digmain.png",
+      "placeholder": "Digmain.svg",
+      "folder": "bodymap",
+      "width": 240,
+      "height": 330
+    },
+    "Endmain": {
+      "id": "Endmain",
+      "originalRel": "bodymap/Endmain.png",
+      "placeholder": "Endmain.svg",
+      "folder": "bodymap",
+      "width": 240,
+      "height": 330
+    },
+    "Endomain": {
+      "id": "Endomain",
+      "originalRel": "bodymap/Endomain.png",
+      "placeholder": "Endomain.svg",
+      "folder": "bodymap",
+      "width": 240,
+      "height": 330
+    },
+    "Entmain": {
+      "id": "Entmain",
+      "originalRel": "bodymap/Entmain.png",
+      "placeholder": "Entmain.svg",
+      "folder": "bodymap",
+      "width": 240,
+      "height": 330
+    },
+    "Eye3": {
+      "id": "Eye3",
+      "originalRel": "bodymap/Eye3.png",
+      "placeholder": "Eye3.svg",
+      "folder": "bodymap",
+      "width": 240,
+      "height": 330
+    },
+    "F_abdo": {
+      "id": "F_abdo",
+      "originalRel": "bodymap/F_abdo.png",
+      "placeholder": "F_abdo.svg",
+      "folder": "bodymap",
+      "width": 182,
+      "height": 218
+    },
+    "F_arm": {
+      "id": "F_arm",
+      "originalRel": "bodymap/F_arm.png",
+      "placeholder": "F_arm.svg",
+      "folder": "bodymap",
+      "width": 116,
+      "height": 240
+    },
+    "F_back": {
+      "id": "F_back",
+      "originalRel": "bodymap/F_back.png",
+      "placeholder": "F_back.svg",
+      "folder": "bodymap",
+      "width": 166,
+      "height": 264
+    },
+    "F_chest": {
+      "id": "F_chest",
+      "originalRel": "bodymap/F_chest.png",
+      "placeholder": "F_chest.svg",
+      "folder": "bodymap",
+      "width": 182,
+      "height": 166
+    },
+    "F_gen_u": {
+      "id": "F_gen_u",
+      "originalRel": "bodymap/F_gen_u.png",
+      "placeholder": "F_gen_u.svg",
+      "folder": "bodymap",
+      "width": 240,
+      "height": 330
+    },
+    "F_head": {
+      "id": "F_head",
+      "originalRel": "bodymap/F_head.png",
+      "placeholder": "F_head.svg",
+      "folder": "bodymap",
+      "width": 196,
+      "height": 212
+    },
+    "F_main": {
+      "id": "F_main",
+      "originalRel": "bodymap/F_main.png",
+      "placeholder": "F_main.svg",
+      "folder": "bodymap",
+      "width": 240,
+      "height": 330
+    },
+    "F_pelv": {
+      "id": "F_pelv",
+      "originalRel": "bodymap/F_pelv.png",
+      "placeholder": "F_pelv.svg",
+      "folder": "bodymap",
+      "width": 196,
+      "height": 142
+    },
+    "F_pelvdi": {
+      "id": "F_pelvdi",
+      "originalRel": "bodymap/F_pelvdi.png",
+      "placeholder": "F_pelvdi.svg",
+      "folder": "bodymap",
+      "width": 240,
+      "height": 330
+    },
+    "F_select": {
+      "id": "F_select",
+      "originalRel": "bodymap/F_select.png",
+      "placeholder": "F_select.svg",
+      "folder": "bodymap",
+      "width": 240,
+      "height": 330
+    },
+    "Fnrvmain": {
+      "id": "Fnrvmain",
+      "originalRel": "bodymap/Fnrvmain.png",
+      "placeholder": "Fnrvmain.svg",
+      "folder": "bodymap",
+      "width": 240,
+      "height": 330
+    },
+    "Heart": {
+      "id": "Heart",
+      "originalRel": "bodymap/Heart.png",
+      "placeholder": "Heart.svg",
+      "folder": "bodymap",
+      "width": 189,
+      "height": 208
+    },
+    "Leg_art2": {
+      "id": "Leg_art2",
+      "originalRel": "bodymap/Leg_art2.png",
+      "placeholder": "Leg_art2.svg",
+      "folder": "bodymap",
+      "width": 224,
+      "height": 276
+    },
+    "Legnrv2": {
+      "id": "Legnrv2",
+      "originalRel": "bodymap/Legnrv2.png",
+      "placeholder": "Legnrv2.svg",
+      "folder": "bodymap",
+      "width": 224,
+      "height": 267
+    },
+    "Legvein2": {
+      "id": "Legvein2",
+      "originalRel": "bodymap/Legvein2.png",
+      "placeholder": "Legvein2.svg",
+      "folder": "bodymap",
+      "width": 224,
+      "height": 276
+    },
+    "Lowres": {
+      "id": "Lowres",
+      "originalRel": "bodymap/Lowres.png",
+      "placeholder": "Lowres.svg",
+      "folder": "bodymap",
+      "width": 220,
+      "height": 250
+    },
+    "Lowresp": {
+      "id": "Lowresp",
+      "originalRel": "bodymap/Lowresp.png",
+      "placeholder": "Lowresp.svg",
+      "folder": "bodymap",
+      "width": 220,
+      "height": 256
+    },
+    "M_abdo": {
+      "id": "M_abdo",
+      "originalRel": "bodymap/M_abdo.png",
+      "placeholder": "M_abdo.svg",
+      "folder": "bodymap",
+      "width": 181,
+      "height": 212
+    },
+    "M_arm": {
+      "id": "M_arm",
+      "originalRel": "bodymap/M_arm.png",
+      "placeholder": "M_arm.svg",
+      "folder": "bodymap",
+      "width": 116,
+      "height": 240
+    },
+    "M_back": {
+      "id": "M_back",
+      "originalRel": "bodymap/M_back.png",
+      "placeholder": "M_back.svg",
+      "folder": "bodymap",
+      "width": 166,
+      "height": 264
+    },
+    "M_ches": {
+      "id": "M_ches",
+      "originalRel": "bodymap/M_ches.png",
+      "placeholder": "M_ches.svg",
+      "folder": "bodymap",
+      "width": 182,
+      "height": 166
+    },
+    "M_gen_u": {
+      "id": "M_gen_u",
+      "originalRel": "bodymap/M_gen_u.png",
+      "placeholder": "M_gen_u.svg",
+      "folder": "bodymap",
+      "width": 240,
+      "height": 330
+    },
+    "M_head": {
+      "id": "M_head",
+      "originalRel": "bodymap/M_head.png",
+      "placeholder": "M_head.svg",
+      "folder": "bodymap",
+      "width": 180,
+      "height": 212
+    },
+    "M_main": {
+      "id": "M_main",
+      "originalRel": "bodymap/M_main.png",
+      "placeholder": "M_main.svg",
+      "folder": "bodymap",
+      "width": 240,
+      "height": 330
+    },
+    "M_pelv": {
+      "id": "M_pelv",
+      "originalRel": "bodymap/M_pelv.png",
+      "placeholder": "M_pelv.svg",
+      "folder": "bodymap",
+      "width": 196,
+      "height": 158
+    },
+    "M_pelvdi": {
+      "id": "M_pelvdi",
+      "originalRel": "bodymap/M_pelvdi.png",
+      "placeholder": "M_pelvdi.svg",
+      "folder": "bodymap",
+      "width": 240,
+      "height": 330
+    },
+    "M_select": {
+      "id": "M_select",
+      "originalRel": "bodymap/M_select.png",
+      "placeholder": "M_select.svg",
+      "folder": "bodymap",
+      "width": 240,
+      "height": 330
+    },
+    "Mnrvmain": {
+      "id": "Mnrvmain",
+      "originalRel": "bodymap/Mnrvmain.png",
+      "placeholder": "Mnrvmain.svg",
+      "folder": "bodymap",
+      "width": 240,
+      "height": 330
+    },
+    "Mus_foot": {
+      "id": "Mus_foot",
+      "originalRel": "bodymap/Mus_foot.png",
+      "placeholder": "Mus_foot.svg",
+      "folder": "bodymap",
+      "width": 122,
+      "height": 189
+    },
+    "Mus_hand": {
+      "id": "Mus_hand",
+      "originalRel": "bodymap/Mus_hand.png",
+      "placeholder": "Mus_hand.svg",
+      "folder": "bodymap",
+      "width": 123,
+      "height": 158
+    },
+    "Mus_leg": {
+      "id": "Mus_leg",
+      "originalRel": "bodymap/Mus_leg.png",
+      "placeholder": "Mus_leg.svg",
+      "folder": "bodymap",
+      "width": 113,
+      "height": 302
+    },
+    "Neckcvs": {
+      "id": "Neckcvs",
+      "originalRel": "bodymap/Neckcvs.png",
+      "placeholder": "Neckcvs.svg",
+      "folder": "bodymap",
+      "width": 149,
+      "height": 150
+    },
+    "Neckcvs2": {
+      "id": "Neckcvs2",
+      "originalRel": "bodymap/Neckcvs2.png",
+      "placeholder": "Neckcvs2.svg",
+      "folder": "bodymap",
+      "width": 190,
+      "height": 220
+    },
+    "Nsarm": {
+      "id": "Nsarm",
+      "originalRel": "bodymap/Nsarm.png",
+      "placeholder": "Nsarm.svg",
+      "folder": "bodymap",
+      "width": 224,
+      "height": 257
+    },
+    "Nsleg": {
+      "id": "Nsleg",
+      "originalRel": "bodymap/Nsleg.png",
+      "placeholder": "Nsleg.svg",
+      "folder": "bodymap",
+      "width": 224,
+      "height": 257
+    },
+    "Ophmain": {
+      "id": "Ophmain",
+      "originalRel": "bodymap/Ophmain.png",
+      "placeholder": "Ophmain.svg",
+      "folder": "bodymap",
+      "width": 240,
+      "height": 330
+    },
+    "Respmain": {
+      "id": "Respmain",
+      "originalRel": "bodymap/Respmain.png",
+      "placeholder": "Respmain.svg",
+      "folder": "bodymap",
+      "width": 240,
+      "height": 330
+    },
+    "Ressys": {
+      "id": "Ressys",
+      "originalRel": "bodymap/Ressys.png",
+      "placeholder": "Ressys.svg",
+      "folder": "bodymap",
+      "width": 240,
+      "height": 330
+    },
+    "Thoraxcv": {
+      "id": "Thoraxcv",
+      "originalRel": "bodymap/Thoraxcv.png",
+      "placeholder": "Thoraxcv.svg",
+      "folder": "bodymap",
+      "width": 150,
+      "height": 150
+    },
+    "Upres": {
+      "id": "Upres",
+      "originalRel": "bodymap/Upres.png",
+      "placeholder": "Upres.svg",
+      "folder": "bodymap",
+      "width": 220,
+      "height": 250
+    },
+    "Upresp": {
+      "id": "Upresp",
+      "originalRel": "bodymap/Upresp.png",
+      "placeholder": "Upresp.svg",
+      "folder": "bodymap",
+      "width": 220,
+      "height": 250
+    },
+    "All1": {
+      "id": "All1",
+      "originalRel": "buttons/All1.png",
+      "placeholder": "All1.svg",
+      "folder": "buttons",
+      "width": 32,
+      "height": 32
+    },
+    "All2": {
+      "id": "All2",
+      "originalRel": "buttons/All2.png",
+      "placeholder": "All2.svg",
+      "folder": "buttons",
+      "width": 32,
+      "height": 32
+    },
+    "Cns1": {
+      "id": "Cns1",
+      "originalRel": "buttons/Cns1.png",
+      "placeholder": "Cns1.svg",
+      "folder": "buttons",
+      "width": 32,
+      "height": 32
+    },
+    "Cns2": {
+      "id": "Cns2",
+      "originalRel": "buttons/Cns2.png",
+      "placeholder": "Cns2.svg",
+      "folder": "buttons",
+      "width": 32,
+      "height": 32
+    },
+    "Cvs1": {
+      "id": "Cvs1",
+      "originalRel": "buttons/Cvs1.png",
+      "placeholder": "Cvs1.svg",
+      "folder": "buttons",
+      "width": 32,
+      "height": 32
+    },
+    "Cvs2": {
+      "id": "Cvs2",
+      "originalRel": "buttons/Cvs2.png",
+      "placeholder": "Cvs2.svg",
+      "folder": "buttons",
+      "width": 32,
+      "height": 32
+    },
+    "Endo1": {
+      "id": "Endo1",
+      "originalRel": "buttons/Endo1.png",
+      "placeholder": "Endo1.svg",
+      "folder": "buttons",
+      "width": 32,
+      "height": 32
+    },
+    "Endo2": {
+      "id": "Endo2",
+      "originalRel": "buttons/Endo2.png",
+      "placeholder": "Endo2.svg",
+      "folder": "buttons",
+      "width": 32,
+      "height": 32
+    },
+    "Ent1": {
+      "id": "Ent1",
+      "originalRel": "buttons/Ent1.png",
+      "placeholder": "Ent1.svg",
+      "folder": "buttons",
+      "width": 32,
+      "height": 32
+    },
+    "Ent2": {
+      "id": "Ent2",
+      "originalRel": "buttons/Ent2.png",
+      "placeholder": "Ent2.svg",
+      "folder": "buttons",
+      "width": 32,
+      "height": 32
+    },
+    "Eye1": {
+      "id": "Eye1",
+      "originalRel": "buttons/Eye1.png",
+      "placeholder": "Eye1.svg",
+      "folder": "buttons",
+      "width": 32,
+      "height": 32
+    },
+    "Eye2": {
+      "id": "Eye2",
+      "originalRel": "buttons/Eye2.png",
+      "placeholder": "Eye2.svg",
+      "folder": "buttons",
+      "width": 32,
+      "height": 32
+    },
+    "Gen1": {
+      "id": "Gen1",
+      "originalRel": "buttons/Gen1.png",
+      "placeholder": "Gen1.svg",
+      "folder": "buttons",
+      "width": 32,
+      "height": 32
+    },
+    "Gen2": {
+      "id": "Gen2",
+      "originalRel": "buttons/Gen2.png",
+      "placeholder": "Gen2.svg",
+      "folder": "buttons",
+      "width": 32,
+      "height": 32
+    },
+    "Gi1": {
+      "id": "Gi1",
+      "originalRel": "buttons/Gi1.png",
+      "placeholder": "Gi1.svg",
+      "folder": "buttons",
+      "width": 32,
+      "height": 32
+    },
+    "Gi2": {
+      "id": "Gi2",
+      "originalRel": "buttons/Gi2.png",
+      "placeholder": "Gi2.svg",
+      "folder": "buttons",
+      "width": 32,
+      "height": 32
+    },
+    "Gu1": {
+      "id": "Gu1",
+      "originalRel": "buttons/Gu1.png",
+      "placeholder": "Gu1.svg",
+      "folder": "buttons",
+      "width": 32,
+      "height": 32
+    },
+    "Gu2": {
+      "id": "Gu2",
+      "originalRel": "buttons/Gu2.png",
+      "placeholder": "Gu2.svg",
+      "folder": "buttons",
+      "width": 32,
+      "height": 32
+    },
+    "Lymph1": {
+      "id": "Lymph1",
+      "originalRel": "buttons/Lymph1.png",
+      "placeholder": "Lymph1.svg",
+      "folder": "buttons",
+      "width": 32,
+      "height": 32
+    },
+    "Lymph2": {
+      "id": "Lymph2",
+      "originalRel": "buttons/Lymph2.png",
+      "placeholder": "Lymph2.svg",
+      "folder": "buttons",
+      "width": 32,
+      "height": 32
+    },
+    "Mus1": {
+      "id": "Mus1",
+      "originalRel": "buttons/Mus1.png",
+      "placeholder": "Mus1.svg",
+      "folder": "buttons",
+      "width": 32,
+      "height": 32
+    },
+    "Mus2": {
+      "id": "Mus2",
+      "originalRel": "buttons/Mus2.png",
+      "placeholder": "Mus2.svg",
+      "folder": "buttons",
+      "width": 32,
+      "height": 32
+    },
+    "Psy1": {
+      "id": "Psy1",
+      "originalRel": "buttons/Psy1.png",
+      "placeholder": "Psy1.svg",
+      "folder": "buttons",
+      "width": 32,
+      "height": 32
+    },
+    "Psy2": {
+      "id": "Psy2",
+      "originalRel": "buttons/Psy2.png",
+      "placeholder": "Psy2.svg",
+      "folder": "buttons",
+      "width": 32,
+      "height": 32
+    },
+    "Resp1": {
+      "id": "Resp1",
+      "originalRel": "buttons/Resp1.png",
+      "placeholder": "Resp1.svg",
+      "folder": "buttons",
+      "width": 32,
+      "height": 32
+    },
+    "Resp2": {
+      "id": "Resp2",
+      "originalRel": "buttons/Resp2.png",
+      "placeholder": "Resp2.svg",
+      "folder": "buttons",
+      "width": 32,
+      "height": 32
+    },
+    "Ske1": {
+      "id": "Ske1",
+      "originalRel": "buttons/Ske1.png",
+      "placeholder": "Ske1.svg",
+      "folder": "buttons",
+      "width": 32,
+      "height": 32
+    },
+    "Ske2": {
+      "id": "Ske2",
+      "originalRel": "buttons/Ske2.png",
+      "placeholder": "Ske2.svg",
+      "folder": "buttons",
+      "width": 32,
+      "height": 32
+    },
+    "Skin1": {
+      "id": "Skin1",
+      "originalRel": "buttons/Skin1.png",
+      "placeholder": "Skin1.svg",
+      "folder": "buttons",
+      "width": 32,
+      "height": 32
+    },
+    "Skin2": {
+      "id": "Skin2",
+      "originalRel": "buttons/Skin2.png",
+      "placeholder": "Skin2.svg",
+      "folder": "buttons",
+      "width": 32,
+      "height": 32
+    },
+    "cursor-207-32x32-1bpp": {
+      "id": "cursor-207-32x32-1bpp",
+      "originalRel": "icons/ANIBTN32.OCX/cursor-207-32x32-1bpp.png",
+      "placeholder": "cursor-207-32x32-1bpp.svg",
+      "folder": "ANIBTN32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "icon-10-32x32-4bpp": {
+      "id": "icon-10-32x32-4bpp",
+      "originalRel": "icons/ANIBTN32.OCX/icon-10-32x32-4bpp.png",
+      "placeholder": "icon-10-32x32-4bpp.svg",
+      "folder": "ANIBTN32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "cursor-IDC_NODROP-32x32-1bpp": {
+      "id": "cursor-IDC_NODROP-32x32-1bpp",
+      "originalRel": "icons/COMCTL32.OCX/cursor-IDC_NODROP-32x32-1bpp.png",
+      "placeholder": "cursor-IDC_NODROP-32x32-1bpp.svg",
+      "folder": "COMCTL32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "icon-216-32x32-4bpp": {
+      "id": "icon-216-32x32-4bpp",
+      "originalRel": "icons/COMCTL32.OCX/icon-216-32x32-4bpp.png",
+      "placeholder": "icon-216-32x32-4bpp.svg",
+      "folder": "COMCTL32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "icon-217-32x32-4bpp": {
+      "id": "icon-217-32x32-4bpp",
+      "originalRel": "icons/COMCTL32.OCX/icon-217-32x32-4bpp.png",
+      "placeholder": "icon-217-32x32-4bpp.svg",
+      "folder": "COMCTL32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "icon-218-32x32-4bpp": {
+      "id": "icon-218-32x32-4bpp",
+      "originalRel": "icons/COMCTL32.OCX/icon-218-32x32-4bpp.png",
+      "placeholder": "icon-218-32x32-4bpp.svg",
+      "folder": "COMCTL32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "icon-219-32x32-4bpp": {
+      "id": "icon-219-32x32-4bpp",
+      "originalRel": "icons/COMCTL32.OCX/icon-219-32x32-4bpp.png",
+      "placeholder": "icon-219-32x32-4bpp.svg",
+      "folder": "COMCTL32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "icon-220-32x32-4bpp": {
+      "id": "icon-220-32x32-4bpp",
+      "originalRel": "icons/COMCTL32.OCX/icon-220-32x32-4bpp.png",
+      "placeholder": "icon-220-32x32-4bpp.svg",
+      "folder": "COMCTL32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "icon-221-32x32-4bpp": {
+      "id": "icon-221-32x32-4bpp",
+      "originalRel": "icons/COMCTL32.OCX/icon-221-32x32-4bpp.png",
+      "placeholder": "icon-221-32x32-4bpp.svg",
+      "folder": "COMCTL32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "icon-222-32x32-4bpp": {
+      "id": "icon-222-32x32-4bpp",
+      "originalRel": "icons/COMCTL32.OCX/icon-222-32x32-4bpp.png",
+      "placeholder": "icon-222-32x32-4bpp.svg",
+      "folder": "COMCTL32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "icon-226-32x32-4bpp": {
+      "id": "icon-226-32x32-4bpp",
+      "originalRel": "icons/COMCTL32.OCX/icon-226-32x32-4bpp.png",
+      "placeholder": "icon-226-32x32-4bpp.svg",
+      "folder": "COMCTL32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "COMDLG32.OCX/icon-10-32x32-4bpp": {
+      "id": "COMDLG32.OCX/icon-10-32x32-4bpp",
+      "originalRel": "icons/COMDLG32.OCX/icon-10-32x32-4bpp.png",
+      "placeholder": "icon-10-32x32-4bpp.svg",
+      "folder": "COMDLG32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "icon-2005-32x32-4bpp": {
+      "id": "icon-2005-32x32-4bpp",
+      "originalRel": "icons/DBGRID32.OCX/icon-2005-32x32-4bpp.png",
+      "placeholder": "icon-2005-32x32-4bpp.svg",
+      "folder": "DBGRID32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "DBLIST32.OCX/cursor-IDC_NODROP-32x32-1bpp": {
+      "id": "DBLIST32.OCX/cursor-IDC_NODROP-32x32-1bpp",
+      "originalRel": "icons/DBLIST32.OCX/cursor-IDC_NODROP-32x32-1bpp.png",
+      "placeholder": "cursor-IDC_NODROP-32x32-1bpp.svg",
+      "folder": "DBLIST32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "DBLIST32.OCX/icon-10-32x32-4bpp": {
+      "id": "DBLIST32.OCX/icon-10-32x32-4bpp",
+      "originalRel": "icons/DBLIST32.OCX/icon-10-32x32-4bpp.png",
+      "placeholder": "icon-10-32x32-4bpp.svg",
+      "folder": "DBLIST32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "icon-11-32x32-4bpp": {
+      "id": "icon-11-32x32-4bpp",
+      "originalRel": "icons/DBLIST32.OCX/icon-11-32x32-4bpp.png",
+      "placeholder": "icon-11-32x32-4bpp.svg",
+      "folder": "DBLIST32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "icon-1014-32x32-4bpp": {
+      "id": "icon-1014-32x32-4bpp",
+      "originalRel": "icons/Dem32.dll/icon-1014-32x32-4bpp.png",
+      "placeholder": "icon-1014-32x32-4bpp.svg",
+      "folder": "Dem32.dll",
+      "width": 32,
+      "height": 32
+    },
+    "icon-1015-32x32-4bpp": {
+      "id": "icon-1015-32x32-4bpp",
+      "originalRel": "icons/Dem32.dll/icon-1015-32x32-4bpp.png",
+      "placeholder": "icon-1015-32x32-4bpp.svg",
+      "folder": "Dem32.dll",
+      "width": 32,
+      "height": 32
+    },
+    "icon-2-32x32-4bpp": {
+      "id": "icon-2-32x32-4bpp",
+      "originalRel": "icons/Deui32.dll/icon-2-32x32-4bpp.png",
+      "placeholder": "icon-2-32x32-4bpp.svg",
+      "folder": "Deui32.dll",
+      "width": 32,
+      "height": 32
+    },
+    "GAUGE32.OCX/icon-10-32x32-4bpp": {
+      "id": "GAUGE32.OCX/icon-10-32x32-4bpp",
+      "originalRel": "icons/GAUGE32.OCX/icon-10-32x32-4bpp.png",
+      "placeholder": "icon-10-32x32-4bpp.svg",
+      "folder": "GAUGE32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "GRAPH32.OCX/icon-10-32x32-4bpp": {
+      "id": "GRAPH32.OCX/icon-10-32x32-4bpp",
+      "originalRel": "icons/GRAPH32.OCX/icon-10-32x32-4bpp.png",
+      "placeholder": "icon-10-32x32-4bpp.svg",
+      "folder": "GRAPH32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "cursor-2001-32x32-1bpp": {
+      "id": "cursor-2001-32x32-1bpp",
+      "originalRel": "icons/GRDKRN32.DLL/cursor-2001-32x32-1bpp.png",
+      "placeholder": "cursor-2001-32x32-1bpp.svg",
+      "folder": "GRDKRN32.DLL",
+      "width": 32,
+      "height": 32
+    },
+    "cursor-2002-32x32-1bpp": {
+      "id": "cursor-2002-32x32-1bpp",
+      "originalRel": "icons/GRDKRN32.DLL/cursor-2002-32x32-1bpp.png",
+      "placeholder": "cursor-2002-32x32-1bpp.svg",
+      "folder": "GRDKRN32.DLL",
+      "width": 32,
+      "height": 32
+    },
+    "cursor-2003-32x32-1bpp": {
+      "id": "cursor-2003-32x32-1bpp",
+      "originalRel": "icons/GRDKRN32.DLL/cursor-2003-32x32-1bpp.png",
+      "placeholder": "cursor-2003-32x32-1bpp.svg",
+      "folder": "GRDKRN32.DLL",
+      "width": 32,
+      "height": 32
+    },
+    "cursor-2011-32x32-1bpp": {
+      "id": "cursor-2011-32x32-1bpp",
+      "originalRel": "icons/GRDKRN32.DLL/cursor-2011-32x32-1bpp.png",
+      "placeholder": "cursor-2011-32x32-1bpp.svg",
+      "folder": "GRDKRN32.DLL",
+      "width": 32,
+      "height": 32
+    },
+    "cursor-2012-32x32-1bpp": {
+      "id": "cursor-2012-32x32-1bpp",
+      "originalRel": "icons/GRDKRN32.DLL/cursor-2012-32x32-1bpp.png",
+      "placeholder": "cursor-2012-32x32-1bpp.svg",
+      "folder": "GRDKRN32.DLL",
+      "width": 32,
+      "height": 32
+    },
+    "cursor-2013-32x32-1bpp": {
+      "id": "cursor-2013-32x32-1bpp",
+      "originalRel": "icons/GRDKRN32.DLL/cursor-2013-32x32-1bpp.png",
+      "placeholder": "cursor-2013-32x32-1bpp.svg",
+      "folder": "GRDKRN32.DLL",
+      "width": 32,
+      "height": 32
+    },
+    "cursor-2014-32x32-1bpp": {
+      "id": "cursor-2014-32x32-1bpp",
+      "originalRel": "icons/GRDKRN32.DLL/cursor-2014-32x32-1bpp.png",
+      "placeholder": "cursor-2014-32x32-1bpp.svg",
+      "folder": "GRDKRN32.DLL",
+      "width": 32,
+      "height": 32
+    },
+    "cursor-2015-32x32-1bpp": {
+      "id": "cursor-2015-32x32-1bpp",
+      "originalRel": "icons/GRDKRN32.DLL/cursor-2015-32x32-1bpp.png",
+      "placeholder": "cursor-2015-32x32-1bpp.svg",
+      "folder": "GRDKRN32.DLL",
+      "width": 32,
+      "height": 32
+    },
+    "cursor-9000-32x32-1bpp": {
+      "id": "cursor-9000-32x32-1bpp",
+      "originalRel": "icons/GRID32.OCX/cursor-9000-32x32-1bpp.png",
+      "placeholder": "cursor-9000-32x32-1bpp.svg",
+      "folder": "GRID32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "cursor-9001-32x32-1bpp": {
+      "id": "cursor-9001-32x32-1bpp",
+      "originalRel": "icons/GRID32.OCX/cursor-9001-32x32-1bpp.png",
+      "placeholder": "cursor-9001-32x32-1bpp.svg",
+      "folder": "GRID32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "GRID32.OCX/cursor-IDC_NODROP-32x32-1bpp": {
+      "id": "GRID32.OCX/cursor-IDC_NODROP-32x32-1bpp",
+      "originalRel": "icons/GRID32.OCX/cursor-IDC_NODROP-32x32-1bpp.png",
+      "placeholder": "cursor-IDC_NODROP-32x32-1bpp.svg",
+      "folder": "GRID32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "GRID32.OCX/icon-10-32x32-4bpp": {
+      "id": "GRID32.OCX/icon-10-32x32-4bpp",
+      "originalRel": "icons/GRID32.OCX/icon-10-32x32-4bpp.png",
+      "placeholder": "icon-10-32x32-4bpp.svg",
+      "folder": "GRID32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "icon-ICON_ABOUT-32x32-4bpp": {
+      "id": "icon-ICON_ABOUT-32x32-4bpp",
+      "originalRel": "icons/GRID32.OCX/icon-ICON_ABOUT-32x32-4bpp.png",
+      "placeholder": "icon-ICON_ABOUT-32x32-4bpp.svg",
+      "folder": "GRID32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "icon-ICON_ABOUT1-32x32-4bpp": {
+      "id": "icon-ICON_ABOUT1-32x32-4bpp",
+      "originalRel": "icons/GRID32.OCX/icon-ICON_ABOUT1-32x32-4bpp.png",
+      "placeholder": "icon-ICON_ABOUT1-32x32-4bpp.svg",
+      "folder": "GRID32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "KEYSTA32.OCX/icon-10-32x32-4bpp": {
+      "id": "KEYSTA32.OCX/icon-10-32x32-4bpp",
+      "originalRel": "icons/KEYSTA32.OCX/icon-10-32x32-4bpp.png",
+      "placeholder": "icon-10-32x32-4bpp.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "cursor-30977-16x16-1bpp": {
+      "id": "cursor-30977-16x16-1bpp",
+      "originalRel": "icons/MFC40.DLL/cursor-30977-16x16-1bpp.png",
+      "placeholder": "cursor-30977-16x16-1bpp.svg",
+      "folder": "MFC40.DLL",
+      "width": 16,
+      "height": 16
+    },
+    "cursor-30977-32x32-1bpp": {
+      "id": "cursor-30977-32x32-1bpp",
+      "originalRel": "icons/MFC40.DLL/cursor-30977-32x32-1bpp.png",
+      "placeholder": "cursor-30977-32x32-1bpp.svg",
+      "folder": "MFC40.DLL",
+      "width": 32,
+      "height": 32
+    },
+    "cursor-30978-16x16-1bpp": {
+      "id": "cursor-30978-16x16-1bpp",
+      "originalRel": "icons/MFC40.DLL/cursor-30978-16x16-1bpp.png",
+      "placeholder": "cursor-30978-16x16-1bpp.svg",
+      "folder": "MFC40.DLL",
+      "width": 16,
+      "height": 16
+    },
+    "cursor-30978-32x32-1bpp": {
+      "id": "cursor-30978-32x32-1bpp",
+      "originalRel": "icons/MFC40.DLL/cursor-30978-32x32-1bpp.png",
+      "placeholder": "cursor-30978-32x32-1bpp.svg",
+      "folder": "MFC40.DLL",
+      "width": 32,
+      "height": 32
+    },
+    "cursor-30979-16x16-1bpp": {
+      "id": "cursor-30979-16x16-1bpp",
+      "originalRel": "icons/MFC40.DLL/cursor-30979-16x16-1bpp.png",
+      "placeholder": "cursor-30979-16x16-1bpp.svg",
+      "folder": "MFC40.DLL",
+      "width": 16,
+      "height": 16
+    },
+    "cursor-30979-32x32-1bpp": {
+      "id": "cursor-30979-32x32-1bpp",
+      "originalRel": "icons/MFC40.DLL/cursor-30979-32x32-1bpp.png",
+      "placeholder": "cursor-30979-32x32-1bpp.svg",
+      "folder": "MFC40.DLL",
+      "width": 32,
+      "height": 32
+    },
+    "cursor-30980-16x16-1bpp": {
+      "id": "cursor-30980-16x16-1bpp",
+      "originalRel": "icons/MFC40.DLL/cursor-30980-16x16-1bpp.png",
+      "placeholder": "cursor-30980-16x16-1bpp.svg",
+      "folder": "MFC40.DLL",
+      "width": 16,
+      "height": 16
+    },
+    "cursor-30980-32x32-1bpp": {
+      "id": "cursor-30980-32x32-1bpp",
+      "originalRel": "icons/MFC40.DLL/cursor-30980-32x32-1bpp.png",
+      "placeholder": "cursor-30980-32x32-1bpp.svg",
+      "folder": "MFC40.DLL",
+      "width": 32,
+      "height": 32
+    },
+    "cursor-30981-16x16-1bpp": {
+      "id": "cursor-30981-16x16-1bpp",
+      "originalRel": "icons/MFC40.DLL/cursor-30981-16x16-1bpp.png",
+      "placeholder": "cursor-30981-16x16-1bpp.svg",
+      "folder": "MFC40.DLL",
+      "width": 16,
+      "height": 16
+    },
+    "cursor-30981-32x32-1bpp": {
+      "id": "cursor-30981-32x32-1bpp",
+      "originalRel": "icons/MFC40.DLL/cursor-30981-32x32-1bpp.png",
+      "placeholder": "cursor-30981-32x32-1bpp.svg",
+      "folder": "MFC40.DLL",
+      "width": 32,
+      "height": 32
+    },
+    "cursor-30982-16x16-1bpp": {
+      "id": "cursor-30982-16x16-1bpp",
+      "originalRel": "icons/MFC40.DLL/cursor-30982-16x16-1bpp.png",
+      "placeholder": "cursor-30982-16x16-1bpp.svg",
+      "folder": "MFC40.DLL",
+      "width": 16,
+      "height": 16
+    },
+    "cursor-30982-32x32-1bpp": {
+      "id": "cursor-30982-32x32-1bpp",
+      "originalRel": "icons/MFC40.DLL/cursor-30982-32x32-1bpp.png",
+      "placeholder": "cursor-30982-32x32-1bpp.svg",
+      "folder": "MFC40.DLL",
+      "width": 32,
+      "height": 32
+    },
+    "cursor-30983-16x16-1bpp": {
+      "id": "cursor-30983-16x16-1bpp",
+      "originalRel": "icons/MFC40.DLL/cursor-30983-16x16-1bpp.png",
+      "placeholder": "cursor-30983-16x16-1bpp.svg",
+      "folder": "MFC40.DLL",
+      "width": 16,
+      "height": 16
+    },
+    "cursor-30983-32x32-1bpp": {
+      "id": "cursor-30983-32x32-1bpp",
+      "originalRel": "icons/MFC40.DLL/cursor-30983-32x32-1bpp.png",
+      "placeholder": "cursor-30983-32x32-1bpp.svg",
+      "folder": "MFC40.DLL",
+      "width": 32,
+      "height": 32
+    },
+    "cursor-30984-16x16-1bpp": {
+      "id": "cursor-30984-16x16-1bpp",
+      "originalRel": "icons/MFC40.DLL/cursor-30984-16x16-1bpp.png",
+      "placeholder": "cursor-30984-16x16-1bpp.svg",
+      "folder": "MFC40.DLL",
+      "width": 16,
+      "height": 16
+    },
+    "cursor-30984-32x32-1bpp": {
+      "id": "cursor-30984-32x32-1bpp",
+      "originalRel": "icons/MFC40.DLL/cursor-30984-32x32-1bpp.png",
+      "placeholder": "cursor-30984-32x32-1bpp.svg",
+      "folder": "MFC40.DLL",
+      "width": 32,
+      "height": 32
+    },
+    "cursor-30985-16x16-1bpp": {
+      "id": "cursor-30985-16x16-1bpp",
+      "originalRel": "icons/MFC40.DLL/cursor-30985-16x16-1bpp.png",
+      "placeholder": "cursor-30985-16x16-1bpp.svg",
+      "folder": "MFC40.DLL",
+      "width": 16,
+      "height": 16
+    },
+    "cursor-30985-32x32-1bpp": {
+      "id": "cursor-30985-32x32-1bpp",
+      "originalRel": "icons/MFC40.DLL/cursor-30985-32x32-1bpp.png",
+      "placeholder": "cursor-30985-32x32-1bpp.svg",
+      "folder": "MFC40.DLL",
+      "width": 32,
+      "height": 32
+    },
+    "cursor-30986-16x16-1bpp": {
+      "id": "cursor-30986-16x16-1bpp",
+      "originalRel": "icons/MFC40.DLL/cursor-30986-16x16-1bpp.png",
+      "placeholder": "cursor-30986-16x16-1bpp.svg",
+      "folder": "MFC40.DLL",
+      "width": 16,
+      "height": 16
+    },
+    "cursor-30986-32x32-1bpp": {
+      "id": "cursor-30986-32x32-1bpp",
+      "originalRel": "icons/MFC40.DLL/cursor-30986-32x32-1bpp.png",
+      "placeholder": "cursor-30986-32x32-1bpp.svg",
+      "folder": "MFC40.DLL",
+      "width": 32,
+      "height": 32
+    },
+    "cursor-30987-16x16-1bpp": {
+      "id": "cursor-30987-16x16-1bpp",
+      "originalRel": "icons/MFC40.DLL/cursor-30987-16x16-1bpp.png",
+      "placeholder": "cursor-30987-16x16-1bpp.svg",
+      "folder": "MFC40.DLL",
+      "width": 16,
+      "height": 16
+    },
+    "cursor-30987-32x32-1bpp": {
+      "id": "cursor-30987-32x32-1bpp",
+      "originalRel": "icons/MFC40.DLL/cursor-30987-32x32-1bpp.png",
+      "placeholder": "cursor-30987-32x32-1bpp.svg",
+      "folder": "MFC40.DLL",
+      "width": 32,
+      "height": 32
+    },
+    "cursor-30988-16x16-1bpp": {
+      "id": "cursor-30988-16x16-1bpp",
+      "originalRel": "icons/MFC40.DLL/cursor-30988-16x16-1bpp.png",
+      "placeholder": "cursor-30988-16x16-1bpp.svg",
+      "folder": "MFC40.DLL",
+      "width": 16,
+      "height": 16
+    },
+    "cursor-30988-32x32-1bpp": {
+      "id": "cursor-30988-32x32-1bpp",
+      "originalRel": "icons/MFC40.DLL/cursor-30988-32x32-1bpp.png",
+      "placeholder": "cursor-30988-32x32-1bpp.svg",
+      "folder": "MFC40.DLL",
+      "width": 32,
+      "height": 32
+    },
+    "MSCOMM32.OCX/cursor-30977-16x16-1bpp": {
+      "id": "MSCOMM32.OCX/cursor-30977-16x16-1bpp",
+      "originalRel": "icons/MSCOMM32.OCX/cursor-30977-16x16-1bpp.png",
+      "placeholder": "cursor-30977-16x16-1bpp.svg",
+      "folder": "MSCOMM32.OCX",
+      "width": 16,
+      "height": 16
+    },
+    "MSCOMM32.OCX/cursor-30977-32x32-1bpp": {
+      "id": "MSCOMM32.OCX/cursor-30977-32x32-1bpp",
+      "originalRel": "icons/MSCOMM32.OCX/cursor-30977-32x32-1bpp.png",
+      "placeholder": "cursor-30977-32x32-1bpp.svg",
+      "folder": "MSCOMM32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "MSCOMM32.OCX/cursor-30979-16x16-1bpp": {
+      "id": "MSCOMM32.OCX/cursor-30979-16x16-1bpp",
+      "originalRel": "icons/MSCOMM32.OCX/cursor-30979-16x16-1bpp.png",
+      "placeholder": "cursor-30979-16x16-1bpp.svg",
+      "folder": "MSCOMM32.OCX",
+      "width": 16,
+      "height": 16
+    },
+    "MSCOMM32.OCX/cursor-30979-32x32-1bpp": {
+      "id": "MSCOMM32.OCX/cursor-30979-32x32-1bpp",
+      "originalRel": "icons/MSCOMM32.OCX/cursor-30979-32x32-1bpp.png",
+      "placeholder": "cursor-30979-32x32-1bpp.svg",
+      "folder": "MSCOMM32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "MSCOMM32.OCX/cursor-30980-16x16-1bpp": {
+      "id": "MSCOMM32.OCX/cursor-30980-16x16-1bpp",
+      "originalRel": "icons/MSCOMM32.OCX/cursor-30980-16x16-1bpp.png",
+      "placeholder": "cursor-30980-16x16-1bpp.svg",
+      "folder": "MSCOMM32.OCX",
+      "width": 16,
+      "height": 16
+    },
+    "MSCOMM32.OCX/cursor-30980-32x32-1bpp": {
+      "id": "MSCOMM32.OCX/cursor-30980-32x32-1bpp",
+      "originalRel": "icons/MSCOMM32.OCX/cursor-30980-32x32-1bpp.png",
+      "placeholder": "cursor-30980-32x32-1bpp.svg",
+      "folder": "MSCOMM32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "MSCOMM32.OCX/cursor-30981-16x16-1bpp": {
+      "id": "MSCOMM32.OCX/cursor-30981-16x16-1bpp",
+      "originalRel": "icons/MSCOMM32.OCX/cursor-30981-16x16-1bpp.png",
+      "placeholder": "cursor-30981-16x16-1bpp.svg",
+      "folder": "MSCOMM32.OCX",
+      "width": 16,
+      "height": 16
+    },
+    "MSCOMM32.OCX/cursor-30981-32x32-1bpp": {
+      "id": "MSCOMM32.OCX/cursor-30981-32x32-1bpp",
+      "originalRel": "icons/MSCOMM32.OCX/cursor-30981-32x32-1bpp.png",
+      "placeholder": "cursor-30981-32x32-1bpp.svg",
+      "folder": "MSCOMM32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "MSCOMM32.OCX/cursor-30982-16x16-1bpp": {
+      "id": "MSCOMM32.OCX/cursor-30982-16x16-1bpp",
+      "originalRel": "icons/MSCOMM32.OCX/cursor-30982-16x16-1bpp.png",
+      "placeholder": "cursor-30982-16x16-1bpp.svg",
+      "folder": "MSCOMM32.OCX",
+      "width": 16,
+      "height": 16
+    },
+    "MSCOMM32.OCX/cursor-30982-32x32-1bpp": {
+      "id": "MSCOMM32.OCX/cursor-30982-32x32-1bpp",
+      "originalRel": "icons/MSCOMM32.OCX/cursor-30982-32x32-1bpp.png",
+      "placeholder": "cursor-30982-32x32-1bpp.svg",
+      "folder": "MSCOMM32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "MSCOMM32.OCX/cursor-30983-16x16-1bpp": {
+      "id": "MSCOMM32.OCX/cursor-30983-16x16-1bpp",
+      "originalRel": "icons/MSCOMM32.OCX/cursor-30983-16x16-1bpp.png",
+      "placeholder": "cursor-30983-16x16-1bpp.svg",
+      "folder": "MSCOMM32.OCX",
+      "width": 16,
+      "height": 16
+    },
+    "MSCOMM32.OCX/cursor-30983-32x32-1bpp": {
+      "id": "MSCOMM32.OCX/cursor-30983-32x32-1bpp",
+      "originalRel": "icons/MSCOMM32.OCX/cursor-30983-32x32-1bpp.png",
+      "placeholder": "cursor-30983-32x32-1bpp.svg",
+      "folder": "MSCOMM32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "MSCOMM32.OCX/cursor-30984-16x16-1bpp": {
+      "id": "MSCOMM32.OCX/cursor-30984-16x16-1bpp",
+      "originalRel": "icons/MSCOMM32.OCX/cursor-30984-16x16-1bpp.png",
+      "placeholder": "cursor-30984-16x16-1bpp.svg",
+      "folder": "MSCOMM32.OCX",
+      "width": 16,
+      "height": 16
+    },
+    "MSCOMM32.OCX/cursor-30984-32x32-1bpp": {
+      "id": "MSCOMM32.OCX/cursor-30984-32x32-1bpp",
+      "originalRel": "icons/MSCOMM32.OCX/cursor-30984-32x32-1bpp.png",
+      "placeholder": "cursor-30984-32x32-1bpp.svg",
+      "folder": "MSCOMM32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "MSCOMM32.OCX/cursor-30985-16x16-1bpp": {
+      "id": "MSCOMM32.OCX/cursor-30985-16x16-1bpp",
+      "originalRel": "icons/MSCOMM32.OCX/cursor-30985-16x16-1bpp.png",
+      "placeholder": "cursor-30985-16x16-1bpp.svg",
+      "folder": "MSCOMM32.OCX",
+      "width": 16,
+      "height": 16
+    },
+    "MSCOMM32.OCX/cursor-30985-32x32-1bpp": {
+      "id": "MSCOMM32.OCX/cursor-30985-32x32-1bpp",
+      "originalRel": "icons/MSCOMM32.OCX/cursor-30985-32x32-1bpp.png",
+      "placeholder": "cursor-30985-32x32-1bpp.svg",
+      "folder": "MSCOMM32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "MSCOMM32.OCX/cursor-30986-16x16-1bpp": {
+      "id": "MSCOMM32.OCX/cursor-30986-16x16-1bpp",
+      "originalRel": "icons/MSCOMM32.OCX/cursor-30986-16x16-1bpp.png",
+      "placeholder": "cursor-30986-16x16-1bpp.svg",
+      "folder": "MSCOMM32.OCX",
+      "width": 16,
+      "height": 16
+    },
+    "MSCOMM32.OCX/cursor-30986-32x32-1bpp": {
+      "id": "MSCOMM32.OCX/cursor-30986-32x32-1bpp",
+      "originalRel": "icons/MSCOMM32.OCX/cursor-30986-32x32-1bpp.png",
+      "placeholder": "cursor-30986-32x32-1bpp.svg",
+      "folder": "MSCOMM32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "MSCOMM32.OCX/cursor-30987-16x16-1bpp": {
+      "id": "MSCOMM32.OCX/cursor-30987-16x16-1bpp",
+      "originalRel": "icons/MSCOMM32.OCX/cursor-30987-16x16-1bpp.png",
+      "placeholder": "cursor-30987-16x16-1bpp.svg",
+      "folder": "MSCOMM32.OCX",
+      "width": 16,
+      "height": 16
+    },
+    "MSCOMM32.OCX/cursor-30987-32x32-1bpp": {
+      "id": "MSCOMM32.OCX/cursor-30987-32x32-1bpp",
+      "originalRel": "icons/MSCOMM32.OCX/cursor-30987-32x32-1bpp.png",
+      "placeholder": "cursor-30987-32x32-1bpp.svg",
+      "folder": "MSCOMM32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "MSCOMM32.OCX/cursor-30988-16x16-1bpp": {
+      "id": "MSCOMM32.OCX/cursor-30988-16x16-1bpp",
+      "originalRel": "icons/MSCOMM32.OCX/cursor-30988-16x16-1bpp.png",
+      "placeholder": "cursor-30988-16x16-1bpp.svg",
+      "folder": "MSCOMM32.OCX",
+      "width": 16,
+      "height": 16
+    },
+    "MSCOMM32.OCX/cursor-30988-32x32-1bpp": {
+      "id": "MSCOMM32.OCX/cursor-30988-32x32-1bpp",
+      "originalRel": "icons/MSCOMM32.OCX/cursor-30988-32x32-1bpp.png",
+      "placeholder": "cursor-30988-32x32-1bpp.svg",
+      "folder": "MSCOMM32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "MSCOMM32.OCX/icon-10-32x32-4bpp": {
+      "id": "MSCOMM32.OCX/icon-10-32x32-4bpp",
+      "originalRel": "icons/MSCOMM32.OCX/icon-10-32x32-4bpp.png",
+      "placeholder": "icon-10-32x32-4bpp.svg",
+      "folder": "MSCOMM32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "icon-108-32x32-4bpp": {
+      "id": "icon-108-32x32-4bpp",
+      "originalRel": "icons/MSCOMM32.OCX/icon-108-32x32-4bpp.png",
+      "placeholder": "icon-108-32x32-4bpp.svg",
+      "folder": "MSCOMM32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "MSOUTL32.OCX/cursor-IDC_NODROP-32x32-1bpp": {
+      "id": "MSOUTL32.OCX/cursor-IDC_NODROP-32x32-1bpp",
+      "originalRel": "icons/MSOUTL32.OCX/cursor-IDC_NODROP-32x32-1bpp.png",
+      "placeholder": "cursor-IDC_NODROP-32x32-1bpp.svg",
+      "folder": "MSOUTL32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "MSOUTL32.OCX/icon-10-32x32-4bpp": {
+      "id": "MSOUTL32.OCX/icon-10-32x32-4bpp",
+      "originalRel": "icons/MSOUTL32.OCX/icon-10-32x32-4bpp.png",
+      "placeholder": "icon-10-32x32-4bpp.svg",
+      "folder": "MSOUTL32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "Mfc42.dll/cursor-30977-16x16-1bpp": {
+      "id": "Mfc42.dll/cursor-30977-16x16-1bpp",
+      "originalRel": "icons/Mfc42.dll/cursor-30977-16x16-1bpp.png",
+      "placeholder": "cursor-30977-16x16-1bpp.svg",
+      "folder": "Mfc42.dll",
+      "width": 16,
+      "height": 16
+    },
+    "Mfc42.dll/cursor-30977-32x32-1bpp": {
+      "id": "Mfc42.dll/cursor-30977-32x32-1bpp",
+      "originalRel": "icons/Mfc42.dll/cursor-30977-32x32-1bpp.png",
+      "placeholder": "cursor-30977-32x32-1bpp.svg",
+      "folder": "Mfc42.dll",
+      "width": 32,
+      "height": 32
+    },
+    "Mfc42.dll/cursor-30978-16x16-1bpp": {
+      "id": "Mfc42.dll/cursor-30978-16x16-1bpp",
+      "originalRel": "icons/Mfc42.dll/cursor-30978-16x16-1bpp.png",
+      "placeholder": "cursor-30978-16x16-1bpp.svg",
+      "folder": "Mfc42.dll",
+      "width": 16,
+      "height": 16
+    },
+    "Mfc42.dll/cursor-30978-32x32-1bpp": {
+      "id": "Mfc42.dll/cursor-30978-32x32-1bpp",
+      "originalRel": "icons/Mfc42.dll/cursor-30978-32x32-1bpp.png",
+      "placeholder": "cursor-30978-32x32-1bpp.svg",
+      "folder": "Mfc42.dll",
+      "width": 32,
+      "height": 32
+    },
+    "Mfc42.dll/cursor-30979-16x16-1bpp": {
+      "id": "Mfc42.dll/cursor-30979-16x16-1bpp",
+      "originalRel": "icons/Mfc42.dll/cursor-30979-16x16-1bpp.png",
+      "placeholder": "cursor-30979-16x16-1bpp.svg",
+      "folder": "Mfc42.dll",
+      "width": 16,
+      "height": 16
+    },
+    "Mfc42.dll/cursor-30979-32x32-1bpp": {
+      "id": "Mfc42.dll/cursor-30979-32x32-1bpp",
+      "originalRel": "icons/Mfc42.dll/cursor-30979-32x32-1bpp.png",
+      "placeholder": "cursor-30979-32x32-1bpp.svg",
+      "folder": "Mfc42.dll",
+      "width": 32,
+      "height": 32
+    },
+    "Mfc42.dll/cursor-30980-16x16-1bpp": {
+      "id": "Mfc42.dll/cursor-30980-16x16-1bpp",
+      "originalRel": "icons/Mfc42.dll/cursor-30980-16x16-1bpp.png",
+      "placeholder": "cursor-30980-16x16-1bpp.svg",
+      "folder": "Mfc42.dll",
+      "width": 16,
+      "height": 16
+    },
+    "Mfc42.dll/cursor-30980-32x32-1bpp": {
+      "id": "Mfc42.dll/cursor-30980-32x32-1bpp",
+      "originalRel": "icons/Mfc42.dll/cursor-30980-32x32-1bpp.png",
+      "placeholder": "cursor-30980-32x32-1bpp.svg",
+      "folder": "Mfc42.dll",
+      "width": 32,
+      "height": 32
+    },
+    "Mfc42.dll/cursor-30981-16x16-1bpp": {
+      "id": "Mfc42.dll/cursor-30981-16x16-1bpp",
+      "originalRel": "icons/Mfc42.dll/cursor-30981-16x16-1bpp.png",
+      "placeholder": "cursor-30981-16x16-1bpp.svg",
+      "folder": "Mfc42.dll",
+      "width": 16,
+      "height": 16
+    },
+    "Mfc42.dll/cursor-30981-32x32-1bpp": {
+      "id": "Mfc42.dll/cursor-30981-32x32-1bpp",
+      "originalRel": "icons/Mfc42.dll/cursor-30981-32x32-1bpp.png",
+      "placeholder": "cursor-30981-32x32-1bpp.svg",
+      "folder": "Mfc42.dll",
+      "width": 32,
+      "height": 32
+    },
+    "Mfc42.dll/cursor-30982-16x16-1bpp": {
+      "id": "Mfc42.dll/cursor-30982-16x16-1bpp",
+      "originalRel": "icons/Mfc42.dll/cursor-30982-16x16-1bpp.png",
+      "placeholder": "cursor-30982-16x16-1bpp.svg",
+      "folder": "Mfc42.dll",
+      "width": 16,
+      "height": 16
+    },
+    "Mfc42.dll/cursor-30982-32x32-1bpp": {
+      "id": "Mfc42.dll/cursor-30982-32x32-1bpp",
+      "originalRel": "icons/Mfc42.dll/cursor-30982-32x32-1bpp.png",
+      "placeholder": "cursor-30982-32x32-1bpp.svg",
+      "folder": "Mfc42.dll",
+      "width": 32,
+      "height": 32
+    },
+    "Mfc42.dll/cursor-30983-16x16-1bpp": {
+      "id": "Mfc42.dll/cursor-30983-16x16-1bpp",
+      "originalRel": "icons/Mfc42.dll/cursor-30983-16x16-1bpp.png",
+      "placeholder": "cursor-30983-16x16-1bpp.svg",
+      "folder": "Mfc42.dll",
+      "width": 16,
+      "height": 16
+    },
+    "Mfc42.dll/cursor-30983-32x32-1bpp": {
+      "id": "Mfc42.dll/cursor-30983-32x32-1bpp",
+      "originalRel": "icons/Mfc42.dll/cursor-30983-32x32-1bpp.png",
+      "placeholder": "cursor-30983-32x32-1bpp.svg",
+      "folder": "Mfc42.dll",
+      "width": 32,
+      "height": 32
+    },
+    "Mfc42.dll/cursor-30984-16x16-1bpp": {
+      "id": "Mfc42.dll/cursor-30984-16x16-1bpp",
+      "originalRel": "icons/Mfc42.dll/cursor-30984-16x16-1bpp.png",
+      "placeholder": "cursor-30984-16x16-1bpp.svg",
+      "folder": "Mfc42.dll",
+      "width": 16,
+      "height": 16
+    },
+    "Mfc42.dll/cursor-30984-32x32-1bpp": {
+      "id": "Mfc42.dll/cursor-30984-32x32-1bpp",
+      "originalRel": "icons/Mfc42.dll/cursor-30984-32x32-1bpp.png",
+      "placeholder": "cursor-30984-32x32-1bpp.svg",
+      "folder": "Mfc42.dll",
+      "width": 32,
+      "height": 32
+    },
+    "Mfc42.dll/cursor-30985-16x16-1bpp": {
+      "id": "Mfc42.dll/cursor-30985-16x16-1bpp",
+      "originalRel": "icons/Mfc42.dll/cursor-30985-16x16-1bpp.png",
+      "placeholder": "cursor-30985-16x16-1bpp.svg",
+      "folder": "Mfc42.dll",
+      "width": 16,
+      "height": 16
+    },
+    "Mfc42.dll/cursor-30985-32x32-1bpp": {
+      "id": "Mfc42.dll/cursor-30985-32x32-1bpp",
+      "originalRel": "icons/Mfc42.dll/cursor-30985-32x32-1bpp.png",
+      "placeholder": "cursor-30985-32x32-1bpp.svg",
+      "folder": "Mfc42.dll",
+      "width": 32,
+      "height": 32
+    },
+    "Mfc42.dll/cursor-30986-16x16-1bpp": {
+      "id": "Mfc42.dll/cursor-30986-16x16-1bpp",
+      "originalRel": "icons/Mfc42.dll/cursor-30986-16x16-1bpp.png",
+      "placeholder": "cursor-30986-16x16-1bpp.svg",
+      "folder": "Mfc42.dll",
+      "width": 16,
+      "height": 16
+    },
+    "Mfc42.dll/cursor-30986-32x32-1bpp": {
+      "id": "Mfc42.dll/cursor-30986-32x32-1bpp",
+      "originalRel": "icons/Mfc42.dll/cursor-30986-32x32-1bpp.png",
+      "placeholder": "cursor-30986-32x32-1bpp.svg",
+      "folder": "Mfc42.dll",
+      "width": 32,
+      "height": 32
+    },
+    "Mfc42.dll/cursor-30987-16x16-1bpp": {
+      "id": "Mfc42.dll/cursor-30987-16x16-1bpp",
+      "originalRel": "icons/Mfc42.dll/cursor-30987-16x16-1bpp.png",
+      "placeholder": "cursor-30987-16x16-1bpp.svg",
+      "folder": "Mfc42.dll",
+      "width": 16,
+      "height": 16
+    },
+    "Mfc42.dll/cursor-30987-32x32-1bpp": {
+      "id": "Mfc42.dll/cursor-30987-32x32-1bpp",
+      "originalRel": "icons/Mfc42.dll/cursor-30987-32x32-1bpp.png",
+      "placeholder": "cursor-30987-32x32-1bpp.svg",
+      "folder": "Mfc42.dll",
+      "width": 32,
+      "height": 32
+    },
+    "Mfc42.dll/cursor-30988-16x16-1bpp": {
+      "id": "Mfc42.dll/cursor-30988-16x16-1bpp",
+      "originalRel": "icons/Mfc42.dll/cursor-30988-16x16-1bpp.png",
+      "placeholder": "cursor-30988-16x16-1bpp.svg",
+      "folder": "Mfc42.dll",
+      "width": 16,
+      "height": 16
+    },
+    "Mfc42.dll/cursor-30988-32x32-1bpp": {
+      "id": "Mfc42.dll/cursor-30988-32x32-1bpp",
+      "originalRel": "icons/Mfc42.dll/cursor-30988-32x32-1bpp.png",
+      "placeholder": "cursor-30988-32x32-1bpp.svg",
+      "folder": "Mfc42.dll",
+      "width": 32,
+      "height": 32
+    },
+    "PICCLP32.OCX/icon-10-32x32-4bpp": {
+      "id": "PICCLP32.OCX/icon-10-32x32-4bpp",
+      "originalRel": "icons/PICCLP32.OCX/icon-10-32x32-4bpp.png",
+      "placeholder": "icon-10-32x32-4bpp.svg",
+      "folder": "PICCLP32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "RICHTX32.OCX/icon-10-32x32-4bpp": {
+      "id": "RICHTX32.OCX/icon-10-32x32-4bpp",
+      "originalRel": "icons/RICHTX32.OCX/icon-10-32x32-4bpp.png",
+      "placeholder": "icon-10-32x32-4bpp.svg",
+      "folder": "RICHTX32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "SPIN32.OCX/cursor-IDC_NODROP-32x32-1bpp": {
+      "id": "SPIN32.OCX/cursor-IDC_NODROP-32x32-1bpp",
+      "originalRel": "icons/SPIN32.OCX/cursor-IDC_NODROP-32x32-1bpp.png",
+      "placeholder": "cursor-IDC_NODROP-32x32-1bpp.svg",
+      "folder": "SPIN32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "SPIN32.OCX/icon-10-32x32-4bpp": {
+      "id": "SPIN32.OCX/icon-10-32x32-4bpp",
+      "originalRel": "icons/SPIN32.OCX/icon-10-32x32-4bpp.png",
+      "placeholder": "icon-10-32x32-4bpp.svg",
+      "folder": "SPIN32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "cursor-204-32x32-1bpp": {
+      "id": "cursor-204-32x32-1bpp",
+      "originalRel": "icons/TABCTL32.OCX/cursor-204-32x32-1bpp.png",
+      "placeholder": "cursor-204-32x32-1bpp.svg",
+      "folder": "TABCTL32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "TABCTL32.OCX/cursor-30977-16x16-1bpp": {
+      "id": "TABCTL32.OCX/cursor-30977-16x16-1bpp",
+      "originalRel": "icons/TABCTL32.OCX/cursor-30977-16x16-1bpp.png",
+      "placeholder": "cursor-30977-16x16-1bpp.svg",
+      "folder": "TABCTL32.OCX",
+      "width": 16,
+      "height": 16
+    },
+    "TABCTL32.OCX/cursor-30977-32x32-1bpp": {
+      "id": "TABCTL32.OCX/cursor-30977-32x32-1bpp",
+      "originalRel": "icons/TABCTL32.OCX/cursor-30977-32x32-1bpp.png",
+      "placeholder": "cursor-30977-32x32-1bpp.svg",
+      "folder": "TABCTL32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "TABCTL32.OCX/cursor-30979-16x16-1bpp": {
+      "id": "TABCTL32.OCX/cursor-30979-16x16-1bpp",
+      "originalRel": "icons/TABCTL32.OCX/cursor-30979-16x16-1bpp.png",
+      "placeholder": "cursor-30979-16x16-1bpp.svg",
+      "folder": "TABCTL32.OCX",
+      "width": 16,
+      "height": 16
+    },
+    "TABCTL32.OCX/cursor-30979-32x32-1bpp": {
+      "id": "TABCTL32.OCX/cursor-30979-32x32-1bpp",
+      "originalRel": "icons/TABCTL32.OCX/cursor-30979-32x32-1bpp.png",
+      "placeholder": "cursor-30979-32x32-1bpp.svg",
+      "folder": "TABCTL32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "TABCTL32.OCX/cursor-30980-16x16-1bpp": {
+      "id": "TABCTL32.OCX/cursor-30980-16x16-1bpp",
+      "originalRel": "icons/TABCTL32.OCX/cursor-30980-16x16-1bpp.png",
+      "placeholder": "cursor-30980-16x16-1bpp.svg",
+      "folder": "TABCTL32.OCX",
+      "width": 16,
+      "height": 16
+    },
+    "TABCTL32.OCX/cursor-30980-32x32-1bpp": {
+      "id": "TABCTL32.OCX/cursor-30980-32x32-1bpp",
+      "originalRel": "icons/TABCTL32.OCX/cursor-30980-32x32-1bpp.png",
+      "placeholder": "cursor-30980-32x32-1bpp.svg",
+      "folder": "TABCTL32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "TABCTL32.OCX/cursor-30981-16x16-1bpp": {
+      "id": "TABCTL32.OCX/cursor-30981-16x16-1bpp",
+      "originalRel": "icons/TABCTL32.OCX/cursor-30981-16x16-1bpp.png",
+      "placeholder": "cursor-30981-16x16-1bpp.svg",
+      "folder": "TABCTL32.OCX",
+      "width": 16,
+      "height": 16
+    },
+    "TABCTL32.OCX/cursor-30981-32x32-1bpp": {
+      "id": "TABCTL32.OCX/cursor-30981-32x32-1bpp",
+      "originalRel": "icons/TABCTL32.OCX/cursor-30981-32x32-1bpp.png",
+      "placeholder": "cursor-30981-32x32-1bpp.svg",
+      "folder": "TABCTL32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "TABCTL32.OCX/cursor-30982-16x16-1bpp": {
+      "id": "TABCTL32.OCX/cursor-30982-16x16-1bpp",
+      "originalRel": "icons/TABCTL32.OCX/cursor-30982-16x16-1bpp.png",
+      "placeholder": "cursor-30982-16x16-1bpp.svg",
+      "folder": "TABCTL32.OCX",
+      "width": 16,
+      "height": 16
+    },
+    "TABCTL32.OCX/cursor-30982-32x32-1bpp": {
+      "id": "TABCTL32.OCX/cursor-30982-32x32-1bpp",
+      "originalRel": "icons/TABCTL32.OCX/cursor-30982-32x32-1bpp.png",
+      "placeholder": "cursor-30982-32x32-1bpp.svg",
+      "folder": "TABCTL32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "TABCTL32.OCX/cursor-30983-16x16-1bpp": {
+      "id": "TABCTL32.OCX/cursor-30983-16x16-1bpp",
+      "originalRel": "icons/TABCTL32.OCX/cursor-30983-16x16-1bpp.png",
+      "placeholder": "cursor-30983-16x16-1bpp.svg",
+      "folder": "TABCTL32.OCX",
+      "width": 16,
+      "height": 16
+    },
+    "TABCTL32.OCX/cursor-30983-32x32-1bpp": {
+      "id": "TABCTL32.OCX/cursor-30983-32x32-1bpp",
+      "originalRel": "icons/TABCTL32.OCX/cursor-30983-32x32-1bpp.png",
+      "placeholder": "cursor-30983-32x32-1bpp.svg",
+      "folder": "TABCTL32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "TABCTL32.OCX/cursor-30984-16x16-1bpp": {
+      "id": "TABCTL32.OCX/cursor-30984-16x16-1bpp",
+      "originalRel": "icons/TABCTL32.OCX/cursor-30984-16x16-1bpp.png",
+      "placeholder": "cursor-30984-16x16-1bpp.svg",
+      "folder": "TABCTL32.OCX",
+      "width": 16,
+      "height": 16
+    },
+    "TABCTL32.OCX/cursor-30984-32x32-1bpp": {
+      "id": "TABCTL32.OCX/cursor-30984-32x32-1bpp",
+      "originalRel": "icons/TABCTL32.OCX/cursor-30984-32x32-1bpp.png",
+      "placeholder": "cursor-30984-32x32-1bpp.svg",
+      "folder": "TABCTL32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "TABCTL32.OCX/cursor-30985-16x16-1bpp": {
+      "id": "TABCTL32.OCX/cursor-30985-16x16-1bpp",
+      "originalRel": "icons/TABCTL32.OCX/cursor-30985-16x16-1bpp.png",
+      "placeholder": "cursor-30985-16x16-1bpp.svg",
+      "folder": "TABCTL32.OCX",
+      "width": 16,
+      "height": 16
+    },
+    "TABCTL32.OCX/cursor-30985-32x32-1bpp": {
+      "id": "TABCTL32.OCX/cursor-30985-32x32-1bpp",
+      "originalRel": "icons/TABCTL32.OCX/cursor-30985-32x32-1bpp.png",
+      "placeholder": "cursor-30985-32x32-1bpp.svg",
+      "folder": "TABCTL32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "TABCTL32.OCX/cursor-30986-16x16-1bpp": {
+      "id": "TABCTL32.OCX/cursor-30986-16x16-1bpp",
+      "originalRel": "icons/TABCTL32.OCX/cursor-30986-16x16-1bpp.png",
+      "placeholder": "cursor-30986-16x16-1bpp.svg",
+      "folder": "TABCTL32.OCX",
+      "width": 16,
+      "height": 16
+    },
+    "TABCTL32.OCX/cursor-30986-32x32-1bpp": {
+      "id": "TABCTL32.OCX/cursor-30986-32x32-1bpp",
+      "originalRel": "icons/TABCTL32.OCX/cursor-30986-32x32-1bpp.png",
+      "placeholder": "cursor-30986-32x32-1bpp.svg",
+      "folder": "TABCTL32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "TABCTL32.OCX/cursor-30987-16x16-1bpp": {
+      "id": "TABCTL32.OCX/cursor-30987-16x16-1bpp",
+      "originalRel": "icons/TABCTL32.OCX/cursor-30987-16x16-1bpp.png",
+      "placeholder": "cursor-30987-16x16-1bpp.svg",
+      "folder": "TABCTL32.OCX",
+      "width": 16,
+      "height": 16
+    },
+    "TABCTL32.OCX/cursor-30987-32x32-1bpp": {
+      "id": "TABCTL32.OCX/cursor-30987-32x32-1bpp",
+      "originalRel": "icons/TABCTL32.OCX/cursor-30987-32x32-1bpp.png",
+      "placeholder": "cursor-30987-32x32-1bpp.svg",
+      "folder": "TABCTL32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "TABCTL32.OCX/cursor-30988-16x16-1bpp": {
+      "id": "TABCTL32.OCX/cursor-30988-16x16-1bpp",
+      "originalRel": "icons/TABCTL32.OCX/cursor-30988-16x16-1bpp.png",
+      "placeholder": "cursor-30988-16x16-1bpp.svg",
+      "folder": "TABCTL32.OCX",
+      "width": 16,
+      "height": 16
+    },
+    "TABCTL32.OCX/cursor-30988-32x32-1bpp": {
+      "id": "TABCTL32.OCX/cursor-30988-32x32-1bpp",
+      "originalRel": "icons/TABCTL32.OCX/cursor-30988-32x32-1bpp.png",
+      "placeholder": "cursor-30988-32x32-1bpp.svg",
+      "folder": "TABCTL32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "cursor-IDC_HELP-32x32-1bpp": {
+      "id": "cursor-IDC_HELP-32x32-1bpp",
+      "originalRel": "icons/TABCTL32.OCX/cursor-IDC_HELP-32x32-1bpp.png",
+      "placeholder": "cursor-IDC_HELP-32x32-1bpp.svg",
+      "folder": "TABCTL32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "TABCTL32.OCX/icon-10-32x32-4bpp": {
+      "id": "TABCTL32.OCX/icon-10-32x32-4bpp",
+      "originalRel": "icons/TABCTL32.OCX/icon-10-32x32-4bpp.png",
+      "placeholder": "icon-10-32x32-4bpp.svg",
+      "folder": "TABCTL32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "cursor-126-32x32-1bpp": {
+      "id": "cursor-126-32x32-1bpp",
+      "originalRel": "icons/THREED32.OCX/cursor-126-32x32-1bpp.png",
+      "placeholder": "cursor-126-32x32-1bpp.svg",
+      "folder": "THREED32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "THREED32.OCX/icon-10-32x32-4bpp": {
+      "id": "THREED32.OCX/icon-10-32x32-4bpp",
+      "originalRel": "icons/THREED32.OCX/icon-10-32x32-4bpp.png",
+      "placeholder": "icon-10-32x32-4bpp.svg",
+      "folder": "THREED32.OCX",
+      "width": 32,
+      "height": 32
+    },
+    "Tab32.dll/icon-2-32x32-4bpp": {
+      "id": "Tab32.dll/icon-2-32x32-4bpp",
+      "originalRel": "icons/Tab32.dll/icon-2-32x32-4bpp.png",
+      "placeholder": "icon-2-32x32-4bpp.svg",
+      "folder": "Tab32.dll",
+      "width": 32,
+      "height": 32
+    },
+    "cursor-1101-32x32-1bpp": {
+      "id": "cursor-1101-32x32-1bpp",
+      "originalRel": "icons/VB40032.DLL/cursor-1101-32x32-1bpp.png",
+      "placeholder": "cursor-1101-32x32-1bpp.svg",
+      "folder": "VB40032.DLL",
+      "width": 32,
+      "height": 32
+    },
+    "icon-1201-16x16-4bpp": {
+      "id": "icon-1201-16x16-4bpp",
+      "originalRel": "icons/VB40032.DLL/icon-1201-16x16-4bpp.png",
+      "placeholder": "icon-1201-16x16-4bpp.svg",
+      "folder": "VB40032.DLL",
+      "width": 16,
+      "height": 16
+    },
+    "icon-1201-32x32-1bpp": {
+      "id": "icon-1201-32x32-1bpp",
+      "originalRel": "icons/VB40032.DLL/icon-1201-32x32-1bpp.png",
+      "placeholder": "icon-1201-32x32-1bpp.svg",
+      "folder": "VB40032.DLL",
+      "width": 32,
+      "height": 32
+    },
+    "icon-1201-32x32-4bpp": {
+      "id": "icon-1201-32x32-4bpp",
+      "originalRel": "icons/VB40032.DLL/icon-1201-32x32-4bpp.png",
+      "placeholder": "icon-1201-32x32-4bpp.svg",
+      "folder": "VB40032.DLL",
+      "width": 32,
+      "height": 32
+    },
+    "icon-1202-32x32-1bpp": {
+      "id": "icon-1202-32x32-1bpp",
+      "originalRel": "icons/VB40032.DLL/icon-1202-32x32-1bpp.png",
+      "placeholder": "icon-1202-32x32-1bpp.svg",
+      "folder": "VB40032.DLL",
+      "width": 32,
+      "height": 32
+    },
+    "icon-1202-32x32-4bpp": {
+      "id": "icon-1202-32x32-4bpp",
+      "originalRel": "icons/VB40032.DLL/icon-1202-32x32-4bpp.png",
+      "placeholder": "icon-1202-32x32-4bpp.svg",
+      "folder": "VB40032.DLL",
+      "width": 32,
+      "height": 32
+    },
+    "icon-1203-32x32-1bpp": {
+      "id": "icon-1203-32x32-1bpp",
+      "originalRel": "icons/VB40032.DLL/icon-1203-32x32-1bpp.png",
+      "placeholder": "icon-1203-32x32-1bpp.svg",
+      "folder": "VB40032.DLL",
+      "width": 32,
+      "height": 32
+    },
+    "icon-1203-32x32-4bpp": {
+      "id": "icon-1203-32x32-4bpp",
+      "originalRel": "icons/VB40032.DLL/icon-1203-32x32-4bpp.png",
+      "placeholder": "icon-1203-32x32-4bpp.svg",
+      "folder": "VB40032.DLL",
+      "width": 32,
+      "height": 32
+    },
+    "icon-1-16x16-4bpp": {
+      "id": "icon-1-16x16-4bpp",
+      "originalRel": "icons/VBDemo.exe/icon-1-16x16-4bpp.png",
+      "placeholder": "icon-1-16x16-4bpp.svg",
+      "folder": "VBDemo.exe",
+      "width": 16,
+      "height": 16
+    },
+    "icon-1-32x32-4bpp": {
+      "id": "icon-1-32x32-4bpp",
+      "originalRel": "icons/VBDemo.exe/icon-1-32x32-4bpp.png",
+      "placeholder": "icon-1-32x32-4bpp.svg",
+      "folder": "VBDemo.exe",
+      "width": 32,
+      "height": 32
+    },
+    "gendemo.exe/icon-1-16x16-4bpp": {
+      "id": "gendemo.exe/icon-1-16x16-4bpp",
+      "originalRel": "icons/gendemo.exe/icon-1-16x16-4bpp.png",
+      "placeholder": "icon-1-16x16-4bpp.svg",
+      "folder": "gendemo.exe",
+      "width": 16,
+      "height": 16
+    },
+    "icon-1-32x32-1bpp": {
+      "id": "icon-1-32x32-1bpp",
+      "originalRel": "icons/gendemo.exe/icon-1-32x32-1bpp.png",
+      "placeholder": "icon-1-32x32-1bpp.svg",
+      "folder": "gendemo.exe",
+      "width": 32,
+      "height": 32
+    },
+    "gendemo.exe/icon-1-32x32-4bpp": {
+      "id": "gendemo.exe/icon-1-32x32-4bpp",
+      "originalRel": "icons/gendemo.exe/icon-1-32x32-4bpp.png",
+      "placeholder": "icon-1-32x32-4bpp.svg",
+      "folder": "gendemo.exe",
+      "width": 32,
+      "height": 32
+    },
+    "icon-1000-32x32-4bpp": {
+      "id": "icon-1000-32x32-4bpp",
+      "originalRel": "icons/gsw32.exe/icon-1000-32x32-4bpp.png",
+      "placeholder": "icon-1000-32x32-4bpp.svg",
+      "folder": "gsw32.exe",
+      "width": 32,
+      "height": 32
+    },
+    "icon-1001-32x32-4bpp": {
+      "id": "icon-1001-32x32-4bpp",
+      "originalRel": "icons/gsw32.exe/icon-1001-32x32-4bpp.png",
+      "placeholder": "icon-1001-32x32-4bpp.svg",
+      "folder": "gsw32.exe",
+      "width": 32,
+      "height": 32
+    },
+    "icon-7001-32x32-4bpp": {
+      "id": "icon-7001-32x32-4bpp",
+      "originalRel": "icons/installer/SETUP.EXE/icon-7001-32x32-4bpp.png",
+      "placeholder": "icon-7001-32x32-4bpp.svg",
+      "folder": "SETUP.EXE",
+      "width": 32,
+      "height": 32
+    },
+    "UNINST.EXE/icon-1000-32x32-4bpp": {
+      "id": "UNINST.EXE/icon-1000-32x32-4bpp",
+      "originalRel": "icons/installer/UNINST.EXE/icon-1000-32x32-4bpp.png",
+      "placeholder": "icon-1000-32x32-4bpp.svg",
+      "folder": "UNINST.EXE",
+      "width": 32,
+      "height": 32
+    },
+    "icon-10000-32x32-4bpp": {
+      "id": "icon-10000-32x32-4bpp",
+      "originalRel": "icons/installer/_ISRES.DLL/icon-10000-32x32-4bpp.png",
+      "placeholder": "icon-10000-32x32-4bpp.svg",
+      "folder": "_ISRES.DLL",
+      "width": 32,
+      "height": 32
+    },
+    "icon-SETUP_ICON1-32x32-4bpp": {
+      "id": "icon-SETUP_ICON1-32x32-4bpp",
+      "originalRel": "icons/installer/_SETUP.DLL/icon-SETUP_ICON1-32x32-4bpp.png",
+      "placeholder": "icon-SETUP_ICON1-32x32-4bpp.svg",
+      "folder": "_SETUP.DLL",
+      "width": 32,
+      "height": 32
+    },
+    "icon-SETUP_ICON2-32x32-4bpp": {
+      "id": "icon-SETUP_ICON2-32x32-4bpp",
+      "originalRel": "icons/installer/_SETUP.DLL/icon-SETUP_ICON2-32x32-4bpp.png",
+      "placeholder": "icon-SETUP_ICON2-32x32-4bpp.svg",
+      "folder": "_SETUP.DLL",
+      "width": 32,
+      "height": 32
+    },
+    "icon-128-32x32-4bpp": {
+      "id": "icon-128-32x32-4bpp",
+      "originalRel": "icons/penpad.exe/icon-128-32x32-4bpp.png",
+      "placeholder": "icon-128-32x32-4bpp.svg",
+      "folder": "penpad.exe",
+      "width": 32,
+      "height": 32
+    },
+    "icon-129-32x32-4bpp": {
+      "id": "icon-129-32x32-4bpp",
+      "originalRel": "icons/penpad.exe/icon-129-32x32-4bpp.png",
+      "placeholder": "icon-129-32x32-4bpp.svg",
+      "folder": "penpad.exe",
+      "width": 32,
+      "height": 32
+    },
+    "VBDemo-vb-5592-16x16-4bpp": {
+      "id": "VBDemo-vb-5592-16x16-4bpp",
+      "originalRel": "icons/vb-forms/VBDemo-vb-5592-16x16-4bpp.png",
+      "placeholder": "VBDemo-vb-5592-16x16-4bpp.svg",
+      "folder": "vb-forms",
+      "width": 16,
+      "height": 16
+    },
+    "VBDemo-vb-5592-32x32-4bpp": {
+      "id": "VBDemo-vb-5592-32x32-4bpp",
+      "originalRel": "icons/vb-forms/VBDemo-vb-5592-32x32-4bpp.png",
+      "placeholder": "VBDemo-vb-5592-32x32-4bpp.svg",
+      "folder": "vb-forms",
+      "width": 32,
+      "height": 32
+    },
+    "VBHost-vb-0-16x16-4bpp": {
+      "id": "VBHost-vb-0-16x16-4bpp",
+      "originalRel": "icons/vb-forms/VBHost-vb-0-16x16-4bpp.png",
+      "placeholder": "VBHost-vb-0-16x16-4bpp.svg",
+      "folder": "vb-forms",
+      "width": 16,
+      "height": 16
+    },
+    "VBHost-vb-0-32x32-4bpp": {
+      "id": "VBHost-vb-0-32x32-4bpp",
+      "originalRel": "icons/vb-forms/VBHost-vb-0-32x32-4bpp.png",
+      "placeholder": "VBHost-vb-0-32x32-4bpp.svg",
+      "folder": "vb-forms",
+      "width": 32,
+      "height": 32
+    },
+    "windemo.exe/icon-1-32x32-1bpp": {
+      "id": "windemo.exe/icon-1-32x32-1bpp",
+      "originalRel": "icons/windemo.exe/icon-1-32x32-1bpp.png",
+      "placeholder": "icon-1-32x32-1bpp.svg",
+      "folder": "windemo.exe",
+      "width": 32,
+      "height": 32
+    },
+    "windemo.exe/icon-1-32x32-4bpp": {
+      "id": "windemo.exe/icon-1-32x32-4bpp",
+      "originalRel": "icons/windemo.exe/icon-1-32x32-4bpp.png",
+      "placeholder": "icon-1-32x32-4bpp.svg",
+      "folder": "windemo.exe",
+      "width": 32,
+      "height": 32
+    },
+    "bitmap-1": {
+      "id": "bitmap-1",
+      "originalRel": "resources/ANIBTN32.OCX/bitmap-1.png",
+      "placeholder": "bitmap-1.svg",
+      "folder": "ANIBTN32.OCX",
+      "width": 16,
+      "height": 15
+    },
+    "COMCTL32.OCX/bitmap-1": {
+      "id": "COMCTL32.OCX/bitmap-1",
+      "originalRel": "resources/COMCTL32.OCX/bitmap-1.png",
+      "placeholder": "bitmap-1.svg",
+      "folder": "COMCTL32.OCX",
+      "width": 16,
+      "height": 15
+    },
+    "bitmap-10": {
+      "id": "bitmap-10",
+      "originalRel": "resources/COMCTL32.OCX/bitmap-10.png",
+      "placeholder": "bitmap-10.svg",
+      "folder": "COMCTL32.OCX",
+      "width": 16,
+      "height": 15
+    },
+    "bitmap-12": {
+      "id": "bitmap-12",
+      "originalRel": "resources/COMCTL32.OCX/bitmap-12.png",
+      "placeholder": "bitmap-12.svg",
+      "folder": "COMCTL32.OCX",
+      "width": 16,
+      "height": 15
+    },
+    "bitmap-16": {
+      "id": "bitmap-16",
+      "originalRel": "resources/COMCTL32.OCX/bitmap-16.png",
+      "placeholder": "bitmap-16.svg",
+      "folder": "COMCTL32.OCX",
+      "width": 16,
+      "height": 15
+    },
+    "bitmap-17": {
+      "id": "bitmap-17",
+      "originalRel": "resources/COMCTL32.OCX/bitmap-17.png",
+      "placeholder": "bitmap-17.svg",
+      "folder": "COMCTL32.OCX",
+      "width": 16,
+      "height": 15
+    },
+    "bitmap-2": {
+      "id": "bitmap-2",
+      "originalRel": "resources/COMCTL32.OCX/bitmap-2.png",
+      "placeholder": "bitmap-2.svg",
+      "folder": "COMCTL32.OCX",
+      "width": 16,
+      "height": 15
+    },
+    "bitmap-3": {
+      "id": "bitmap-3",
+      "originalRel": "resources/COMCTL32.OCX/bitmap-3.png",
+      "placeholder": "bitmap-3.svg",
+      "folder": "COMCTL32.OCX",
+      "width": 16,
+      "height": 15
+    },
+    "bitmap-4": {
+      "id": "bitmap-4",
+      "originalRel": "resources/COMCTL32.OCX/bitmap-4.png",
+      "placeholder": "bitmap-4.svg",
+      "folder": "COMCTL32.OCX",
+      "width": 16,
+      "height": 15
+    },
+    "COMDLG32.OCX/bitmap-1": {
+      "id": "COMDLG32.OCX/bitmap-1",
+      "originalRel": "resources/COMDLG32.OCX/bitmap-1.png",
+      "placeholder": "bitmap-1.svg",
+      "folder": "COMDLG32.OCX",
+      "width": 16,
+      "height": 15
+    },
+    "DBGRID32.OCX/bitmap-1": {
+      "id": "DBGRID32.OCX/bitmap-1",
+      "originalRel": "resources/DBGRID32.OCX/bitmap-1.png",
+      "placeholder": "bitmap-1.svg",
+      "folder": "DBGRID32.OCX",
+      "width": 16,
+      "height": 15
+    },
+    "DBGRID32.OCX/bitmap-2": {
+      "id": "DBGRID32.OCX/bitmap-2",
+      "originalRel": "resources/DBGRID32.OCX/bitmap-2.png",
+      "placeholder": "bitmap-2.svg",
+      "folder": "DBGRID32.OCX",
+      "width": 390,
+      "height": 160
+    },
+    "DBGRID32.OCX/bitmap-3": {
+      "id": "DBGRID32.OCX/bitmap-3",
+      "originalRel": "resources/DBGRID32.OCX/bitmap-3.png",
+      "placeholder": "bitmap-3.svg",
+      "folder": "DBGRID32.OCX",
+      "width": 288,
+      "height": 44
+    },
+    "DBLIST32.OCX/bitmap-1": {
+      "id": "DBLIST32.OCX/bitmap-1",
+      "originalRel": "resources/DBLIST32.OCX/bitmap-1.png",
+      "placeholder": "bitmap-1.svg",
+      "folder": "DBLIST32.OCX",
+      "width": 16,
+      "height": 15
+    },
+    "DBLIST32.OCX/bitmap-2": {
+      "id": "DBLIST32.OCX/bitmap-2",
+      "originalRel": "resources/DBLIST32.OCX/bitmap-2.png",
+      "placeholder": "bitmap-2.svg",
+      "folder": "DBLIST32.OCX",
+      "width": 16,
+      "height": 15
+    },
+    "bitmap-BTABD": {
+      "id": "bitmap-BTABD",
+      "originalRel": "resources/Deui32.dll/bitmap-BTABD.png",
+      "placeholder": "bitmap-BTABD.svg",
+      "folder": "Deui32.dll",
+      "width": 80,
+      "height": 22
+    },
+    "bitmap-BTABU": {
+      "id": "bitmap-BTABU",
+      "originalRel": "resources/Deui32.dll/bitmap-BTABU.png",
+      "placeholder": "bitmap-BTABU.svg",
+      "folder": "Deui32.dll",
+      "width": 80,
+      "height": 22
+    },
+    "bitmap-LTABD": {
+      "id": "bitmap-LTABD",
+      "originalRel": "resources/Deui32.dll/bitmap-LTABD.png",
+      "placeholder": "bitmap-LTABD.svg",
+      "folder": "Deui32.dll",
+      "width": 18,
+      "height": 80
+    },
+    "bitmap-LTABU": {
+      "id": "bitmap-LTABU",
+      "originalRel": "resources/Deui32.dll/bitmap-LTABU.png",
+      "placeholder": "bitmap-LTABU.svg",
+      "folder": "Deui32.dll",
+      "width": 18,
+      "height": 80
+    },
+    "bitmap-RTABD": {
+      "id": "bitmap-RTABD",
+      "originalRel": "resources/Deui32.dll/bitmap-RTABD.png",
+      "placeholder": "bitmap-RTABD.svg",
+      "folder": "Deui32.dll",
+      "width": 18,
+      "height": 80
+    },
+    "bitmap-RTABU": {
+      "id": "bitmap-RTABU",
+      "originalRel": "resources/Deui32.dll/bitmap-RTABU.png",
+      "placeholder": "bitmap-RTABU.svg",
+      "folder": "Deui32.dll",
+      "width": 18,
+      "height": 80
+    },
+    "bitmap-TTABD": {
+      "id": "bitmap-TTABD",
+      "originalRel": "resources/Deui32.dll/bitmap-TTABD.png",
+      "placeholder": "bitmap-TTABD.svg",
+      "folder": "Deui32.dll",
+      "width": 80,
+      "height": 22
+    },
+    "bitmap-TTABU": {
+      "id": "bitmap-TTABU",
+      "originalRel": "resources/Deui32.dll/bitmap-TTABU.png",
+      "placeholder": "bitmap-TTABU.svg",
+      "folder": "Deui32.dll",
+      "width": 80,
+      "height": 22
+    },
+    "GAUGE32.OCX/bitmap-1": {
+      "id": "GAUGE32.OCX/bitmap-1",
+      "originalRel": "resources/GAUGE32.OCX/bitmap-1.png",
+      "placeholder": "bitmap-1.svg",
+      "folder": "GAUGE32.OCX",
+      "width": 16,
+      "height": 15
+    },
+    "bitmap-203": {
+      "id": "bitmap-203",
+      "originalRel": "resources/GAUGE32.OCX/bitmap-203.png",
+      "placeholder": "bitmap-203.svg",
+      "folder": "GAUGE32.OCX",
+      "width": 205,
+      "height": 55
+    },
+    "GRAPH32.OCX/bitmap-1": {
+      "id": "GRAPH32.OCX/bitmap-1",
+      "originalRel": "resources/GRAPH32.OCX/bitmap-1.png",
+      "placeholder": "bitmap-1.svg",
+      "folder": "GRAPH32.OCX",
+      "width": 16,
+      "height": 15
+    },
+    "bitmap-2004": {
+      "id": "bitmap-2004",
+      "originalRel": "resources/GRDKRN32.DLL/bitmap-2004.png",
+      "placeholder": "bitmap-2004.svg",
+      "folder": "GRDKRN32.DLL",
+      "width": 13,
+      "height": 13
+    },
+    "bitmap-2005": {
+      "id": "bitmap-2005",
+      "originalRel": "resources/GRDKRN32.DLL/bitmap-2005.png",
+      "placeholder": "bitmap-2005.svg",
+      "folder": "GRDKRN32.DLL",
+      "width": 13,
+      "height": 13
+    },
+    "bitmap-2006": {
+      "id": "bitmap-2006",
+      "originalRel": "resources/GRDKRN32.DLL/bitmap-2006.png",
+      "placeholder": "bitmap-2006.svg",
+      "folder": "GRDKRN32.DLL",
+      "width": 13,
+      "height": 13
+    },
+    "bitmap-2007": {
+      "id": "bitmap-2007",
+      "originalRel": "resources/GRDKRN32.DLL/bitmap-2007.png",
+      "placeholder": "bitmap-2007.svg",
+      "folder": "GRDKRN32.DLL",
+      "width": 13,
+      "height": 13
+    },
+    "bitmap-2008": {
+      "id": "bitmap-2008",
+      "originalRel": "resources/GRDKRN32.DLL/bitmap-2008.png",
+      "placeholder": "bitmap-2008.svg",
+      "folder": "GRDKRN32.DLL",
+      "width": 7,
+      "height": 11
+    },
+    "bitmap-2009": {
+      "id": "bitmap-2009",
+      "originalRel": "resources/GRDKRN32.DLL/bitmap-2009.png",
+      "placeholder": "bitmap-2009.svg",
+      "folder": "GRDKRN32.DLL",
+      "width": 11,
+      "height": 11
+    },
+    "bitmap-2010": {
+      "id": "bitmap-2010",
+      "originalRel": "resources/GRDKRN32.DLL/bitmap-2010.png",
+      "placeholder": "bitmap-2010.svg",
+      "folder": "GRDKRN32.DLL",
+      "width": 9,
+      "height": 9
+    },
+    "GRID32.OCX/bitmap-1": {
+      "id": "GRID32.OCX/bitmap-1",
+      "originalRel": "resources/GRID32.OCX/bitmap-1.png",
+      "placeholder": "bitmap-1.svg",
+      "folder": "GRID32.OCX",
+      "width": 16,
+      "height": 15
+    },
+    "bitmap-8000": {
+      "id": "bitmap-8000",
+      "originalRel": "resources/GRID32.OCX/bitmap-8000.png",
+      "placeholder": "bitmap-8000.svg",
+      "folder": "GRID32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-8001": {
+      "id": "bitmap-8001",
+      "originalRel": "resources/GRID32.OCX/bitmap-8001.png",
+      "placeholder": "bitmap-8001.svg",
+      "folder": "GRID32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-8003": {
+      "id": "bitmap-8003",
+      "originalRel": "resources/GRID32.OCX/bitmap-8003.png",
+      "placeholder": "bitmap-8003.svg",
+      "folder": "GRID32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-8006": {
+      "id": "bitmap-8006",
+      "originalRel": "resources/GRID32.OCX/bitmap-8006.png",
+      "placeholder": "bitmap-8006.svg",
+      "folder": "GRID32.OCX",
+      "width": 28,
+      "height": 22
+    },
+    "KEYSTA32.OCX/bitmap-1": {
+      "id": "KEYSTA32.OCX/bitmap-1",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-1.png",
+      "placeholder": "bitmap-1.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 16,
+      "height": 15
+    },
+    "bitmap-105": {
+      "id": "bitmap-105",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-105.png",
+      "placeholder": "bitmap-105.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-108": {
+      "id": "bitmap-108",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-108.png",
+      "placeholder": "bitmap-108.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-109": {
+      "id": "bitmap-109",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-109.png",
+      "placeholder": "bitmap-109.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-110": {
+      "id": "bitmap-110",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-110.png",
+      "placeholder": "bitmap-110.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-111": {
+      "id": "bitmap-111",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-111.png",
+      "placeholder": "bitmap-111.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-112": {
+      "id": "bitmap-112",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-112.png",
+      "placeholder": "bitmap-112.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-113": {
+      "id": "bitmap-113",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-113.png",
+      "placeholder": "bitmap-113.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-114": {
+      "id": "bitmap-114",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-114.png",
+      "placeholder": "bitmap-114.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-115": {
+      "id": "bitmap-115",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-115.png",
+      "placeholder": "bitmap-115.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-116": {
+      "id": "bitmap-116",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-116.png",
+      "placeholder": "bitmap-116.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-117": {
+      "id": "bitmap-117",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-117.png",
+      "placeholder": "bitmap-117.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-118": {
+      "id": "bitmap-118",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-118.png",
+      "placeholder": "bitmap-118.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-119": {
+      "id": "bitmap-119",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-119.png",
+      "placeholder": "bitmap-119.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-120": {
+      "id": "bitmap-120",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-120.png",
+      "placeholder": "bitmap-120.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-121": {
+      "id": "bitmap-121",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-121.png",
+      "placeholder": "bitmap-121.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-122": {
+      "id": "bitmap-122",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-122.png",
+      "placeholder": "bitmap-122.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-123": {
+      "id": "bitmap-123",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-123.png",
+      "placeholder": "bitmap-123.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-124": {
+      "id": "bitmap-124",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-124.png",
+      "placeholder": "bitmap-124.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-125": {
+      "id": "bitmap-125",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-125.png",
+      "placeholder": "bitmap-125.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-126": {
+      "id": "bitmap-126",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-126.png",
+      "placeholder": "bitmap-126.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-127": {
+      "id": "bitmap-127",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-127.png",
+      "placeholder": "bitmap-127.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-128": {
+      "id": "bitmap-128",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-128.png",
+      "placeholder": "bitmap-128.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-129": {
+      "id": "bitmap-129",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-129.png",
+      "placeholder": "bitmap-129.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-130": {
+      "id": "bitmap-130",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-130.png",
+      "placeholder": "bitmap-130.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-131": {
+      "id": "bitmap-131",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-131.png",
+      "placeholder": "bitmap-131.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-132": {
+      "id": "bitmap-132",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-132.png",
+      "placeholder": "bitmap-132.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-133": {
+      "id": "bitmap-133",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-133.png",
+      "placeholder": "bitmap-133.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-134": {
+      "id": "bitmap-134",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-134.png",
+      "placeholder": "bitmap-134.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-135": {
+      "id": "bitmap-135",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-135.png",
+      "placeholder": "bitmap-135.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-136": {
+      "id": "bitmap-136",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-136.png",
+      "placeholder": "bitmap-136.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-137": {
+      "id": "bitmap-137",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-137.png",
+      "placeholder": "bitmap-137.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-138": {
+      "id": "bitmap-138",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-138.png",
+      "placeholder": "bitmap-138.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-139": {
+      "id": "bitmap-139",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-139.png",
+      "placeholder": "bitmap-139.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-140": {
+      "id": "bitmap-140",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-140.png",
+      "placeholder": "bitmap-140.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-141": {
+      "id": "bitmap-141",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-141.png",
+      "placeholder": "bitmap-141.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-142": {
+      "id": "bitmap-142",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-142.png",
+      "placeholder": "bitmap-142.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-143": {
+      "id": "bitmap-143",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-143.png",
+      "placeholder": "bitmap-143.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-144": {
+      "id": "bitmap-144",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-144.png",
+      "placeholder": "bitmap-144.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-145": {
+      "id": "bitmap-145",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-145.png",
+      "placeholder": "bitmap-145.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-146": {
+      "id": "bitmap-146",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-146.png",
+      "placeholder": "bitmap-146.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 33,
+      "height": 31
+    },
+    "bitmap-147": {
+      "id": "bitmap-147",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-147.png",
+      "placeholder": "bitmap-147.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 34,
+      "height": 31
+    },
+    "bitmap-148": {
+      "id": "bitmap-148",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-148.png",
+      "placeholder": "bitmap-148.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 34,
+      "height": 32
+    },
+    "bitmap-149": {
+      "id": "bitmap-149",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-149.png",
+      "placeholder": "bitmap-149.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 33,
+      "height": 31
+    },
+    "bitmap-150": {
+      "id": "bitmap-150",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-150.png",
+      "placeholder": "bitmap-150.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 34,
+      "height": 31
+    },
+    "bitmap-151": {
+      "id": "bitmap-151",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-151.png",
+      "placeholder": "bitmap-151.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 34,
+      "height": 32
+    },
+    "bitmap-152": {
+      "id": "bitmap-152",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-152.png",
+      "placeholder": "bitmap-152.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-153": {
+      "id": "bitmap-153",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-153.png",
+      "placeholder": "bitmap-153.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 33,
+      "height": 31
+    },
+    "bitmap-154": {
+      "id": "bitmap-154",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-154.png",
+      "placeholder": "bitmap-154.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 34,
+      "height": 31
+    },
+    "bitmap-155": {
+      "id": "bitmap-155",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-155.png",
+      "placeholder": "bitmap-155.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 34,
+      "height": 32
+    },
+    "bitmap-156": {
+      "id": "bitmap-156",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-156.png",
+      "placeholder": "bitmap-156.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 33,
+      "height": 31
+    },
+    "bitmap-157": {
+      "id": "bitmap-157",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-157.png",
+      "placeholder": "bitmap-157.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 34,
+      "height": 31
+    },
+    "bitmap-158": {
+      "id": "bitmap-158",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-158.png",
+      "placeholder": "bitmap-158.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 34,
+      "height": 32
+    },
+    "bitmap-159": {
+      "id": "bitmap-159",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-159.png",
+      "placeholder": "bitmap-159.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-160": {
+      "id": "bitmap-160",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-160.png",
+      "placeholder": "bitmap-160.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-161": {
+      "id": "bitmap-161",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-161.png",
+      "placeholder": "bitmap-161.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-162": {
+      "id": "bitmap-162",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-162.png",
+      "placeholder": "bitmap-162.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-163": {
+      "id": "bitmap-163",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-163.png",
+      "placeholder": "bitmap-163.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-164": {
+      "id": "bitmap-164",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-164.png",
+      "placeholder": "bitmap-164.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-165": {
+      "id": "bitmap-165",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-165.png",
+      "placeholder": "bitmap-165.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-166": {
+      "id": "bitmap-166",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-166.png",
+      "placeholder": "bitmap-166.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-167": {
+      "id": "bitmap-167",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-167.png",
+      "placeholder": "bitmap-167.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-168": {
+      "id": "bitmap-168",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-168.png",
+      "placeholder": "bitmap-168.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-169": {
+      "id": "bitmap-169",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-169.png",
+      "placeholder": "bitmap-169.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-170": {
+      "id": "bitmap-170",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-170.png",
+      "placeholder": "bitmap-170.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "bitmap-171": {
+      "id": "bitmap-171",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-171.png",
+      "placeholder": "bitmap-171.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "KEYSTA32.OCX/bitmap-203": {
+      "id": "KEYSTA32.OCX/bitmap-203",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-203.png",
+      "placeholder": "bitmap-203.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 200,
+      "height": 44
+    },
+    "bitmap-907": {
+      "id": "bitmap-907",
+      "originalRel": "resources/KEYSTA32.OCX/bitmap-907.png",
+      "placeholder": "bitmap-907.svg",
+      "folder": "KEYSTA32.OCX",
+      "width": 452,
+      "height": 74
+    },
+    "bitmap-26567": {
+      "id": "bitmap-26567",
+      "originalRel": "resources/MFC40.DLL/bitmap-26567.png",
+      "placeholder": "bitmap-26567.svg",
+      "folder": "MFC40.DLL",
+      "width": 70,
+      "height": 39
+    },
+    "bitmap-30994": {
+      "id": "bitmap-30994",
+      "originalRel": "resources/MFC40.DLL/bitmap-30994.png",
+      "placeholder": "bitmap-30994.svg",
+      "folder": "MFC40.DLL",
+      "width": 12,
+      "height": 10
+    },
+    "bitmap-30995": {
+      "id": "bitmap-30995",
+      "originalRel": "resources/MFC40.DLL/bitmap-30995.png",
+      "placeholder": "bitmap-30995.svg",
+      "folder": "MFC40.DLL",
+      "width": 39,
+      "height": 13
+    },
+    "bitmap-30996": {
+      "id": "bitmap-30996",
+      "originalRel": "resources/MFC40.DLL/bitmap-30996.png",
+      "placeholder": "bitmap-30996.svg",
+      "folder": "MFC40.DLL",
+      "width": 33,
+      "height": 11
+    },
+    "bitmap-32384": {
+      "id": "bitmap-32384",
+      "originalRel": "resources/MFC40.DLL/bitmap-32384.png",
+      "placeholder": "bitmap-32384.svg",
+      "folder": "MFC40.DLL",
+      "width": 20,
+      "height": 12
+    },
+    "MSCOMM32.OCX/bitmap-1": {
+      "id": "MSCOMM32.OCX/bitmap-1",
+      "originalRel": "resources/MSCOMM32.OCX/bitmap-1.png",
+      "placeholder": "bitmap-1.svg",
+      "folder": "MSCOMM32.OCX",
+      "width": 16,
+      "height": 15
+    },
+    "MSCOMM32.OCX/bitmap-105": {
+      "id": "MSCOMM32.OCX/bitmap-105",
+      "originalRel": "resources/MSCOMM32.OCX/bitmap-105.png",
+      "placeholder": "bitmap-105.svg",
+      "folder": "MSCOMM32.OCX",
+      "width": 28,
+      "height": 28
+    },
+    "MSCOMM32.OCX/bitmap-26567": {
+      "id": "MSCOMM32.OCX/bitmap-26567",
+      "originalRel": "resources/MSCOMM32.OCX/bitmap-26567.png",
+      "placeholder": "bitmap-26567.svg",
+      "folder": "MSCOMM32.OCX",
+      "width": 70,
+      "height": 39
+    },
+    "MSCOMM32.OCX/bitmap-30994": {
+      "id": "MSCOMM32.OCX/bitmap-30994",
+      "originalRel": "resources/MSCOMM32.OCX/bitmap-30994.png",
+      "placeholder": "bitmap-30994.svg",
+      "folder": "MSCOMM32.OCX",
+      "width": 12,
+      "height": 10
+    },
+    "MSCOMM32.OCX/bitmap-30995": {
+      "id": "MSCOMM32.OCX/bitmap-30995",
+      "originalRel": "resources/MSCOMM32.OCX/bitmap-30995.png",
+      "placeholder": "bitmap-30995.svg",
+      "folder": "MSCOMM32.OCX",
+      "width": 39,
+      "height": 13
+    },
+    "MSCOMM32.OCX/bitmap-30996": {
+      "id": "MSCOMM32.OCX/bitmap-30996",
+      "originalRel": "resources/MSCOMM32.OCX/bitmap-30996.png",
+      "placeholder": "bitmap-30996.svg",
+      "folder": "MSCOMM32.OCX",
+      "width": 33,
+      "height": 11
+    },
+    "MSOUTL32.OCX/bitmap-1": {
+      "id": "MSOUTL32.OCX/bitmap-1",
+      "originalRel": "resources/MSOUTL32.OCX/bitmap-1.png",
+      "placeholder": "bitmap-1.svg",
+      "folder": "MSOUTL32.OCX",
+      "width": 16,
+      "height": 15
+    },
+    "bitmap-8008": {
+      "id": "bitmap-8008",
+      "originalRel": "resources/MSOUTL32.OCX/bitmap-8008.png",
+      "placeholder": "bitmap-8008.svg",
+      "folder": "MSOUTL32.OCX",
+      "width": 13,
+      "height": 13
+    },
+    "bitmap-8009": {
+      "id": "bitmap-8009",
+      "originalRel": "resources/MSOUTL32.OCX/bitmap-8009.png",
+      "placeholder": "bitmap-8009.svg",
+      "folder": "MSOUTL32.OCX",
+      "width": 13,
+      "height": 13
+    },
+    "bitmap-8010": {
+      "id": "bitmap-8010",
+      "originalRel": "resources/MSOUTL32.OCX/bitmap-8010.png",
+      "placeholder": "bitmap-8010.svg",
+      "folder": "MSOUTL32.OCX",
+      "width": 13,
+      "height": 13
+    },
+    "bitmap-8011": {
+      "id": "bitmap-8011",
+      "originalRel": "resources/MSOUTL32.OCX/bitmap-8011.png",
+      "placeholder": "bitmap-8011.svg",
+      "folder": "MSOUTL32.OCX",
+      "width": 13,
+      "height": 13
+    },
+    "bitmap-8012": {
+      "id": "bitmap-8012",
+      "originalRel": "resources/MSOUTL32.OCX/bitmap-8012.png",
+      "placeholder": "bitmap-8012.svg",
+      "folder": "MSOUTL32.OCX",
+      "width": 13,
+      "height": 13
+    },
+    "Mfc42.dll/bitmap-26567": {
+      "id": "Mfc42.dll/bitmap-26567",
+      "originalRel": "resources/Mfc42.dll/bitmap-26567.png",
+      "placeholder": "bitmap-26567.svg",
+      "folder": "Mfc42.dll",
+      "width": 70,
+      "height": 39
+    },
+    "Mfc42.dll/bitmap-30994": {
+      "id": "Mfc42.dll/bitmap-30994",
+      "originalRel": "resources/Mfc42.dll/bitmap-30994.png",
+      "placeholder": "bitmap-30994.svg",
+      "folder": "Mfc42.dll",
+      "width": 12,
+      "height": 10
+    },
+    "Mfc42.dll/bitmap-30995": {
+      "id": "Mfc42.dll/bitmap-30995",
+      "originalRel": "resources/Mfc42.dll/bitmap-30995.png",
+      "placeholder": "bitmap-30995.svg",
+      "folder": "Mfc42.dll",
+      "width": 39,
+      "height": 13
+    },
+    "Mfc42.dll/bitmap-30996": {
+      "id": "Mfc42.dll/bitmap-30996",
+      "originalRel": "resources/Mfc42.dll/bitmap-30996.png",
+      "placeholder": "bitmap-30996.svg",
+      "folder": "Mfc42.dll",
+      "width": 33,
+      "height": 11
+    },
+    "Mfc42.dll/bitmap-32384": {
+      "id": "Mfc42.dll/bitmap-32384",
+      "originalRel": "resources/Mfc42.dll/bitmap-32384.png",
+      "placeholder": "bitmap-32384.svg",
+      "folder": "Mfc42.dll",
+      "width": 20,
+      "height": 12
+    },
+    "PICCLP32.OCX/bitmap-1": {
+      "id": "PICCLP32.OCX/bitmap-1",
+      "originalRel": "resources/PICCLP32.OCX/bitmap-1.png",
+      "placeholder": "bitmap-1.svg",
+      "folder": "PICCLP32.OCX",
+      "width": 16,
+      "height": 15
+    },
+    "RICHTX32.OCX/bitmap-1": {
+      "id": "RICHTX32.OCX/bitmap-1",
+      "originalRel": "resources/RICHTX32.OCX/bitmap-1.png",
+      "placeholder": "bitmap-1.svg",
+      "folder": "RICHTX32.OCX",
+      "width": 16,
+      "height": 15
+    },
+    "SPIN32.OCX/bitmap-1": {
+      "id": "SPIN32.OCX/bitmap-1",
+      "originalRel": "resources/SPIN32.OCX/bitmap-1.png",
+      "placeholder": "bitmap-1.svg",
+      "folder": "SPIN32.OCX",
+      "width": 16,
+      "height": 15
+    },
+    "TABCTL32.OCX/bitmap-1": {
+      "id": "TABCTL32.OCX/bitmap-1",
+      "originalRel": "resources/TABCTL32.OCX/bitmap-1.png",
+      "placeholder": "bitmap-1.svg",
+      "folder": "TABCTL32.OCX",
+      "width": 16,
+      "height": 15
+    },
+    "TABCTL32.OCX/bitmap-26567": {
+      "id": "TABCTL32.OCX/bitmap-26567",
+      "originalRel": "resources/TABCTL32.OCX/bitmap-26567.png",
+      "placeholder": "bitmap-26567.svg",
+      "folder": "TABCTL32.OCX",
+      "width": 70,
+      "height": 39
+    },
+    "TABCTL32.OCX/bitmap-30994": {
+      "id": "TABCTL32.OCX/bitmap-30994",
+      "originalRel": "resources/TABCTL32.OCX/bitmap-30994.png",
+      "placeholder": "bitmap-30994.svg",
+      "folder": "TABCTL32.OCX",
+      "width": 12,
+      "height": 10
+    },
+    "TABCTL32.OCX/bitmap-30995": {
+      "id": "TABCTL32.OCX/bitmap-30995",
+      "originalRel": "resources/TABCTL32.OCX/bitmap-30995.png",
+      "placeholder": "bitmap-30995.svg",
+      "folder": "TABCTL32.OCX",
+      "width": 39,
+      "height": 13
+    },
+    "TABCTL32.OCX/bitmap-30996": {
+      "id": "TABCTL32.OCX/bitmap-30996",
+      "originalRel": "resources/TABCTL32.OCX/bitmap-30996.png",
+      "placeholder": "bitmap-30996.svg",
+      "folder": "TABCTL32.OCX",
+      "width": 33,
+      "height": 11
+    },
+    "THREED32.OCX/bitmap-1": {
+      "id": "THREED32.OCX/bitmap-1",
+      "originalRel": "resources/THREED32.OCX/bitmap-1.png",
+      "placeholder": "bitmap-1.svg",
+      "folder": "THREED32.OCX",
+      "width": 16,
+      "height": 15
+    },
+    "THREED32.OCX/bitmap-2": {
+      "id": "THREED32.OCX/bitmap-2",
+      "originalRel": "resources/THREED32.OCX/bitmap-2.png",
+      "placeholder": "bitmap-2.svg",
+      "folder": "THREED32.OCX",
+      "width": 16,
+      "height": 15
+    },
+    "THREED32.OCX/bitmap-3": {
+      "id": "THREED32.OCX/bitmap-3",
+      "originalRel": "resources/THREED32.OCX/bitmap-3.png",
+      "placeholder": "bitmap-3.svg",
+      "folder": "THREED32.OCX",
+      "width": 16,
+      "height": 15
+    },
+    "THREED32.OCX/bitmap-4": {
+      "id": "THREED32.OCX/bitmap-4",
+      "originalRel": "resources/THREED32.OCX/bitmap-4.png",
+      "placeholder": "bitmap-4.svg",
+      "folder": "THREED32.OCX",
+      "width": 16,
+      "height": 15
+    },
+    "bitmap-5": {
+      "id": "bitmap-5",
+      "originalRel": "resources/THREED32.OCX/bitmap-5.png",
+      "placeholder": "bitmap-5.svg",
+      "folder": "THREED32.OCX",
+      "width": 16,
+      "height": 15
+    },
+    "bitmap-6": {
+      "id": "bitmap-6",
+      "originalRel": "resources/THREED32.OCX/bitmap-6.png",
+      "placeholder": "bitmap-6.svg",
+      "folder": "THREED32.OCX",
+      "width": 16,
+      "height": 15
+    },
+    "bitmap-SSCBDN1": {
+      "id": "bitmap-SSCBDN1",
+      "originalRel": "resources/THREED32.OCX/bitmap-SSCBDN1.png",
+      "placeholder": "bitmap-SSCBDN1.svg",
+      "folder": "THREED32.OCX",
+      "width": 13,
+      "height": 13
+    },
+    "bitmap-SSCBDN2": {
+      "id": "bitmap-SSCBDN2",
+      "originalRel": "resources/THREED32.OCX/bitmap-SSCBDN2.png",
+      "placeholder": "bitmap-SSCBDN2.svg",
+      "folder": "THREED32.OCX",
+      "width": 13,
+      "height": 13
+    },
+    "bitmap-SSCBDN3": {
+      "id": "bitmap-SSCBDN3",
+      "originalRel": "resources/THREED32.OCX/bitmap-SSCBDN3.png",
+      "placeholder": "bitmap-SSCBDN3.svg",
+      "folder": "THREED32.OCX",
+      "width": 13,
+      "height": 13
+    },
+    "bitmap-SSCBUP1": {
+      "id": "bitmap-SSCBUP1",
+      "originalRel": "resources/THREED32.OCX/bitmap-SSCBUP1.png",
+      "placeholder": "bitmap-SSCBUP1.svg",
+      "folder": "THREED32.OCX",
+      "width": 13,
+      "height": 13
+    },
+    "bitmap-SSCBUP2": {
+      "id": "bitmap-SSCBUP2",
+      "originalRel": "resources/THREED32.OCX/bitmap-SSCBUP2.png",
+      "placeholder": "bitmap-SSCBUP2.svg",
+      "folder": "THREED32.OCX",
+      "width": 13,
+      "height": 13
+    },
+    "bitmap-SSCBUP3": {
+      "id": "bitmap-SSCBUP3",
+      "originalRel": "resources/THREED32.OCX/bitmap-SSCBUP3.png",
+      "placeholder": "bitmap-SSCBUP3.svg",
+      "folder": "THREED32.OCX",
+      "width": 13,
+      "height": 13
+    },
+    "bitmap-SSRBDN1": {
+      "id": "bitmap-SSRBDN1",
+      "originalRel": "resources/THREED32.OCX/bitmap-SSRBDN1.png",
+      "placeholder": "bitmap-SSRBDN1.svg",
+      "folder": "THREED32.OCX",
+      "width": 13,
+      "height": 13
+    },
+    "bitmap-SSRBDN2": {
+      "id": "bitmap-SSRBDN2",
+      "originalRel": "resources/THREED32.OCX/bitmap-SSRBDN2.png",
+      "placeholder": "bitmap-SSRBDN2.svg",
+      "folder": "THREED32.OCX",
+      "width": 13,
+      "height": 13
+    },
+    "bitmap-SSRBGR1": {
+      "id": "bitmap-SSRBGR1",
+      "originalRel": "resources/THREED32.OCX/bitmap-SSRBGR1.png",
+      "placeholder": "bitmap-SSRBGR1.svg",
+      "folder": "THREED32.OCX",
+      "width": 13,
+      "height": 13
+    },
+    "bitmap-SSRBGR2": {
+      "id": "bitmap-SSRBGR2",
+      "originalRel": "resources/THREED32.OCX/bitmap-SSRBGR2.png",
+      "placeholder": "bitmap-SSRBGR2.svg",
+      "folder": "THREED32.OCX",
+      "width": 13,
+      "height": 13
+    },
+    "bitmap-SSRBUP1": {
+      "id": "bitmap-SSRBUP1",
+      "originalRel": "resources/THREED32.OCX/bitmap-SSRBUP1.png",
+      "placeholder": "bitmap-SSRBUP1.svg",
+      "folder": "THREED32.OCX",
+      "width": 13,
+      "height": 13
+    },
+    "bitmap-SSRBUP2": {
+      "id": "bitmap-SSRBUP2",
+      "originalRel": "resources/THREED32.OCX/bitmap-SSRBUP2.png",
+      "placeholder": "bitmap-SSRBUP2.svg",
+      "folder": "THREED32.OCX",
+      "width": 13,
+      "height": 13
+    },
+    "Tab32.dll/bitmap-TTABD": {
+      "id": "Tab32.dll/bitmap-TTABD",
+      "originalRel": "resources/Tab32.dll/bitmap-TTABD.png",
+      "placeholder": "bitmap-TTABD.svg",
+      "folder": "Tab32.dll",
+      "width": 80,
+      "height": 22
+    },
+    "Tab32.dll/bitmap-TTABU": {
+      "id": "Tab32.dll/bitmap-TTABU",
+      "originalRel": "resources/Tab32.dll/bitmap-TTABU.png",
+      "placeholder": "bitmap-TTABU.svg",
+      "folder": "Tab32.dll",
+      "width": 80,
+      "height": 22
+    },
+    "VB40032.DLL/bitmap-26567": {
+      "id": "VB40032.DLL/bitmap-26567",
+      "originalRel": "resources/VB40032.DLL/bitmap-26567.png",
+      "placeholder": "bitmap-26567.svg",
+      "folder": "VB40032.DLL",
+      "width": 80,
+      "height": 48
+    },
+    "bitmap-7000": {
+      "id": "bitmap-7000",
+      "originalRel": "resources/VB40032.DLL/bitmap-7000.png",
+      "placeholder": "bitmap-7000.svg",
+      "folder": "VB40032.DLL",
+      "width": 128,
+      "height": 13
+    },
+    "bitmap-7001": {
+      "id": "bitmap-7001",
+      "originalRel": "resources/VB40032.DLL/bitmap-7001.png",
+      "placeholder": "bitmap-7001.svg",
+      "folder": "VB40032.DLL",
+      "width": 128,
+      "height": 13
+    },
+    "bitmap-8100": {
+      "id": "bitmap-8100",
+      "originalRel": "resources/VB40032.DLL/bitmap-8100.png",
+      "placeholder": "bitmap-8100.svg",
+      "folder": "VB40032.DLL",
+      "width": 11,
+      "height": 13
+    },
+    "bitmap-8101": {
+      "id": "bitmap-8101",
+      "originalRel": "resources/VB40032.DLL/bitmap-8101.png",
+      "placeholder": "bitmap-8101.svg",
+      "folder": "VB40032.DLL",
+      "width": 8,
+      "height": 13
+    },
+    "bitmap-8102": {
+      "id": "bitmap-8102",
+      "originalRel": "resources/VB40032.DLL/bitmap-8102.png",
+      "placeholder": "bitmap-8102.svg",
+      "folder": "VB40032.DLL",
+      "width": 8,
+      "height": 13
+    },
+    "bitmap-8103": {
+      "id": "bitmap-8103",
+      "originalRel": "resources/VB40032.DLL/bitmap-8103.png",
+      "placeholder": "bitmap-8103.svg",
+      "folder": "VB40032.DLL",
+      "width": 11,
+      "height": 13
+    },
+    "ctl3d32.dll/bitmap-26567": {
+      "id": "ctl3d32.dll/bitmap-26567",
+      "originalRel": "resources/ctl3d32.dll/bitmap-26567.png",
+      "placeholder": "bitmap-26567.svg",
+      "folder": "ctl3d32.dll",
+      "width": 70,
+      "height": 39
+    },
+    "CTL3D32.DLL/bitmap-26567": {
+      "id": "CTL3D32.DLL/bitmap-26567",
+      "originalRel": "resources/installer/CTL3D32.DLL/bitmap-26567.png",
+      "placeholder": "bitmap-26567.svg",
+      "folder": "CTL3D32.DLL",
+      "width": 70,
+      "height": 39
+    },
+    "bitmap-701": {
+      "id": "bitmap-701",
+      "originalRel": "resources/installer/UNINST.EXE/bitmap-701.png",
+      "placeholder": "bitmap-701.svg",
+      "folder": "UNINST.EXE",
+      "width": 141,
+      "height": 268
+    },
+    "bitmap-702": {
+      "id": "bitmap-702",
+      "originalRel": "resources/installer/UNINST.EXE/bitmap-702.png",
+      "placeholder": "bitmap-702.svg",
+      "folder": "UNINST.EXE",
+      "width": 10,
+      "height": 10
+    },
+    "bitmap-10300": {
+      "id": "bitmap-10300",
+      "originalRel": "resources/installer/_ISRES.DLL/bitmap-10300.png",
+      "placeholder": "bitmap-10300.svg",
+      "folder": "_ISRES.DLL",
+      "width": 13,
+      "height": 13
+    },
+    "bitmap-10301": {
+      "id": "bitmap-10301",
+      "originalRel": "resources/installer/_ISRES.DLL/bitmap-10301.png",
+      "placeholder": "bitmap-10301.svg",
+      "folder": "_ISRES.DLL",
+      "width": 13,
+      "height": 13
+    },
+    "bitmap-10302": {
+      "id": "bitmap-10302",
+      "originalRel": "resources/installer/_ISRES.DLL/bitmap-10302.png",
+      "placeholder": "bitmap-10302.svg",
+      "folder": "_ISRES.DLL",
+      "width": 10,
+      "height": 10
+    },
+    "bitmap-10303": {
+      "id": "bitmap-10303",
+      "originalRel": "resources/installer/_ISRES.DLL/bitmap-10303.png",
+      "placeholder": "bitmap-10303.svg",
+      "folder": "_ISRES.DLL",
+      "width": 10,
+      "height": 10
+    },
+    "bitmap-10304": {
+      "id": "bitmap-10304",
+      "originalRel": "resources/installer/_ISRES.DLL/bitmap-10304.png",
+      "placeholder": "bitmap-10304.svg",
+      "folder": "_ISRES.DLL",
+      "width": 11,
+      "height": 11
+    },
+    "bitmap-10305": {
+      "id": "bitmap-10305",
+      "originalRel": "resources/installer/_ISRES.DLL/bitmap-10305.png",
+      "placeholder": "bitmap-10305.svg",
+      "folder": "_ISRES.DLL",
+      "width": 11,
+      "height": 11
+    },
+    "bitmap-10550": {
+      "id": "bitmap-10550",
+      "originalRel": "resources/installer/_ISRES.DLL/bitmap-10550.png",
+      "placeholder": "bitmap-10550.svg",
+      "folder": "_ISRES.DLL",
+      "width": 121,
+      "height": 219
+    },
+    "bitmap-10601": {
+      "id": "bitmap-10601",
+      "originalRel": "resources/installer/_ISRES.DLL/bitmap-10601.png",
+      "placeholder": "bitmap-10601.svg",
+      "folder": "_ISRES.DLL",
+      "width": 54,
+      "height": 46
+    },
+    "bitmap-10602": {
+      "id": "bitmap-10602",
+      "originalRel": "resources/installer/_ISRES.DLL/bitmap-10602.png",
+      "placeholder": "bitmap-10602.svg",
+      "folder": "_ISRES.DLL",
+      "width": 54,
+      "height": 46
+    },
+    "bitmap-10603": {
+      "id": "bitmap-10603",
+      "originalRel": "resources/installer/_ISRES.DLL/bitmap-10603.png",
+      "placeholder": "bitmap-10603.svg",
+      "folder": "_ISRES.DLL",
+      "width": 54,
+      "height": 46
+    },
+    "bitmap-10604": {
+      "id": "bitmap-10604",
+      "originalRel": "resources/installer/_ISRES.DLL/bitmap-10604.png",
+      "placeholder": "bitmap-10604.svg",
+      "folder": "_ISRES.DLL",
+      "width": 54,
+      "height": 46
+    },
+    "bitmap-10605": {
+      "id": "bitmap-10605",
+      "originalRel": "resources/installer/_ISRES.DLL/bitmap-10605.png",
+      "placeholder": "bitmap-10605.svg",
+      "folder": "_ISRES.DLL",
+      "width": 54,
+      "height": 47
+    },
+    "bitmap-10606": {
+      "id": "bitmap-10606",
+      "originalRel": "resources/installer/_ISRES.DLL/bitmap-10606.png",
+      "placeholder": "bitmap-10606.svg",
+      "folder": "_ISRES.DLL",
+      "width": 54,
+      "height": 46
+    },
+    "bitmap-10776": {
+      "id": "bitmap-10776",
+      "originalRel": "resources/installer/_ISRES.DLL/bitmap-10776.png",
+      "placeholder": "bitmap-10776.svg",
+      "folder": "_ISRES.DLL",
+      "width": 52,
+      "height": 50
+    },
+    "bitmap-11001": {
+      "id": "bitmap-11001",
+      "originalRel": "resources/installer/_ISRES.DLL/bitmap-11001.png",
+      "placeholder": "bitmap-11001.svg",
+      "folder": "_ISRES.DLL",
+      "width": 32,
+      "height": 63
+    },
+    "bitmap-11002": {
+      "id": "bitmap-11002",
+      "originalRel": "resources/installer/_ISRES.DLL/bitmap-11002.png",
+      "placeholder": "bitmap-11002.svg",
+      "folder": "_ISRES.DLL",
+      "width": 32,
+      "height": 32
+    },
+    "bitmap-11003": {
+      "id": "bitmap-11003",
+      "originalRel": "resources/installer/_ISRES.DLL/bitmap-11003.png",
+      "placeholder": "bitmap-11003.svg",
+      "folder": "_ISRES.DLL",
+      "width": 30,
+      "height": 63
+    },
+    "bitmap-11004": {
+      "id": "bitmap-11004",
+      "originalRel": "resources/installer/_ISRES.DLL/bitmap-11004.png",
+      "placeholder": "bitmap-11004.svg",
+      "folder": "_ISRES.DLL",
+      "width": 31,
+      "height": 31
+    },
+    "bitmap-11005": {
+      "id": "bitmap-11005",
+      "originalRel": "resources/installer/_ISRES.DLL/bitmap-11005.png",
+      "placeholder": "bitmap-11005.svg",
+      "folder": "_ISRES.DLL",
+      "width": 31,
+      "height": 31
+    },
+    "bitmap-12001": {
+      "id": "bitmap-12001",
+      "originalRel": "resources/installer/_ISRES.DLL/bitmap-12001.png",
+      "placeholder": "bitmap-12001.svg",
+      "folder": "_ISRES.DLL",
+      "width": 29,
+      "height": 28
+    },
+    "bitmap-12002": {
+      "id": "bitmap-12002",
+      "originalRel": "resources/installer/_ISRES.DLL/bitmap-12002.png",
+      "placeholder": "bitmap-12002.svg",
+      "folder": "_ISRES.DLL",
+      "width": 32,
+      "height": 29
+    },
+    "bitmap-12003": {
+      "id": "bitmap-12003",
+      "originalRel": "resources/installer/_ISRES.DLL/bitmap-12003.png",
+      "placeholder": "bitmap-12003.svg",
+      "folder": "_ISRES.DLL",
+      "width": 30,
+      "height": 32
+    },
+    "bitmap-12004": {
+      "id": "bitmap-12004",
+      "originalRel": "resources/installer/_ISRES.DLL/bitmap-12004.png",
+      "placeholder": "bitmap-12004.svg",
+      "folder": "_ISRES.DLL",
+      "width": 30,
+      "height": 29
+    },
+    "penpad.exe/bitmap-128": {
+      "id": "penpad.exe/bitmap-128",
+      "originalRel": "resources/penpad.exe/bitmap-128.png",
+      "placeholder": "bitmap-128.svg",
+      "folder": "penpad.exe",
+      "width": 128,
+      "height": 15
+    }
+  }
+}

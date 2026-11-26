@@ -1,0 +1,3247 @@
+{
+  "ChestPainSymptom": [
+    "CardiovascularSystem",
+    "RespiratorySystem",
+    "DigestiveSystem",
+    "MuscularSystem",
+    "SkeletalSystem",
+    "FunctionalSystem"
+  ],
+  "ConvulsionSymptom": [
+    "GeneralSystem",
+    "CardiovascularSystem",
+    "NervousSystem",
+    "FunctionalSystem"
+  ],
+  "GeneralisedTicSymptom": [
+    "GeneralSystem"
+  ],
+  "GeneralisedTremorSymptom": [
+    "GeneralSystem"
+  ],
+  "FoodAppetiteIncreaseSymptom": [
+    "GeneralSystem",
+    "DigestiveSystem",
+    "FunctionalSystem"
+  ],
+  "LossOfAppetiteSymptom": [
+    "GeneralSystem",
+    "DigestiveSystem",
+    "FunctionalSystem"
+  ],
+  "BodilyCollapseSymptom": [
+    "GeneralSystem",
+    "CardiovascularSystem",
+    "NervousSystem",
+    "FunctionalSystem"
+  ],
+  "BodilyWeaknessSymptom": [
+    "GeneralSystem",
+    "NervousSystem",
+    "FunctionalSystem"
+  ],
+  "LegSwellingSymptom": [
+    "CardiovascularSystem",
+    "FemaleGenitourinarySystem",
+    "MaleGenitourinarySystem",
+    "FunctionalSystem"
+  ],
+  "AnkleSwellingSymptom": [
+    "CardiovascularSystem",
+    "DigestiveSystem",
+    "FemaleGenitourinarySystem",
+    "MaleGenitourinarySystem",
+    "FunctionalSystem"
+  ],
+  "FingerClubbingSymptom": [
+    "CardiovascularSystem",
+    "RespiratorySystem",
+    "DigestiveSystem",
+    "FunctionalSystem"
+  ],
+  "ColdForearmSymptom": [
+    "CardiovascularSystem",
+    "FunctionalSystem"
+  ],
+  "ColdHandSymptom": [
+    "CardiovascularSystem",
+    "FunctionalSystem"
+  ],
+  "ColdThumbSymptom": [
+    "FunctionalSystem"
+  ],
+  "ColdFingerSymptom": [
+    "CardiovascularSystem",
+    "FunctionalSystem"
+  ],
+  "ColdLowerLegSymptom": [
+    "CardiovascularSystem",
+    "FunctionalSystem"
+  ],
+  "ColdFootSymptom": [
+    "CardiovascularSystem",
+    "FunctionalSystem"
+  ],
+  "ColdToeSymptom": [
+    "CardiovascularSystem",
+    "FunctionalSystem"
+  ],
+  "ColdArmSymptom": [
+    "CardiovascularSystem",
+    "FunctionalSystem"
+  ],
+  "ColdLegSymptom": [
+    "CardiovascularSystem",
+    "FunctionalSystem"
+  ],
+  "CryingSymptom": [
+    "GeneralSystem",
+    "Psyche",
+    "FunctionalSystem"
+  ],
+  "CyanosisSymptom": [
+    "CardiovascularSystem",
+    "RespiratorySystem",
+    "HematopoieticSystem",
+    "FunctionalSystem"
+  ],
+  "AbsencesSymptom": [
+    "GeneralSystem",
+    "NervousSystem",
+    "FunctionalSystem"
+  ],
+  "ChangeOfAppearanceSymptom": [
+    "GeneralSystem",
+    "FunctionalSystem"
+  ],
+  "DizzinessSymptom": [
+    "CardiovascularSystem",
+    "NervousSystem",
+    "ENTSystem",
+    "FunctionalSystem"
+  ],
+  "FatigueSymptom": [
+    "GeneralSystem",
+    "MuscularSystem",
+    "NervousSystem",
+    "Psyche",
+    "FunctionalSystem"
+  ],
+  "FrequentInfectionProcessSymptom": [
+    "GeneralSystem",
+    "EndocrineSystem",
+    "HematopoieticSystem",
+    "FunctionalSystem"
+  ],
+  "GeneralisedAchingSymptom": [
+    "GeneralSystem",
+    "MuscularSystem",
+    "NervousSystem",
+    "Psyche",
+    "FunctionalSystem"
+  ],
+  "HotFlushesSymptom": [
+    "GeneralSystem",
+    "EndocrineSystem",
+    "FunctionalSystem"
+  ],
+  "GeneralisedSweatingSymptom": [
+    "GeneralSystem"
+  ],
+  "IntermittentClaudicationSymptom": [
+    "CardiovascularSystem",
+    "FunctionalSystem"
+  ],
+  "IrritabilitySymptom": [
+    "GeneralSystem",
+    "Psyche",
+    "FunctionalSystem"
+  ],
+  "JaundiceSymptom": [
+    "GeneralSystem",
+    "DigestiveSystem",
+    "HematopoieticSystem",
+    "FunctionalSystem"
+  ],
+  "LethargySymptom": [
+    "GeneralSystem",
+    "MuscularSystem",
+    "NervousSystem",
+    "Psyche",
+    "FunctionalSystem"
+  ],
+  "MalaiseSymptom": [
+    "GeneralSystem",
+    "FunctionalSystem"
+  ],
+  "NauseaSymptom": [
+    "GeneralSystem",
+    "DigestiveSystem",
+    "FemaleGenitourinarySystem",
+    "NervousSystem",
+    "ENTSystem",
+    "FunctionalSystem"
+  ],
+  "LargeBodyAsAWholeSymptom": [
+    "EndocrineSystem",
+    "Psyche",
+    "FunctionalSystem"
+  ],
+  "LargeHeadSymptom": [
+    "EndocrineSystem",
+    "Psyche",
+    "FunctionalSystem"
+  ],
+  "LargeNoseSymptom": [
+    "EndocrineSystem",
+    "Psyche",
+    "FunctionalSystem"
+  ],
+  "LargeEarSymptom": [
+    "EndocrineSystem",
+    "Psyche",
+    "FunctionalSystem"
+  ],
+  "LargeJawSymptom": [
+    "EndocrineSystem",
+    "Psyche",
+    "FunctionalSystem"
+  ],
+  "LargeMouthSymptom": [
+    "EndocrineSystem",
+    "Psyche",
+    "FunctionalSystem"
+  ],
+  "LargeLipSymptom": [
+    "EndocrineSystem",
+    "Psyche",
+    "FunctionalSystem"
+  ],
+  "LargeTongueSymptom": [
+    "EndocrineSystem",
+    "Psyche",
+    "FunctionalSystem"
+  ],
+  "LargeBreastSymptom": [
+    "EndocrineSystem",
+    "Psyche",
+    "FunctionalSystem"
+  ],
+  "LargeNippleSymptom": [
+    "EndocrineSystem",
+    "Psyche",
+    "FunctionalSystem"
+  ],
+  "LargePenisSymptom": [
+    "MaleGenitourinarySystem",
+    "EndocrineSystem",
+    "Psyche",
+    "FunctionalSystem"
+  ],
+  "LargeTestisSymptom": [
+    "MaleGenitourinarySystem",
+    "EndocrineSystem",
+    "Psyche",
+    "FunctionalSystem"
+  ],
+  "LargeHandSymptom": [
+    "EndocrineSystem",
+    "FunctionalSystem"
+  ],
+  "LargeFootSymptom": [
+    "EndocrineSystem",
+    "FunctionalSystem"
+  ],
+  "SmallBodyAsAWholeSymptom": [
+    "EndocrineSystem",
+    "Psyche",
+    "FunctionalSystem"
+  ],
+  "SmallHeadSymptom": [
+    "EndocrineSystem",
+    "Psyche",
+    "FunctionalSystem"
+  ],
+  "SmallNoseSymptom": [
+    "EndocrineSystem",
+    "Psyche",
+    "FunctionalSystem"
+  ],
+  "SmallEarSymptom": [
+    "EndocrineSystem",
+    "Psyche",
+    "FunctionalSystem"
+  ],
+  "SmallJawSymptom": [
+    "EndocrineSystem",
+    "Psyche",
+    "FunctionalSystem"
+  ],
+  "SmallMouthSymptom": [
+    "EndocrineSystem",
+    "Psyche",
+    "FunctionalSystem"
+  ],
+  "SmallLipSymptom": [
+    "EndocrineSystem",
+    "Psyche",
+    "FunctionalSystem"
+  ],
+  "SmallTongueSymptom": [
+    "EndocrineSystem",
+    "Psyche",
+    "FunctionalSystem"
+  ],
+  "SmallBreastSymptom": [
+    "EndocrineSystem",
+    "Psyche",
+    "FunctionalSystem"
+  ],
+  "SmallNippleSymptom": [
+    "EndocrineSystem",
+    "Psyche",
+    "FunctionalSystem"
+  ],
+  "SmallPenisSymptom": [
+    "MaleGenitourinarySystem",
+    "EndocrineSystem",
+    "Psyche",
+    "FunctionalSystem"
+  ],
+  "SmallTestisSymptom": [
+    "MaleGenitourinarySystem",
+    "EndocrineSystem",
+    "Psyche",
+    "FunctionalSystem"
+  ],
+  "SmallHandSymptom": [
+    "EndocrineSystem",
+    "FunctionalSystem"
+  ],
+  "SmallFootSymptom": [
+    "EndocrineSystem",
+    "FunctionalSystem"
+  ],
+  "PeriorbitalOedemaSymptom": [
+    "FunctionalSystem"
+  ],
+  "FacialOedemaSymptom": [
+    "FunctionalSystem"
+  ],
+  "PolydipsiaSymptom": [
+    "GeneralSystem",
+    "EndocrineSystem",
+    "FunctionalSystem"
+  ],
+  "PyrexiaSymptom": [
+    "GeneralSystem",
+    "FunctionalSystem"
+  ],
+  "FeverSymptom": [
+    "GeneralSystem",
+    "FunctionalSystem"
+  ],
+  "RigorSymptom": [
+    "GeneralSystem",
+    "FunctionalSystem"
+  ],
+  "ExcessiveSleepSymptom": [
+    "GeneralSystem",
+    "Psyche",
+    "FunctionalSystem"
+  ],
+  "LackOfSleepSymptom": [
+    "GeneralSystem",
+    "Psyche",
+    "FunctionalSystem"
+  ],
+  "EarlyMorningWakeningSymptom": [
+    "GeneralSystem",
+    "Psyche",
+    "FunctionalSystem"
+  ],
+  "DisturbedSleepWakeCycleSymptom": [
+    "GeneralSystem",
+    "Psyche",
+    "FunctionalSystem"
+  ],
+  "SyncopeSymptom": [
+    "GeneralSystem",
+    "CardiovascularSystem",
+    "NervousSystem",
+    "FunctionalSystem"
+  ],
+  "HeatIntoleranceSymptom": [
+    "GeneralSystem",
+    "EndocrineSystem",
+    "FunctionalSystem"
+  ],
+  "SensitivityToColdSymptom": [
+    "GeneralSystem",
+    "CardiovascularSystem",
+    "EndocrineSystem",
+    "FunctionalSystem"
+  ],
+  "TirednessSymptom": [
+    "GeneralSystem",
+    "MuscularSystem",
+    "NervousSystem",
+    "Psyche",
+    "FunctionalSystem"
+  ],
+  "VertigoSymptom": [
+    "CardiovascularSystem",
+    "NervousSystem",
+    "ENTSystem",
+    "FunctionalSystem"
+  ],
+  "BodyWeightGainSymptom": [
+    "GeneralSystem",
+    "EndocrineSystem",
+    "HematopoieticSystem",
+    "FunctionalSystem"
+  ],
+  "BodyWeightLossSymptom": [
+    "GeneralSystem",
+    "EndocrineSystem",
+    "HematopoieticSystem",
+    "FunctionalSystem"
+  ],
+  "GeneralisedRashSymptom": [
+    "DermatologicalSystem"
+  ],
+  "DandruffSymptom": [
+    "DermatologicalSystem",
+    "FunctionalSystem"
+  ],
+  "GeneralisedHirsutismSymptom": [
+    "DermatologicalSystem"
+  ],
+  "IngrowingToeNail": [
+    "DermatologicalSystem"
+  ],
+  "DupuytrensContracture": [
+    "MuscularSystem"
+  ],
+  "GeneralisedMuscularAtrophySymptom": [
+    "GeneralSystem",
+    "MuscularSystem"
+  ],
+  "GeneralisedMuscularSpasmSymptom": [
+    "GeneralSystem",
+    "MuscularSystem"
+  ],
+  "LegCrampSymptom": [
+    "CardiovascularSystem",
+    "FunctionalSystem"
+  ],
+  "DifficultyWalkingSymptom": [
+    "MuscularSystem",
+    "SkeletalSystem",
+    "FunctionalSystem"
+  ],
+  "GeneralisedJointStiffnessSymptom": [
+    "GeneralSystem",
+    "SkeletalSystem"
+  ],
+  "NeckStiffnessSymptom": [
+    "MuscularSystem",
+    "SkeletalSystem",
+    "NervousSystem",
+    "FunctionalSystem"
+  ],
+  "PalpitationsSymptom": [
+    "CardiovascularSystem",
+    "FunctionalSystem"
+  ],
+  "SputumSymptom": [
+    "RespiratorySystem",
+    "FunctionalSystem"
+  ],
+  "CoughSymptom": [
+    "CardiovascularSystem",
+    "RespiratorySystem",
+    "FunctionalSystem"
+  ],
+  "ChestTightnessSymptom": [
+    "CardiovascularSystem",
+    "RespiratorySystem",
+    "FunctionalSystem"
+  ],
+  "DyspnoeaSymptom": [
+    "CardiovascularSystem",
+    "RespiratorySystem",
+    "HematopoieticSystem",
+    "FunctionalSystem"
+  ],
+  "HaemoptysisSymptom": [
+    "CardiovascularSystem",
+    "RespiratorySystem",
+    "FunctionalSystem"
+  ],
+  "HyperventilationSymptom": [
+    "RespiratorySystem",
+    "Psyche",
+    "FunctionalSystem"
+  ],
+  "SneezingSymptom": [
+    "RespiratorySystem",
+    "FunctionalSystem"
+  ],
+  "StridorSymptom": [
+    "RespiratorySystem",
+    "FunctionalSystem"
+  ],
+  "WheezingSymptom": [
+    "RespiratorySystem",
+    "FunctionalSystem"
+  ],
+  "BadBreathSymptom": [
+    "DigestiveSystem",
+    "ENTSystem",
+    "FunctionalSystem"
+  ],
+  "BleedingGumSymptom": [
+    "DigestiveSystem",
+    "HematopoieticSystem",
+    "FunctionalSystem"
+  ],
+  "OralBleedingSymptom": [
+    "DigestiveSystem",
+    "HematopoieticSystem",
+    "FunctionalSystem"
+  ],
+  "MouthDrynessSymptom": [
+    "DigestiveSystem",
+    "FunctionalSystem"
+  ],
+  "MouthUlcerSymptom": [
+    "DigestiveSystem",
+    "FunctionalSystem"
+  ],
+  "TeethingPainSymptom": [
+    "DigestiveSystem",
+    "FunctionalSystem"
+  ],
+  "ToothacheSymptom": [
+    "DigestiveSystem",
+    "FunctionalSystem"
+  ],
+  "AbdominalCrampSymptom": [
+    "DigestiveSystem",
+    "FemaleGenitourinarySystem",
+    "FunctionalSystem"
+  ],
+  "AbdominalDistensionSymptom": [
+    "DigestiveSystem",
+    "FemaleGenitourinarySystem",
+    "FunctionalSystem"
+  ],
+  "AbdominalColicSymptom": [
+    "DigestiveSystem",
+    "FunctionalSystem"
+  ],
+  "RenalColicSymptom": [
+    "FemaleGenitourinarySystem",
+    "MaleGenitourinarySystem",
+    "FunctionalSystem"
+  ],
+  "UmbilicalBleedingSymptom": [
+    "DermatologicalSystem",
+    "FunctionalSystem"
+  ],
+  "UmbilicalDischargeSymptom": [
+    "DermatologicalSystem",
+    "FunctionalSystem"
+  ],
+  "WaterbrashSymptom": [
+    "DigestiveSystem",
+    "FunctionalSystem"
+  ],
+  "HyperaciditySymptom": [
+    "DigestiveSystem",
+    "FunctionalSystem"
+  ],
+  "DysphagiaSymptom": [
+    "DigestiveSystem",
+    "NervousSystem",
+    "FunctionalSystem"
+  ],
+  "HeartburnSymptom": [
+    "DigestiveSystem",
+    "FunctionalSystem"
+  ],
+  "IndigestionSymptom": [
+    "DigestiveSystem",
+    "FunctionalSystem"
+  ],
+  "DyspepsiaSymptom": [
+    "DigestiveSystem",
+    "FunctionalSystem"
+  ],
+  "VomitingProcessSymptom": [
+    "GeneralSystem",
+    "DigestiveSystem",
+    "FemaleGenitourinarySystem",
+    "NervousSystem",
+    "ENTSystem",
+    "FunctionalSystem"
+  ],
+  "HaematemesisSymptom": [
+    "DigestiveSystem",
+    "FunctionalSystem"
+  ],
+  "FlatulenceSymptom": [
+    "DigestiveSystem",
+    "FunctionalSystem"
+  ],
+  "BorborygmiSymptom": [
+    "DigestiveSystem",
+    "FunctionalSystem"
+  ],
+  "FemoralHernia": [
+    "DigestiveSystem"
+  ],
+  "UmbilicalHernia": [
+    "DigestiveSystem"
+  ],
+  "ChangeInBowelHabitSymptom": [
+    "DigestiveSystem",
+    "FunctionalSystem"
+  ],
+  "ConstipationSymptom": [
+    "DigestiveSystem",
+    "FunctionalSystem"
+  ],
+  "DiarrhoeaSymptom": [
+    "DigestiveSystem",
+    "FunctionalSystem"
+  ],
+  "FaecalIncontinenceSymptom": [
+    "DigestiveSystem",
+    "FunctionalSystem"
+  ],
+  "MelaenaSymptom": [
+    "DigestiveSystem",
+    "FunctionalSystem"
+  ],
+  "SteatorrhoeaSymptom": [
+    "DigestiveSystem",
+    "FunctionalSystem"
+  ],
+  "RectalBleedingSymptom": [
+    "DigestiveSystem",
+    "FunctionalSystem"
+  ],
+  "RectalDischargeSymptom": [
+    "DigestiveSystem",
+    "FunctionalSystem"
+  ],
+  "RectalForeignBodySymptom": [
+    "DigestiveSystem",
+    "FunctionalSystem"
+  ],
+  "AnalDischargeSymptom": [
+    "DigestiveSystem",
+    "FunctionalSystem"
+  ],
+  "DarkUrineSymptom": [
+    "DigestiveSystem",
+    "FemaleGenitourinarySystem",
+    "MaleGenitourinarySystem",
+    "FunctionalSystem"
+  ],
+  "UrethralBleedingSymptom": [
+    "FemaleGenitourinarySystem",
+    "MaleGenitourinarySystem",
+    "FunctionalSystem"
+  ],
+  "UrethralDischargeSymptom": [
+    "FemaleGenitourinarySystem",
+    "MaleGenitourinarySystem",
+    "FunctionalSystem"
+  ],
+  "UrethralForeignBodySymptom": [
+    "FemaleGenitourinarySystem",
+    "MaleGenitourinarySystem",
+    "FunctionalSystem"
+  ],
+  "DysuriaSymptom": [
+    "FemaleGenitourinarySystem",
+    "MaleGenitourinarySystem",
+    "FunctionalSystem"
+  ],
+  "HaematuriaSymptom": [
+    "FemaleGenitourinarySystem",
+    "MaleGenitourinarySystem",
+    "FunctionalSystem"
+  ],
+  "NocturiaSymptom": [
+    "FemaleGenitourinarySystem",
+    "MaleGenitourinarySystem",
+    "FunctionalSystem"
+  ],
+  "OliguriaSymptom": [
+    "CardiovascularSystem",
+    "FemaleGenitourinarySystem",
+    "MaleGenitourinarySystem",
+    "FunctionalSystem"
+  ],
+  "PolyuriaSymptom": [
+    "FemaleGenitourinarySystem",
+    "MaleGenitourinarySystem",
+    "EndocrineSystem",
+    "FunctionalSystem"
+  ],
+  "PoorStreamOfUrineSymptom": [
+    "MaleGenitourinarySystem",
+    "FunctionalSystem"
+  ],
+  "UrinaryFrequencySymptom": [
+    "FemaleGenitourinarySystem",
+    "MaleGenitourinarySystem",
+    "FunctionalSystem"
+  ],
+  "UrinaryHesitancySymptom": [
+    "FemaleGenitourinarySystem",
+    "MaleGenitourinarySystem",
+    "FunctionalSystem"
+  ],
+  "UrinaryIncontinenceSymptom": [
+    "FemaleGenitourinarySystem",
+    "MaleGenitourinarySystem",
+    "FunctionalSystem"
+  ],
+  "EnuresisSymptom": [
+    "FemaleGenitourinarySystem",
+    "MaleGenitourinarySystem",
+    "FunctionalSystem"
+  ],
+  "UrinaryRetentionSymptom": [
+    "FemaleGenitourinarySystem",
+    "MaleGenitourinarySystem",
+    "FunctionalSystem"
+  ],
+  "UrinaryUrgencySymptom": [
+    "FemaleGenitourinarySystem",
+    "MaleGenitourinarySystem",
+    "FunctionalSystem"
+  ],
+  "StrangurySymptom": [
+    "FemaleGenitourinarySystem",
+    "MaleGenitourinarySystem",
+    "FunctionalSystem"
+  ],
+  "DyspareuniaSymptom": [
+    "FemaleGenitourinarySystem",
+    "Psyche",
+    "FunctionalSystem"
+  ],
+  "GenitalUlcerSymptom": [
+    "FemaleGenitourinarySystem",
+    "MaleGenitourinarySystem",
+    "FunctionalSystem"
+  ],
+  "LossOfLibidoSymptom": [
+    "GeneralSystem",
+    "FemaleGenitourinarySystem",
+    "MaleGenitourinarySystem",
+    "Psyche",
+    "FunctionalSystem"
+  ],
+  "AbsentTesticleSymptom": [
+    "MaleGenitourinarySystem",
+    "FunctionalSystem"
+  ],
+  "FailureOfErectionSymptom": [
+    "MaleGenitourinarySystem",
+    "Psyche",
+    "FunctionalSystem"
+  ],
+  "ImpotenceSymptom": [
+    "MaleGenitourinarySystem",
+    "FunctionalSystem"
+  ],
+  "PainfulErectionSymptom": [
+    "MaleGenitourinarySystem",
+    "FunctionalSystem"
+  ],
+  "TightForeskinSymptom": [
+    "MaleGenitourinarySystem",
+    "FunctionalSystem"
+  ],
+  "PriapismSymptom": [
+    "MaleGenitourinarySystem",
+    "FunctionalSystem"
+  ],
+  "VaginalDischargeSymptom": [
+    "FemaleGenitourinarySystem",
+    "FunctionalSystem"
+  ],
+  "VaginalBleedingSymptom": [
+    "FemaleGenitourinarySystem",
+    "FunctionalSystem"
+  ],
+  "PostCoitalBleedingSymptom": [
+    "FemaleGenitourinarySystem",
+    "FunctionalSystem"
+  ],
+  "IntermenstrualBleedingSymptom": [
+    "FemaleGenitourinarySystem",
+    "FunctionalSystem"
+  ],
+  "PostMenopausalBleedingSymptom": [
+    "FemaleGenitourinarySystem",
+    "FunctionalSystem"
+  ],
+  "NonMenstrualBleedingSymptom": [
+    "FemaleGenitourinarySystem",
+    "FunctionalSystem"
+  ],
+  "VaginalDrynessSymptom": [
+    "FemaleGenitourinarySystem",
+    "FunctionalSystem"
+  ],
+  "VaginalForeignBodySymptom": [
+    "FemaleGenitourinarySystem",
+    "FunctionalSystem"
+  ],
+  "VaginalIrritationSymptom": [
+    "FemaleGenitourinarySystem",
+    "FunctionalSystem"
+  ],
+  "VaginalSorenessSymptom": [
+    "FemaleGenitourinarySystem",
+    "FunctionalSystem"
+  ],
+  "UrethralCaruncle": [
+    "FemaleGenitourinarySystem"
+  ],
+  "AmenorrhoeaSymptom": [
+    "FemaleGenitourinarySystem",
+    "EndocrineSystem",
+    "FunctionalSystem"
+  ],
+  "DelayedPeriodSymptom": [
+    "FemaleGenitourinarySystem",
+    "EndocrineSystem",
+    "FunctionalSystem"
+  ],
+  "IrregularPeriodsSymptom": [
+    "FemaleGenitourinarySystem",
+    "FunctionalSystem"
+  ],
+  "MenorrhagiaSymptom": [
+    "FemaleGenitourinarySystem",
+    "FunctionalSystem"
+  ],
+  "OligomenorrhoeaSymptom": [
+    "FemaleGenitourinarySystem",
+    "EndocrineSystem",
+    "FunctionalSystem"
+  ],
+  "PolymenorrhagiaSymptom": [
+    "FemaleGenitourinarySystem",
+    "FunctionalSystem"
+  ],
+  "PolymenorrhoeaSymptom": [
+    "FemaleGenitourinarySystem",
+    "FunctionalSystem"
+  ],
+  "DysmenorrhoeaSymptom": [
+    "FemaleGenitourinarySystem",
+    "FunctionalSystem"
+  ],
+  "UnableToConceiveSymptom": [
+    "GeneralSystem",
+    "FemaleGenitourinarySystem",
+    "MaleGenitourinarySystem",
+    "FunctionalSystem"
+  ],
+  "SpeechDisturbanceSymptom": [
+    "GeneralSystem",
+    "NervousSystem",
+    "FunctionalSystem"
+  ],
+  "DysphasiaSymptom": [
+    "NervousSystem",
+    "FunctionalSystem"
+  ],
+  "HeadacheSymptom": [
+    "NervousSystem",
+    "FunctionalSystem"
+  ],
+  "LossOfSmellSymptom": [
+    "NervousSystem",
+    "ENTSystem",
+    "FunctionalSystem"
+  ],
+  "LossOfTasteSymptom": [
+    "NervousSystem",
+    "ENTSystem",
+    "FunctionalSystem"
+  ],
+  "AuralBleedingSymptom": [
+    "ENTSystem",
+    "FunctionalSystem"
+  ],
+  "EaracheSymptom": [
+    "ENTSystem",
+    "FunctionalSystem"
+  ],
+  "EarDischargeSymptom": [
+    "ENTSystem",
+    "FunctionalSystem"
+  ],
+  "AuditoryCanalForeignBodySymptom": [
+    "ENTSystem",
+    "FunctionalSystem"
+  ],
+  "HearingDisturbanceSymptom": [
+    "ENTSystem",
+    "FunctionalSystem"
+  ],
+  "LossOfHearingSymptom": [
+    "NervousSystem",
+    "ENTSystem",
+    "FunctionalSystem"
+  ],
+  "Tinnitus": [
+    "ENTSystem"
+  ],
+  "TinnitusSymptom": [
+    "ENTSystem",
+    "FunctionalSystem"
+  ],
+  "BlockedNoseSymptom": [
+    "RespiratorySystem",
+    "ENTSystem",
+    "FunctionalSystem"
+  ],
+  "NasalDischargeSymptom": [
+    "ENTSystem",
+    "FunctionalSystem"
+  ],
+  "RhinorrhoeaSymptom": [
+    "ENTSystem",
+    "FunctionalSystem"
+  ],
+  "EpistaxisSymptom": [
+    "ENTSystem",
+    "FunctionalSystem"
+  ],
+  "NasalForeignBodySymptom": [
+    "ENTSystem",
+    "FunctionalSystem"
+  ],
+  "SnoringSymptom": [
+    "ENTSystem",
+    "FunctionalSystem"
+  ],
+  "CongestedSinusSymptom": [
+    "ENTSystem",
+    "FunctionalSystem"
+  ],
+  "HoarseVoiceSymptom": [
+    "ENTSystem",
+    "FunctionalSystem"
+  ],
+  "ThroatForeignBodySymptom": [
+    "ENTSystem",
+    "FunctionalSystem"
+  ],
+  "SoreThroatSymptom": [
+    "FunctionalSystem"
+  ],
+  "GrittyEyeSymptom": [
+    "VisualSystem",
+    "FunctionalSystem"
+  ],
+  "RedEyeSymptom": [
+    "VisualSystem",
+    "FunctionalSystem"
+  ],
+  "EyeDischargeSymptom": [
+    "VisualSystem",
+    "FunctionalSystem"
+  ],
+  "EyeDrynessSymptom": [
+    "VisualSystem",
+    "FunctionalSystem"
+  ],
+  "StickyEyeSymptom": [
+    "VisualSystem",
+    "FunctionalSystem"
+  ],
+  "EyeForeignBodySymptom": [
+    "VisualSystem",
+    "FunctionalSystem"
+  ],
+  "StyeSymptom": [
+    "VisualSystem",
+    "FunctionalSystem"
+  ],
+  "Pingueculum": [
+    "VisualSystem"
+  ],
+  "Pterygium": [
+    "VisualSystem"
+  ],
+  "VisualDisturbanceSymptom": [
+    "VisualSystem",
+    "FunctionalSystem"
+  ],
+  "PhotophobiaSymptom": [
+    "NervousSystem",
+    "VisualSystem",
+    "FunctionalSystem"
+  ],
+  "LossOfVisionSymptom": [
+    "NervousSystem",
+    "VisualSystem",
+    "FunctionalSystem"
+  ],
+  "BreastTendernessSymptom": [
+    "FunctionalSystem"
+  ],
+  "NippleBleedingSymptom": [
+    "GeneralSystem",
+    "FunctionalSystem"
+  ],
+  "InvertedNippleSymptom": [
+    "GeneralSystem",
+    "FunctionalSystem"
+  ],
+  "NippleDischargeSymptom": [
+    "GeneralSystem",
+    "FunctionalSystem"
+  ],
+  "AgitationSymptom": [
+    "GeneralSystem",
+    "Psyche",
+    "FunctionalSystem"
+  ],
+  "AnxietySymptom": [
+    "GeneralSystem",
+    "Psyche",
+    "FunctionalSystem"
+  ],
+  "ConfusionSymptom": [
+    "GeneralSystem",
+    "CardiovascularSystem",
+    "NervousSystem",
+    "Psyche",
+    "FunctionalSystem"
+  ],
+  "DelusionSymptom": [
+    "GeneralSystem",
+    "Psyche",
+    "FunctionalSystem"
+  ],
+  "DepressionSymptom": [
+    "GeneralSystem",
+    "Psyche",
+    "FunctionalSystem"
+  ],
+  "HallucinationSymptom": [
+    "GeneralSystem",
+    "Psyche",
+    "FunctionalSystem"
+  ],
+  "LossOfMemorySymptom": [
+    "GeneralSystem",
+    "NervousSystem",
+    "Psyche",
+    "FunctionalSystem"
+  ],
+  "WorryingSymptom": [
+    "GeneralSystem",
+    "Psyche",
+    "FunctionalSystem"
+  ],
+  "GeneralisedLymphadenopathySymptom": [
+    "GeneralSystem"
+  ],
+  "GeneralisedJointPainSymptom": [
+    "GeneralSystem",
+    "SkeletalSystem",
+    "FunctionalSystem"
+  ],
+  "EyeLumpSymptom": [
+    "VisualSystem"
+  ],
+  "EyelidLumpSymptom": [
+    "VisualSystem"
+  ],
+  "NoseLumpSymptom": [
+    "ENTSystem"
+  ],
+  "MouthLumpSymptom": [
+    "DigestiveSystem"
+  ],
+  "GumLumpSymptom": [
+    "DigestiveSystem"
+  ],
+  "TongueLumpSymptom": [
+    "DigestiveSystem"
+  ],
+  "CheekLumpSymptom": [
+    "DigestiveSystem"
+  ],
+  "PalateLumpSymptom": [
+    "ENTSystem"
+  ],
+  "TonsilLumpSymptom": [
+    "ENTSystem"
+  ],
+  "UvulaLumpSymptom": [
+    "ENTSystem"
+  ],
+  "ThroatLumpSymptom": [
+    "ENTSystem"
+  ],
+  "NeckLumpSymptom": [
+    "EndocrineSystem",
+    "HematopoieticSystem"
+  ],
+  "AnteriorRibLumpSymptom": [
+    "MuscularSystem",
+    "SkeletalSystem"
+  ],
+  "NippleLumpSymptom": [
+    "DermatologicalSystem"
+  ],
+  "AxillaryLumpSymptom": [
+    "HematopoieticSystem"
+  ],
+  "ElbowLumpSymptom": [
+    "MuscularSystem",
+    "SkeletalSystem"
+  ],
+  "WristLumpSymptom": [
+    "MuscularSystem",
+    "SkeletalSystem"
+  ],
+  "HandLumpSymptom": [
+    "MuscularSystem",
+    "SkeletalSystem"
+  ],
+  "PalmLumpSymptom": [
+    "MuscularSystem",
+    "SkeletalSystem"
+  ],
+  "DorsalHandLumpSymptom": [
+    "MuscularSystem",
+    "SkeletalSystem"
+  ],
+  "FingerLumpSymptom": [
+    "MuscularSystem",
+    "SkeletalSystem"
+  ],
+  "ThumbLumpSymptom": [
+    "MuscularSystem",
+    "SkeletalSystem"
+  ],
+  "IndexFingerLumpSymptom": [
+    "MuscularSystem",
+    "SkeletalSystem"
+  ],
+  "MiddleFingerLumpSymptom": [
+    "MuscularSystem",
+    "SkeletalSystem"
+  ],
+  "RingFingerLumpSymptom": [
+    "MuscularSystem",
+    "SkeletalSystem"
+  ],
+  "LittleFingerLumpSymptom": [
+    "MuscularSystem",
+    "SkeletalSystem"
+  ],
+  "FingerJointLumpSymptom": [
+    "MuscularSystem",
+    "SkeletalSystem"
+  ],
+  "FingerNailLumpSymptom": [
+    "DermatologicalSystem"
+  ],
+  "AbdominalLumpSymptom": [
+    "DigestiveSystem"
+  ],
+  "RightHypochondriumLumpSymptom": [
+    "DigestiveSystem"
+  ],
+  "LeftHypochondriumLumpSymptom": [
+    "DigestiveSystem"
+  ],
+  "EpigastriumLumpSymptom": [
+    "DigestiveSystem"
+  ],
+  "RightFlankLumpSymptom": [
+    "DigestiveSystem"
+  ],
+  "LeftFlankLumpSymptom": [
+    "DigestiveSystem"
+  ],
+  "UmbilicalLumpSymptom": [
+    "DigestiveSystem"
+  ],
+  "RightIliacFossaLumpSymptom": [
+    "DigestiveSystem"
+  ],
+  "LeftIliacFossaLumpSymptom": [
+    "DigestiveSystem"
+  ],
+  "SupraPubicLumpSymptom": [
+    "FemaleGenitourinarySystem",
+    "MaleGenitourinarySystem"
+  ],
+  "LoinLumpSymptom": [
+    "FemaleGenitourinarySystem",
+    "MaleGenitourinarySystem"
+  ],
+  "PelvicLumpSymptom": [
+    "FemaleGenitourinarySystem",
+    "MaleGenitourinarySystem"
+  ],
+  "AnalLumpSymptom": [
+    "DigestiveSystem"
+  ],
+  "RectalLumpSymptom": [
+    "DigestiveSystem"
+  ],
+  "VulvalLumpSymptom": [
+    "FemaleGenitourinarySystem"
+  ],
+  "FemaleUrethralLumpSymptom": [
+    "FemaleGenitourinarySystem"
+  ],
+  "VaginalLumpSymptom": [
+    "FemaleGenitourinarySystem"
+  ],
+  "ScrotalLumpSymptom": [
+    "MaleGenitourinarySystem"
+  ],
+  "GroinLumpSymptom": [
+    "DigestiveSystem",
+    "MaleGenitourinarySystem",
+    "HematopoieticSystem"
+  ],
+  "KneeLumpSymptom": [
+    "MuscularSystem",
+    "SkeletalSystem"
+  ],
+  "FootLumpSymptom": [
+    "MuscularSystem",
+    "SkeletalSystem"
+  ],
+  "HeelLumpSymptom": [
+    "MuscularSystem",
+    "SkeletalSystem"
+  ],
+  "DorsumOfFootLumpSymptom": [
+    "MuscularSystem",
+    "SkeletalSystem"
+  ],
+  "SoleOfFootLumpSymptom": [
+    "MuscularSystem",
+    "SkeletalSystem"
+  ],
+  "ToeLumpSymptom": [
+    "MuscularSystem",
+    "SkeletalSystem"
+  ],
+  "GreatToeLumpSymptom": [
+    "MuscularSystem",
+    "SkeletalSystem"
+  ],
+  "SecondToeLumpSymptom": [
+    "MuscularSystem",
+    "SkeletalSystem"
+  ],
+  "ThirdToeLumpSymptom": [
+    "MuscularSystem",
+    "SkeletalSystem"
+  ],
+  "FourthToeLumpSymptom": [
+    "MuscularSystem",
+    "SkeletalSystem"
+  ],
+  "FifthToeLumpSymptom": [
+    "MuscularSystem",
+    "SkeletalSystem"
+  ],
+  "ToeNailLumpSymptom": [
+    "DermatologicalSystem"
+  ],
+  "EyelidSwellingSymptom": [
+    "DermatologicalSystem"
+  ],
+  "EarSwellingSymptom": [
+    "ENTSystem"
+  ],
+  "NoseSwellingSymptom": [
+    "DermatologicalSystem"
+  ],
+  "GumSwellingSymptom": [
+    "DigestiveSystem"
+  ],
+  "TongueSwellingSymptom": [
+    "DigestiveSystem"
+  ],
+  "BreastSwellingSymptom": [
+    "GeneralSystem"
+  ],
+  "ElbowSwellingSymptom": [
+    "MuscularSystem",
+    "SkeletalSystem"
+  ],
+  "WristSwellingSymptom": [
+    "MuscularSystem",
+    "SkeletalSystem"
+  ],
+  "HandSwellingSymptom": [
+    "MuscularSystem",
+    "SkeletalSystem"
+  ],
+  "ThumbSwellingSymptom": [
+    "MuscularSystem",
+    "SkeletalSystem"
+  ],
+  "IndexFingerSwellingSymptom": [
+    "MuscularSystem",
+    "SkeletalSystem"
+  ],
+  "MiddleFingerSwellingSymptom": [
+    "MuscularSystem",
+    "SkeletalSystem"
+  ],
+  "RingFingerSwellingSymptom": [
+    "MuscularSystem",
+    "SkeletalSystem"
+  ],
+  "LittleFingerSwellingSymptom": [
+    "MuscularSystem",
+    "SkeletalSystem"
+  ],
+  "FingerJointSwellingSymptom": [
+    "MuscularSystem",
+    "SkeletalSystem"
+  ],
+  "AbdomenSwellingSymptom": [
+    "DigestiveSystem",
+    "FemaleGenitourinarySystem",
+    "MaleGenitourinarySystem"
+  ],
+  "VulvaSwellingSymptom": [
+    "FemaleGenitourinarySystem"
+  ],
+  "PenisSwellingSymptom": [
+    "MaleGenitourinarySystem"
+  ],
+  "KneeSwellingSymptom": [
+    "MuscularSystem",
+    "SkeletalSystem"
+  ],
+  "FootSwellingSymptom": [
+    "MuscularSystem",
+    "SkeletalSystem"
+  ],
+  "GreatToeSwellingSymptom": [
+    "MuscularSystem",
+    "SkeletalSystem"
+  ],
+  "SecondToeSwellingSymptom": [
+    "MuscularSystem",
+    "SkeletalSystem"
+  ],
+  "ThirdToeSwellingSymptom": [
+    "MuscularSystem",
+    "SkeletalSystem"
+  ],
+  "FourthToeSwellingSymptom": [
+    "MuscularSystem",
+    "SkeletalSystem"
+  ],
+  "FifthToeSwellingSymptom": [
+    "MuscularSystem",
+    "SkeletalSystem"
+  ],
+  "Septicaemia": [
+    "GeneralSystem"
+  ],
+  "Measles": [
+    "GeneralSystem"
+  ],
+  "Rubella": [
+    "GeneralSystem"
+  ],
+  "Chickenpox": [
+    "GeneralSystem"
+  ],
+  "HandFootAndMouth": [
+    "GeneralSystem"
+  ],
+  "Herpangina": [
+    "GeneralSystem"
+  ],
+  "ScarletFever": [
+    "GeneralSystem"
+  ],
+  "Tetanus": [
+    "GeneralSystem"
+  ],
+  "Polio": [
+    "GeneralSystem"
+  ],
+  "ErythemaInfectiosum": [
+    "GeneralSystem"
+  ],
+  "Influenza": [
+    "GeneralSystem"
+  ],
+  "GlandularFever": [
+    "GeneralSystem"
+  ],
+  "Tuberculosis": [
+    "GeneralSystem"
+  ],
+  "Sarcoidosis": [
+    "GeneralSystem"
+  ],
+  "AIDS": [
+    "GeneralSystem"
+  ],
+  "AngioNeuroticOedema": [
+    "GeneralSystem"
+  ],
+  "BehcetsSyndrome": [
+    "GeneralSystem"
+  ],
+  "CarcinoidSyndrome": [
+    "GeneralSystem"
+  ],
+  "Hypovolaemia": [
+    "GeneralSystem"
+  ],
+  "Dehydration": [
+    "GeneralSystem"
+  ],
+  "Immobility": [
+    "GeneralSystem"
+  ],
+  "CrackedNipple": [
+    "GeneralSystem"
+  ],
+  "DuctEctasia": [
+    "GeneralSystem"
+  ],
+  "CyclicalMastalgia": [
+    "GeneralSystem"
+  ],
+  "Mastitis": [
+    "GeneralSystem"
+  ],
+  "ObstetricMastitis": [
+    "GeneralSystem"
+  ],
+  "BreastCarcinoma": [
+    "GeneralSystem"
+  ],
+  "Hypoproteinaemia": [
+    "GeneralSystem"
+  ],
+  "WeightLoss": [
+    "GeneralSystem"
+  ],
+  "DrugSideEffect": [
+    "GeneralSystem"
+  ],
+  "RetractedNipple": [
+    "GeneralSystem"
+  ],
+  "FluLikeIllness": [
+    "GeneralSystem"
+  ],
+  "Syphilis": [
+    "FemaleGenitourinarySystem",
+    "MaleGenitourinarySystem",
+    "GeneralSystem"
+  ],
+  "PrimarySyphilis": [
+    "FemaleGenitourinarySystem",
+    "MaleGenitourinarySystem",
+    "GeneralSystem"
+  ],
+  "Gonorrhoea": [
+    "FemaleGenitourinarySystem",
+    "MaleGenitourinarySystem"
+  ],
+  "SecondarySyphilisOfMouth": [
+    "GeneralSystem"
+  ],
+  "PityriasisCapitis": [
+    "DermatologicalSystem"
+  ],
+  "Rosacea": [
+    "DermatologicalSystem"
+  ],
+  "SystemicLupusErythematosus": [
+    "DermatologicalSystem"
+  ],
+  "AcanthosisNigricans": [
+    "DermatologicalSystem"
+  ],
+  "Pediculosis": [
+    "DermatologicalSystem"
+  ],
+  "Scabies": [
+    "DermatologicalSystem"
+  ],
+  "AlopeciaAreata": [
+    "DermatologicalSystem"
+  ],
+  "MalePatternBaldness": [
+    "DermatologicalSystem"
+  ],
+  "TineaCapitis": [
+    "DermatologicalSystem"
+  ],
+  "TelogenEffluvium": [
+    "DermatologicalSystem"
+  ],
+  "DrugEruption": [
+    "DermatologicalSystem"
+  ],
+  "HyperhidrosisDiagnosis": [
+    "DermatologicalSystem"
+  ],
+  "ViralExanthem": [
+    "DermatologicalSystem"
+  ],
+  "TineaOfNail": [
+    "DermatologicalSystem"
+  ],
+  "TMJDysfunction": [
+    "SkeletalSystem"
+  ],
+  "CervicalSpondylosis": [
+    "SkeletalSystem"
+  ],
+  "Torticollis": [
+    "MuscularSystem"
+  ],
+  "ProlapsedIntervertebralDisc": [
+    "SkeletalSystem"
+  ],
+  "Costochondritis": [
+    "SkeletalSystem"
+  ],
+  "AnkylosingSpondylitis": [
+    "SkeletalSystem"
+  ],
+  "Polymyositis": [
+    "MuscularSystem"
+  ],
+  "Dermatomyositis": [
+    "MuscularSystem"
+  ],
+  "PlantarFasciitis": [
+    "MuscularSystem"
+  ],
+  "TennisElbow": [
+    "MuscularSystem"
+  ],
+  "GolfersElbow": [
+    "MuscularSystem"
+  ],
+  "PulledElbow": [
+    "SkeletalSystem"
+  ],
+  "Coccydynia": [
+    "SkeletalSystem"
+  ],
+  "TornCartilageKnee": [
+    "SkeletalSystem"
+  ],
+  "Polymyalgia": [
+    "MuscularSystem"
+  ],
+  "Osteoporosis": [
+    "SkeletalSystem"
+  ],
+  "SkullFracture": [
+    "SkeletalSystem"
+  ],
+  "VertebraFracture": [
+    "SkeletalSystem"
+  ],
+  "PelvisFracture": [
+    "SkeletalSystem"
+  ],
+  "CoccyxFracture": [
+    "SkeletalSystem"
+  ],
+  "SternumFracture": [
+    "SkeletalSystem"
+  ],
+  "ClavicleFracture": [
+    "SkeletalSystem"
+  ],
+  "HumerusFracture": [
+    "SkeletalSystem"
+  ],
+  "RadiusFracture": [
+    "SkeletalSystem"
+  ],
+  "UlnaFracture": [
+    "SkeletalSystem"
+  ],
+  "ScaphoidFracture": [
+    "SkeletalSystem"
+  ],
+  "MetacarpalFracture": [
+    "SkeletalSystem"
+  ],
+  "HipFracture": [
+    "SkeletalSystem"
+  ],
+  "FemurFracture": [
+    "SkeletalSystem"
+  ],
+  "TibiaFracture": [
+    "SkeletalSystem"
+  ],
+  "FibulaFracture": [
+    "SkeletalSystem"
+  ],
+  "MetatarsalFracture": [
+    "SkeletalSystem"
+  ],
+  "AnteriorRibFracture": [
+    "SkeletalSystem"
+  ],
+  "PosteriorRibFracture": [
+    "SkeletalSystem"
+  ],
+  "OrbitalFracture": [
+    "SkeletalSystem"
+  ],
+  "NasalFracture": [
+    "SkeletalSystem"
+  ],
+  "ZygomaFracture": [
+    "SkeletalSystem"
+  ],
+  "MaxillaFracture": [
+    "SkeletalSystem"
+  ],
+  "MandibleFracture": [
+    "SkeletalSystem"
+  ],
+  "LateralMalleolusFracture": [
+    "SkeletalSystem"
+  ],
+  "MedialMalleolusFracture": [
+    "SkeletalSystem"
+  ],
+  "CalcaneusFracture": [
+    "SkeletalSystem"
+  ],
+  "TarsalFracture": [
+    "SkeletalSystem"
+  ],
+  "CarpalFracture": [
+    "SkeletalSystem"
+  ],
+  "FifthToeFracture": [
+    "SkeletalSystem"
+  ],
+  "FourthToeFracture": [
+    "SkeletalSystem"
+  ],
+  "ThirdToeFracture": [
+    "SkeletalSystem"
+  ],
+  "SecondToeFracture": [
+    "SkeletalSystem"
+  ],
+  "GreatToeFracture": [
+    "SkeletalSystem"
+  ],
+  "ThumbFracture": [
+    "SkeletalSystem"
+  ],
+  "IndexFingerFracture": [
+    "SkeletalSystem"
+  ],
+  "MiddleFingerFracture": [
+    "SkeletalSystem"
+  ],
+  "RingFingerFracture": [
+    "SkeletalSystem"
+  ],
+  "LittleFingerFracture": [
+    "SkeletalSystem"
+  ],
+  "SpinalColumnFracture": [
+    "SkeletalSystem"
+  ],
+  "CervicalSpineFracture": [
+    "SkeletalSystem"
+  ],
+  "ThoracicSpineFracture": [
+    "SkeletalSystem"
+  ],
+  "LumbarSpineFracture": [
+    "SkeletalSystem"
+  ],
+  "SacrumFracture": [
+    "SkeletalSystem"
+  ],
+  "ScapulaFracture": [
+    "SkeletalSystem"
+  ],
+  "WristFracture": [
+    "SkeletalSystem"
+  ],
+  "ShoulderFracture": [
+    "SkeletalSystem"
+  ],
+  "ElbowFracture": [
+    "SkeletalSystem"
+  ],
+  "AnkleFracture": [
+    "SkeletalSystem"
+  ],
+  "ArmFracture": [
+    "SkeletalSystem"
+  ],
+  "HandFracture": [
+    "SkeletalSystem"
+  ],
+  "LegFracture": [
+    "SkeletalSystem"
+  ],
+  "FootFracture": [
+    "SkeletalSystem"
+  ],
+  "ShoulderDislocation": [
+    "SkeletalSystem"
+  ],
+  "AcromioClavicularJointDislocation": [
+    "SkeletalSystem"
+  ],
+  "ElbowDislocation": [
+    "SkeletalSystem"
+  ],
+  "WristDislocation": [
+    "SkeletalSystem"
+  ],
+  "HipDislocation": [
+    "SkeletalSystem"
+  ],
+  "KneeDislocation": [
+    "SkeletalSystem"
+  ],
+  "AnkleDislocation": [
+    "SkeletalSystem"
+  ],
+  "ThumbJointDislocation": [
+    "SkeletalSystem"
+  ],
+  "IndexFingerJointDislocation": [
+    "SkeletalSystem"
+  ],
+  "MiddleFingerJointDislocation": [
+    "SkeletalSystem"
+  ],
+  "RingFingerJointDislocation": [
+    "SkeletalSystem"
+  ],
+  "LittleFingerJointDislocation": [
+    "SkeletalSystem"
+  ],
+  "GreatToeJointDislocation": [
+    "SkeletalSystem"
+  ],
+  "SecondToeJointDislocation": [
+    "SkeletalSystem"
+  ],
+  "ThirdToeJointDislocation": [
+    "SkeletalSystem"
+  ],
+  "FourthToeJointDislocation": [
+    "SkeletalSystem"
+  ],
+  "FifthToeJointDislocation": [
+    "SkeletalSystem"
+  ],
+  "ShoulderSprain": [
+    "SkeletalSystem"
+  ],
+  "ElbowSprain": [
+    "SkeletalSystem"
+  ],
+  "WristSprain": [
+    "SkeletalSystem"
+  ],
+  "HandSprain": [
+    "SkeletalSystem"
+  ],
+  "ThumbSprain": [
+    "SkeletalSystem"
+  ],
+  "IndexFingerSprain": [
+    "SkeletalSystem"
+  ],
+  "MiddleFingerSprain": [
+    "SkeletalSystem"
+  ],
+  "RingFingerSprain": [
+    "SkeletalSystem"
+  ],
+  "LittleFingerSprain": [
+    "SkeletalSystem"
+  ],
+  "HipSprain": [
+    "SkeletalSystem"
+  ],
+  "KneeSprain": [
+    "SkeletalSystem"
+  ],
+  "AnkleSprain": [
+    "SkeletalSystem"
+  ],
+  "FootSprain": [
+    "SkeletalSystem"
+  ],
+  "GreatToeSprain": [
+    "SkeletalSystem"
+  ],
+  "SecondToeSprain": [
+    "SkeletalSystem"
+  ],
+  "ThirdToeSprain": [
+    "SkeletalSystem"
+  ],
+  "FourthToeSprain": [
+    "SkeletalSystem"
+  ],
+  "FifthToeSprain": [
+    "SkeletalSystem"
+  ],
+  "NeckStrain": [
+    "MuscularSystem"
+  ],
+  "BackStrain": [
+    "MuscularSystem"
+  ],
+  "ArmStrain": [
+    "MuscularSystem"
+  ],
+  "AbdomenStrain": [
+    "MuscularSystem"
+  ],
+  "GroinStrain": [
+    "MuscularSystem"
+  ],
+  "LegStrain": [
+    "MuscularSystem"
+  ],
+  "CalfStrain": [
+    "MuscularSystem"
+  ],
+  "AnalStrain": [
+    "MuscularSystem"
+  ],
+  "AnkleStrain": [
+    "MuscularSystem"
+  ],
+  "AnteriorRibsStrain": [
+    "MuscularSystem"
+  ],
+  "UpperArmStrain": [
+    "MuscularSystem"
+  ],
+  "ButtockStrain": [
+    "MuscularSystem"
+  ],
+  "CervicalStrain": [
+    "MuscularSystem"
+  ],
+  "ChestStrain": [
+    "MuscularSystem"
+  ],
+  "ElbowStrain": [
+    "MuscularSystem"
+  ],
+  "EpigastricStrain": [
+    "MuscularSystem"
+  ],
+  "EyeStrain": [
+    "MuscularSystem"
+  ],
+  "FacialStrain": [
+    "MuscularSystem"
+  ],
+  "FifthToeStrain": [
+    "MuscularSystem"
+  ],
+  "FootStrain": [
+    "MuscularSystem"
+  ],
+  "ForearmStrain": [
+    "MuscularSystem"
+  ],
+  "FourthToeStrain": [
+    "MuscularSystem"
+  ],
+  "GreatToeStrain": [
+    "MuscularSystem"
+  ],
+  "HandStrain": [
+    "MuscularSystem"
+  ],
+  "HipStrain": [
+    "MuscularSystem"
+  ],
+  "IndexFingerStrain": [
+    "MuscularSystem"
+  ],
+  "JawStrain": [
+    "MuscularSystem"
+  ],
+  "KneeStrain": [
+    "MuscularSystem"
+  ],
+  "LeftFlankStrain": [
+    "MuscularSystem"
+  ],
+  "LeftHypochondriumStrain": [
+    "MuscularSystem"
+  ],
+  "LeftIliacFossaStrain": [
+    "MuscularSystem"
+  ],
+  "LittleFingerStrain": [
+    "MuscularSystem"
+  ],
+  "LoinStrain": [
+    "MuscularSystem"
+  ],
+  "LumbarStrain": [
+    "MuscularSystem"
+  ],
+  "MiddleFingerStrain": [
+    "MuscularSystem"
+  ],
+  "MouthStrain": [
+    "MuscularSystem"
+  ],
+  "PalmStrain": [
+    "MuscularSystem"
+  ],
+  "PerinealStrain": [
+    "MuscularSystem"
+  ],
+  "PosteriorRibsStrain": [
+    "MuscularSystem"
+  ],
+  "RightFlankStrain": [
+    "MuscularSystem"
+  ],
+  "RightHypochondriumStrain": [
+    "MuscularSystem"
+  ],
+  "RightIliacFossaStrain": [
+    "MuscularSystem"
+  ],
+  "RingFingerStrain": [
+    "MuscularSystem"
+  ],
+  "SacralStrain": [
+    "MuscularSystem"
+  ],
+  "ScapularStrain": [
+    "MuscularSystem"
+  ],
+  "SecondToeStrain": [
+    "MuscularSystem"
+  ],
+  "ShoulderStrain": [
+    "MuscularSystem"
+  ],
+  "SoleOfFootStrain": [
+    "MuscularSystem"
+  ],
+  "SuprapubicStrain": [
+    "MuscularSystem"
+  ],
+  "ThighStrain": [
+    "MuscularSystem"
+  ],
+  "ThirdToeStrain": [
+    "MuscularSystem"
+  ],
+  "ThoracicStrain": [
+    "MuscularSystem"
+  ],
+  "ThumbStrain": [
+    "MuscularSystem"
+  ],
+  "UmbilicalStrain": [
+    "MuscularSystem"
+  ],
+  "WristStrain": [
+    "MuscularSystem"
+  ],
+  "AorticStenosis": [
+    "CardiovascularSystem"
+  ],
+  "CardiacFailure": [
+    "CardiovascularSystem"
+  ],
+  "Cardiomyopathy": [
+    "CardiovascularSystem"
+  ],
+  "CongestiveCardiacFailure": [
+    "CardiovascularSystem"
+  ],
+  "LeftVentricularFailure": [
+    "CardiovascularSystem"
+  ],
+  "CongenitalHeartDisease": [
+    "CardiovascularSystem"
+  ],
+  "AnginaPectoris": [
+    "CardiovascularSystem"
+  ],
+  "MyocardialInfarction": [
+    "CardiovascularSystem"
+  ],
+  "MitralIncompetence": [
+    "CardiovascularSystem"
+  ],
+  "MitralStenosis": [
+    "CardiovascularSystem"
+  ],
+  "AorticIncompetence": [
+    "CardiovascularSystem"
+  ],
+  "SubacuteBacterialEndocarditis": [
+    "CardiovascularSystem"
+  ],
+  "SimpleFaint": [
+    "CardiovascularSystem"
+  ],
+  "CoughSyncope": [
+    "CardiovascularSystem"
+  ],
+  "Arrhythmia": [
+    "CardiovascularSystem"
+  ],
+  "SinusTachycardia": [
+    "CardiovascularSystem"
+  ],
+  "ParoxysmalAtrialTachycardia": [
+    "CardiovascularSystem"
+  ],
+  "PericardialEffusion": [
+    "CardiovascularSystem"
+  ],
+  "Extrasystoles": [
+    "CardiovascularSystem"
+  ],
+  "StokesAdamsAttacks": [
+    "CardiovascularSystem"
+  ],
+  "PosturalHypotension": [
+    "CardiovascularSystem"
+  ],
+  "Hypotension": [
+    "CardiovascularSystem"
+  ],
+  "CarotidSinusHypersensitivity": [
+    "CardiovascularSystem"
+  ],
+  "RaynaudsDisease": [
+    "CardiovascularSystem"
+  ],
+  "TemporalArteritis": [
+    "CardiovascularSystem"
+  ],
+  "BuergersDisease": [
+    "CardiovascularSystem"
+  ],
+  "TraumaticShock": [
+    "CardiovascularSystem"
+  ],
+  "AnaphylacticShock": [
+    "CardiovascularSystem"
+  ],
+  "AnticoagulantTherapy": [
+    "CardiovascularSystem"
+  ],
+  "Pericarditis": [
+    "CardiovascularSystem"
+  ],
+  "IschaemicHeartDisease": [
+    "CardiovascularSystem"
+  ],
+  "HypertensionDiagnosis": [
+    "CardiovascularSystem"
+  ],
+  "CoronaryThrombosis": [
+    "CardiovascularSystem"
+  ],
+  "GeneralisedArteriosclerosis": [
+    "CardiovascularSystem"
+  ],
+  "CoronaryArteriosclerosis": [
+    "CardiovascularSystem"
+  ],
+  "URTI": [
+    "RespiratorySystem"
+  ],
+  "ViralURTI": [
+    "RespiratorySystem"
+  ],
+  "LowerRespiratoryTractInfection": [
+    "RespiratorySystem"
+  ],
+  "Coryza": [
+    "RespiratorySystem",
+    "ENTSystem"
+  ],
+  "Croup": [
+    "RespiratorySystem"
+  ],
+  "Bronchiolitis": [
+    "RespiratorySystem"
+  ],
+  "Tonsillitis": [
+    "RespiratorySystem",
+    "ENTSystem"
+  ],
+  "Quinsy": [
+    "RespiratorySystem",
+    "ENTSystem"
+  ],
+  "AcuteEpiglottitis": [
+    "RespiratorySystem",
+    "ENTSystem"
+  ],
+  "AcuteLaryngitis": [
+    "RespiratorySystem",
+    "ENTSystem"
+  ],
+  "AcuteTracheitis": [
+    "RespiratorySystem"
+  ],
+  "VocalCordNodules": [
+    "RespiratorySystem",
+    "ENTSystem"
+  ],
+  "AllergicRhinitis": [
+    "RespiratorySystem",
+    "ENTSystem"
+  ],
+  "AcuteSinusitis": [
+    "RespiratorySystem",
+    "ENTSystem"
+  ],
+  "ChronicSinusitis": [
+    "RespiratorySystem",
+    "ENTSystem"
+  ],
+  "NasalPolyps": [
+    "RespiratorySystem",
+    "ENTSystem"
+  ],
+  "AcuteRhinitis": [
+    "RespiratorySystem",
+    "ENTSystem"
+  ],
+  "ChronicRhinitis": [
+    "RespiratorySystem",
+    "ENTSystem"
+  ],
+  "RhinitisMedicamentosa": [
+    "RespiratorySystem",
+    "ENTSystem"
+  ],
+  "LargeTonsils": [
+    "RespiratorySystem",
+    "ENTSystem"
+  ],
+  "LargeAdenoids": [
+    "RespiratorySystem",
+    "ENTSystem"
+  ],
+  "InhaledForeignBody": [
+    "RespiratorySystem"
+  ],
+  "AcuteBronchitis": [
+    "RespiratorySystem"
+  ],
+  "ChronicBronchitis": [
+    "RespiratorySystem"
+  ],
+  "Emphysema": [
+    "RespiratorySystem"
+  ],
+  "PulmonaryEmbolus": [
+    "CardiovascularSystem",
+    "RespiratorySystem"
+  ],
+  "PleuralEffusion": [
+    "RespiratorySystem"
+  ],
+  "BornholmDisease": [
+    "RespiratorySystem"
+  ],
+  "Pleurisy": [
+    "RespiratorySystem"
+  ],
+  "Pneumonia": [
+    "RespiratorySystem"
+  ],
+  "Pneumothorax": [
+    "RespiratorySystem"
+  ],
+  "AcutePulmonaryOedema": [
+    "RespiratorySystem"
+  ],
+  "PulmonaryFibrosis": [
+    "RespiratorySystem"
+  ],
+  "FibrosingAlveolitis": [
+    "RespiratorySystem"
+  ],
+  "Bronchiectasis": [
+    "RespiratorySystem"
+  ],
+  "Asthma": [
+    "RespiratorySystem"
+  ],
+  "BronchialCarcinoma": [
+    "RespiratorySystem"
+  ],
+  "Hayfever": [
+    "VisualSystem",
+    "ENTSystem",
+    "RespiratorySystem"
+  ],
+  "AcutePharyngitis": [
+    "RespiratorySystem",
+    "ENTSystem"
+  ],
+  "ChronicObstructivePulmonaryDisease": [
+    "RespiratorySystem"
+  ],
+  "LobarPneumonia": [
+    "RespiratorySystem"
+  ],
+  "Bronchopneumonia": [
+    "RespiratorySystem"
+  ],
+  "AtypicalPneumonia": [
+    "RespiratorySystem"
+  ],
+  "ThroatForeignBodyDiagnosis": [
+    "DigestiveSystem"
+  ],
+  "OralCandidiasis": [
+    "DigestiveSystem"
+  ],
+  "Xerostomia": [
+    "DigestiveSystem"
+  ],
+  "DentalCaries": [
+    "DigestiveSystem"
+  ],
+  "ImpactedWisdomTooth": [
+    "DigestiveSystem"
+  ],
+  "TeethingSyndrome": [
+    "DigestiveSystem"
+  ],
+  "AcuteGingivitis": [
+    "DigestiveSystem"
+  ],
+  "ChronicGingivitis": [
+    "DigestiveSystem"
+  ],
+  "AphthousUlceration": [
+    "DigestiveSystem"
+  ],
+  "Glossitis": [
+    "DigestiveSystem"
+  ],
+  "Glossodynia": [
+    "DigestiveSystem"
+  ],
+  "Sialolithiasis": [
+    "DigestiveSystem"
+  ],
+  "Sialoadenitis": [
+    "DigestiveSystem"
+  ],
+  "Aerophagy": [
+    "DigestiveSystem"
+  ],
+  "HiatusHernia": [
+    "DigestiveSystem"
+  ],
+  "Oesophagitis": [
+    "DigestiveSystem"
+  ],
+  "OesophagealVarices": [
+    "DigestiveSystem"
+  ],
+  "MalloryWeissSyndrome": [
+    "DigestiveSystem"
+  ],
+  "OesophagealStricture": [
+    "DigestiveSystem"
+  ],
+  "OesophagealCarcinoma": [
+    "DigestiveSystem"
+  ],
+  "PlummerVinsonSyndrome": [
+    "DigestiveSystem"
+  ],
+  "OesophagealReflux": [
+    "DigestiveSystem"
+  ],
+  "DysmotilitySyndrome": [
+    "DigestiveSystem"
+  ],
+  "Gastritis": [
+    "DigestiveSystem"
+  ],
+  "Duodenitis": [
+    "DigestiveSystem"
+  ],
+  "PepticUlcer": [
+    "DigestiveSystem"
+  ],
+  "GastricUlcer": [
+    "DigestiveSystem"
+  ],
+  "DuodenalUlcer": [
+    "DigestiveSystem"
+  ],
+  "Cirrhosis": [
+    "DigestiveSystem"
+  ],
+  "AlcoholicCirrhosis": [
+    "DigestiveSystem"
+  ],
+  "PrimaryBiliaryCirrhosis": [
+    "DigestiveSystem"
+  ],
+  "Cholecystitis": [
+    "DigestiveSystem"
+  ],
+  "Gallstones": [
+    "DigestiveSystem"
+  ],
+  "BiliaryColic": [
+    "DigestiveSystem"
+  ],
+  "Pancreatitis": [
+    "DigestiveSystem"
+  ],
+  "PancreaticCarcinoma": [
+    "DigestiveSystem"
+  ],
+  "HepaticFailure": [
+    "DigestiveSystem"
+  ],
+  "GastricCarcinoma": [
+    "DigestiveSystem"
+  ],
+  "AcuteAppendicitis": [
+    "DigestiveSystem"
+  ],
+  "IntestinalObstruction": [
+    "DigestiveSystem"
+  ],
+  "Enteritis": [
+    "DigestiveSystem"
+  ],
+  "Gastroenteritis": [
+    "DigestiveSystem"
+  ],
+  "FoodPoisoning": [
+    "DigestiveSystem"
+  ],
+  "Diverticulitis": [
+    "DigestiveSystem"
+  ],
+  "CoeliacDisease": [
+    "DigestiveSystem"
+  ],
+  "IrritableBowelSyndrome": [
+    "DigestiveSystem"
+  ],
+  "ThreeMonthColic": [
+    "DigestiveSystem"
+  ],
+  "Intussusception": [
+    "DigestiveSystem"
+  ],
+  "SigmoidVolvulus": [
+    "DigestiveSystem"
+  ],
+  "CrohnsDisease": [
+    "DigestiveSystem"
+  ],
+  "CarcinomaOfColon": [
+    "DigestiveSystem"
+  ],
+  "RectalCarcinoma": [
+    "DigestiveSystem"
+  ],
+  "DietaryIndiscretion": [
+    "DigestiveSystem"
+  ],
+  "Proctitis": [
+    "DigestiveSystem"
+  ],
+  "RectalForeignBodyDiagnosis": [
+    "DigestiveSystem"
+  ],
+  "AscitesDiagnosis": [
+    "DigestiveSystem"
+  ],
+  "UlcerativeColitisDiagnosis": [
+    "DigestiveSystem"
+  ],
+  "HaemorrhoidDiagnosis": [
+    "DigestiveSystem"
+  ],
+  "ConstipationDiagnosis": [
+    "DigestiveSystem"
+  ],
+  "AnalFissureDiagnosis": [
+    "DigestiveSystem"
+  ],
+  "FaecalImpactionDiagnosis": [
+    "DigestiveSystem"
+  ],
+  "AcuteHepatitis": [
+    "DigestiveSystem"
+  ],
+  "ChronicHepatitis": [
+    "DigestiveSystem"
+  ],
+  "ViralHepatitis": [
+    "DigestiveSystem"
+  ],
+  "CoitalFailure": [
+    "MaleGenitourinarySystem",
+    "FemaleGenitourinarySystem"
+  ],
+  "Urethritis": [
+    "MaleGenitourinarySystem",
+    "FemaleGenitourinarySystem"
+  ],
+  "UrethralSyndrome": [
+    "FemaleGenitourinarySystem"
+  ],
+  "UrethralStricture": [
+    "MaleGenitourinarySystem",
+    "FemaleGenitourinarySystem"
+  ],
+  "UrethralForeignBodyDiagnosis": [
+    "MaleGenitourinarySystem",
+    "FemaleGenitourinarySystem"
+  ],
+  "UrinaryTractInfection": [
+    "MaleGenitourinarySystem",
+    "FemaleGenitourinarySystem"
+  ],
+  "Pyelonephritis": [
+    "MaleGenitourinarySystem",
+    "FemaleGenitourinarySystem"
+  ],
+  "RenalCalculus": [
+    "MaleGenitourinarySystem",
+    "FemaleGenitourinarySystem"
+  ],
+  "UretericCalculus": [
+    "MaleGenitourinarySystem",
+    "FemaleGenitourinarySystem"
+  ],
+  "UretericColic": [
+    "MaleGenitourinarySystem",
+    "FemaleGenitourinarySystem"
+  ],
+  "AcuteGlomerulonephritis": [
+    "MaleGenitourinarySystem",
+    "FemaleGenitourinarySystem"
+  ],
+  "ChronicRenalFailure": [
+    "MaleGenitourinarySystem",
+    "FemaleGenitourinarySystem"
+  ],
+  "Uraemia": [
+    "MaleGenitourinarySystem",
+    "FemaleGenitourinarySystem"
+  ],
+  "RenalTumour": [
+    "MaleGenitourinarySystem",
+    "FemaleGenitourinarySystem"
+  ],
+  "Cystitis": [
+    "MaleGenitourinarySystem",
+    "FemaleGenitourinarySystem"
+  ],
+  "BladderInstability": [
+    "MaleGenitourinarySystem",
+    "FemaleGenitourinarySystem"
+  ],
+  "AcuteUrinaryRetention": [
+    "MaleGenitourinarySystem",
+    "FemaleGenitourinarySystem"
+  ],
+  "UrinaryRetentionWithOverflow": [
+    "MaleGenitourinarySystem",
+    "FemaleGenitourinarySystem"
+  ],
+  "BladderCalculus": [
+    "MaleGenitourinarySystem",
+    "FemaleGenitourinarySystem"
+  ],
+  "BladderTumour": [
+    "MaleGenitourinarySystem",
+    "FemaleGenitourinarySystem"
+  ],
+  "TesticularMaldescent": [
+    "MaleGenitourinarySystem"
+  ],
+  "Anorchism": [
+    "MaleGenitourinarySystem"
+  ],
+  "Monorchism": [
+    "MaleGenitourinarySystem"
+  ],
+  "TesticularTorsion": [
+    "MaleGenitourinarySystem"
+  ],
+  "Epididymitis": [
+    "MaleGenitourinarySystem"
+  ],
+  "Hydrocele": [
+    "MaleGenitourinarySystem"
+  ],
+  "Orchitis": [
+    "MaleGenitourinarySystem"
+  ],
+  "LowSpermCount": [
+    "MaleGenitourinarySystem"
+  ],
+  "RupturedProstaticVein": [
+    "MaleGenitourinarySystem"
+  ],
+  "AcuteProstatitis": [
+    "MaleGenitourinarySystem"
+  ],
+  "ChronicProstatitis": [
+    "MaleGenitourinarySystem"
+  ],
+  "BenignProstaticHypertrophy": [
+    "MaleGenitourinarySystem"
+  ],
+  "ProstaticCarcinoma": [
+    "MaleGenitourinarySystem"
+  ],
+  "PrimaryDysmenorrhoea": [
+    "FemaleGenitourinarySystem"
+  ],
+  "Fibroids": [
+    "FemaleGenitourinarySystem"
+  ],
+  "UterineCarcinoma": [
+    "FemaleGenitourinarySystem"
+  ],
+  "UterinePolyp": [
+    "FemaleGenitourinarySystem"
+  ],
+  "CervicalErosion": [
+    "FemaleGenitourinarySystem"
+  ],
+  "CervicalCarcinomaInSitu": [
+    "FemaleGenitourinarySystem"
+  ],
+  "DysfunctionalUterineBleeding": [
+    "FemaleGenitourinarySystem"
+  ],
+  "Menopause": [
+    "FemaleGenitourinarySystem"
+  ],
+  "PrematureMenopause": [
+    "FemaleGenitourinarySystem"
+  ],
+  "PremenstrualSyndrome": [
+    "FemaleGenitourinarySystem"
+  ],
+  "Vaginitis": [
+    "FemaleGenitourinarySystem"
+  ],
+  "VaginalCandidiasis": [
+    "FemaleGenitourinarySystem"
+  ],
+  "VaginalTrichomoniasis": [
+    "FemaleGenitourinarySystem"
+  ],
+  "VaginalForeignBodyDiagnosis": [
+    "FemaleGenitourinarySystem"
+  ],
+  "AtrophicVaginitis": [
+    "FemaleGenitourinarySystem"
+  ],
+  "Endometriosis": [
+    "FemaleGenitourinarySystem"
+  ],
+  "SpontaneousAbortion": [
+    "FemaleGenitourinarySystem"
+  ],
+  "EctopicPregnancy": [
+    "FemaleGenitourinarySystem"
+  ],
+  "Salpingitis": [
+    "FemaleGenitourinarySystem"
+  ],
+  "ChronicSalpingitis": [
+    "FemaleGenitourinarySystem"
+  ],
+  "BleedingDueToIUD": [
+    "FemaleGenitourinarySystem"
+  ],
+  "MidCyclePain": [
+    "FemaleGenitourinarySystem"
+  ],
+  "PolycysticOvaries": [
+    "FemaleGenitourinarySystem"
+  ],
+  "OvarianTumour": [
+    "FemaleGenitourinarySystem"
+  ],
+  "Anovulation": [
+    "FemaleGenitourinarySystem"
+  ],
+  "TubalObstruction": [
+    "FemaleGenitourinarySystem"
+  ],
+  "HostileCervicalMucus": [
+    "FemaleGenitourinarySystem"
+  ],
+  "GardnerellaVaginalis": [
+    "FemaleGenitourinarySystem"
+  ],
+  "ChlamydiaLowerGUTract": [
+    "MaleGenitourinarySystem",
+    "FemaleGenitourinarySystem"
+  ],
+  "CervicalDysplasia": [
+    "FemaleGenitourinarySystem"
+  ],
+  "PelvicInflammatoryDisease": [
+    "FemaleGenitourinarySystem"
+  ],
+  "RenalColicDiagnosis": [
+    "MaleGenitourinarySystem",
+    "FemaleGenitourinarySystem"
+  ],
+  "VaricoceleDiagnosis": [
+    "MaleGenitourinarySystem"
+  ],
+  "PriapismDiagnosis": [
+    "MaleGenitourinarySystem"
+  ],
+  "EnuresisDiagnosis": [
+    "MaleGenitourinarySystem",
+    "FemaleGenitourinarySystem"
+  ],
+  "MotionSickness": [
+    "NervousSystem"
+  ],
+  "VertebroBasilarInsufficiency": [
+    "CardiovascularSystem",
+    "NervousSystem"
+  ],
+  "Epilepsy": [
+    "NervousSystem"
+  ],
+  "GrandMalEpilepsy": [
+    "NervousSystem"
+  ],
+  "PetitMalEpilepsy": [
+    "NervousSystem"
+  ],
+  "FebrileConvulsion": [
+    "NervousSystem"
+  ],
+  "Stroke": [
+    "NervousSystem"
+  ],
+  "TransientIschaemicAttack": [
+    "NervousSystem"
+  ],
+  "BenignEssentialTremor": [
+    "NervousSystem"
+  ],
+  "MultipleSclerosis": [
+    "NervousSystem"
+  ],
+  "GuillainBarreSyndrome": [
+    "NervousSystem"
+  ],
+  "Syringomyelia": [
+    "NervousSystem"
+  ],
+  "MotorNeuroneDisease": [
+    "NervousSystem"
+  ],
+  "MyastheniaGravis": [
+    "NervousSystem"
+  ],
+  "ParkinsonsDisease": [
+    "NervousSystem"
+  ],
+  "Dementia": [
+    "NervousSystem"
+  ],
+  "SenileDementia": [
+    "NervousSystem"
+  ],
+  "HeadInjury": [
+    "NervousSystem"
+  ],
+  "CarpalTunnelSyndrome": [
+    "NervousSystem"
+  ],
+  "CordCompression": [
+    "NervousSystem"
+  ],
+  "SpinalInjury": [
+    "NervousSystem"
+  ],
+  "CerebralTumour": [
+    "NervousSystem"
+  ],
+  "CerebellarDisease": [
+    "NervousSystem"
+  ],
+  "CerebellarStroke": [
+    "NervousSystem"
+  ],
+  "TensionHeadache": [
+    "NervousSystem"
+  ],
+  "Migraine": [
+    "CardiovascularSystem",
+    "NervousSystem"
+  ],
+  "CommonMigraine": [
+    "NervousSystem"
+  ],
+  "ClassicalMigraine": [
+    "NervousSystem"
+  ],
+  "ClusterHeadache": [
+    "NervousSystem"
+  ],
+  "SubarachnoidHaemorrhage": [
+    "NervousSystem"
+  ],
+  "Meningitis": [
+    "NervousSystem"
+  ],
+  "AcousticNeuroma": [
+    "NervousSystem"
+  ],
+  "BrachialPlexusInjury": [
+    "NervousSystem"
+  ],
+  "OcularNervePalsy": [
+    "NervousSystem"
+  ],
+  "CervicalNerveRootLesion": [
+    "NervousSystem"
+  ],
+  "ThoracicNerveRootLesion": [
+    "NervousSystem"
+  ],
+  "LumbarNerveRootLesion": [
+    "NervousSystem"
+  ],
+  "Sciatica": [
+    "NervousSystem",
+    "SkeletalSystem",
+    "MuscularSystem"
+  ],
+  "TicDiagnosis": [
+    "NervousSystem"
+  ],
+  "TrigeminalNeuralgia": [
+    "NervousSystem"
+  ],
+  "AcuteSerousOtitisMedia": [
+    "ENTSystem"
+  ],
+  "AcuteSuppurativeOtitisMedia": [
+    "ENTSystem"
+  ],
+  "AcuteNonSuppurativeOtitisMedia": [
+    "ENTSystem"
+  ],
+  "ChronicSerousOtitisMedia": [
+    "ENTSystem"
+  ],
+  "ChronicMucoidOtitisMedia": [
+    "ENTSystem"
+  ],
+  "ChronicSuppurativeOtitisMedia": [
+    "ENTSystem"
+  ],
+  "PerforatedTympanicMembrane": [
+    "ENTSystem"
+  ],
+  "AcuteOtitisExterna": [
+    "ENTSystem"
+  ],
+  "ChronicOtitisExterna": [
+    "ENTSystem"
+  ],
+  "EustachianTubeDysfunction": [
+    "ENTSystem"
+  ],
+  "BenignPositionalVertigo": [
+    "ENTSystem"
+  ],
+  "MenieresDisease": [
+    "ENTSystem"
+  ],
+  "AcuteLabyrinthitis": [
+    "ENTSystem"
+  ],
+  "Presbyacusis": [
+    "ENTSystem"
+  ],
+  "NoiseDamage": [
+    "ENTSystem"
+  ],
+  "Otosclerosis": [
+    "ENTSystem"
+  ],
+  "AuditoryCanalForeignBodyDiagnosis": [
+    "ENTSystem"
+  ],
+  "NasalForeignBodyDiagnosis": [
+    "ENTSystem"
+  ],
+  "Amblyopia": [
+    "VisualSystem"
+  ],
+  "AllergicConjunctivitis": [
+    "VisualSystem"
+  ],
+  "AcuteConjunctivitisDiagnosis": [
+    "VisualSystem"
+  ],
+  "ChronicConjunctivitisDiagnosis": [
+    "VisualSystem"
+  ],
+  "Dacrocystitis": [
+    "VisualSystem"
+  ],
+  "Episcleritis": [
+    "VisualSystem"
+  ],
+  "MeibomianAbscess": [
+    "VisualSystem"
+  ],
+  "AcuteGlaucoma": [
+    "VisualSystem"
+  ],
+  "ChronicGlaucoma": [
+    "VisualSystem"
+  ],
+  "AcuteIritis": [
+    "VisualSystem"
+  ],
+  "Cataract": [
+    "VisualSystem"
+  ],
+  "VitreousOpacities": [
+    "VisualSystem"
+  ],
+  "RetinalDetachment": [
+    "VisualSystem"
+  ],
+  "DiabeticRetinopathy": [
+    "VisualSystem"
+  ],
+  "HypertensiveRetinopathy": [
+    "VisualSystem"
+  ],
+  "SenileMacularDegeneration": [
+    "VisualSystem"
+  ],
+  "RetinalArteryOcclusion": [
+    "VisualSystem"
+  ],
+  "RetinalVeinOcclusion": [
+    "VisualSystem"
+  ],
+  "OpticNeuritis": [
+    "VisualSystem",
+    "NervousSystem"
+  ],
+  "VitreousHaemorrhage": [
+    "VisualSystem"
+  ],
+  "ArcEye": [
+    "VisualSystem"
+  ],
+  "EyeForeignBodyDiagnosis": [
+    "VisualSystem"
+  ],
+  "StressReaction": [
+    "Psyche"
+  ],
+  "Neurosis": [
+    "Psyche"
+  ],
+  "PersonalityDisorder": [
+    "Psyche"
+  ],
+  "AlcoholAbuse": [
+    "Psyche"
+  ],
+  "DrugAbuse": [
+    "Psyche"
+  ],
+  "AnorexiaNervosa": [
+    "Psyche"
+  ],
+  "Bulimia": [
+    "Psyche"
+  ],
+  "ComfortEating": [
+    "Psyche"
+  ],
+  "PsychogenicPolydipsia": [
+    "Psyche"
+  ],
+  "PsychosexualProblem": [
+    "Psyche"
+  ],
+  "Insomnia": [
+    "Psyche"
+  ],
+  "DisturbedSleep": [
+    "Psyche"
+  ],
+  "OrganicPsychosis": [
+    "Psyche"
+  ],
+  "NonOrganicPsychosis": [
+    "Psyche"
+  ],
+  "Schizophrenia": [
+    "Psyche"
+  ],
+  "Hypomania": [
+    "Psyche"
+  ],
+  "FirstEndogenousDepression": [
+    "Psyche"
+  ],
+  "RecurrentEndogenousDepression": [
+    "Psyche"
+  ],
+  "NeuroticReactiveDepression": [
+    "Psyche"
+  ],
+  "PsychoticReactiveDepression": [
+    "Psyche"
+  ],
+  "PostnatalDepression": [
+    "Psyche"
+  ],
+  "ManicDepression": [
+    "Psyche"
+  ],
+  "DepressionDiagnosis": [
+    "Psyche"
+  ],
+  "BriefDepressiveReaction": [
+    "Psyche"
+  ],
+  "Hyperthyroidism": [
+    "EndocrineSystem"
+  ],
+  "Hypothyroidism": [
+    "EndocrineSystem"
+  ],
+  "Goitre": [
+    "EndocrineSystem"
+  ],
+  "AddisonsDisease": [
+    "EndocrineSystem"
+  ],
+  "DiabetesMellitus": [
+    "EndocrineSystem"
+  ],
+  "Hypoglycaemia": [
+    "EndocrineSystem"
+  ],
+  "DiabetesInsipidus": [
+    "EndocrineSystem"
+  ],
+  "Hypocalcaemia": [
+    "EndocrineSystem"
+  ],
+  "CushingsDisease": [
+    "EndocrineSystem"
+  ],
+  "Obesity": [
+    "EndocrineSystem"
+  ],
+  "IncreasedFoodIntake": [
+    "EndocrineSystem"
+  ],
+  "GrowthHormoneDeficiency": [
+    "EndocrineSystem"
+  ],
+  "Acromegaly": [
+    "EndocrineSystem"
+  ],
+  "Hyperlipidaemia": [
+    "EndocrineSystem"
+  ],
+  "InsulinDependantDiabetesMellitus": [
+    "EndocrineSystem"
+  ],
+  "NonInsulinDependantDiabetesMellitus": [
+    "EndocrineSystem"
+  ],
+  "PrimaryPolycythaemia": [
+    "HematopoieticSystem"
+  ],
+  "SecondaryPolycythaemia": [
+    "HematopoieticSystem"
+  ],
+  "Lymphoma": [
+    "HematopoieticSystem"
+  ],
+  "HodgkinsDisease": [
+    "HematopoieticSystem"
+  ],
+  "Lymphoedema": [
+    "HematopoieticSystem"
+  ],
+  "HereditarySpherocytosis": [
+    "HematopoieticSystem"
+  ],
+  "BloodLossAnaemia": [
+    "HematopoieticSystem"
+  ],
+  "DietaryAnaemia": [
+    "HematopoieticSystem"
+  ],
+  "HaemolyticAnaemia": [
+    "HematopoieticSystem"
+  ],
+  "SickleCellAnaemia": [
+    "HematopoieticSystem"
+  ],
+  "Neutropenia": [
+    "HematopoieticSystem"
+  ],
+  "Leukaemia": [
+    "HematopoieticSystem"
+  ],
+  "Immunosuppression": [
+    "HematopoieticSystem"
+  ],
+  "ClottingDefect": [
+    "HematopoieticSystem"
+  ],
+  "Chalazion": [
+    "VisualSystem"
+  ],
+  "DentalAbscess": [
+    "DigestiveSystem"
+  ],
+  "TonsillarRetentionCyst": [
+    "DigestiveSystem"
+  ],
+  "GingivalCyst": [
+    "DigestiveSystem"
+  ],
+  "GingivalFibroma": [
+    "DigestiveSystem"
+  ],
+  "AppendixAbscess": [
+    "DigestiveSystem"
+  ],
+  "LiverMetastases": [
+    "DigestiveSystem"
+  ],
+  "GlobusHystericus": [
+    "Psyche"
+  ],
+  "Parotitis": [
+    "DigestiveSystem",
+    "GeneralSystem"
+  ],
+  "Mumps": [
+    "DigestiveSystem",
+    "GeneralSystem"
+  ],
+  "ParotidTumour": [
+    "DigestiveSystem",
+    "GeneralSystem"
+  ],
+  "BreastAbscess": [
+    "GeneralSystem"
+  ],
+  "Galactocele": [
+    "GeneralSystem"
+  ],
+  "SolitaryBreastCyst": [
+    "GeneralSystem"
+  ],
+  "Fibroadenosis": [
+    "GeneralSystem"
+  ],
+  "RetentionCystOfNipple": [
+    "GeneralSystem"
+  ],
+  "AdenomaOfNipple": [
+    "GeneralSystem"
+  ],
+  "MastitisOfPuberty": [
+    "GeneralSystem"
+  ],
+  "Thyroiditis": [
+    "EndocrineSystem"
+  ],
+  "ThyroidAdenoma": [
+    "EndocrineSystem"
+  ],
+  "ThyroidCarcinoma": [
+    "EndocrineSystem"
+  ],
+  "NonHodgkinsLymphoma": [
+    "HematopoieticSystem"
+  ],
+  "OlecranonBursitis": [
+    "SkeletalSystem"
+  ],
+  "PrepatellarBursitis": [
+    "SkeletalSystem"
+  ],
+  "OsgoodSchlattersDisease": [
+    "SkeletalSystem"
+  ],
+  "HalluxValgus": [
+    "SkeletalSystem"
+  ],
+  "AorticAneurysm": [
+    "CardiovascularSystem"
+  ],
+  "FemoralAneurysm": [
+    "CardiovascularSystem"
+  ],
+  "SaphenaVarix": [
+    "CardiovascularSystem"
+  ],
+  "RenalCarcinoma": [
+    "MaleGenitourinarySystem",
+    "FemaleGenitourinarySystem"
+  ],
+  "OvarianCyst": [
+    "FemaleGenitourinarySystem"
+  ],
+  "PelvicAbscess": [
+    "MaleGenitourinarySystem",
+    "FemaleGenitourinarySystem"
+  ],
+  "ChronicVulvitis": [
+    "FemaleGenitourinarySystem"
+  ],
+  "Bartholinitis": [
+    "FemaleGenitourinarySystem"
+  ],
+  "EpididymalCyst": [
+    "MaleGenitourinarySystem"
+  ],
+  "Teratoma": [
+    "MaleGenitourinarySystem"
+  ],
+  "Seminoma": [
+    "MaleGenitourinarySystem"
+  ],
+  "PregnancyDiagnosis": [
+    "FemaleGenitourinarySystem"
+  ],
+  "PhimosisDiagnosis": [
+    "MaleGenitourinarySystem"
+  ],
+  "ParaphimosisDiagnosis": [
+    "MaleGenitourinarySystem"
+  ],
+  "BalanitisDiagnosis": [
+    "MaleGenitourinarySystem"
+  ],
+  "PosthitisDiagnosis": [
+    "MaleGenitourinarySystem"
+  ],
+  "CremastericReflexDiagnosis": [
+    "MaleGenitourinarySystem"
+  ],
+  "StressIncontinenceDiagnosis": [
+    "FemaleGenitourinarySystem"
+  ],
+  "BlepharitisDiagnosis": [
+    "VisualSystem"
+  ],
+  "StyeDiagnosis": [
+    "VisualSystem"
+  ],
+  "MeibomianCystDiagnosis": [
+    "VisualSystem"
+  ],
+  "SubconjunctivalHaemorrhageDiagnosis": [
+    "VisualSystem"
+  ],
+  "WaxDiagnosis": [
+    "ENTSystem"
+  ],
+  "AnxietyDiagnosis": [
+    "Psyche"
+  ],
+  "HyperventilationDiagnosis": [
+    "Psyche"
+  ],
+  "InguinalHerniaDiagnosis": [
+    "DigestiveSystem"
+  ],
+  "BleedingHaemorrhoidDiagnosis": [
+    "DigestiveSystem"
+  ],
+  "ThrombosedHaemorrhoidDiagnosis": [
+    "DigestiveSystem"
+  ],
+  "InfarctedHaemorrhoidDiagnosis": [
+    "DigestiveSystem"
+  ]
+}

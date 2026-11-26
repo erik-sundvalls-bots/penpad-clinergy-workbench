@@ -4,6 +4,8 @@ A static page for hackathon participants. The visit always includes thumb pain, 
 
 **Live site:** https://erik-sundvalls-bots.github.io/penpad-clinergy-workbench/
 
+**Body-map remake (separate page):** https://erik-sundvalls-bots.github.io/penpad-clinergy-workbench/remake/ — an independent PEN&PAD-style recreation with a host shell, body map, and thumb-path forms. See [remake/README.md](remake/README.md).
+
 The form follows the [1998 Clinergy thumb pain demo](https://pen-pad-revival.github.io/docs/clinergy-thumb-pain-demo/). It is experimental and part of the [PEN&PAD revival](https://pen-pad-revival.github.io).
 
 Clinergy content is © 1997-8 Semantic Technologies Ltd / Victoria University of Manchester. Only a small extract is included, for demonstration. See [data/README.md](data/README.md).

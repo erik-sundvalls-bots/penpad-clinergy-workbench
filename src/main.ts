@@ -111,6 +111,7 @@ function page(): string {
   <div class="wrap">
     <header class="mast">
       <h1>PEN&amp;PAD + Clinergy experimental workbench</h1>
+      <p><a href="remake/">PEN&amp;PAD-style body-map remake</a> (separate page, experimental tracer).</p>
       <p>Fill a Clinergy general-practice visit: thumb pain, swelling and examination are always here; use Diagnoses (present/possible) to open sprain or fracture detail. Summary sentences, On Examination, OpenGALEN bindings, SNOMED CT expressions, openEHR and FHIR update as you click. Nothing is installed and nothing is saved on a server.</p>
     </header>
     <div class="layout">

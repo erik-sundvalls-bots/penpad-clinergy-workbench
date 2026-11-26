@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" role="img" aria-label="Gu1 button placeholder">
+  <title>Gu1 button placeholder — PLACEHOLDER · CC0</title>
+  <!-- Independent outline artwork for the PEN&amp;PAD-style body-map remake.
+       Not traced from the 1998 Clinergy bitmaps. Dedicated to the public domain (CC0 1.0). -->
+  <rect width="32" height="32" fill="#f4f1ea" stroke="#b7b1a4" stroke-width="1"/>
+  
+  <rect x="1.5" y="1.5" width="29" height="29" rx="3" fill="#efe8d8" stroke="#7a7368" stroke-width="1.4"/>
+  <text x="16" y="16" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" font-weight="700" fill="#2c4a38">GU</text>
+  <text x="16" y="26" text-anchor="middle" font-family="system-ui,sans-serif" font-size="5" fill="#8a6a28">CC0</text>
+
+</svg>
