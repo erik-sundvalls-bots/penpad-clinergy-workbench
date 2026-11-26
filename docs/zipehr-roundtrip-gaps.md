@@ -6,4 +6,4 @@ With `propertyMode: "comment"`, `layout: "linesaving"`, `symbolVariant: "emoji"`
 
 ## TERM_MAPPING codes containing `|` or `;`
 
-The html5 `tm` attribute (`match|terminology::code` items joined by `;`) escapes `%`, `|` and `;` in its fields as of ehrtslib **v0.18.0** (PR #326 / issue #325). SNOMED CT expressions with terms on the story and diagnosis text round-trip cleanly on the released v0.18 bundle; see `vendor/ehrtslib/README.md`.
+The html5 `tm` attribute (`match|terminology::code` items joined by `;`) escapes `%`, `|` and `;` in its fields as of ehrtslib **v0.20.0** (PR #326 / issue #325). SNOMED CT expressions with terms on the story and diagnosis text round-trip cleanly on the released v0.20 bundle; see `vendor/ehrtslib/README.md`.
