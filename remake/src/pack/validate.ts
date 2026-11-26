@@ -1,4 +1,5 @@
 import { PACK_SCHEMA, type ImagePack, type PackIssue } from "./types.ts";
+import { isPixelRatio } from "./pixel-ratio.ts";
 
 export function isRecord(v: unknown): v is Record<string, unknown> {
   return !!v && typeof v === "object" && !Array.isArray(v);
@@ -38,6 +39,9 @@ export function validatePack(raw: unknown, pathsInArchive?: Iterable<string>): P
     raw.canvas.width <= 0 || raw.canvas.height <= 0) {
     add("canvas", "canvas.width and canvas.height must be positive numbers");
   }
+  if (raw.pixelRatio !== undefined && !isPixelRatio(raw.pixelRatio)) {
+    add("pixelRatio", "pixelRatio must be 1, 2 or 4 when set (it multiplies the 1× width/height to get the file’s native pixels)");
+  }
   if (!isRecord(raw.defaultMaps) || typeof raw.defaultMaps.male !== "string" || typeof raw.defaultMaps.female !== "string") {
     add("defaultMaps", "defaultMaps.male and defaultMaps.female are required");
   }
@@ -54,6 +58,9 @@ export function validatePack(raw: unknown, pathsInArchive?: Iterable<string>): P
       }
       if (!isRecord(rec) || typeof rec.width !== "number" || typeof rec.height !== "number" || rec.width <= 0 || rec.height <= 0) {
         add(`images.${id}`, "width and height must be positive numbers");
+      }
+      if (isRecord(rec) && rec.pixelRatio !== undefined && !isPixelRatio(rec.pixelRatio)) {
+        add(`images.${id}.pixelRatio`, "pixelRatio must be 1, 2 or 4 when set");
       }
     }
   }

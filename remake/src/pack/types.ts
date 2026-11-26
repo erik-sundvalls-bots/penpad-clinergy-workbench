@@ -18,11 +18,17 @@ export interface PackLicense {
   notice?: string;
 }
 
+export const PIXEL_RATIOS = [1, 2, 4] as const;
+export type PixelRatio = (typeof PIXEL_RATIOS)[number];
+
 export interface PackImage {
   path: string;
+  /** Logical 1× size in the hotspot / inset coordinate space, not the file’s native pixels. */
   width: number;
   height: number;
   role?: "bodymap" | "inset" | "button" | "other";
+  /** Override the pack-level pixelRatio for this file (1, 2 or 4). */
+  pixelRatio?: PixelRatio;
 }
 
 export interface PackSublocation {
@@ -79,6 +85,11 @@ export interface ImagePack {
     insetRect: "left,top,width,height";
   };
   canvas: { width: number; height: number };
+  /**
+   * Pack-level default: the files’ native pixels = width/height × pixelRatio.
+   * Canvas, hotspots and inset rects stay in 1× space. 1, 2 or 4; default 1.
+   */
+  pixelRatio?: PixelRatio;
   defaultMaps: { male: string; female: string };
   images: Record<string, PackImage>;
   maps: Record<string, PackMap>;

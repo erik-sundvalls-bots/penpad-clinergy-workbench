@@ -908,6 +908,8 @@ function graphic(): HTMLElement {
     const inset = document.createElement("img");
     inset.className = "inset";
     inset.alt = conceptDisplay(state.openInset.concept);
+    inset.width = width;
+    inset.height = height;
     inset.style.left = `${left}px`;
     inset.style.top = `${top}px`;
     inset.style.width = `${width}px`;

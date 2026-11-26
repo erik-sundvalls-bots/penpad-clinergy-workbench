@@ -256,3 +256,49 @@ describe("clinical pack zip round-trip", () => {
     expect(opened.files.has("images/bodymap/B_fhnd.svg")).toBe(true);
   });
 });
+
+
+describe("pixelRatio", () => {
+  it("defaults to 1, accepts pack-level and per-image 2 or 4, and rejects other values", async () => {
+    const { packPixelRatio, imagePixelRatio, nativePixelSize } = await import("../remake/src/pack/pixel-ratio.ts");
+    const pack = minimalPack();
+    expect(packPixelRatio(pack)).toBe(1);
+    expect(nativePixelSize(pack, pack.images.M_main)).toEqual({ width: 240, height: 330 });
+    pack.pixelRatio = 2;
+    expect(packPixelRatio(pack)).toBe(2);
+    expect(nativePixelSize(pack, pack.images.M_main)).toEqual({ width: 480, height: 660 });
+    pack.images.B_fhnd.pixelRatio = 4;
+    expect(imagePixelRatio(pack, pack.images.B_fhnd)).toBe(4);
+    expect(nativePixelSize(pack, pack.images.B_fhnd)).toEqual({ width: 384, height: 608 });
+    expect(validatePack({ ...minimalPack(), pixelRatio: 3 }).some((i) => i.path === "pixelRatio")).toBe(true);
+    const bad = minimalPack();
+    bad.images.M_main.pixelRatio = 3 as 1;
+    expect(validatePack(bad).some((i) => i.path === "images.M_main.pixelRatio")).toBe(true);
+    expect(validatePack({ ...minimalPack(), pixelRatio: 4 })).toEqual([]);
+  });
+
+  it("warns, but does not fail validation, when a raster’s pixels are not width × pixelRatio", async () => {
+    const { imageSizeWarnings, readRasterSize } = await import("../remake/src/pack/pixel-ratio.ts");
+    // 2×2 PNG
+    const png2 = Uint8Array.from(atob(
+      "iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAEElEQVR4nGNgYGD4D8UQBgAd9AP9yOH2qAAAAABJRU5ErkJggg==",
+    ), (c) => c.charCodeAt(0));
+    expect(readRasterSize(png2, "x.png")).toEqual({ width: 2, height: 2 });
+    const pack = minimalPack();
+    pack.pixelRatio = 2;
+    pack.images.M_main.path = "images/bodymap/M_main.png";
+    pack.images.M_main.width = 1;
+    pack.images.M_main.height = 1;
+    pack.images.B_fhnd.path = "images/bodymap/B_fhnd.png";
+    pack.images.B_fhnd.width = 10;
+    pack.images.B_fhnd.height = 10;
+    const files = new Map<string, Uint8Array>([
+      ["images/bodymap/M_main.png", png2],
+      ["images/bodymap/B_fhnd.png", png2],
+    ]);
+    expect(validatePack(pack, files.keys())).toEqual([]);
+    const warnings = imageSizeWarnings(pack, files);
+    expect(warnings.some((w) => w.path === "images.B_fhnd" && /warning only/i.test(w.message))).toBe(true);
+    expect(warnings.some((w) => w.path === "images.M_main")).toBe(false);
+  });
+});
