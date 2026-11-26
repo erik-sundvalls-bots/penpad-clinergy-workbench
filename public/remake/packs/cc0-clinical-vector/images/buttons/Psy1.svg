@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Original CC0 1.0 clinical body-system filter icon: Psyche — Default (Up) -->
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" shape-rendering="geometricPrecision">
+  <title>Psyche — Default (Up)</title>
+  <rect x="0.75" y="0.75" width="30.5" height="30.5" rx="4.5" fill="#F6F8FA" stroke="#AEBCCB" stroke-width="1.2"/>
+  <rect x="1.5" y="1.5" width="29" height="29" rx="4" fill="none" stroke="#FFFFFF" stroke-width="0.9" opacity="0.8"/>
+  <g stroke-linecap="round" stroke-linejoin="round">
+    
+    <circle cx="16" cy="16" r="10.2" fill="#DCE5EE" stroke="#243447" stroke-width="1.4" opacity="0.85"/>
+    <path d="M 16,9 L 16,23 M 10.8,11.2 C 10.8,16.5 13,18.2 16,18.2 C 19,18.2 21.2,16.5 21.2,11.2 M 13.5,23 L 18.5,23"
+          fill="none" stroke="#243447" stroke-width="2.0"/>
+
+  </g>
+</svg>

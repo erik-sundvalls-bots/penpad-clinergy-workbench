@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Original CC0 1.0 clinical body-map illustration: Hand Muscle Groups -->
+<svg xmlns="http://www.w3.org/2000/svg" width="123" height="158" viewBox="0 0 123 158" shape-rendering="geometricPrecision">
+  <title>Hand Muscle Groups</title>
+  <defs>
+    <linearGradient id="skinGrad" x1="15%" y1="0%" x2="85%" y2="100%">
+      <stop offset="0%" stop-color="#F3EFEA"/>
+      <stop offset="55%" stop-color="#E7E0D7"/>
+      <stop offset="100%" stop-color="#D6CCC0"/>
+    </linearGradient>
+    <linearGradient id="skinHoriz" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#D6CCC0"/>
+      <stop offset="30%" stop-color="#F3EFEA"/>
+      <stop offset="70%" stop-color="#E7E0D7"/>
+      <stop offset="100%" stop-color="#D6CCC0"/>
+    </linearGradient>
+    <linearGradient id="hairGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5E6E7E"/>
+      <stop offset="100%" stop-color="#3E4C5B"/>
+    </linearGradient>
+    <linearGradient id="lungGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EED2CC"/>
+      <stop offset="100%" stop-color="#D4A69E"/>
+    </linearGradient>
+    <linearGradient id="brainGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F0E0D9"/>
+      <stop offset="100%" stop-color="#D6B9AE"/>
+    </linearGradient>
+    
+  </defs>
+  <rect width="123" height="158" fill="#FFFFFF"/>
+
+  <g transform="translate(11, 4) scale(1.03, 1.02)">
+    <g id="palmar-hand">
+    <!-- Palmar right hand silhouette aligned to Carpal [24..48, 34..89], Palm [37..94, 32..91],
+         Thumb [42..99, 7..37], Index [90..136, 26..43], Middle [90..145, 42..58],
+         Ring [89..144, 57..73], Little [83..129, 72..88] -->
+    <path d="
+      M 42,14
+      C 42,24 41,34 39,41
+      C 35,48 27,57 20,67
+      C 14.5,75 10.5,83 10.5,89.5
+      C 10.5,95 15.5,97.5 19.5,95
+      C 23.5,92.5 27.5,85 31.5,78
+      C 33,76 34.5,76.5 34.2,80
+      C 33.5,89 31.5,103 29.5,116
+      C 28.2,124.5 28.2,133.5 33,134.5
+      C 37.5,135.5 39.8,128 41.2,118
+      C 42.2,109 43.2,100 44,95
+      C 44.5,103 44.5,120 44.8,133
+      C 45,140.5 47.2,144 50.8,144
+      C 54.5,144 56.2,139.5 56.5,132
+      C 56.8,120 57.2,103 57.6,95
+      C 58.2,103 58.8,119 59.5,131
+      C 60,138 62.2,141.5 65.8,141
+      C 69.2,140.5 70.8,136 71,129
+      C 71.2,118 71.2,102 71.5,94
+      C 72.5,101 73.8,112 75,121
+      C 76,127.5 78.5,129.5 81.5,128.5
+      C 84.5,127.5 85.5,123 84.8,116.5
+      C 83.8,107 83.5,96 84.5,86
+      C 86,74 86.5,60 83,49
+      C 80.5,41 78,34 77.5,24
+      L 77,14
+      Z" fill="url(#skinGrad)" stroke="none"/>
+
+    <!-- Open-top wrist outline -->
+    <path d="
+      M 42,14
+      C 42,24 41,34 39,41
+      C 35,48 27,57 20,67
+      C 14.5,75 10.5,83 10.5,89.5
+      C 10.5,95 15.5,97.5 19.5,95
+      C 23.5,92.5 27.5,85 31.5,78
+      C 33,76 34.5,76.5 34.2,80
+      C 33.5,89 31.5,103 29.5,116
+      C 28.2,124.5 28.2,133.5 33,134.5
+      C 37.5,135.5 39.8,128 41.2,118
+      C 42.2,109 43.2,100 44,95
+      C 44.5,103 44.5,120 44.8,133
+      C 45,140.5 47.2,144 50.8,144
+      C 54.5,144 56.2,139.5 56.5,132
+      C 56.8,120 57.2,103 57.6,95
+      C 58.2,103 58.8,119 59.5,131
+      C 60,138 62.2,141.5 65.8,141
+      C 69.2,140.5 70.8,136 71,129
+      C 71.2,118 71.2,102 71.5,94
+      C 72.5,101 73.8,112 75,121
+      C 76,127.5 78.5,129.5 81.5,128.5
+      C 84.5,127.5 85.5,123 84.8,116.5
+      C 83.8,107 83.5,96 84.5,86
+      C 86,74 86.5,60 83,49
+      C 80.5,41 78,34 77.5,24
+      L 77,14
+      " fill="none" stroke="#2B3A4A" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Wrist flexion creases (CarpalBone [24..48]) -->
+    <path d="M 43,36 Q 59,39 76,36" fill="none" stroke="#5A6C7E" stroke-width="1.0" stroke-linecap="round"/>
+    <path d="M 44,41 Q 59,43.5 75,41" fill="none" stroke="#8594A3" stroke-width="0.8" stroke-linecap="round"/>
+
+    <!-- Palmar creases (thenar / proximal & distal transverse) -->
+    <path d="M 42,49 C 47,58 49,69 47,81" fill="none" stroke="#5A6C7E" stroke-width="1.0" stroke-linecap="round"/>
+    <path d="M 44,64 C 55,66 67,69 78,74" fill="none" stroke="#5A6C7E" stroke-width="0.95" stroke-linecap="round"/>
+    <path d="M 52,79 C 62,79 72,77 81,71" fill="none" stroke="#8594A3" stroke-width="0.9" stroke-linecap="round"/>
+
+    <!-- Palmar digital flexion creases (MCP/PIP/DIP) -->
+    <g stroke="#5A6C7E" stroke-width="0.85" stroke-linecap="round">
+      <!-- Thumb IP crease -->
+      <path d="M 19,77 L 26,81"/>
+      <!-- Index -->
+      <path d="M 34.5,96 L 42.5,96.5 M 32.5,110 L 40.5,111 M 30.8,122 L 38.2,123"/>
+      <!-- Middle -->
+      <path d="M 45.5,96.5 L 56,96.5 M 46,112 L 55.5,112 M 46.5,127 L 55,127"/>
+      <!-- Ring -->
+      <path d="M 59,95.5 L 69.5,95 M 60,111 L 69.5,110.5 M 61,125 L 69.5,124.5"/>
+      <!-- Little -->
+      <path d="M 73,93 L 82,91.5 M 74.5,106 L 82.8,105 M 76,117 L 83.2,116"/>
+    </g>
+  </g>
+
+    <!-- Subtle thenar & hypothenar muscle group shading -->
+    <ellipse cx="38" cy="68" rx="7" ry="12" transform="rotate(-18 38 68)" fill="#D8A39B" opacity="0.22"/>
+    <ellipse cx="75" cy="68" rx="6" ry="13" transform="rotate(6 75 68)" fill="#D8A39B" opacity="0.22"/>
+  </g>
+</svg>

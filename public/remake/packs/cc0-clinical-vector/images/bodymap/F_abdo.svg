@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Original CC0 1.0 clinical body-map illustration: Adult Female Abdomen -->
+<svg xmlns="http://www.w3.org/2000/svg" width="182" height="218" viewBox="0 0 182 218" shape-rendering="geometricPrecision">
+  <title>Adult Female Abdomen</title>
+  <defs>
+    <linearGradient id="skinGrad" x1="15%" y1="0%" x2="85%" y2="100%">
+      <stop offset="0%" stop-color="#F3EFEA"/>
+      <stop offset="55%" stop-color="#E7E0D7"/>
+      <stop offset="100%" stop-color="#D6CCC0"/>
+    </linearGradient>
+    <linearGradient id="skinHoriz" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#D6CCC0"/>
+      <stop offset="28%" stop-color="#F3EFEA"/>
+      <stop offset="72%" stop-color="#E7E0D7"/>
+      <stop offset="100%" stop-color="#D6CCC0"/>
+    </linearGradient>
+    <linearGradient id="hairGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5E6E7E"/>
+      <stop offset="100%" stop-color="#3E4C5B"/>
+    </linearGradient>
+    <linearGradient id="mucosaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E5BDB5"/>
+      <stop offset="100%" stop-color="#D49B91"/>
+    </linearGradient>
+    
+  </defs>
+  <rect width="182" height="218" fill="#FFFFFF"/>
+
+  <g id="female-abdomen">
+    <!-- Female torso, tapered waist & fuller hip silhouette -->
+    <path d="
+      M 30,14
+      C 31,38 33,62 35,82
+      C 36.5,98 35,112 29,129
+      C 21.5,148 13,168 11.5,190
+      C 11,198 11.5,204 12,210
+      L 170,210
+      C 170.5,204 171,198 170.5,190
+      C 169,168 160.5,148 153,129
+      C 147,112 145.5,98 147,82
+      C 149,62 151,38 152,14
+      Z" fill="url(#skinHoriz)" stroke="none"/>
+
+    <path d="M 30,14 C 31,38 33,62 35,82 C 36.5,98 35,112 29,129 C 21.5,148 13,168 11.5,190 C 11,198 11.5,204 12,210"
+          fill="none" stroke="#2B3A4A" stroke-width="1.45" stroke-linecap="round"/>
+    <path d="M 152,14 C 151,38 149,62 147,82 C 145.5,98 147,112 153,129 C 160.5,148 169,168 170.5,190 C 171,198 170.5,204 170,210"
+          fill="none" stroke="#2B3A4A" stroke-width="1.45" stroke-linecap="round"/>
+
+    <!-- Modest inframammary contour context at top (y=14..42) -->
+    <path d="M 33,28 C 44,41 68,42 82,30 C 84.5,27 86,22 86,16" fill="none" stroke="#5A6C7E" stroke-width="1.1" stroke-linecap="round"/>
+    <path d="M 149,28 C 138,41 114,42 100,30 C 97.5,27 96,22 96,16" fill="none" stroke="#5A6C7E" stroke-width="1.1" stroke-linecap="round"/>
+
+    <!-- Subtle costal margin & midline -->
+    <path d="M 43,75 C 58,64 74,57 91,53 C 108,57 124,64 139,75" fill="none" stroke="#8594A3" stroke-width="0.9" stroke-linecap="round"/>
+    <path d="M 91,57 L 91,102" fill="none" stroke="#8594A3" stroke-width="0.7" stroke-linecap="round"/>
+
+    <!-- Umbilicus [90..129, 71..114] -->
+    <path d="M 86.8,110 C 88.8,113 93.2,113 95.2,110" fill="none" stroke="#2B3A4A" stroke-width="1.15" stroke-linecap="round"/>
+    <path d="M 88.2,108 Q 91,106.6 93.8,108" fill="none" stroke="#5A6C7E" stroke-width="0.8" stroke-linecap="round"/>
+
+    <!-- Inguinal / Groin folds [168..204, 5..177] & modest pelvic landmark -->
+    <path d="M 28,150 C 37,164 52,178 72,190 C 80,195 86,200 89,207" fill="none" stroke="#5A6C7E" stroke-width="1.15" stroke-linecap="round"/>
+    <path d="M 154,150 C 145,164 130,178 110,190 C 102,195 96,200 93,207" fill="none" stroke="#5A6C7E" stroke-width="1.15" stroke-linecap="round"/>
+    <path d="M 74,178 Q 91,181 108,178" fill="none" stroke="#8594A3" stroke-width="0.8" stroke-linecap="round"/>
+    <path d="M 91,203 L 91,210" fill="none" stroke="#5A6C7E" stroke-width="1.0" stroke-linecap="round"/>
+  </g>
+</svg>

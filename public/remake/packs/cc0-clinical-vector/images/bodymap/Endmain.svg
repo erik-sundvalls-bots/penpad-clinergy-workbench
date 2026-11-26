@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Original CC0 1.0 clinical body-map illustration: Endocrine System Overview -->
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="330" viewBox="0 0 240 330" shape-rendering="geometricPrecision">
+  <title>Endocrine System Overview</title>
+  <defs>
+    <linearGradient id="skinGrad" x1="15%" y1="0%" x2="85%" y2="100%">
+      <stop offset="0%" stop-color="#F3EFEA"/>
+      <stop offset="55%" stop-color="#E7E0D7"/>
+      <stop offset="100%" stop-color="#D6CCC0"/>
+    </linearGradient>
+    <linearGradient id="skinHoriz" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#D6CCC0"/>
+      <stop offset="30%" stop-color="#F3EFEA"/>
+      <stop offset="70%" stop-color="#E7E0D7"/>
+      <stop offset="100%" stop-color="#D6CCC0"/>
+    </linearGradient>
+    <linearGradient id="hairGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5E6E7E"/>
+      <stop offset="100%" stop-color="#3E4C5B"/>
+    </linearGradient>
+    <linearGradient id="lungGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EED2CC"/>
+      <stop offset="100%" stop-color="#D4A69E"/>
+    </linearGradient>
+    <linearGradient id="brainGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F0E0D9"/>
+      <stop offset="100%" stop-color="#D6B9AE"/>
+    </linearGradient>
+    
+  </defs>
+  <rect width="240" height="330" fill="#FFFFFF"/>
+
+  <g id="endocrine-main">
+    <!-- Clean head-in-profile + anterior torso outline -->
+    <path d="
+      M 58,314
+      L 58,196
+      C 58,176 64,162 80,157
+      C 94,152 103,146 104,132
+      C 104,124 102,118 98,115
+      C 90,115 84,113 83,108
+      C 83,104 86,102 88,101
+      C 83,98 83,93 88,91
+      C 82,88 79,85 81,81
+      C 85,76 89,69 91,62
+      C 96,51 110,46 128,48
+      C 146,50 156,66 154,88
+      C 152,108 144,122 141,134
+      C 141,146 151,152 167,157
+      C 183,162 190,176 190,198
+      L 190,314
+      " fill="#F8F9FB" stroke="#8594A3" stroke-width="1.2" stroke-linecap="round"/>
+    <!-- Subtle inner arm lines -->
+    <path d="M 79,224 L 82,314 M 169,224 L 166,314" fill="none" stroke="#8594A3" stroke-width="1.0" stroke-linecap="round"/>
+
+    <!-- Brain silhouette context & Pituitary Gland [86..104, 109..125] -->
+    <path d="M 99,78 C 98,64 111,55 127,56 C 141,57 149,68 148,82 C 147,92 140,97 132,96 C 127,95 123,93 118,93 C 107,93 99,87 99,78 Z"
+          fill="#E6D2CA" opacity="0.65" stroke="#5A6C7E" stroke-width="0.95"/>
+    <path d="M 107,72 Q 118,68 128,74 M 114,82 Q 127,80 138,85" fill="none" stroke="#B89A8E" stroke-width="0.8"/>
+    <!-- Pituitary stalk & gland -->
+    <line x1="117" y1="89" x2="117" y2="94" stroke="#9C7823" stroke-width="1.2"/>
+    <ellipse cx="117" cy="96" rx="5.2" ry="4.5" fill="#E0B95B" stroke="#9C7823" stroke-width="1.15"/>
+
+    <!-- Trachea context & Butterfly Thyroid Gland [136..163, 110..137] -->
+    <rect x="119" y="132" width="9" height="44" rx="2" fill="#EFEAE6" stroke="#5A6C7E" stroke-width="0.9"/>
+    <path d="M 120,168 L 111,182 M 127,168 L 136,182" stroke="#5A6C7E" stroke-width="1.2" stroke-linecap="round"/>
+    <path d="
+      M 120,147
+      C 117,138 111,139 111,149
+      C 111,159 117,162 120,155
+      L 127,155
+      C 130,162 136,159 136,149
+      C 136,139 130,138 127,147
+      Z" fill="#E0B95B" stroke="#9C7823" stroke-width="1.15" stroke-linejoin="round"/>
+
+    <!-- Paired Kidneys: KidR [245..278, 93..113] & KidL [252..275, 135..153] -->
+    <path d="M 103,247 C 96,247 93,256 94,266 C 95,275 102,278 108,275 C 112,272 112,265 110,261 C 112,255 110,247 103,247 Z"
+          fill="#9E534A" stroke="#2B3A4A" stroke-width="1.1"/>
+    <path d="M 144,251 C 151,251 154,259 153,268 C 152,275 145,278 139,275 C 135,272 135,266 137,262 C 135,256 137,251 144,251 Z"
+          fill="#9E534A" stroke="#2B3A4A" stroke-width="1.1"/>
+
+    <!-- Paired Adrenal Glands: AdrenR [236..252, 101..117] & AdrenL [235..248, 129..144] -->
+    <path d="M 101,249 C 103,240 110,238 115,246 C 113,250 105,251 101,249 Z"
+          fill="#E0B95B" stroke="#9C7823" stroke-width="1.1"/>
+    <path d="M 131,247 C 135,238 142,238 145,248 C 141,250 134,250 131,247 Z"
+          fill="#E0B95B" stroke="#9C7823" stroke-width="1.1"/>
+
+    <!-- Pancreas [248..269, 114..157] -->
+    <path d="
+      M 116,262
+      C 116,255 123,253 132,253
+      C 142,253 151,250 156,252
+      C 158,255 153,260 144,262
+      C 135,264 126,269 119,268
+      C 116,267 115,265 116,262
+      Z" fill="#E0B95B" stroke="#9C7823" stroke-width="1.15" stroke-linejoin="round"/>
+    <path d="M 121,261 C 132,259 144,257 152,254" fill="none" stroke="#9C7823" stroke-width="0.85" stroke-linecap="round"/>
+  </g>
+</svg>

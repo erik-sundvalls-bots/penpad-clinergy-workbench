@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Original CC0 1.0 clinical body-system filter icon: Nervous System — Default (Up) -->
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" shape-rendering="geometricPrecision">
+  <title>Nervous System — Default (Up)</title>
+  <rect x="0.75" y="0.75" width="30.5" height="30.5" rx="4.5" fill="#F6F8FA" stroke="#AEBCCB" stroke-width="1.2"/>
+  <rect x="1.5" y="1.5" width="29" height="29" rx="4" fill="none" stroke="#FFFFFF" stroke-width="0.9" opacity="0.8"/>
+  <g stroke-linecap="round" stroke-linejoin="round">
+    
+    <!-- Cerebrum -->
+    <path d="M 11.5,19.2 C 7.8,19 6.2,16.2 6.8,12.8 C 7.4,9.2 10.5,6.8 15.2,6.5 C 20.5,6.2 24.8,9.2 25.2,13.8 C 25.5,17.2 23.5,19.8 20.2,19.8 L 16.5,19.8 L 15.8,25.5 L 12.8,25.5 L 13,19.4 Z"
+          fill="#DCE5EE" stroke="#243447" stroke-width="1.65"/>
+    <!-- Cerebellum bulge -->
+    <path d="M 17,19.8 C 18.2,22.5 21.8,22.8 23.2,20.5 C 23.8,19.2 23,18 21.2,18.2"
+          fill="#DCE5EE" stroke="#243447" stroke-width="1.35"/>
+    <!-- Central & lateral sulci -->
+    <path d="M 15.2,6.8 C 15.5,9.5 14.5,12 13,13.8 M 10.5,14.8 C 13.5,14.2 17,13.5 20.5,12.2 M 19.2,9.5 C 20.8,10.5 21.2,13 20,15.5"
+          fill="none" stroke="#243447" stroke-width="1.15"/>
+
+  </g>
+</svg>

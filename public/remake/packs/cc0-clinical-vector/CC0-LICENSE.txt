@@ -1,0 +1,19 @@
+CC0 1.0 Universal Public Domain Dedication — penpad-image-pack/v1 (cc0-clinical-vector)
+
+Date: 2026-11-26 (Europe/Stockholm)
+Pack ID: cc0-clinical-vector
+Version: 1.0.0
+Schema: penpad-image-pack/v1
+
+Originality Statement:
+All 95 SVG artwork files bundled in this image pack (65 illustrations under images/bodymap/ and 30 icons under images/buttons/) are completely new original clinical vector artwork created from scratch. They are NOT copies, tracings, pastes, or stylistic derivatives of the 1998 Clinergy / PEN&PAD pictures.
+
+Public Domain Dedication (CC0 1.0 Universal):
+To the extent possible under law, the author waives all copyright and related or neighboring rights to all artwork files in this pack and dedicates them to the public domain worldwide under CC0 1.0 Universal:
+https://creativecommons.org/publicdomain/zero/1.0/
+
+Contents:
+- pack.yaml (canonical penpad-image-pack/v1 manifest)
+- pack.json (equivalent JSON manifest)
+- images/bodymap/ (65 SVG files: all 50 Onelist.ini maps/insets + 15 Selector.ini extras)
+- images/buttons/ (30 SVG files: all 15 body-system filter pairs in *1 up / *2 down states)

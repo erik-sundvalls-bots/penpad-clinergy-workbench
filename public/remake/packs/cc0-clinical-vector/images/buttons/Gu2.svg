@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Original CC0 1.0 clinical body-system filter icon: Genitourinary System — Selected (Down) -->
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" shape-rendering="geometricPrecision">
+  <title>Genitourinary System — Selected (Down)</title>
+  <rect x="0.75" y="0.75" width="30.5" height="30.5" rx="4.5" fill="#1E3A5F" stroke="#102542" stroke-width="1.2"/>
+  <rect x="1.5" y="1.5" width="29" height="29" rx="4" fill="none" stroke="#0C1D35" stroke-width="1.2" opacity="0.65"/>
+  <g stroke-linecap="round" stroke-linejoin="round">
+    
+    <!-- Left & right kidneys -->
+    <path d="M 10.5,7.2 C 7.5,7.2 6.2,9.8 6.8,12.6 C 7.3,15 9.6,15.8 11.2,14.5 C 11.8,14 11.2,12.8 11.2,11.5 C 11.2,10.2 12.2,9.2 11.8,8.2 C 11.5,7.5 11,7.2 10.5,7.2 Z"
+          fill="#4F83B8" stroke="#FFFFFF" stroke-width="1.9"/>
+    <path d="M 21.5,7.2 C 24.5,7.2 25.8,9.8 25.2,12.6 C 24.7,15 22.4,15.8 20.8,14.5 C 20.2,14 20.8,12.8 20.8,11.5 C 20.8,10.2 19.8,9.2 20.2,8.2 C 20.5,7.5 21,7.2 21.5,7.2 Z"
+          fill="#4F83B8" stroke="#FFFFFF" stroke-width="1.9"/>
+    <!-- Ureters -->
+    <path d="M 11.2,12.2 C 12.8,14.5 13.5,17.5 14,20.5 M 20.8,12.2 C 19.2,14.5 18.5,17.5 18,20.5"
+          fill="none" stroke="#FFFFFF" stroke-width="1.45"/>
+    <!-- Bladder & urethra -->
+    <path d="M 12.2,21.5 C 12.2,19.2 19.8,19.2 19.8,21.5 C 19.8,24 17.8,25.5 16,26.2 C 14.2,25.5 12.2,24 12.2,21.5 Z"
+          fill="#4F83B8" stroke="#FFFFFF" stroke-width="1.9"/>
+    <line x1="16" y1="26.2" x2="16" y2="27.8" stroke="#FFFFFF" stroke-width="1.6"/>
+
+  </g>
+</svg>

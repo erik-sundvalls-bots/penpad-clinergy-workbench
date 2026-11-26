@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Original CC0 1.0 clinical body-map illustration: Anterior Lower Airway and Lungs -->
+<svg xmlns="http://www.w3.org/2000/svg" width="220" height="256" viewBox="0 0 220 256" shape-rendering="geometricPrecision">
+  <title>Anterior Lower Airway and Lungs</title>
+  <defs>
+    <linearGradient id="skinGrad" x1="15%" y1="0%" x2="85%" y2="100%">
+      <stop offset="0%" stop-color="#F3EFEA"/>
+      <stop offset="55%" stop-color="#E7E0D7"/>
+      <stop offset="100%" stop-color="#D6CCC0"/>
+    </linearGradient>
+    <linearGradient id="skinHoriz" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#D6CCC0"/>
+      <stop offset="30%" stop-color="#F3EFEA"/>
+      <stop offset="70%" stop-color="#E7E0D7"/>
+      <stop offset="100%" stop-color="#D6CCC0"/>
+    </linearGradient>
+    <linearGradient id="hairGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5E6E7E"/>
+      <stop offset="100%" stop-color="#3E4C5B"/>
+    </linearGradient>
+    <linearGradient id="lungGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EED2CC"/>
+      <stop offset="100%" stop-color="#D4A69E"/>
+    </linearGradient>
+    <linearGradient id="brainGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F0E0D9"/>
+      <stop offset="100%" stop-color="#D6B9AE"/>
+    </linearGradient>
+    
+  </defs>
+  <rect width="220" height="256" fill="#FFFFFF"/>
+
+  <g id="lower-airway" transform="scale(1,1.0000)">
+    <!-- Right Lung (viewer's left) cutaway showing bronchial tree, bronchioles [110..160, 58..93] & alveoli [163..194, 68..98] -->
+    <path d="
+      M 98,42
+      C 74,40 44,68 30,110
+      C 18,148 16,198 22,226
+      C 27,242 52,240 76,230
+      C 92,223 100,210 101,186
+      L 101,62
+      Z" fill="#F8ECE9" stroke="#2B3A4A" stroke-width="1.45" stroke-linejoin="round"/>
+
+    <!-- Left Lung (viewer's right) full surface [37..236, 120..201] + distinct Pleura double-membrane border [164..239, 147..202] -->
+    <!-- Parietal pleura outer envelope -->
+    <path d="
+      M 122,38
+      C 148,36 180,66 194,110
+      C 207,150 209,202 203,231
+      C 197,247 169,245 144,234
+      C 132,228 127,216 128,196
+      C 129,180 120,168 119,150
+      L 119,58
+      Z" fill="#DCE9F5" opacity="0.65" stroke="#2D6BA8" stroke-width="1.2" stroke-dasharray="3,2"/>
+    <!-- Visceral lung parenchyma -->
+    <path d="
+      M 123,44
+      C 146,42 175,70 188,112
+      C 200,150 202,198 196,225
+      C 191,239 167,237 145,227
+      C 135,222 131,212 132,194
+      C 133,180 124,169 123,152
+      L 123,62
+      Z" fill="url(#lungGrad)" stroke="#2B3A4A" stroke-width="1.45" stroke-linejoin="round"/>
+    <!-- Left lung oblique fissure & subtle pleural reflection -->
+    <path d="M 196,198 C 174,174 150,150 124,130" fill="none" stroke="#A86D64" stroke-width="1.15" stroke-linecap="round"/>
+
+    <!-- Trachea & Primary Bronchi [89..142, 84..120] -->
+    <path d="
+      M 101,18 L 121,18 L 121,98
+      L 148,122 L 142,130 L 111,108
+      L 82,130 L 76,122 L 101,98 Z
+      " fill="#F2E4DF" stroke="#2B3A4A" stroke-width="1.35" stroke-linejoin="round"/>
+    <!-- Tracheal cartilage rings -->
+    <g stroke="#5A6C7E" stroke-width="1.05">
+      <line x1="103" y1="28" x2="119" y2="28"/>
+      <line x1="103" y1="38" x2="119" y2="38"/>
+      <line x1="103" y1="48" x2="119" y2="48"/>
+      <line x1="103" y1="58" x2="119" y2="58"/>
+      <line x1="103" y1="68" x2="119" y2="68"/>
+      <line x1="103" y1="78" x2="119" y2="78"/>
+      <line x1="103" y1="88" x2="119" y2="88"/>
+    </g>
+
+    <!-- Bronchiole arborization in right lung [110..160, 58..93] -->
+    <g fill="none" stroke="#2B3A4A" stroke-linecap="round">
+      <path d="M 80,126 C 68,120 56,110 46,98 M 78,126 C 66,134 54,142 42,152 M 79,127 C 75,142 74,156 78,170" stroke-width="2.1"/>
+      <path d="M 60,115 L 55,96 M 58,138 L 44,132 M 64,138 L 56,162 M 76,148 L 62,164 M 77,154 L 88,168" stroke-width="1.3"/>
+      <!-- Left lung hilar bronchus entry -->
+      <path d="M 145,126 L 160,118 M 145,126 L 162,138 M 143,128 L 154,152" stroke-width="1.5" opacity="0.55"/>
+    </g>
+
+    <!-- Alveolar acinar grape-like clusters [163..194, 68..98] -->
+    <g fill="#E4B5AD" stroke="#2B3A4A" stroke-width="0.9">
+      <circle cx="76" cy="173" r="4.2"/>
+      <circle cx="84" cy="172" r="4.2"/>
+      <circle cx="91" cy="176" r="4.0"/>
+      <circle cx="72" cy="180" r="4.2"/>
+      <circle cx="80" cy="180" r="4.5"/>
+      <circle cx="89" cy="183" r="4.2"/>
+      <circle cx="76" cy="188" r="4.2"/>
+      <circle cx="84" cy="189" r="4.0"/>
+      <circle cx="69" cy="173" r="3.6"/>
+      <circle cx="94" cy="188" r="3.6"/>
+    </g>
+  </g>
+</svg>

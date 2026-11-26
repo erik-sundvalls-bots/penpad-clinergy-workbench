@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Original CC0 1.0 clinical body-system filter icon: Muscular System — Selected (Down) -->
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" shape-rendering="geometricPrecision">
+  <title>Muscular System — Selected (Down)</title>
+  <rect x="0.75" y="0.75" width="30.5" height="30.5" rx="4.5" fill="#1E3A5F" stroke="#102542" stroke-width="1.2"/>
+  <rect x="1.5" y="1.5" width="29" height="29" rx="4" fill="none" stroke="#0C1D35" stroke-width="1.2" opacity="0.65"/>
+  <g stroke-linecap="round" stroke-linejoin="round">
+    
+    <path d="M 8,23.5 C 8,19 10.5,15.5 14.5,15 C 17.5,14.6 19.8,16.2 21.5,18.2 C 22.2,15.5 21.8,12.5 20.2,10.2 L 17.2,8.8 C 16,8.2 16.5,6.2 18.2,6.2 L 21.8,6.8 C 23.5,7.2 24.5,9 24.8,11.5 C 25.5,16.5 24.5,22 21.5,24.2 C 18.2,26.2 12.2,26 8,23.5 Z"
+          fill="#4F83B8" stroke="#FFFFFF" stroke-width="1.9"/>
+    <path d="M 12,18.5 C 14.5,17.2 17.2,17.5 19,19.5" fill="none" stroke="#FFFFFF" stroke-width="1.2"/>
+
+  </g>
+</svg>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Original CC0 1.0 clinical body-map illustration: Arm Nerves Anatomy -->
+<svg xmlns="http://www.w3.org/2000/svg" width="224" height="257" viewBox="0 0 224 257" shape-rendering="geometricPrecision">
+  <title>Arm Nerves Anatomy</title>
+  <defs>
+    <linearGradient id="skinGrad" x1="15%" y1="0%" x2="85%" y2="100%">
+      <stop offset="0%" stop-color="#F3EFEA"/>
+      <stop offset="55%" stop-color="#E7E0D7"/>
+      <stop offset="100%" stop-color="#D6CCC0"/>
+    </linearGradient>
+    <linearGradient id="skinHoriz" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#D6CCC0"/>
+      <stop offset="30%" stop-color="#F3EFEA"/>
+      <stop offset="70%" stop-color="#E7E0D7"/>
+      <stop offset="100%" stop-color="#D6CCC0"/>
+    </linearGradient>
+    <linearGradient id="hairGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5E6E7E"/>
+      <stop offset="100%" stop-color="#3E4C5B"/>
+    </linearGradient>
+    <linearGradient id="lungGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EED2CC"/>
+      <stop offset="100%" stop-color="#D4A69E"/>
+    </linearGradient>
+    <linearGradient id="brainGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F0E0D9"/>
+      <stop offset="100%" stop-color="#D6B9AE"/>
+    </linearGradient>
+    
+  </defs>
+  <rect width="224" height="257" fill="#FFFFFF"/>
+
+  <g id="arm-nerves">
+    <!-- Clean posterior/lateral left arm outline angling down-right -->
+    <path d="
+      M 34,26
+      C 52,28 68,42 74,64
+      C 80,88 86,118 92,146
+      C 97,170 102,192 106,206
+      C 111,214 114,224 112,230
+      C 109,233 106,229 104,224
+      L 106,244 C 106,248 101,249 100,244
+      L 97,228 L 96,249 C 96,253 91,253 91,248
+      L 89,229 L 86,248 C 85,252 81,251 81,246
+      L 81,227 L 76,241 C 75,244 71,242 72,238
+      L 75,216 C 72,204 70,192 67,180
+      C 60,158 53,134 48,112
+      C 44,92 40,74 38,56
+      " fill="#F8F9FB" stroke="#8594A3" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Brachial plexus & peripheral arm nerves (emerald green):
+         Axillary [57..107, 68..79], Ulnar [104..206, 54..82],
+         Median [154..203, 76..92], Radial [153..198, 85..100] -->
+    <g fill="none" stroke="#268C5C" stroke-linecap="round" stroke-linejoin="round">
+      <!-- Plexus root -->
+      <path d="M 38,34 C 52,44 62,56 68,72" stroke-width="2.6"/>
+      <!-- Axillary nerve curving laterally around surgical neck -->
+      <path d="M 56,50 C 66,58 74,70 76,94" stroke-width="2.0"/>
+      <!-- Ulnar nerve (medial border: x=58 -> x=75) -->
+      <path d="M 64,66 C 60,94 58,124 62,154 C 66,176 72,196 80,216" stroke-width="1.9"/>
+      <!-- Median nerve (central course: x=70 -> x=86) -->
+      <path d="M 68,72 C 71,102 76,136 81,168 C 84,186 88,202 92,218" stroke-width="1.9"/>
+      <!-- Radial nerve (lateral course: x=74 -> x=94) -->
+      <path d="M 68,72 C 76,98 83,130 90,164 C 93,182 97,196 101,212" stroke-width="1.9"/>
+    </g>
+    <polyline points="124,77 98,77 73,77" stroke="#2B3A4A" stroke-width="0.85" fill="none"/><text x="128" y="80" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.5" font-weight="600" fill="#2B3A4A">axillary nerve</text>
+<polyline points="124,127 98,127 62,127" stroke="#2B3A4A" stroke-width="0.85" fill="none"/><text x="128" y="130" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.5" font-weight="600" fill="#2B3A4A">ulnar nerve</text>
+<polyline points="124,156 98,156 88,166" stroke="#2B3A4A" stroke-width="0.85" fill="none"/><text x="128" y="159" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.5" font-weight="600" fill="#2B3A4A">radial nerve</text>
+<polyline points="124,182 98,182 81,178" stroke="#2B3A4A" stroke-width="0.85" fill="none"/><text x="128" y="185" font-family="DejaVu Sans, Arial, sans-serif" font-size="9.5" font-weight="600" fill="#2B3A4A">median nerve</text>
+  </g>
+</svg>

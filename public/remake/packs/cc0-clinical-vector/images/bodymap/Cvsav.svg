@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Original CC0 1.0 clinical body-map illustration: Arm Veins Anatomy -->
+<svg xmlns="http://www.w3.org/2000/svg" width="224" height="257" viewBox="0 0 224 257" shape-rendering="geometricPrecision">
+  <title>Arm Veins Anatomy</title>
+  <defs>
+    <linearGradient id="skinGrad" x1="15%" y1="0%" x2="85%" y2="100%">
+      <stop offset="0%" stop-color="#F3EFEA"/>
+      <stop offset="55%" stop-color="#E7E0D7"/>
+      <stop offset="100%" stop-color="#D6CCC0"/>
+    </linearGradient>
+    <linearGradient id="skinHoriz" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#D6CCC0"/>
+      <stop offset="30%" stop-color="#F3EFEA"/>
+      <stop offset="70%" stop-color="#E7E0D7"/>
+      <stop offset="100%" stop-color="#D6CCC0"/>
+    </linearGradient>
+    <linearGradient id="hairGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5E6E7E"/>
+      <stop offset="100%" stop-color="#3E4C5B"/>
+    </linearGradient>
+    <linearGradient id="lungGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EED2CC"/>
+      <stop offset="100%" stop-color="#D4A69E"/>
+    </linearGradient>
+    <linearGradient id="brainGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F0E0D9"/>
+      <stop offset="100%" stop-color="#D6B9AE"/>
+    </linearGradient>
+    
+  </defs>
+  <rect width="224" height="257" fill="#FFFFFF"/>
+
+  <g id="arm-veins">
+    <!-- Clean right arm outline angling down-left -->
+    <path d="
+      M 102,26
+      C 84,26 68,36 62,54
+      C 56,74 50,104 44,130
+      C 38,154 30,178 26,198
+      C 20,205 13,214 11,223
+      C 10,228 14,230 17,226
+      L 22,218 L 16,240 C 15,244 19,246 21,241
+      L 27,226 L 24,247 C 24,251 29,252 30,247
+      L 34,228 L 34,248 C 34,252 39,252 39,247
+      L 42,227 L 44,244 C 45,248 49,247 49,242
+      L 49,220 C 51,210 52,200 53,192
+      C 60,172 68,150 74,130
+      C 80,110 84,92 86,74
+      L 88,104
+      " fill="#F8F9FB" stroke="#8594A3" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Venous tree (blue) matching every anatomical hotspot:
+         Axillary [46..72,69..86], Cephalic [64..99,50..63] & [162..201,29..43],
+         Brachial [71..110,63..71], Basilic [81..125,68..80],
+         MedianCubital [129..151,49..70], MedianVein [158..186,48..68] -->
+    <g fill="none" stroke="#2D6BA8" stroke-linecap="round" stroke-linejoin="round">
+      <!-- Axillary -> Brachial trunk -->
+      <path d="M 96,34 C 84,42 78,52 75,66 C 71,84 67,104 61,126" stroke-width="3.0"/>
+      <!-- Cephalic vein (lateral/left border: x=54 -> x=34) -->
+      <path d="M 80,52 C 66,58 58,72 54,94 C 49,122 42,158 34,196 L 24,222" stroke-width="2.1"/>
+      <!-- Basilic vein (medial/right border: x=75 -> x=58) -->
+      <path d="M 75,66 C 76,84 74,104 68,126 C 63,146 58,168 50,196 L 44,220" stroke-width="2.0"/>
+      <!-- Median cubital vein (oblique antecubital bridge [129..151, 49..70]) -->
+      <path d="M 48,144 C 55,140 62,136 66,131" stroke-width="2.1"/>
+      <!-- Median antebrachial vein [158..186, 48..68] -->
+      <path d="M 58,140 C 54,158 49,176 42,196 L 34,224" stroke-width="1.6"/>
+      <!-- Dorsal/palmar venous network -->
+      <path d="M 24,218 Q 34,224 44,218" stroke-width="1.3"/>
+    </g>
+
+    <!-- Leader lines & crisp labels inside right-column boxes -->
+    <g stroke="#2B3A4A" stroke-width="0.85" fill="none">
+      <polyline points="124,38 92,38 78,54"/>
+      <polyline points="124,63 72,63 58,74"/>
+      <line x1="124" y1="88" x2="67" y2="88"/>
+      <line x1="124" y1="113" x2="73" y2="113"/>
+      <line x1="124" y1="141" x2="58" y2="141"/>
+      <line x1="124" y1="175" x2="51" y2="175"/>
+      <polyline points="124,203 72,203 38,186"/>
+    </g>
+    <g font-family="DejaVu Sans, Arial, sans-serif" font-size="9.5" font-weight="600" fill="#2B3A4A">
+      <text x="128" y="41">axillary vein</text>
+      <text x="128" y="66">cephalic vein</text>
+      <text x="128" y="91">brachial vein</text>
+      <text x="128" y="116">basilic vein</text>
+      <text x="128" y="140">median cubital</text><text x="148" y="151">vein</text>
+      <text x="128" y="178">median vein</text>
+      <text x="128" y="206">cephalic vein</text>
+    </g>
+  </g>
+</svg>

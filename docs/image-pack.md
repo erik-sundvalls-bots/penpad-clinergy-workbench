@@ -12,8 +12,10 @@ pack is how you switch artwork **and** geometry. Alternative image sets with a
 different size or layout work as long as their `pack.yaml` describes them.
 
 This document is the canonical schema. The extractor (`clinergy-extractor`)
-emits the same format. The built-in online pack is the CC0 placeholder set at
-`public/remake/packs/cc0-placeholders/`.
+emits the same format. The built-in online pack is the CC0 clinical vector set at
+`public/remake/packs/cc0-clinical-vector/`. The earlier CC0 outline
+placeholders remain at `public/remake/packs/cc0-placeholders/` and can
+be chosen in the Image pack window.
 
 ## Zip layout
 
@@ -120,12 +122,17 @@ selectors:
 
 ## How the remake uses a pack
 
-1. **Built-in** — `public/remake/packs/cc0-placeholders/` is shipped with the
-   site (CC0 artwork; geometry copied from the extracted Onelist.ini).
-2. **Upload** — the user selects a `.zip` in the browser. It is unzipped
-   client-side (`fflate`), validated, and stored in IndexedDB (`penpad-remake` /
-   `packs`). It persists across reloads until the user reverts to the built-in
-   pack.
+1. **Built-in** — `public/remake/packs/cc0-clinical-vector/` is the default
+   pack shipped with the site (CC0 clinical vector artwork; geometry from the
+   extracted Onelist.ini). `public/remake/packs/cc0-placeholders/` is also
+   shipped and can be selected in the Image pack window. `?images=placeholders`
+   forces the outline pack.
+2. **Upload** — the Image pack window accepts a `.zip` (file picker or
+   drag-and-drop). It is unzipped client-side (`fflate`), validated, and stored
+   in IndexedDB (`penpad-remake` / `packs`). Several uploaded packs can be kept
+   at once; the active one is remembered until you switch, remove it, or revert
+   to the default built-in pack. `?pack=` with an http(s) URL of a pack zip
+   downloads and installs it the same way.
 3. **Local dev** — `?images=local` loads `remake/local-originals/pack.yaml` and
    the files beside it (gitignored). Unzip a pack there, or have the extractor
    write one and unpack it. The Vite dev server serves this folder and does

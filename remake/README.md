@@ -19,7 +19,7 @@ This is an independent recreation of a PEN&PAD / 1998 Clinergy-style data-entry 
 
 Artwork and all body-map hotspot coordinates travel together as an **image pack** (`penpad-image-pack/v1`). The format is documented in [`docs/image-pack.md`](../docs/image-pack.md).
 
-The public build ships a built-in pack of CC0 placeholders at `public/remake/packs/cc0-placeholders/` (simple self-made outlines, clearly marked placeholder). You can upload a different pack zip in the browser; it is unzipped client-side and stored in IndexedDB until you revert to the built-in pack.
+The public build’s default artwork is a built-in **CC0 clinical vector** pack at `public/remake/packs/cc0-clinical-vector/` (new original drawings, dedicated to the public domain). The earlier CC0 outline placeholders remain at `public/remake/packs/cc0-placeholders/` and can be chosen in the **Image pack** window. That window (from the Image pack… button on the desktop, or the title-bar menu on the host and data-entry windows) lets you upload a pack zip — drop or file picker — keep several packs in IndexedDB, switch, remove, or revert to the built-in pack. `?pack=` with the URL of a pack zip also loads one. `?images=placeholders` forces the outline pack; `?images=local` still loads a private unpacked folder.
 
 Original Clinergy images must **never** be committed or published. To load a locally produced pack **privately** on your machine, see [`local-originals/README.md`](local-originals/README.md). A CI / test guard fails if a fingerprint of any original image appears in the git tree or in `dist/` (the existing workbench extract `data/Mus_hand.png` is the only allowlisted path).
 
