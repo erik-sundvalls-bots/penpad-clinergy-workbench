@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="148" viewBox="0 0 96 148" role="img" aria-label="Hand back (placeholder)">
+  <title>Hand back (placeholder) — PLACEHOLDER · CC0</title>
+  <!-- Independent outline artwork for the PEN&amp;PAD-style body-map remake.
+       Not traced from the 1998 Clinergy bitmaps. Dedicated to the public domain (CC0 1.0). -->
+  <rect width="96" height="148" fill="#f4f1ea" stroke="#b7b1a4" stroke-width="1"/>
+  
+  <text x="48.0" y="12" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" fill="#8a6a28">PLACEHOLDER · CC0</text>
+  <path d="M8 42 L62 40 L64 100 L6 100 Z" fill="#efe8d8" stroke="#2c4a38" stroke-width="1.5"/>
+  <path d="M62 50 L84 70 L82 96 L60 90 Z" fill="#efe8d8" stroke="#2c4a38" stroke-width="1.5"/>
+  <rect x="10" y="8" width="12" height="36" rx="5" fill="#efe8d8" stroke="#2c4a38" stroke-width="1.4"/>
+  <rect x="24" y="4" width="14" height="40" rx="5" fill="#efe8d8" stroke="#2c4a38" stroke-width="1.4"/>
+  <rect x="40" y="8" width="13" height="36" rx="5" fill="#efe8d8" stroke="#2c4a38" stroke-width="1.4"/>
+  <rect x="55" y="16" width="12" height="30" rx="5" fill="#efe8d8" stroke="#2c4a38" stroke-width="1.4"/>
+  <!-- knuckle marks (schematic, not copied) -->
+  <circle cx="16" cy="48" r="2" fill="none" stroke="#2c4a38"/>
+  <circle cx="31" cy="48" r="2" fill="none" stroke="#2c4a38"/>
+  <circle cx="46" cy="48" r="2" fill="none" stroke="#2c4a38"/>
+  <circle cx="60" cy="50" r="2" fill="none" stroke="#2c4a38"/>
+  <text x="48" y="120" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" fill="#5c564c">hand (back)</text>
+
+  <text x="4" y="144" font-family="system-ui,sans-serif" font-size="7" fill="#9a8f7c">PLACEHOLDER · CC0</text>
+
+</svg>

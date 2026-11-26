@@ -2,3 +2,7 @@ node_modules/
 dist/
 *.log
 .DS_Store
+
+# Remake: original Clinergy images, local-only. Never publish.
+remake/local-originals/**
+!remake/local-originals/README.md

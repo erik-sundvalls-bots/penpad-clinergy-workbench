@@ -1,0 +1,2935 @@
+{
+  "description": "SHA-256 fingerprints of 1998 Clinergy demo images extracted for local reference only. This file contains hashes, not image bytes. Used by the remake image guard so originals cannot land in the repo or dist.",
+  "source": "clinergy-extractor out/clinergy-extract-out/images",
+  "files": [
+    {
+      "path": "bitmaps/B_back.png",
+      "sha256": "1b96d873869be0ac1484c840d3fcc0721f15fff710ec482162269b953cb7f8f8",
+      "bytes": 2208,
+      "name": "B_back.png"
+    },
+    {
+      "path": "bitmaps/B_pleg.png",
+      "sha256": "d2297f67d593295eddae3533e6635cacd42b65b2dbdfd2f97db4ba045fd070f4",
+      "bytes": 1444,
+      "name": "B_pleg.png"
+    },
+    {
+      "path": "bitmaps/Banner.png",
+      "sha256": "7b0496885f30e907a6e01279af5c798c38f0e81bc8316be975c2223e028c95b7",
+      "bytes": 36524,
+      "name": "Banner.png"
+    },
+    {
+      "path": "bitmaps/CLBAN16.png",
+      "sha256": "67cd57fa20e1fc89bd876e187106e9e4191cc7c57ba208da0e9ec65bb4c9d623",
+      "bytes": 30559,
+      "name": "CLBAN16.png"
+    },
+    {
+      "path": "bitmaps/Clban256.png",
+      "sha256": "337bb9ad25394d9e495c57c7156539746a536a9c705b13edd4190a33a6389a99",
+      "bytes": 44391,
+      "name": "Clban256.png"
+    },
+    {
+      "path": "bitmaps/Clinicon.png",
+      "sha256": "795a4b8de0db7d58f3bda560af70553cf4945537424c3b46f7f0425961c867a5",
+      "bytes": 622,
+      "name": "Clinicon.png"
+    },
+    {
+      "path": "bitmaps/F_main.jk.png",
+      "sha256": "53a24eb3c0421e877335b015e0c9d58af653a7a3c8c3376b1c5073e9af70216f",
+      "bytes": 32857,
+      "name": "F_main.jk.png"
+    },
+    {
+      "path": "bitmaps/Icon.png",
+      "sha256": "ecf1c265b1dc3ab7a5a13635858fe5c459335f7b66ca520770faf9f549f5f92e",
+      "bytes": 1143,
+      "name": "Icon.png"
+    },
+    {
+      "path": "bitmaps/M_abdo.hf.png",
+      "sha256": "9c5393af0375ceca72214956bb60ff7d0979704ccd2fa303c8bafdec92395e8b",
+      "bytes": 1603,
+      "name": "M_abdo.hf.png"
+    },
+    {
+      "path": "bitmaps/M_abdo.jk.png",
+      "sha256": "86cb308fa12115d69f3ad808eb266f161225cf907e547c2d7b6c642972d20d6c",
+      "bytes": 5261,
+      "name": "M_abdo.jk.png"
+    },
+    {
+      "path": "bitmaps/Mss1.png",
+      "sha256": "170315bfa53f44bd133c1686c74df206db01f2c9aee6a752e713512982a65a49",
+      "bytes": 288,
+      "name": "Mss1.png"
+    },
+    {
+      "path": "bitmaps/Mss2.png",
+      "sha256": "c44be1733ccd33bdbadfff3a840faa44117f5296a915ec86de807694442cfb58",
+      "bytes": 290,
+      "name": "Mss2.png"
+    },
+    {
+      "path": "bitmaps/Tsdis1.png",
+      "sha256": "96d2207edcf99213f87e54fccc69999cfd4dad6e21b0e76b143995472b10292d",
+      "bytes": 141,
+      "name": "Tsdis1.png"
+    },
+    {
+      "path": "bitmaps/Tsdis2.png",
+      "sha256": "cd49d4de8cf48629024121d96975a1d96bbc171166b65e39aa6b681d888e98ec",
+      "bytes": 143,
+      "name": "Tsdis2.png"
+    },
+    {
+      "path": "bitmaps/Tsfh1.png",
+      "sha256": "128763e92fdaa9c3a1ff867e61904953b213f9a75506f5bb3deddbda2eb6f6f8",
+      "bytes": 123,
+      "name": "Tsfh1.png"
+    },
+    {
+      "path": "bitmaps/Tsfh2.png",
+      "sha256": "4bf510539fda1c3f2b2ee4ee531ae064520090b72ec1e01fd361b05dbb5db3a0",
+      "bytes": 124,
+      "name": "Tsfh2.png"
+    },
+    {
+      "path": "bitmaps/Tshc1.png",
+      "sha256": "e64032b635af722f70eae4793b1dbf501bdc19a55e1daa1d58cc7bf85f7c31ea",
+      "bytes": 161,
+      "name": "Tshc1.png"
+    },
+    {
+      "path": "bitmaps/Tshc2.png",
+      "sha256": "1d159dc75a6fea7855625dcda6c3a1ad5069ab871aa8681e3c14af15e3c02a49",
+      "bytes": 161,
+      "name": "Tshc2.png"
+    },
+    {
+      "path": "bitmaps/Tspmh1.png",
+      "sha256": "b2948c85c8672da5a9b10677cdb0a3ee77700ed7a9bad0710e7bd55f6e8e2201",
+      "bytes": 145,
+      "name": "Tspmh1.png"
+    },
+    {
+      "path": "bitmaps/Tspmh2.png",
+      "sha256": "279d401ffebf91e65b9046a66618cc153557efd6111fe6cd27fda087ad782c82",
+      "bytes": 146,
+      "name": "Tspmh2.png"
+    },
+    {
+      "path": "bitmaps/Tsproc1.png",
+      "sha256": "2121f70d48914d28ce2c0660ddde457648f14181986a1094e71c4967edfcd7ca",
+      "bytes": 148,
+      "name": "Tsproc1.png"
+    },
+    {
+      "path": "bitmaps/Tsproc2.png",
+      "sha256": "33535670f85dc42e88aff73e0bc05138966aa4c63ba6934b62b7087d9863aadb",
+      "bytes": 150,
+      "name": "Tsproc2.png"
+    },
+    {
+      "path": "bitmaps/Tssh1.png",
+      "sha256": "91fbc0d6282ca457a183840e78611d134df09e2d624b98beaac3c2bc1705dd98",
+      "bytes": 140,
+      "name": "Tssh1.png"
+    },
+    {
+      "path": "bitmaps/Tssh2.png",
+      "sha256": "df7aab31ae65556ed67592746277da0c829567c5e9692c5dc5108371c51f0813",
+      "bytes": 141,
+      "name": "Tssh2.png"
+    },
+    {
+      "path": "bitmaps/Tssym1.png",
+      "sha256": "f3a020d0e56d18ab51cd3df474c86cfeaaa79c3938d267d3b3a82309def70b55",
+      "bytes": 156,
+      "name": "Tssym1.png"
+    },
+    {
+      "path": "bitmaps/Tssym2.png",
+      "sha256": "0512ed7f56acb496adea5283a0cc3054a6f3037c404473b5e265416a9cc9083e",
+      "bytes": 158,
+      "name": "Tssym2.png"
+    },
+    {
+      "path": "bitmaps/installer/CLBAN16.png",
+      "sha256": "67cd57fa20e1fc89bd876e187106e9e4191cc7c57ba208da0e9ec65bb4c9d623",
+      "bytes": 30559,
+      "name": "CLBAN16.png"
+    },
+    {
+      "path": "bitmaps/installer/DLGIMAGE.png",
+      "sha256": "10150a1fef7d5eb6a67faac6814910ee8ce4497fbacf449ad5fe1057d9c71096",
+      "bytes": 4475,
+      "name": "DLGIMAGE.png"
+    },
+    {
+      "path": "bitmaps/tsProc3.png",
+      "sha256": "ce766317d732d6f7045991f7322725618dbb9a5f5d84b5f2e31888fb4cf32e31",
+      "bytes": 147,
+      "name": "tsProc3.png"
+    },
+    {
+      "path": "bitmaps/tspmh3.png",
+      "sha256": "aa24ecfc1b31c195ddfe42cb0c139858cc8a43c82a13ffbed017b67b907099bf",
+      "bytes": 144,
+      "name": "tspmh3.png"
+    },
+    {
+      "path": "bitmaps/vb-forms/windemo-vb-42712.png",
+      "sha256": "e878950f8091ec010cf5cc723bdea027a8539cf7147cfea199c2f666232dcd4e",
+      "bytes": 69,
+      "name": "windemo-vb-42712.png"
+    },
+    {
+      "path": "bodymap/Abdcvs.png",
+      "sha256": "4f86cc52c99c745c63c6ddb81504cb7d4d13c6f091038d39b043e806d4e4743a",
+      "bytes": 1290,
+      "name": "Abdcvs.png"
+    },
+    {
+      "path": "bodymap/Arm_art2.png",
+      "sha256": "92341d513ff12d86ad2621aeed4c55338be7a942ca73f8ea0c7452aa51824454",
+      "bytes": 4253,
+      "name": "Arm_art2.png"
+    },
+    {
+      "path": "bodymap/Armnrv2.png",
+      "sha256": "eb56f509a7df82d8fcdcf422a154431d4e8005e6195ad2f9a79fd08df12278cd",
+      "bytes": 2946,
+      "name": "Armnrv2.png"
+    },
+    {
+      "path": "bodymap/Armvein2.png",
+      "sha256": "287bf8f5cf765e4282cd3d0466392cc6738cd00662f89c3b226d833ed8b622ab",
+      "bytes": 4210,
+      "name": "Armvein2.png"
+    },
+    {
+      "path": "bodymap/B_aleg.png",
+      "sha256": "ab5b99bb28da429db93a24982344ba9afe57be444deb6568f102edbbf30996a0",
+      "bytes": 1372,
+      "name": "B_aleg.png"
+    },
+    {
+      "path": "bodymap/B_bhnd.png",
+      "sha256": "6dd483a87c3cb60b4249dbd37c7ae138db21c74a0dcb55bd7d093171f864e014",
+      "bytes": 1425,
+      "name": "B_bhnd.png"
+    },
+    {
+      "path": "bodymap/B_dfoot.png",
+      "sha256": "e4d133b9196c490c29394fd19aabf7744a5d38c9ef12fad2679d812289ee8e62",
+      "bytes": 1175,
+      "name": "B_dfoot.png"
+    },
+    {
+      "path": "bodymap/B_fhnd.png",
+      "sha256": "a494608cbeb5291d4217cf23c6a4ece8de6ea5ca7842a029bf5820bc32be8285",
+      "bytes": 1427,
+      "name": "B_fhnd.png"
+    },
+    {
+      "path": "bodymap/B_mth.png",
+      "sha256": "a58eaa863f0a515fdebf6fa299edb63ca679c7ef51c7ef31b633e7202b573a8a",
+      "bytes": 2389,
+      "name": "B_mth.png"
+    },
+    {
+      "path": "bodymap/B_sfoot.png",
+      "sha256": "4e0a711ddcd0b115c5aa0e45e4309bafc45a2e4e06075a50632761bf1c1c3fa4",
+      "bytes": 1335,
+      "name": "B_sfoot.png"
+    },
+    {
+      "path": "bodymap/Bckspc.png",
+      "sha256": "2611e09bbef913b9c52393489cca317b38e892239663c5ca71ce9d13ac74bab9",
+      "bytes": 2281,
+      "name": "Bckspc.png"
+    },
+    {
+      "path": "bodymap/Brain.png",
+      "sha256": "6d4b63339ee81919ffb32c92f5853446caad7557f7db92994d4fcbc9aa6502f8",
+      "bytes": 1661,
+      "name": "Brain.png"
+    },
+    {
+      "path": "bodymap/Brainext.png",
+      "sha256": "651f4fce3fda3525beb29790fae0139502734141021b9a3e854b49726e2042c3",
+      "bytes": 10013,
+      "name": "Brainext.png"
+    },
+    {
+      "path": "bodymap/Crannerv.png",
+      "sha256": "89e49b3c6ada5d0ba45c1fa8608da2266fd9f6e9429cb5f4d3c06052efdf188a",
+      "bytes": 2872,
+      "name": "Crannerv.png"
+    },
+    {
+      "path": "bodymap/Cvsaa.png",
+      "sha256": "67dffaa5de1f7b90ba36db004c044ae3a579706daa16589e9b20a641865a2a54",
+      "bytes": 2943,
+      "name": "Cvsaa.png"
+    },
+    {
+      "path": "bodymap/Cvsav.png",
+      "sha256": "fe0e10cffe7433926cb93e912e20a4da85f55c2b218762e81ab29eb5d44d2b94",
+      "bytes": 3397,
+      "name": "Cvsav.png"
+    },
+    {
+      "path": "bodymap/Cvsla.png",
+      "sha256": "75237a4cf26ddfb37eed5e4b262d085469672e57bceb0a0e8176803736e853bf",
+      "bytes": 2872,
+      "name": "Cvsla.png"
+    },
+    {
+      "path": "bodymap/Cvslv.png",
+      "sha256": "764e4ede40738ce3289831a673865044fb097e7d5ca7c536fc4f0876d988aac2",
+      "bytes": 2369,
+      "name": "Cvslv.png"
+    },
+    {
+      "path": "bodymap/Cvsmain.png",
+      "sha256": "27d5503a81c0e5e561167902034a76fecfe4cb7e8b3f4958d6315e18fa8b71c1",
+      "bytes": 7214,
+      "name": "Cvsmain.png"
+    },
+    {
+      "path": "bodymap/Digmain.png",
+      "sha256": "e4d03d0d0316cd1017eb6fa0adf4442c198268cb916e5f152ab2d10bbc4699c0",
+      "bytes": 5328,
+      "name": "Digmain.png"
+    },
+    {
+      "path": "bodymap/Endmain.png",
+      "sha256": "a8fa69b217c0f8c4618dc8e2b2194e4fbddb1ad1dd9727914f092fd8a6fd58f4",
+      "bytes": 3032,
+      "name": "Endmain.png"
+    },
+    {
+      "path": "bodymap/Endomain.png",
+      "sha256": "e538927ebb453ebd51f4bd4db9b7ac7be9bf2fbb6bd256de06ae3191b491cb26",
+      "bytes": 4402,
+      "name": "Endomain.png"
+    },
+    {
+      "path": "bodymap/Entmain.png",
+      "sha256": "4bf6c2d487dd6d701448603c0418db4499f29a714be8571ae26ed5b3b9ebe0c7",
+      "bytes": 5408,
+      "name": "Entmain.png"
+    },
+    {
+      "path": "bodymap/Eye3.png",
+      "sha256": "64668631ceb5d66dc4f911e73a394dc877cf311c7d79a1a321905214667eb87a",
+      "bytes": 9560,
+      "name": "Eye3.png"
+    },
+    {
+      "path": "bodymap/F_abdo.png",
+      "sha256": "60344dfaa9390de1add1dff774a8d76ba87a9135f90786943a58bffbbefa517e",
+      "bytes": 1659,
+      "name": "F_abdo.png"
+    },
+    {
+      "path": "bodymap/F_arm.png",
+      "sha256": "fd1d6c1a573127b6867053a54a5c30513020c295057e3328254a9648ffb8b06f",
+      "bytes": 1820,
+      "name": "F_arm.png"
+    },
+    {
+      "path": "bodymap/F_back.png",
+      "sha256": "a30786c2dcdca8b1c1f6456ead8ff14826b299a565d874cca14c08749ac84bcc",
+      "bytes": 1996,
+      "name": "F_back.png"
+    },
+    {
+      "path": "bodymap/F_chest.png",
+      "sha256": "114d886c444ea43ccce21a55409e464cfebb06a74ca977c3d1f597192a92dcb9",
+      "bytes": 1916,
+      "name": "F_chest.png"
+    },
+    {
+      "path": "bodymap/F_gen_u.png",
+      "sha256": "f67077fb2d5e979de9d3dbeed29441607a6e7bd7ff80b23b4817273273b0db35",
+      "bytes": 4400,
+      "name": "F_gen_u.png"
+    },
+    {
+      "path": "bodymap/F_head.png",
+      "sha256": "7d26da021fef768d922d275d33e2ae75959f6f81cd546015d6dcc1a86a0751e9",
+      "bytes": 2532,
+      "name": "F_head.png"
+    },
+    {
+      "path": "bodymap/F_main.png",
+      "sha256": "3e7ecc5c33d76dda35c22a58d266e501a40c06930f764a2a71008d87b47c4e58",
+      "bytes": 5591,
+      "name": "F_main.png"
+    },
+    {
+      "path": "bodymap/F_pelv.png",
+      "sha256": "7cedabc65019105ecba0f0041036a8ac2d9d4c075452125cf3b8290dec6f8496",
+      "bytes": 1700,
+      "name": "F_pelv.png"
+    },
+    {
+      "path": "bodymap/F_pelvdi.png",
+      "sha256": "78f5eb17d2b6a6002b19b6ea681431c931c762516dd314fe624f5ac27c907a46",
+      "bytes": 3506,
+      "name": "F_pelvdi.png"
+    },
+    {
+      "path": "bodymap/F_select.png",
+      "sha256": "3fd223ee467c8fe833af4b21ca5b09045ff52e451237eac66472113af6657c05",
+      "bytes": 7187,
+      "name": "F_select.png"
+    },
+    {
+      "path": "bodymap/Fnrvmain.png",
+      "sha256": "8538a7f3b9813faec2f80ef0e6ec69a347ce206cf76934a00b1eb54866f6105f",
+      "bytes": 6033,
+      "name": "Fnrvmain.png"
+    },
+    {
+      "path": "bodymap/Heart.png",
+      "sha256": "169d4516de3216dcfc9f761a89b7a5fc37318f4ffae330fe18a337532a59f8c2",
+      "bytes": 1248,
+      "name": "Heart.png"
+    },
+    {
+      "path": "bodymap/Leg_art2.png",
+      "sha256": "930f52ccbd6d45681f9b53ce397c5b4a807a4b7ab10331d9998e0492e667cb42",
+      "bytes": 4877,
+      "name": "Leg_art2.png"
+    },
+    {
+      "path": "bodymap/Legnrv2.png",
+      "sha256": "9f5ab2f2123a3c0d060c623a13202b18881acfdf7854228e6c69cd8cbf590d03",
+      "bytes": 2845,
+      "name": "Legnrv2.png"
+    },
+    {
+      "path": "bodymap/Legvein2.png",
+      "sha256": "0bfeb6aaf62a3173a424aca1c6a3613f832ec37f2a1571eaa37d2117df214376",
+      "bytes": 3820,
+      "name": "Legvein2.png"
+    },
+    {
+      "path": "bodymap/Lowres.png",
+      "sha256": "e8a8366f12c3a8d95233741f2a6e4354cb8e495b655c3caf2edf88480f844516",
+      "bytes": 3726,
+      "name": "Lowres.png"
+    },
+    {
+      "path": "bodymap/Lowresp.png",
+      "sha256": "d478ca1f634d6399d9596d4a32618b1c0725f0b33a609a03eed4cfdb9a2de01b",
+      "bytes": 5296,
+      "name": "Lowresp.png"
+    },
+    {
+      "path": "bodymap/M_abdo.png",
+      "sha256": "766c9defd568419c584d88993faca6619c0587dc2f3c697b6747e5a00abedee7",
+      "bytes": 1330,
+      "name": "M_abdo.png"
+    },
+    {
+      "path": "bodymap/M_arm.png",
+      "sha256": "4611dea47337a339fef51b3f160878b6fab83fa01cfe5f42957b2e6c59f96b0f",
+      "bytes": 1845,
+      "name": "M_arm.png"
+    },
+    {
+      "path": "bodymap/M_back.png",
+      "sha256": "2c4298b023487cb1681ded2b9fe3db7476bbbef1f7d019bfd2f97e220c2aa98b",
+      "bytes": 1973,
+      "name": "M_back.png"
+    },
+    {
+      "path": "bodymap/M_ches.png",
+      "sha256": "91aea701122b18b3beb1b42501cc8fe7c3e3afa84ef66d7f485a87a8caf7733c",
+      "bytes": 1694,
+      "name": "M_ches.png"
+    },
+    {
+      "path": "bodymap/M_gen_u.png",
+      "sha256": "ad53318c2c37cfc8b7894d0fd94a1edc3b4eff0fdad43e58cf99db95a2e7a81c",
+      "bytes": 5237,
+      "name": "M_gen_u.png"
+    },
+    {
+      "path": "bodymap/M_head.png",
+      "sha256": "7897c66d1e857fcde121b282f70e5570ad1beca579303f6ed241874bbc8f673e",
+      "bytes": 2482,
+      "name": "M_head.png"
+    },
+    {
+      "path": "bodymap/M_main.png",
+      "sha256": "10d7589cb58cef37fa4f8e27ba2121d77b7b20726720b85229ac8b277a3d2946",
+      "bytes": 5563,
+      "name": "M_main.png"
+    },
+    {
+      "path": "bodymap/M_pelv.png",
+      "sha256": "0ff154f014f7d9826fe567c64173444737a59e43e324ffa10b28d3aa81638156",
+      "bytes": 1914,
+      "name": "M_pelv.png"
+    },
+    {
+      "path": "bodymap/M_pelvdi.png",
+      "sha256": "feeeffc8e4b7daa3f8d75542b33f07a02b96e92e597c5a1e108cc1399573eb2a",
+      "bytes": 3674,
+      "name": "M_pelvdi.png"
+    },
+    {
+      "path": "bodymap/M_select.png",
+      "sha256": "484a43be9cfc148f998c7ff1c141cdb3d57718b86df53e4c5fb9f819d39020e9",
+      "bytes": 7047,
+      "name": "M_select.png"
+    },
+    {
+      "path": "bodymap/Mnrvmain.png",
+      "sha256": "3f3071a0fd64fe133c9a6f64ac8159f489b7e720abefa85d9aff2eb8cb9af8bc",
+      "bytes": 6133,
+      "name": "Mnrvmain.png"
+    },
+    {
+      "path": "bodymap/Mus_foot.png",
+      "sha256": "a5a51dcbcc6c66e88b82acc8bc15e238a29156128852d063dcb4d56ab4d85ad9",
+      "bytes": 1436,
+      "name": "Mus_foot.png"
+    },
+    {
+      "path": "bodymap/Mus_hand.png",
+      "sha256": "e178f86893877bf79970c122155605d2206e1b3c2391507f5939c16dc3b01501",
+      "bytes": 1485,
+      "name": "Mus_hand.png"
+    },
+    {
+      "path": "bodymap/Mus_leg.png",
+      "sha256": "716d31526e1b53292fc979dd2d591f34605e493ede933069646560fca027b36d",
+      "bytes": 1621,
+      "name": "Mus_leg.png"
+    },
+    {
+      "path": "bodymap/Neckcvs.png",
+      "sha256": "55facb7f359642fc05b0d9c5348675426b8eb5ca203cf4aa9c3a989de21a8d08",
+      "bytes": 995,
+      "name": "Neckcvs.png"
+    },
+    {
+      "path": "bodymap/Neckcvs2.png",
+      "sha256": "497b2fcbabb5694295b65a24ba0cde1a731722fc6e595da30468c1182040ece3",
+      "bytes": 3128,
+      "name": "Neckcvs2.png"
+    },
+    {
+      "path": "bodymap/Nsarm.png",
+      "sha256": "0808b963f3201b24aaecce37adf114207a07ed662a2d7b4422f5fa3d14592ed8",
+      "bytes": 2475,
+      "name": "Nsarm.png"
+    },
+    {
+      "path": "bodymap/Nsleg.png",
+      "sha256": "e5b8c3a2bfbd078eee1c53ec60f9e5b78413586b225c110d4b55fdc65cc29a8c",
+      "bytes": 2052,
+      "name": "Nsleg.png"
+    },
+    {
+      "path": "bodymap/Ophmain.png",
+      "sha256": "23ad52fc67454722e8bc8b71847303c4ddba587ad3e9042885992f347199b4d5",
+      "bytes": 3938,
+      "name": "Ophmain.png"
+    },
+    {
+      "path": "bodymap/Respmain.png",
+      "sha256": "9ef92a8efd3c7cbf46d5308112aacfd0e0f09997f551ca9bee3af92ef0fde8a3",
+      "bytes": 6274,
+      "name": "Respmain.png"
+    },
+    {
+      "path": "bodymap/Ressys.png",
+      "sha256": "26677fc0aba8e4e6f5c00ee4c5a1d070170c1bd3585a39bc3c9fc3d5b601f45f",
+      "bytes": 4735,
+      "name": "Ressys.png"
+    },
+    {
+      "path": "bodymap/Thoraxcv.png",
+      "sha256": "428bd1d54b6e901aaf2e64ffab1c7d0ffa2b18d189a5a11498f5907b8863ebcf",
+      "bytes": 929,
+      "name": "Thoraxcv.png"
+    },
+    {
+      "path": "bodymap/Upres.png",
+      "sha256": "b04fb512bb6ec216318d0c8488f6f7a9a33fa099d4aaa01ed1717d16e4f34d64",
+      "bytes": 2614,
+      "name": "Upres.png"
+    },
+    {
+      "path": "bodymap/Upresp.png",
+      "sha256": "a4fb845dada2c28ea8024488538f513b303ede323416809894b0d6743f02ea54",
+      "bytes": 4168,
+      "name": "Upresp.png"
+    },
+    {
+      "path": "buttons/All1.png",
+      "sha256": "27e24b49b88beae8e5b3dbbbccf166ad3306354fec1fd54bf942a9c69d99b2f4",
+      "bytes": 148,
+      "name": "All1.png"
+    },
+    {
+      "path": "buttons/All2.png",
+      "sha256": "e8271636856a63339abd622e10656c647a9f3f0192bacd310965d2901fe88b46",
+      "bytes": 140,
+      "name": "All2.png"
+    },
+    {
+      "path": "buttons/Cns1.png",
+      "sha256": "d108ca9ecf7d96dc780210dcf91b62fd1215c376e4973a46ec2b0ae533c2b621",
+      "bytes": 398,
+      "name": "Cns1.png"
+    },
+    {
+      "path": "buttons/Cns2.png",
+      "sha256": "ef25474c3d1cda282612bf600f0553eeeeced6ea80212053ef1355754ba9e2bc",
+      "bytes": 388,
+      "name": "Cns2.png"
+    },
+    {
+      "path": "buttons/Cvs1.png",
+      "sha256": "0693d42e24ffd721e8046a0dc18753a6b8a5fad5c7c350ba4b2bb87426a00c69",
+      "bytes": 412,
+      "name": "Cvs1.png"
+    },
+    {
+      "path": "buttons/Cvs2.png",
+      "sha256": "829bc715da77af064a901944888fd8d62c1d01b22c336e538787409f572924a0",
+      "bytes": 417,
+      "name": "Cvs2.png"
+    },
+    {
+      "path": "buttons/Endo1.png",
+      "sha256": "8ef74a1c9a2858e7c80166148d912a1037aa027055885ed7a1427e8d774d1028",
+      "bytes": 275,
+      "name": "Endo1.png"
+    },
+    {
+      "path": "buttons/Endo2.png",
+      "sha256": "c516257fe8f355e0d9df8ba534048f59d43dce876d573b215b55ed20fece2f30",
+      "bytes": 228,
+      "name": "Endo2.png"
+    },
+    {
+      "path": "buttons/Ent1.png",
+      "sha256": "450489fe755c9fdd214bbdaed6220630241049f154edfd0d54a935ff3394f366",
+      "bytes": 331,
+      "name": "Ent1.png"
+    },
+    {
+      "path": "buttons/Ent2.png",
+      "sha256": "9f0094fb31b6e5c2b82c55a5e325d35231691c04c3907cf8caafde3e7b261861",
+      "bytes": 261,
+      "name": "Ent2.png"
+    },
+    {
+      "path": "buttons/Eye1.png",
+      "sha256": "21f917f5cb0c32b41bf6eadc723bf95f2f5ad02dcd60f0102addf7372c7efc9f",
+      "bytes": 257,
+      "name": "Eye1.png"
+    },
+    {
+      "path": "buttons/Eye2.png",
+      "sha256": "4a1b1cdb1a6a1acaab4c646cefe3556967ce23b6b14ff953b7403bf6a408d689",
+      "bytes": 260,
+      "name": "Eye2.png"
+    },
+    {
+      "path": "buttons/Gen1.png",
+      "sha256": "7eaee213edf818f624c64372bfdc3317776a35539e30e91fd97c763fffdef325",
+      "bytes": 316,
+      "name": "Gen1.png"
+    },
+    {
+      "path": "buttons/Gen2.png",
+      "sha256": "3c507238efe3d6b62d50cc47d86249b0a12e3713caf97a9a2155a46c643d7700",
+      "bytes": 293,
+      "name": "Gen2.png"
+    },
+    {
+      "path": "buttons/Gi1.png",
+      "sha256": "02b56ad7eada53944e33db71e9827d9ef07b7098070ea1b378a766fc4f4bebbc",
+      "bytes": 358,
+      "name": "Gi1.png"
+    },
+    {
+      "path": "buttons/Gi2.png",
+      "sha256": "864710e9b09542115e6ce8edc0294988f894e6856ceeb2ab62cfd36c6f33a0ed",
+      "bytes": 339,
+      "name": "Gi2.png"
+    },
+    {
+      "path": "buttons/Gu1.png",
+      "sha256": "f60df78ecbecd67f324cd089335357787a8c9c10a2918f985b34f8dac8cc5d5c",
+      "bytes": 362,
+      "name": "Gu1.png"
+    },
+    {
+      "path": "buttons/Gu2.png",
+      "sha256": "d307e62d987e509c58c0cfd87beb5368576f75eb095250f568af7646c47ff983",
+      "bytes": 303,
+      "name": "Gu2.png"
+    },
+    {
+      "path": "buttons/Lymph1.png",
+      "sha256": "cc3a83343c54cb4147b952b9c0c83a9004a9a613bc6133d7f173f553f4d6006d",
+      "bytes": 300,
+      "name": "Lymph1.png"
+    },
+    {
+      "path": "buttons/Lymph2.png",
+      "sha256": "8d8ac37c4fbdaac9d317588b0ac5f528fdbcf5b50269c94525ef763f1db29124",
+      "bytes": 294,
+      "name": "Lymph2.png"
+    },
+    {
+      "path": "buttons/Mus1.png",
+      "sha256": "a8c2db058483ba007bc90c926304d5eef479a5025fc4874876c763dcf130ca14",
+      "bytes": 287,
+      "name": "Mus1.png"
+    },
+    {
+      "path": "buttons/Mus2.png",
+      "sha256": "e1b0878f203c104b251e39fb4c24f6106c564e0426a6a4227ffe60cc67067fdb",
+      "bytes": 294,
+      "name": "Mus2.png"
+    },
+    {
+      "path": "buttons/Psy1.png",
+      "sha256": "f6db6a9b8591033cbe50e6f933666646445742882cc4950eea3190c058f1dc5d",
+      "bytes": 228,
+      "name": "Psy1.png"
+    },
+    {
+      "path": "buttons/Psy2.png",
+      "sha256": "9567b8964024888d9c591354f2fd2022329792cdb3dd08e56f0e7c405fe8fe0d",
+      "bytes": 228,
+      "name": "Psy2.png"
+    },
+    {
+      "path": "buttons/Resp1.png",
+      "sha256": "cd097ef83c347bc769ce95e8c9ada18657f9e207161a52f8f8ee47aba53e2c87",
+      "bytes": 406,
+      "name": "Resp1.png"
+    },
+    {
+      "path": "buttons/Resp2.png",
+      "sha256": "045a517d634acdc766a118f5b35ad0f6dfce8f32b3ef26067dca257cd0ed0c8b",
+      "bytes": 302,
+      "name": "Resp2.png"
+    },
+    {
+      "path": "buttons/Ske1.png",
+      "sha256": "6fa441bfc15b6bc5044cbf298cc6befbb6c601871dc2d8dc1b5176e289fd1501",
+      "bytes": 293,
+      "name": "Ske1.png"
+    },
+    {
+      "path": "buttons/Ske2.png",
+      "sha256": "d85852f9a2d17b8bc3e6fc3fd8a536d10c40b96431ad751d46b852a218422fee",
+      "bytes": 267,
+      "name": "Ske2.png"
+    },
+    {
+      "path": "buttons/Skin1.png",
+      "sha256": "1037b3f3e3c0fc95c41b339150c3b9fe98b64772a27386f9d0c7768501597f49",
+      "bytes": 266,
+      "name": "Skin1.png"
+    },
+    {
+      "path": "buttons/Skin2.png",
+      "sha256": "40c8a0de2023d9ea3507e4c57bfbe5d5c31dbceec5fb1614f7aa7d5ba24823f8",
+      "bytes": 258,
+      "name": "Skin2.png"
+    },
+    {
+      "path": "icons/ANIBTN32.OCX/cursor-207-32x32-1bpp.png",
+      "sha256": "a3646cfa221fdd8d0083cc635ae6134baeb01f582f81b0045362558ac688d04b",
+      "bytes": 195,
+      "name": "cursor-207-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/ANIBTN32.OCX/icon-10-32x32-4bpp.png",
+      "sha256": "859c3323e8c12ae2f2330f54da72fd6435f3f45d08eddaccc6f177ceb15c6fc7",
+      "bytes": 189,
+      "name": "icon-10-32x32-4bpp.png"
+    },
+    {
+      "path": "icons/COMCTL32.OCX/cursor-IDC_NODROP-32x32-1bpp.png",
+      "sha256": "356daa6c73583f2443ac54d1cefe8252007c6f555ce7ecc35f0319e43007b022",
+      "bytes": 191,
+      "name": "cursor-IDC_NODROP-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/COMCTL32.OCX/icon-216-32x32-4bpp.png",
+      "sha256": "8fa5c219faaa1cda2ef3b4910e97a899d73bcf13d38fcd207ce53eca033a06c5",
+      "bytes": 203,
+      "name": "icon-216-32x32-4bpp.png"
+    },
+    {
+      "path": "icons/COMCTL32.OCX/icon-217-32x32-4bpp.png",
+      "sha256": "4f29072405dafc5f662af925dccb43d10940c165621fc794929320e294869da6",
+      "bytes": 160,
+      "name": "icon-217-32x32-4bpp.png"
+    },
+    {
+      "path": "icons/COMCTL32.OCX/icon-218-32x32-4bpp.png",
+      "sha256": "78afbd4111c92e5d317cb697ef7ac4a9547b9cc0ce5b078c3a99ba7013d076c8",
+      "bytes": 135,
+      "name": "icon-218-32x32-4bpp.png"
+    },
+    {
+      "path": "icons/COMCTL32.OCX/icon-219-32x32-4bpp.png",
+      "sha256": "59f0c0b5ee783dfcfe9748d4d82b8bb8a135a2c056b090d221c5589bd50d69a8",
+      "bytes": 166,
+      "name": "icon-219-32x32-4bpp.png"
+    },
+    {
+      "path": "icons/COMCTL32.OCX/icon-220-32x32-4bpp.png",
+      "sha256": "109fd456179456fdde18767947441b7a9fd4681a2acb92d34c0d809a65e10bc9",
+      "bytes": 133,
+      "name": "icon-220-32x32-4bpp.png"
+    },
+    {
+      "path": "icons/COMCTL32.OCX/icon-221-32x32-4bpp.png",
+      "sha256": "d25f90fed75f0653d5c25aa267c60e3e6b198cc80382e4e565fef6fa62ca536e",
+      "bytes": 172,
+      "name": "icon-221-32x32-4bpp.png"
+    },
+    {
+      "path": "icons/COMCTL32.OCX/icon-222-32x32-4bpp.png",
+      "sha256": "fb7f6204d275aa4200561d19641ad3e4ff8b8aaa531d50948be03dbd945b895a",
+      "bytes": 145,
+      "name": "icon-222-32x32-4bpp.png"
+    },
+    {
+      "path": "icons/COMCTL32.OCX/icon-226-32x32-4bpp.png",
+      "sha256": "c274e5f7afa16d51de86aef15bbcfba9ddec2e500046f7510ee7c8444b43dfd3",
+      "bytes": 136,
+      "name": "icon-226-32x32-4bpp.png"
+    },
+    {
+      "path": "icons/COMDLG32.OCX/icon-10-32x32-4bpp.png",
+      "sha256": "4ba1bbc713351d2a2613b49250138624ba5a7ec447080d1ab423b44e9dca5531",
+      "bytes": 185,
+      "name": "icon-10-32x32-4bpp.png"
+    },
+    {
+      "path": "icons/DBGRID32.OCX/icon-2005-32x32-4bpp.png",
+      "sha256": "13eee8be9c28c567671238aebaf9074cf42ca418d6d57971ae6cded8aa998c2e",
+      "bytes": 190,
+      "name": "icon-2005-32x32-4bpp.png"
+    },
+    {
+      "path": "icons/DBLIST32.OCX/cursor-IDC_NODROP-32x32-1bpp.png",
+      "sha256": "356daa6c73583f2443ac54d1cefe8252007c6f555ce7ecc35f0319e43007b022",
+      "bytes": 191,
+      "name": "cursor-IDC_NODROP-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/DBLIST32.OCX/icon-10-32x32-4bpp.png",
+      "sha256": "c0ee84e2ab58394b6acdb87128aa56d883714a94b8dcc1da9234ce6e9b5ab2df",
+      "bytes": 210,
+      "name": "icon-10-32x32-4bpp.png"
+    },
+    {
+      "path": "icons/DBLIST32.OCX/icon-11-32x32-4bpp.png",
+      "sha256": "5c67084026c288ba28b07dd30ec629439ba368bb2c1863dcd86ece1fd88c4df1",
+      "bytes": 203,
+      "name": "icon-11-32x32-4bpp.png"
+    },
+    {
+      "path": "icons/Dem32.dll/icon-1014-32x32-4bpp.png",
+      "sha256": "c5dc17e58f051efc292f54a501a53a4f164bb68df22e81a39e3258933f2fa33e",
+      "bytes": 303,
+      "name": "icon-1014-32x32-4bpp.png"
+    },
+    {
+      "path": "icons/Dem32.dll/icon-1015-32x32-4bpp.png",
+      "sha256": "c8a1d78dd8c8e047fcdcd084ac21ebb4b4a2b7f9cd343d154b46be95db576dd3",
+      "bytes": 352,
+      "name": "icon-1015-32x32-4bpp.png"
+    },
+    {
+      "path": "icons/Deui32.dll/icon-2-32x32-4bpp.png",
+      "sha256": "6d3ca6941263647adb31edfcd66e1e375c28fd589677a4a583a2af5214094c1a",
+      "bytes": 373,
+      "name": "icon-2-32x32-4bpp.png"
+    },
+    {
+      "path": "icons/GAUGE32.OCX/icon-10-32x32-4bpp.png",
+      "sha256": "6035b2cdbed0680d0ad398e91d7155a84d48d58dc79409acfc93b0fea344f277",
+      "bytes": 173,
+      "name": "icon-10-32x32-4bpp.png"
+    },
+    {
+      "path": "icons/GRAPH32.OCX/icon-10-32x32-4bpp.png",
+      "sha256": "351f64427ea54199ec8b0957e848fda3290b6b74fcf69e22bb39933511003112",
+      "bytes": 210,
+      "name": "icon-10-32x32-4bpp.png"
+    },
+    {
+      "path": "icons/GRDKRN32.DLL/cursor-2001-32x32-1bpp.png",
+      "sha256": "996430e497f802d325263335f3e18eb717566ab6c5cc9e43c523f8a1ebb6a81b",
+      "bytes": 133,
+      "name": "cursor-2001-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/GRDKRN32.DLL/cursor-2002-32x32-1bpp.png",
+      "sha256": "956a991604ae912fa4358dc06eddb295a4a6bdea18ddee23ad2b396a707b48d8",
+      "bytes": 151,
+      "name": "cursor-2002-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/GRDKRN32.DLL/cursor-2003-32x32-1bpp.png",
+      "sha256": "a97e429bad76474fcb35c0fc6f3eeba209335a08332973040d78fcbe73c54576",
+      "bytes": 145,
+      "name": "cursor-2003-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/GRDKRN32.DLL/cursor-2011-32x32-1bpp.png",
+      "sha256": "9bf250b83b1d04c28676d7030d6a25202cdf9fbb283aa2637036940c117eebda",
+      "bytes": 130,
+      "name": "cursor-2011-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/GRDKRN32.DLL/cursor-2012-32x32-1bpp.png",
+      "sha256": "1eeb6e3bc4dc15a5f77ebeead734046595f38eddabc8170e63244daceef7d38d",
+      "bytes": 143,
+      "name": "cursor-2012-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/GRDKRN32.DLL/cursor-2013-32x32-1bpp.png",
+      "sha256": "b60d7c217fb5438b6c4404ca7bc6a9bdb469781232e302b9d866194ec8d1e334",
+      "bytes": 130,
+      "name": "cursor-2013-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/GRDKRN32.DLL/cursor-2014-32x32-1bpp.png",
+      "sha256": "756a6b1401996c4b6a444647b306d894cbbd5d425c16ce51fac4e2a41355346c",
+      "bytes": 145,
+      "name": "cursor-2014-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/GRDKRN32.DLL/cursor-2015-32x32-1bpp.png",
+      "sha256": "d93b5218a546fa3659706023b51b77a00bfc9a029e28c8fba986702e28b6f9fb",
+      "bytes": 201,
+      "name": "cursor-2015-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/GRID32.OCX/cursor-9000-32x32-1bpp.png",
+      "sha256": "f13fc8a74d283def1a57aa8e5dbcc6eab3e783b1461fc92b6681434c57ea26b7",
+      "bytes": 162,
+      "name": "cursor-9000-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/GRID32.OCX/cursor-9001-32x32-1bpp.png",
+      "sha256": "95ad315634c7a89dac7896029464acc2956efdff08e0019a776b63cdbc9b57c3",
+      "bytes": 156,
+      "name": "cursor-9001-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/GRID32.OCX/cursor-IDC_NODROP-32x32-1bpp.png",
+      "sha256": "356daa6c73583f2443ac54d1cefe8252007c6f555ce7ecc35f0319e43007b022",
+      "bytes": 191,
+      "name": "cursor-IDC_NODROP-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/GRID32.OCX/icon-10-32x32-4bpp.png",
+      "sha256": "febdb1e2fbab9a51ab6c66f85b48f43aeeba64cd8acc2980a4ac1cc737648399",
+      "bytes": 144,
+      "name": "icon-10-32x32-4bpp.png"
+    },
+    {
+      "path": "icons/GRID32.OCX/icon-ICON_ABOUT-32x32-4bpp.png",
+      "sha256": "febdb1e2fbab9a51ab6c66f85b48f43aeeba64cd8acc2980a4ac1cc737648399",
+      "bytes": 144,
+      "name": "icon-ICON_ABOUT-32x32-4bpp.png"
+    },
+    {
+      "path": "icons/GRID32.OCX/icon-ICON_ABOUT1-32x32-4bpp.png",
+      "sha256": "febdb1e2fbab9a51ab6c66f85b48f43aeeba64cd8acc2980a4ac1cc737648399",
+      "bytes": 144,
+      "name": "icon-ICON_ABOUT1-32x32-4bpp.png"
+    },
+    {
+      "path": "icons/KEYSTA32.OCX/icon-10-32x32-4bpp.png",
+      "sha256": "420985653f9c1bc05cd4cb8f3655c736562075c92d3429c7fda37cf15bf4717a",
+      "bytes": 199,
+      "name": "icon-10-32x32-4bpp.png"
+    },
+    {
+      "path": "icons/MFC40.DLL/cursor-30977-16x16-1bpp.png",
+      "sha256": "f3ee9ecd6febcb38744af4b29cef92c02dcb919c59de13377c8a000dd55b2d8d",
+      "bytes": 157,
+      "name": "cursor-30977-16x16-1bpp.png"
+    },
+    {
+      "path": "icons/MFC40.DLL/cursor-30977-32x32-1bpp.png",
+      "sha256": "3bd3be91c2378d631979114ad9c5c149cebb7d125566af7f40a2b67fb63bb5c7",
+      "bytes": 219,
+      "name": "cursor-30977-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/MFC40.DLL/cursor-30978-16x16-1bpp.png",
+      "sha256": "e310b4e4cc5e51af0577ec5ed2d2d93d3c04001b7657c61d348de52021b985cf",
+      "bytes": 134,
+      "name": "cursor-30978-16x16-1bpp.png"
+    },
+    {
+      "path": "icons/MFC40.DLL/cursor-30978-32x32-1bpp.png",
+      "sha256": "e28b874ffdd0e707d336ebe3841f414a362acaf857e6bcd09192de31563eef90",
+      "bytes": 154,
+      "name": "cursor-30978-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/MFC40.DLL/cursor-30979-16x16-1bpp.png",
+      "sha256": "2896329062344e75c43c0c3734c73ec37209ef223cd6839a9bf59ac2fefdce38",
+      "bytes": 149,
+      "name": "cursor-30979-16x16-1bpp.png"
+    },
+    {
+      "path": "icons/MFC40.DLL/cursor-30979-32x32-1bpp.png",
+      "sha256": "36b441aecd21deacfee37843b7c199de84ebec683013fa8e7b6197b2d96479d2",
+      "bytes": 163,
+      "name": "cursor-30979-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/MFC40.DLL/cursor-30980-16x16-1bpp.png",
+      "sha256": "602d3cc44ff5b761f867c0f91c19d588cfa89a8cb7defbee5e100326e5c80846",
+      "bytes": 129,
+      "name": "cursor-30980-16x16-1bpp.png"
+    },
+    {
+      "path": "icons/MFC40.DLL/cursor-30980-32x32-1bpp.png",
+      "sha256": "15d422b93b0a61f1a57e7d151da7fca389d9858ab7e51857c539c9d9bfad8e87",
+      "bytes": 157,
+      "name": "cursor-30980-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/MFC40.DLL/cursor-30981-16x16-1bpp.png",
+      "sha256": "78698e9ca24ef2056530090fc33bef18120f042d371ecd671c9e07dcf813e1ed",
+      "bytes": 141,
+      "name": "cursor-30981-16x16-1bpp.png"
+    },
+    {
+      "path": "icons/MFC40.DLL/cursor-30981-32x32-1bpp.png",
+      "sha256": "3250161fe725077b3d5f629d0c44ff0d283e25138ce281aa7208bdb58c26833d",
+      "bytes": 145,
+      "name": "cursor-30981-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/MFC40.DLL/cursor-30982-16x16-1bpp.png",
+      "sha256": "0e6f141462b3149f5f44df368c44eaf2a9e8228c7f1cbcd99e7dd2d10aabe6ec",
+      "bytes": 146,
+      "name": "cursor-30982-16x16-1bpp.png"
+    },
+    {
+      "path": "icons/MFC40.DLL/cursor-30982-32x32-1bpp.png",
+      "sha256": "a3646cfa221fdd8d0083cc635ae6134baeb01f582f81b0045362558ac688d04b",
+      "bytes": 195,
+      "name": "cursor-30982-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/MFC40.DLL/cursor-30983-16x16-1bpp.png",
+      "sha256": "5c6fa28bce94696b965141018af42c8b2e440d18ba2372d0eee706da5b3da7fb",
+      "bytes": 112,
+      "name": "cursor-30983-16x16-1bpp.png"
+    },
+    {
+      "path": "icons/MFC40.DLL/cursor-30983-32x32-1bpp.png",
+      "sha256": "57aae14b8cf3b3c63ca29f51bc6118aaaf0f40e9cc273e10d1f31bcf89b53a28",
+      "bytes": 141,
+      "name": "cursor-30983-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/MFC40.DLL/cursor-30984-16x16-1bpp.png",
+      "sha256": "d5c6d582eb9a0ff41f8c8c2534e90e91d98287f1384a97bd72e94302fd033913",
+      "bytes": 116,
+      "name": "cursor-30984-16x16-1bpp.png"
+    },
+    {
+      "path": "icons/MFC40.DLL/cursor-30984-32x32-1bpp.png",
+      "sha256": "e8417601b1bb9c0e3d423ee8973ae332c87aa66264a39d2c70234eab648ce36c",
+      "bytes": 150,
+      "name": "cursor-30984-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/MFC40.DLL/cursor-30985-16x16-1bpp.png",
+      "sha256": "4d812b5911d5a3dc2326a87e5ab485d427d051d95784684a891c4d8d30e0449b",
+      "bytes": 120,
+      "name": "cursor-30985-16x16-1bpp.png"
+    },
+    {
+      "path": "icons/MFC40.DLL/cursor-30985-32x32-1bpp.png",
+      "sha256": "b774c06bc5b6364152ee749d95e0807f81e4b78e811025c0fc7fea2274c6ee33",
+      "bytes": 132,
+      "name": "cursor-30985-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/MFC40.DLL/cursor-30986-16x16-1bpp.png",
+      "sha256": "5783fe657894acdb35aed7e0c4168f81cb409cb225c1dde6bc7be75a32241378",
+      "bytes": 108,
+      "name": "cursor-30986-16x16-1bpp.png"
+    },
+    {
+      "path": "icons/MFC40.DLL/cursor-30986-32x32-1bpp.png",
+      "sha256": "5bacf2b1aa44e7cd13d73be04fc6fdc96d021e95e746c3d7879fe694fac5f61f",
+      "bytes": 128,
+      "name": "cursor-30986-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/MFC40.DLL/cursor-30987-16x16-1bpp.png",
+      "sha256": "2896329062344e75c43c0c3734c73ec37209ef223cd6839a9bf59ac2fefdce38",
+      "bytes": 149,
+      "name": "cursor-30987-16x16-1bpp.png"
+    },
+    {
+      "path": "icons/MFC40.DLL/cursor-30987-32x32-1bpp.png",
+      "sha256": "db26f4c23e0be05fc773f11679db5f78467245298cea7f91b21c10d45f539fcd",
+      "bytes": 163,
+      "name": "cursor-30987-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/MFC40.DLL/cursor-30988-16x16-1bpp.png",
+      "sha256": "c039189fa0cb160cd488b44624ab356c6426a1ea390fd5eb681c3826079d66bc",
+      "bytes": 135,
+      "name": "cursor-30988-16x16-1bpp.png"
+    },
+    {
+      "path": "icons/MFC40.DLL/cursor-30988-32x32-1bpp.png",
+      "sha256": "a70ddbe034a550edae39a865f3bf1188c765ea58096041fdbb1db36b149005a0",
+      "bytes": 219,
+      "name": "cursor-30988-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/MSCOMM32.OCX/cursor-30977-16x16-1bpp.png",
+      "sha256": "f3ee9ecd6febcb38744af4b29cef92c02dcb919c59de13377c8a000dd55b2d8d",
+      "bytes": 157,
+      "name": "cursor-30977-16x16-1bpp.png"
+    },
+    {
+      "path": "icons/MSCOMM32.OCX/cursor-30977-32x32-1bpp.png",
+      "sha256": "3bd3be91c2378d631979114ad9c5c149cebb7d125566af7f40a2b67fb63bb5c7",
+      "bytes": 219,
+      "name": "cursor-30977-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/MSCOMM32.OCX/cursor-30979-16x16-1bpp.png",
+      "sha256": "2896329062344e75c43c0c3734c73ec37209ef223cd6839a9bf59ac2fefdce38",
+      "bytes": 149,
+      "name": "cursor-30979-16x16-1bpp.png"
+    },
+    {
+      "path": "icons/MSCOMM32.OCX/cursor-30979-32x32-1bpp.png",
+      "sha256": "36b441aecd21deacfee37843b7c199de84ebec683013fa8e7b6197b2d96479d2",
+      "bytes": 163,
+      "name": "cursor-30979-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/MSCOMM32.OCX/cursor-30980-16x16-1bpp.png",
+      "sha256": "602d3cc44ff5b761f867c0f91c19d588cfa89a8cb7defbee5e100326e5c80846",
+      "bytes": 129,
+      "name": "cursor-30980-16x16-1bpp.png"
+    },
+    {
+      "path": "icons/MSCOMM32.OCX/cursor-30980-32x32-1bpp.png",
+      "sha256": "15d422b93b0a61f1a57e7d151da7fca389d9858ab7e51857c539c9d9bfad8e87",
+      "bytes": 157,
+      "name": "cursor-30980-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/MSCOMM32.OCX/cursor-30981-16x16-1bpp.png",
+      "sha256": "78698e9ca24ef2056530090fc33bef18120f042d371ecd671c9e07dcf813e1ed",
+      "bytes": 141,
+      "name": "cursor-30981-16x16-1bpp.png"
+    },
+    {
+      "path": "icons/MSCOMM32.OCX/cursor-30981-32x32-1bpp.png",
+      "sha256": "3250161fe725077b3d5f629d0c44ff0d283e25138ce281aa7208bdb58c26833d",
+      "bytes": 145,
+      "name": "cursor-30981-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/MSCOMM32.OCX/cursor-30982-16x16-1bpp.png",
+      "sha256": "0e6f141462b3149f5f44df368c44eaf2a9e8228c7f1cbcd99e7dd2d10aabe6ec",
+      "bytes": 146,
+      "name": "cursor-30982-16x16-1bpp.png"
+    },
+    {
+      "path": "icons/MSCOMM32.OCX/cursor-30982-32x32-1bpp.png",
+      "sha256": "a3646cfa221fdd8d0083cc635ae6134baeb01f582f81b0045362558ac688d04b",
+      "bytes": 195,
+      "name": "cursor-30982-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/MSCOMM32.OCX/cursor-30983-16x16-1bpp.png",
+      "sha256": "5c6fa28bce94696b965141018af42c8b2e440d18ba2372d0eee706da5b3da7fb",
+      "bytes": 112,
+      "name": "cursor-30983-16x16-1bpp.png"
+    },
+    {
+      "path": "icons/MSCOMM32.OCX/cursor-30983-32x32-1bpp.png",
+      "sha256": "57aae14b8cf3b3c63ca29f51bc6118aaaf0f40e9cc273e10d1f31bcf89b53a28",
+      "bytes": 141,
+      "name": "cursor-30983-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/MSCOMM32.OCX/cursor-30984-16x16-1bpp.png",
+      "sha256": "d5c6d582eb9a0ff41f8c8c2534e90e91d98287f1384a97bd72e94302fd033913",
+      "bytes": 116,
+      "name": "cursor-30984-16x16-1bpp.png"
+    },
+    {
+      "path": "icons/MSCOMM32.OCX/cursor-30984-32x32-1bpp.png",
+      "sha256": "e8417601b1bb9c0e3d423ee8973ae332c87aa66264a39d2c70234eab648ce36c",
+      "bytes": 150,
+      "name": "cursor-30984-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/MSCOMM32.OCX/cursor-30985-16x16-1bpp.png",
+      "sha256": "4d812b5911d5a3dc2326a87e5ab485d427d051d95784684a891c4d8d30e0449b",
+      "bytes": 120,
+      "name": "cursor-30985-16x16-1bpp.png"
+    },
+    {
+      "path": "icons/MSCOMM32.OCX/cursor-30985-32x32-1bpp.png",
+      "sha256": "b774c06bc5b6364152ee749d95e0807f81e4b78e811025c0fc7fea2274c6ee33",
+      "bytes": 132,
+      "name": "cursor-30985-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/MSCOMM32.OCX/cursor-30986-16x16-1bpp.png",
+      "sha256": "5783fe657894acdb35aed7e0c4168f81cb409cb225c1dde6bc7be75a32241378",
+      "bytes": 108,
+      "name": "cursor-30986-16x16-1bpp.png"
+    },
+    {
+      "path": "icons/MSCOMM32.OCX/cursor-30986-32x32-1bpp.png",
+      "sha256": "5bacf2b1aa44e7cd13d73be04fc6fdc96d021e95e746c3d7879fe694fac5f61f",
+      "bytes": 128,
+      "name": "cursor-30986-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/MSCOMM32.OCX/cursor-30987-16x16-1bpp.png",
+      "sha256": "2896329062344e75c43c0c3734c73ec37209ef223cd6839a9bf59ac2fefdce38",
+      "bytes": 149,
+      "name": "cursor-30987-16x16-1bpp.png"
+    },
+    {
+      "path": "icons/MSCOMM32.OCX/cursor-30987-32x32-1bpp.png",
+      "sha256": "db26f4c23e0be05fc773f11679db5f78467245298cea7f91b21c10d45f539fcd",
+      "bytes": 163,
+      "name": "cursor-30987-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/MSCOMM32.OCX/cursor-30988-16x16-1bpp.png",
+      "sha256": "c039189fa0cb160cd488b44624ab356c6426a1ea390fd5eb681c3826079d66bc",
+      "bytes": 135,
+      "name": "cursor-30988-16x16-1bpp.png"
+    },
+    {
+      "path": "icons/MSCOMM32.OCX/cursor-30988-32x32-1bpp.png",
+      "sha256": "a70ddbe034a550edae39a865f3bf1188c765ea58096041fdbb1db36b149005a0",
+      "bytes": 219,
+      "name": "cursor-30988-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/MSCOMM32.OCX/icon-10-32x32-4bpp.png",
+      "sha256": "f4cb01ad5ed2a81e7c98286c698a308f99f465a357b65e374eea830579f11440",
+      "bytes": 241,
+      "name": "icon-10-32x32-4bpp.png"
+    },
+    {
+      "path": "icons/MSCOMM32.OCX/icon-108-32x32-4bpp.png",
+      "sha256": "3aafc21785de6c5edc361b42a998859c6a08eb30df1c35a4ba9516f402357bdb",
+      "bytes": 207,
+      "name": "icon-108-32x32-4bpp.png"
+    },
+    {
+      "path": "icons/MSOUTL32.OCX/cursor-IDC_NODROP-32x32-1bpp.png",
+      "sha256": "356daa6c73583f2443ac54d1cefe8252007c6f555ce7ecc35f0319e43007b022",
+      "bytes": 191,
+      "name": "cursor-IDC_NODROP-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/MSOUTL32.OCX/icon-10-32x32-4bpp.png",
+      "sha256": "4f31c08e601ebfa1cefd80bda94efc618ecb6d048485ef48a13ab806054117cc",
+      "bytes": 165,
+      "name": "icon-10-32x32-4bpp.png"
+    },
+    {
+      "path": "icons/Mfc42.dll/cursor-30977-16x16-1bpp.png",
+      "sha256": "f3ee9ecd6febcb38744af4b29cef92c02dcb919c59de13377c8a000dd55b2d8d",
+      "bytes": 157,
+      "name": "cursor-30977-16x16-1bpp.png"
+    },
+    {
+      "path": "icons/Mfc42.dll/cursor-30977-32x32-1bpp.png",
+      "sha256": "3bd3be91c2378d631979114ad9c5c149cebb7d125566af7f40a2b67fb63bb5c7",
+      "bytes": 219,
+      "name": "cursor-30977-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/Mfc42.dll/cursor-30978-16x16-1bpp.png",
+      "sha256": "e310b4e4cc5e51af0577ec5ed2d2d93d3c04001b7657c61d348de52021b985cf",
+      "bytes": 134,
+      "name": "cursor-30978-16x16-1bpp.png"
+    },
+    {
+      "path": "icons/Mfc42.dll/cursor-30978-32x32-1bpp.png",
+      "sha256": "e28b874ffdd0e707d336ebe3841f414a362acaf857e6bcd09192de31563eef90",
+      "bytes": 154,
+      "name": "cursor-30978-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/Mfc42.dll/cursor-30979-16x16-1bpp.png",
+      "sha256": "2896329062344e75c43c0c3734c73ec37209ef223cd6839a9bf59ac2fefdce38",
+      "bytes": 149,
+      "name": "cursor-30979-16x16-1bpp.png"
+    },
+    {
+      "path": "icons/Mfc42.dll/cursor-30979-32x32-1bpp.png",
+      "sha256": "36b441aecd21deacfee37843b7c199de84ebec683013fa8e7b6197b2d96479d2",
+      "bytes": 163,
+      "name": "cursor-30979-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/Mfc42.dll/cursor-30980-16x16-1bpp.png",
+      "sha256": "602d3cc44ff5b761f867c0f91c19d588cfa89a8cb7defbee5e100326e5c80846",
+      "bytes": 129,
+      "name": "cursor-30980-16x16-1bpp.png"
+    },
+    {
+      "path": "icons/Mfc42.dll/cursor-30980-32x32-1bpp.png",
+      "sha256": "15d422b93b0a61f1a57e7d151da7fca389d9858ab7e51857c539c9d9bfad8e87",
+      "bytes": 157,
+      "name": "cursor-30980-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/Mfc42.dll/cursor-30981-16x16-1bpp.png",
+      "sha256": "78698e9ca24ef2056530090fc33bef18120f042d371ecd671c9e07dcf813e1ed",
+      "bytes": 141,
+      "name": "cursor-30981-16x16-1bpp.png"
+    },
+    {
+      "path": "icons/Mfc42.dll/cursor-30981-32x32-1bpp.png",
+      "sha256": "3250161fe725077b3d5f629d0c44ff0d283e25138ce281aa7208bdb58c26833d",
+      "bytes": 145,
+      "name": "cursor-30981-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/Mfc42.dll/cursor-30982-16x16-1bpp.png",
+      "sha256": "0e6f141462b3149f5f44df368c44eaf2a9e8228c7f1cbcd99e7dd2d10aabe6ec",
+      "bytes": 146,
+      "name": "cursor-30982-16x16-1bpp.png"
+    },
+    {
+      "path": "icons/Mfc42.dll/cursor-30982-32x32-1bpp.png",
+      "sha256": "a3646cfa221fdd8d0083cc635ae6134baeb01f582f81b0045362558ac688d04b",
+      "bytes": 195,
+      "name": "cursor-30982-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/Mfc42.dll/cursor-30983-16x16-1bpp.png",
+      "sha256": "5c6fa28bce94696b965141018af42c8b2e440d18ba2372d0eee706da5b3da7fb",
+      "bytes": 112,
+      "name": "cursor-30983-16x16-1bpp.png"
+    },
+    {
+      "path": "icons/Mfc42.dll/cursor-30983-32x32-1bpp.png",
+      "sha256": "57aae14b8cf3b3c63ca29f51bc6118aaaf0f40e9cc273e10d1f31bcf89b53a28",
+      "bytes": 141,
+      "name": "cursor-30983-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/Mfc42.dll/cursor-30984-16x16-1bpp.png",
+      "sha256": "d5c6d582eb9a0ff41f8c8c2534e90e91d98287f1384a97bd72e94302fd033913",
+      "bytes": 116,
+      "name": "cursor-30984-16x16-1bpp.png"
+    },
+    {
+      "path": "icons/Mfc42.dll/cursor-30984-32x32-1bpp.png",
+      "sha256": "e8417601b1bb9c0e3d423ee8973ae332c87aa66264a39d2c70234eab648ce36c",
+      "bytes": 150,
+      "name": "cursor-30984-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/Mfc42.dll/cursor-30985-16x16-1bpp.png",
+      "sha256": "4d812b5911d5a3dc2326a87e5ab485d427d051d95784684a891c4d8d30e0449b",
+      "bytes": 120,
+      "name": "cursor-30985-16x16-1bpp.png"
+    },
+    {
+      "path": "icons/Mfc42.dll/cursor-30985-32x32-1bpp.png",
+      "sha256": "b774c06bc5b6364152ee749d95e0807f81e4b78e811025c0fc7fea2274c6ee33",
+      "bytes": 132,
+      "name": "cursor-30985-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/Mfc42.dll/cursor-30986-16x16-1bpp.png",
+      "sha256": "5783fe657894acdb35aed7e0c4168f81cb409cb225c1dde6bc7be75a32241378",
+      "bytes": 108,
+      "name": "cursor-30986-16x16-1bpp.png"
+    },
+    {
+      "path": "icons/Mfc42.dll/cursor-30986-32x32-1bpp.png",
+      "sha256": "5bacf2b1aa44e7cd13d73be04fc6fdc96d021e95e746c3d7879fe694fac5f61f",
+      "bytes": 128,
+      "name": "cursor-30986-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/Mfc42.dll/cursor-30987-16x16-1bpp.png",
+      "sha256": "2896329062344e75c43c0c3734c73ec37209ef223cd6839a9bf59ac2fefdce38",
+      "bytes": 149,
+      "name": "cursor-30987-16x16-1bpp.png"
+    },
+    {
+      "path": "icons/Mfc42.dll/cursor-30987-32x32-1bpp.png",
+      "sha256": "db26f4c23e0be05fc773f11679db5f78467245298cea7f91b21c10d45f539fcd",
+      "bytes": 163,
+      "name": "cursor-30987-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/Mfc42.dll/cursor-30988-16x16-1bpp.png",
+      "sha256": "c039189fa0cb160cd488b44624ab356c6426a1ea390fd5eb681c3826079d66bc",
+      "bytes": 135,
+      "name": "cursor-30988-16x16-1bpp.png"
+    },
+    {
+      "path": "icons/Mfc42.dll/cursor-30988-32x32-1bpp.png",
+      "sha256": "a70ddbe034a550edae39a865f3bf1188c765ea58096041fdbb1db36b149005a0",
+      "bytes": 219,
+      "name": "cursor-30988-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/PICCLP32.OCX/icon-10-32x32-4bpp.png",
+      "sha256": "6e620cc7e135e79a0991b69d96e50f8e0e290f48c1f77ce66bc3f5f54b366672",
+      "bytes": 205,
+      "name": "icon-10-32x32-4bpp.png"
+    },
+    {
+      "path": "icons/RICHTX32.OCX/icon-10-32x32-4bpp.png",
+      "sha256": "5cdd8667804f46b00665357ecaa6a739cc8f943c042df53ca2697e071d2624ae",
+      "bytes": 193,
+      "name": "icon-10-32x32-4bpp.png"
+    },
+    {
+      "path": "icons/SPIN32.OCX/cursor-IDC_NODROP-32x32-1bpp.png",
+      "sha256": "356daa6c73583f2443ac54d1cefe8252007c6f555ce7ecc35f0319e43007b022",
+      "bytes": 191,
+      "name": "cursor-IDC_NODROP-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/SPIN32.OCX/icon-10-32x32-4bpp.png",
+      "sha256": "ec95fc4ee888092da03f5b30d433a323345c0dcabb614068716228ed7e12709f",
+      "bytes": 197,
+      "name": "icon-10-32x32-4bpp.png"
+    },
+    {
+      "path": "icons/TABCTL32.OCX/cursor-204-32x32-1bpp.png",
+      "sha256": "993f34bacb238b7881b0b864a9aeb5daadc8e23455a1b8c9c61b053a72b6f0fa",
+      "bytes": 194,
+      "name": "cursor-204-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/TABCTL32.OCX/cursor-30977-16x16-1bpp.png",
+      "sha256": "f3ee9ecd6febcb38744af4b29cef92c02dcb919c59de13377c8a000dd55b2d8d",
+      "bytes": 157,
+      "name": "cursor-30977-16x16-1bpp.png"
+    },
+    {
+      "path": "icons/TABCTL32.OCX/cursor-30977-32x32-1bpp.png",
+      "sha256": "3bd3be91c2378d631979114ad9c5c149cebb7d125566af7f40a2b67fb63bb5c7",
+      "bytes": 219,
+      "name": "cursor-30977-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/TABCTL32.OCX/cursor-30979-16x16-1bpp.png",
+      "sha256": "2896329062344e75c43c0c3734c73ec37209ef223cd6839a9bf59ac2fefdce38",
+      "bytes": 149,
+      "name": "cursor-30979-16x16-1bpp.png"
+    },
+    {
+      "path": "icons/TABCTL32.OCX/cursor-30979-32x32-1bpp.png",
+      "sha256": "36b441aecd21deacfee37843b7c199de84ebec683013fa8e7b6197b2d96479d2",
+      "bytes": 163,
+      "name": "cursor-30979-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/TABCTL32.OCX/cursor-30980-16x16-1bpp.png",
+      "sha256": "602d3cc44ff5b761f867c0f91c19d588cfa89a8cb7defbee5e100326e5c80846",
+      "bytes": 129,
+      "name": "cursor-30980-16x16-1bpp.png"
+    },
+    {
+      "path": "icons/TABCTL32.OCX/cursor-30980-32x32-1bpp.png",
+      "sha256": "15d422b93b0a61f1a57e7d151da7fca389d9858ab7e51857c539c9d9bfad8e87",
+      "bytes": 157,
+      "name": "cursor-30980-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/TABCTL32.OCX/cursor-30981-16x16-1bpp.png",
+      "sha256": "78698e9ca24ef2056530090fc33bef18120f042d371ecd671c9e07dcf813e1ed",
+      "bytes": 141,
+      "name": "cursor-30981-16x16-1bpp.png"
+    },
+    {
+      "path": "icons/TABCTL32.OCX/cursor-30981-32x32-1bpp.png",
+      "sha256": "3250161fe725077b3d5f629d0c44ff0d283e25138ce281aa7208bdb58c26833d",
+      "bytes": 145,
+      "name": "cursor-30981-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/TABCTL32.OCX/cursor-30982-16x16-1bpp.png",
+      "sha256": "0e6f141462b3149f5f44df368c44eaf2a9e8228c7f1cbcd99e7dd2d10aabe6ec",
+      "bytes": 146,
+      "name": "cursor-30982-16x16-1bpp.png"
+    },
+    {
+      "path": "icons/TABCTL32.OCX/cursor-30982-32x32-1bpp.png",
+      "sha256": "a3646cfa221fdd8d0083cc635ae6134baeb01f582f81b0045362558ac688d04b",
+      "bytes": 195,
+      "name": "cursor-30982-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/TABCTL32.OCX/cursor-30983-16x16-1bpp.png",
+      "sha256": "5c6fa28bce94696b965141018af42c8b2e440d18ba2372d0eee706da5b3da7fb",
+      "bytes": 112,
+      "name": "cursor-30983-16x16-1bpp.png"
+    },
+    {
+      "path": "icons/TABCTL32.OCX/cursor-30983-32x32-1bpp.png",
+      "sha256": "57aae14b8cf3b3c63ca29f51bc6118aaaf0f40e9cc273e10d1f31bcf89b53a28",
+      "bytes": 141,
+      "name": "cursor-30983-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/TABCTL32.OCX/cursor-30984-16x16-1bpp.png",
+      "sha256": "d5c6d582eb9a0ff41f8c8c2534e90e91d98287f1384a97bd72e94302fd033913",
+      "bytes": 116,
+      "name": "cursor-30984-16x16-1bpp.png"
+    },
+    {
+      "path": "icons/TABCTL32.OCX/cursor-30984-32x32-1bpp.png",
+      "sha256": "e8417601b1bb9c0e3d423ee8973ae332c87aa66264a39d2c70234eab648ce36c",
+      "bytes": 150,
+      "name": "cursor-30984-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/TABCTL32.OCX/cursor-30985-16x16-1bpp.png",
+      "sha256": "4d812b5911d5a3dc2326a87e5ab485d427d051d95784684a891c4d8d30e0449b",
+      "bytes": 120,
+      "name": "cursor-30985-16x16-1bpp.png"
+    },
+    {
+      "path": "icons/TABCTL32.OCX/cursor-30985-32x32-1bpp.png",
+      "sha256": "b774c06bc5b6364152ee749d95e0807f81e4b78e811025c0fc7fea2274c6ee33",
+      "bytes": 132,
+      "name": "cursor-30985-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/TABCTL32.OCX/cursor-30986-16x16-1bpp.png",
+      "sha256": "5783fe657894acdb35aed7e0c4168f81cb409cb225c1dde6bc7be75a32241378",
+      "bytes": 108,
+      "name": "cursor-30986-16x16-1bpp.png"
+    },
+    {
+      "path": "icons/TABCTL32.OCX/cursor-30986-32x32-1bpp.png",
+      "sha256": "5bacf2b1aa44e7cd13d73be04fc6fdc96d021e95e746c3d7879fe694fac5f61f",
+      "bytes": 128,
+      "name": "cursor-30986-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/TABCTL32.OCX/cursor-30987-16x16-1bpp.png",
+      "sha256": "2896329062344e75c43c0c3734c73ec37209ef223cd6839a9bf59ac2fefdce38",
+      "bytes": 149,
+      "name": "cursor-30987-16x16-1bpp.png"
+    },
+    {
+      "path": "icons/TABCTL32.OCX/cursor-30987-32x32-1bpp.png",
+      "sha256": "db26f4c23e0be05fc773f11679db5f78467245298cea7f91b21c10d45f539fcd",
+      "bytes": 163,
+      "name": "cursor-30987-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/TABCTL32.OCX/cursor-30988-16x16-1bpp.png",
+      "sha256": "c039189fa0cb160cd488b44624ab356c6426a1ea390fd5eb681c3826079d66bc",
+      "bytes": 135,
+      "name": "cursor-30988-16x16-1bpp.png"
+    },
+    {
+      "path": "icons/TABCTL32.OCX/cursor-30988-32x32-1bpp.png",
+      "sha256": "a70ddbe034a550edae39a865f3bf1188c765ea58096041fdbb1db36b149005a0",
+      "bytes": 219,
+      "name": "cursor-30988-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/TABCTL32.OCX/cursor-IDC_HELP-32x32-1bpp.png",
+      "sha256": "993f34bacb238b7881b0b864a9aeb5daadc8e23455a1b8c9c61b053a72b6f0fa",
+      "bytes": 194,
+      "name": "cursor-IDC_HELP-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/TABCTL32.OCX/icon-10-32x32-4bpp.png",
+      "sha256": "ab500cba3a7b0e5cb76324cdbc089ceff6aa08dcd1f6b54e2149efa2539ee7fe",
+      "bytes": 288,
+      "name": "icon-10-32x32-4bpp.png"
+    },
+    {
+      "path": "icons/THREED32.OCX/cursor-126-32x32-1bpp.png",
+      "sha256": "356daa6c73583f2443ac54d1cefe8252007c6f555ce7ecc35f0319e43007b022",
+      "bytes": 191,
+      "name": "cursor-126-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/THREED32.OCX/icon-10-32x32-4bpp.png",
+      "sha256": "d4259dd35b94956806024ef32f85406484594eab2631cabcf90dec16628befe8",
+      "bytes": 290,
+      "name": "icon-10-32x32-4bpp.png"
+    },
+    {
+      "path": "icons/Tab32.dll/icon-2-32x32-4bpp.png",
+      "sha256": "84ccaa90115762096e859a7fbc2d11399eeae7487d8816aa427634c69206d678",
+      "bytes": 284,
+      "name": "icon-2-32x32-4bpp.png"
+    },
+    {
+      "path": "icons/VB40032.DLL/cursor-1101-32x32-1bpp.png",
+      "sha256": "356daa6c73583f2443ac54d1cefe8252007c6f555ce7ecc35f0319e43007b022",
+      "bytes": 191,
+      "name": "cursor-1101-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/VB40032.DLL/icon-1201-16x16-4bpp.png",
+      "sha256": "7e705c659cd529d192e174792c13d7b4f83b290a5cb57a84c8eb70cc928f7cd5",
+      "bytes": 140,
+      "name": "icon-1201-16x16-4bpp.png"
+    },
+    {
+      "path": "icons/VB40032.DLL/icon-1201-32x32-1bpp.png",
+      "sha256": "085b3617af320f6fdd658ab6f4addf3aa06bc100decf733de8e73051615b68d4",
+      "bytes": 172,
+      "name": "icon-1201-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/VB40032.DLL/icon-1201-32x32-4bpp.png",
+      "sha256": "1d5bae0b0986565bc37d3034926dcea38c780ac75e90d6bf707cb2beca7e20f7",
+      "bytes": 170,
+      "name": "icon-1201-32x32-4bpp.png"
+    },
+    {
+      "path": "icons/VB40032.DLL/icon-1202-32x32-1bpp.png",
+      "sha256": "5645e7132ce4d807aa14574ec71a8d1cdaeb83cf0af28b81baab4d274c617efa",
+      "bytes": 197,
+      "name": "icon-1202-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/VB40032.DLL/icon-1202-32x32-4bpp.png",
+      "sha256": "6d96a56b85547609fdc865e4e3946bd7e33763dc6fb16a86f1e3f2650074aade",
+      "bytes": 232,
+      "name": "icon-1202-32x32-4bpp.png"
+    },
+    {
+      "path": "icons/VB40032.DLL/icon-1203-32x32-1bpp.png",
+      "sha256": "63bd517c474d3cf7018d20d455650a91352d9bda61c139fa2b6e1d2cccda0186",
+      "bytes": 203,
+      "name": "icon-1203-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/VB40032.DLL/icon-1203-32x32-4bpp.png",
+      "sha256": "0a8083e14db32e7a8d4074e526a78c8c06aa49d0240104c77704d0bda2ad9803",
+      "bytes": 227,
+      "name": "icon-1203-32x32-4bpp.png"
+    },
+    {
+      "path": "icons/VBDemo.exe/icon-1-16x16-4bpp.png",
+      "sha256": "edef0c97ffc65a6eb32807319ae851233b475ff7a46fc92a7631644663d96dbd",
+      "bytes": 193,
+      "name": "icon-1-16x16-4bpp.png"
+    },
+    {
+      "path": "icons/VBDemo.exe/icon-1-32x32-4bpp.png",
+      "sha256": "8251676174273e8b0ff99c84fb1d6cdf14b1efcefc7455879da3efbf049f4161",
+      "bytes": 341,
+      "name": "icon-1-32x32-4bpp.png"
+    },
+    {
+      "path": "icons/gendemo.exe/icon-1-16x16-4bpp.png",
+      "sha256": "7e705c659cd529d192e174792c13d7b4f83b290a5cb57a84c8eb70cc928f7cd5",
+      "bytes": 140,
+      "name": "icon-1-16x16-4bpp.png"
+    },
+    {
+      "path": "icons/gendemo.exe/icon-1-32x32-1bpp.png",
+      "sha256": "085b3617af320f6fdd658ab6f4addf3aa06bc100decf733de8e73051615b68d4",
+      "bytes": 172,
+      "name": "icon-1-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/gendemo.exe/icon-1-32x32-4bpp.png",
+      "sha256": "1d5bae0b0986565bc37d3034926dcea38c780ac75e90d6bf707cb2beca7e20f7",
+      "bytes": 170,
+      "name": "icon-1-32x32-4bpp.png"
+    },
+    {
+      "path": "icons/gsw32.exe/icon-1000-32x32-4bpp.png",
+      "sha256": "351f64427ea54199ec8b0957e848fda3290b6b74fcf69e22bb39933511003112",
+      "bytes": 210,
+      "name": "icon-1000-32x32-4bpp.png"
+    },
+    {
+      "path": "icons/gsw32.exe/icon-1001-32x32-4bpp.png",
+      "sha256": "f1738b898d57ab0ff0ce791625380298df5383b2c829a32ba4d6502d63b983f4",
+      "bytes": 156,
+      "name": "icon-1001-32x32-4bpp.png"
+    },
+    {
+      "path": "icons/installer/SETUP.EXE/icon-7001-32x32-4bpp.png",
+      "sha256": "1bd5b7b0e07f65d9fad350e6b47595c9fba8fa3d0dc0126d41e8f6e31d41643d",
+      "bytes": 358,
+      "name": "icon-7001-32x32-4bpp.png"
+    },
+    {
+      "path": "icons/installer/UNINST.EXE/icon-1000-32x32-4bpp.png",
+      "sha256": "8469370fac94a1ad474be8d10d2570d6c832d6bd1fe2c581c3f148f9e878c594",
+      "bytes": 380,
+      "name": "icon-1000-32x32-4bpp.png"
+    },
+    {
+      "path": "icons/installer/_ISRES.DLL/icon-10000-32x32-4bpp.png",
+      "sha256": "1bd5b7b0e07f65d9fad350e6b47595c9fba8fa3d0dc0126d41e8f6e31d41643d",
+      "bytes": 358,
+      "name": "icon-10000-32x32-4bpp.png"
+    },
+    {
+      "path": "icons/installer/_SETUP.DLL/icon-SETUP_ICON1-32x32-4bpp.png",
+      "sha256": "a9d349db02e7bae8fdf996f4bd791b13a8e4d8b5e29cb68f4c91e550d6f9ebb7",
+      "bytes": 360,
+      "name": "icon-SETUP_ICON1-32x32-4bpp.png"
+    },
+    {
+      "path": "icons/installer/_SETUP.DLL/icon-SETUP_ICON2-32x32-4bpp.png",
+      "sha256": "129eeafe9c05db68a4ea7822c14344c2d7b7177be571028502e2b5b6e7404189",
+      "bytes": 364,
+      "name": "icon-SETUP_ICON2-32x32-4bpp.png"
+    },
+    {
+      "path": "icons/penpad.exe/icon-128-32x32-4bpp.png",
+      "sha256": "9c7b9bada7a45552f6f2e8edd34f68a8697def88072a1763938427b3a966f5bf",
+      "bytes": 319,
+      "name": "icon-128-32x32-4bpp.png"
+    },
+    {
+      "path": "icons/penpad.exe/icon-129-32x32-4bpp.png",
+      "sha256": "035cb365a937a51a7f9da3165ccbea4742a65945506e2a6bc9b5bc926dadd523",
+      "bytes": 285,
+      "name": "icon-129-32x32-4bpp.png"
+    },
+    {
+      "path": "icons/vb-forms/VBDemo-vb-5592-16x16-4bpp.png",
+      "sha256": "edef0c97ffc65a6eb32807319ae851233b475ff7a46fc92a7631644663d96dbd",
+      "bytes": 193,
+      "name": "VBDemo-vb-5592-16x16-4bpp.png"
+    },
+    {
+      "path": "icons/vb-forms/VBDemo-vb-5592-32x32-4bpp.png",
+      "sha256": "8251676174273e8b0ff99c84fb1d6cdf14b1efcefc7455879da3efbf049f4161",
+      "bytes": 341,
+      "name": "VBDemo-vb-5592-32x32-4bpp.png"
+    },
+    {
+      "path": "icons/vb-forms/VBHost-vb-0-16x16-4bpp.png",
+      "sha256": "edef0c97ffc65a6eb32807319ae851233b475ff7a46fc92a7631644663d96dbd",
+      "bytes": 193,
+      "name": "VBHost-vb-0-16x16-4bpp.png"
+    },
+    {
+      "path": "icons/vb-forms/VBHost-vb-0-32x32-4bpp.png",
+      "sha256": "8251676174273e8b0ff99c84fb1d6cdf14b1efcefc7455879da3efbf049f4161",
+      "bytes": 341,
+      "name": "VBHost-vb-0-32x32-4bpp.png"
+    },
+    {
+      "path": "icons/windemo.exe/icon-1-32x32-1bpp.png",
+      "sha256": "63bd517c474d3cf7018d20d455650a91352d9bda61c139fa2b6e1d2cccda0186",
+      "bytes": 203,
+      "name": "icon-1-32x32-1bpp.png"
+    },
+    {
+      "path": "icons/windemo.exe/icon-1-32x32-4bpp.png",
+      "sha256": "0a8083e14db32e7a8d4074e526a78c8c06aa49d0240104c77704d0bda2ad9803",
+      "bytes": 227,
+      "name": "icon-1-32x32-4bpp.png"
+    },
+    {
+      "path": "resources/ANIBTN32.OCX/bitmap-1.png",
+      "sha256": "7056cbb5386e406a69e0ebf61b88968e06432b8868fbe6c703bc85c2ea27ab71",
+      "bytes": 106,
+      "name": "bitmap-1.png"
+    },
+    {
+      "path": "resources/COMCTL32.OCX/bitmap-1.png",
+      "sha256": "da6a4908688c6c8d4115342ce0673bd28bb72a2de187a1890af4083a407a189f",
+      "bytes": 123,
+      "name": "bitmap-1.png"
+    },
+    {
+      "path": "resources/COMCTL32.OCX/bitmap-10.png",
+      "sha256": "8bca15e3dff4ba6b336d42faeef1e2fbdf6eec7a0b1a2e10e6f9ae3c1dc5ef2b",
+      "bytes": 127,
+      "name": "bitmap-10.png"
+    },
+    {
+      "path": "resources/COMCTL32.OCX/bitmap-12.png",
+      "sha256": "c6b16b9270e191f5905cc867339eed0316d5877e27cada27eebe3a2d98f7b25f",
+      "bytes": 127,
+      "name": "bitmap-12.png"
+    },
+    {
+      "path": "resources/COMCTL32.OCX/bitmap-16.png",
+      "sha256": "063977579c879eb0a121e9f60553fe43178110b413940aadf7f1d069f04dc57f",
+      "bytes": 130,
+      "name": "bitmap-16.png"
+    },
+    {
+      "path": "resources/COMCTL32.OCX/bitmap-17.png",
+      "sha256": "222a67a076b375db7348174300d3eeac5d0ac07474b59dc00660f82cd60351b0",
+      "bytes": 105,
+      "name": "bitmap-17.png"
+    },
+    {
+      "path": "resources/COMCTL32.OCX/bitmap-2.png",
+      "sha256": "0ee6738f343b004732a08ff7ba1c4c8d4b5d67f57894083a93ec0ee6b48b83c1",
+      "bytes": 140,
+      "name": "bitmap-2.png"
+    },
+    {
+      "path": "resources/COMCTL32.OCX/bitmap-3.png",
+      "sha256": "f7802f1f63dfa8ff1c98b1876a1d79ffedbd70d1f1cda4ee195ef9280bfd2cd0",
+      "bytes": 153,
+      "name": "bitmap-3.png"
+    },
+    {
+      "path": "resources/COMCTL32.OCX/bitmap-4.png",
+      "sha256": "1c3121d5b0728bec078fd0aaf184a041186781e9d2923f897fc7efd89d0f85a3",
+      "bytes": 151,
+      "name": "bitmap-4.png"
+    },
+    {
+      "path": "resources/COMDLG32.OCX/bitmap-1.png",
+      "sha256": "cef165c0dfa0b3206089463ccf9c37e7bed0359ff79d2e85a43f5fd5fd776177",
+      "bytes": 116,
+      "name": "bitmap-1.png"
+    },
+    {
+      "path": "resources/DBGRID32.OCX/bitmap-1.png",
+      "sha256": "cded9bc7fbc875f7483a5379aa170238751227ccef9aa8448329f7fc5334212b",
+      "bytes": 128,
+      "name": "bitmap-1.png"
+    },
+    {
+      "path": "resources/DBGRID32.OCX/bitmap-2.png",
+      "sha256": "e364db905c7bd76f8e01b4b1eb01717df5277c07635c525a7f31b0ab18903c0b",
+      "bytes": 4857,
+      "name": "bitmap-2.png"
+    },
+    {
+      "path": "resources/DBGRID32.OCX/bitmap-3.png",
+      "sha256": "613cf4e5d3c56c6061ddde00ce31d30fd6b1abd8309d8c09b5109fa04414aa8d",
+      "bytes": 1469,
+      "name": "bitmap-3.png"
+    },
+    {
+      "path": "resources/DBLIST32.OCX/bitmap-1.png",
+      "sha256": "9d08c87068f1e3b0bd3355f4e1649d09768adacf8f72565315b15dd740df32c2",
+      "bytes": 159,
+      "name": "bitmap-1.png"
+    },
+    {
+      "path": "resources/DBLIST32.OCX/bitmap-2.png",
+      "sha256": "d2a17d78a435d57a5d815c5df907c65c168147275c66d9224e4489037aefd244",
+      "bytes": 161,
+      "name": "bitmap-2.png"
+    },
+    {
+      "path": "resources/Deui32.dll/bitmap-BTABD.png",
+      "sha256": "dbc7100ff2d12cd6d6800aa2a641008b542baca7abb94bbfbc725188f674ed58",
+      "bytes": 180,
+      "name": "bitmap-BTABD.png"
+    },
+    {
+      "path": "resources/Deui32.dll/bitmap-BTABU.png",
+      "sha256": "eac543b6d858b4383dc65f947dfa549fb0af5a73235e81f290f4dff07b681742",
+      "bytes": 155,
+      "name": "bitmap-BTABU.png"
+    },
+    {
+      "path": "resources/Deui32.dll/bitmap-LTABD.png",
+      "sha256": "0eb1af62eec68e10a61c613679886f9eb7e076959961ba6c8a87488f4dc8b944",
+      "bytes": 187,
+      "name": "bitmap-LTABD.png"
+    },
+    {
+      "path": "resources/Deui32.dll/bitmap-LTABU.png",
+      "sha256": "41fcc6e0d7a6094ff634f6cdd5edd0b3d1e60900f392f451879c0d553ffbb1c9",
+      "bytes": 183,
+      "name": "bitmap-LTABU.png"
+    },
+    {
+      "path": "resources/Deui32.dll/bitmap-RTABD.png",
+      "sha256": "4e6ab76b8352ad361bec562ddef64a0a687c993e4d7a47559f816f11ade20a4f",
+      "bytes": 188,
+      "name": "bitmap-RTABD.png"
+    },
+    {
+      "path": "resources/Deui32.dll/bitmap-RTABU.png",
+      "sha256": "bd495bd88204d23e5add39caf3f8c5d116b672301841774604790ff70d25dbfc",
+      "bytes": 176,
+      "name": "bitmap-RTABU.png"
+    },
+    {
+      "path": "resources/Deui32.dll/bitmap-TTABD.png",
+      "sha256": "7cccebec76ca937fc12d1885d1201135de7361616d6fc342d5f95eaa1ea3a82a",
+      "bytes": 179,
+      "name": "bitmap-TTABD.png"
+    },
+    {
+      "path": "resources/Deui32.dll/bitmap-TTABU.png",
+      "sha256": "37dc038b6a9a90934caf071a502da820d2c2076d6d7bffeebb760a6dfa1a4e8e",
+      "bytes": 157,
+      "name": "bitmap-TTABU.png"
+    },
+    {
+      "path": "resources/GAUGE32.OCX/bitmap-1.png",
+      "sha256": "9394e032d1fca52256f80f30e1942e2137b9b103d9b3070a3f4af7431030af29",
+      "bytes": 153,
+      "name": "bitmap-1.png"
+    },
+    {
+      "path": "resources/GAUGE32.OCX/bitmap-203.png",
+      "sha256": "8f0a021db85d47055cf5d56417256b67aa1fa13205ced9362e6a165734708c88",
+      "bytes": 1024,
+      "name": "bitmap-203.png"
+    },
+    {
+      "path": "resources/GRAPH32.OCX/bitmap-1.png",
+      "sha256": "40ebfd73a7086b77c75723f79300e657ff2b47ab78051aedfed4380b5260dfad",
+      "bytes": 104,
+      "name": "bitmap-1.png"
+    },
+    {
+      "path": "resources/GRDKRN32.DLL/bitmap-2004.png",
+      "sha256": "b58a62f2ff18ebb2a42abdfc7a39975062d4ca2cacbbe6b33b4d50e8445a58cd",
+      "bytes": 149,
+      "name": "bitmap-2004.png"
+    },
+    {
+      "path": "resources/GRDKRN32.DLL/bitmap-2005.png",
+      "sha256": "0a1f7ec4558fee979f13a530c06751961ce8e5cbc96aeddeeeb91f4a59ac201f",
+      "bytes": 156,
+      "name": "bitmap-2005.png"
+    },
+    {
+      "path": "resources/GRDKRN32.DLL/bitmap-2006.png",
+      "sha256": "00b23648ad96e28124abf6af4026736378b84a7b1a98408a585c5682aeaf21c7",
+      "bytes": 110,
+      "name": "bitmap-2006.png"
+    },
+    {
+      "path": "resources/GRDKRN32.DLL/bitmap-2007.png",
+      "sha256": "e05d075289e47ac9550e85554df5039dde8601c10f100a5cb9f813c0e9af5535",
+      "bytes": 119,
+      "name": "bitmap-2007.png"
+    },
+    {
+      "path": "resources/GRDKRN32.DLL/bitmap-2008.png",
+      "sha256": "fac06e1244730b9864afca86096bdac9c1f11971faddae070e2890b5e8906661",
+      "bytes": 105,
+      "name": "bitmap-2008.png"
+    },
+    {
+      "path": "resources/GRDKRN32.DLL/bitmap-2009.png",
+      "sha256": "f475f6475f3288ccf8b3e9235391ee106ae38ccad2bc73e736cc03880c05245d",
+      "bytes": 109,
+      "name": "bitmap-2009.png"
+    },
+    {
+      "path": "resources/GRDKRN32.DLL/bitmap-2010.png",
+      "sha256": "e6b273f64dde7262315bbb0e7494d6acd09d2c5fce8414a9ef6162efdf898b5a",
+      "bytes": 99,
+      "name": "bitmap-2010.png"
+    },
+    {
+      "path": "resources/GRID32.OCX/bitmap-1.png",
+      "sha256": "8a1f82757ef0159a15640270fd4c511d6b92fc4d8d5447cf5601c73f0ddf44d2",
+      "bytes": 88,
+      "name": "bitmap-1.png"
+    },
+    {
+      "path": "resources/GRID32.OCX/bitmap-8000.png",
+      "sha256": "141f091218e2e45e3adf943dcf6f3e273e1c6c057f3a873a91b33908685d5baa",
+      "bytes": 131,
+      "name": "bitmap-8000.png"
+    },
+    {
+      "path": "resources/GRID32.OCX/bitmap-8001.png",
+      "sha256": "ec987589554c4924accd27634ae7897a7e4c7549cea5da012abdbbd8d6bbfb90",
+      "bytes": 150,
+      "name": "bitmap-8001.png"
+    },
+    {
+      "path": "resources/GRID32.OCX/bitmap-8003.png",
+      "sha256": "fca3c2b7c3a61ab8d90fa326f128c8ed08bda40c15c6c30786eed28e0eba89b2",
+      "bytes": 123,
+      "name": "bitmap-8003.png"
+    },
+    {
+      "path": "resources/GRID32.OCX/bitmap-8006.png",
+      "sha256": "37774369ea5b9445c09c75c39d482658cc6cc71752eed7be4e3871c21834e9c3",
+      "bytes": 117,
+      "name": "bitmap-8006.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-1.png",
+      "sha256": "4d0ce23d08b55973b92a01ec6e1afac5cccc9bfcb702bb392bc81185383820db",
+      "bytes": 159,
+      "name": "bitmap-1.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-105.png",
+      "sha256": "fa63716091c9d4d0dfd1d5e79e89cdf6401050ad975ca328e6e0c8e84d45bb4d",
+      "bytes": 230,
+      "name": "bitmap-105.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-108.png",
+      "sha256": "49401d3a52be1e5dab4c7979f396d9d1523ad5e83925f49b8f495b85820c4575",
+      "bytes": 179,
+      "name": "bitmap-108.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-109.png",
+      "sha256": "ff16c57dc33f1d059899d8f96f6241a851d66e8c1fc75be924932a50a4f837ad",
+      "bytes": 203,
+      "name": "bitmap-109.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-110.png",
+      "sha256": "9bfde00d68917773ae7287570d36fa2ed86122cba5001abbaa10df90933b685e",
+      "bytes": 152,
+      "name": "bitmap-110.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-111.png",
+      "sha256": "744e4da5f5ee766054a848c4bc1e048d0ebf4c46f3dc7133629ca3138e7a2927",
+      "bytes": 181,
+      "name": "bitmap-111.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-112.png",
+      "sha256": "ba550720e538dbe8cb0f1fce323791bb715c870a70ca88a4504130888d27b9a1",
+      "bytes": 192,
+      "name": "bitmap-112.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-113.png",
+      "sha256": "fe9c1c2da0d6961e994d445805ae2eb8d93a7f14d58aff78202c8e57a66fb959",
+      "bytes": 110,
+      "name": "bitmap-113.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-114.png",
+      "sha256": "29cd79006f0455984426644b5d395502b478716caef2db19e3539fcca9688503",
+      "bytes": 179,
+      "name": "bitmap-114.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-115.png",
+      "sha256": "6f138dd61b145ba44b976ca7690a6852154cd759f1c5097b24f0b99306f9198d",
+      "bytes": 198,
+      "name": "bitmap-115.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-116.png",
+      "sha256": "384abc527d4a485c68e05ca760a477478ef046f223e5e50fbc20653c45d4ea0d",
+      "bytes": 211,
+      "name": "bitmap-116.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-117.png",
+      "sha256": "b940452a46cdf071662e46c28e471afe5bee82db43a649b9d38a5708ff1ae048",
+      "bytes": 228,
+      "name": "bitmap-117.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-118.png",
+      "sha256": "cbdbdd27c4d600a8fa67b0548916243a516a3af302d5e5353ad1365857da24f2",
+      "bytes": 183,
+      "name": "bitmap-118.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-119.png",
+      "sha256": "13cd9f86a73a1b30b199f66f341d4da1fd367a5335b5d3c8b3eb20d81dd93637",
+      "bytes": 228,
+      "name": "bitmap-119.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-120.png",
+      "sha256": "466159f40871118db0e925f409857f2e1befd65ca1e6a5ec4b03f2f5b401e75f",
+      "bytes": 170,
+      "name": "bitmap-120.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-121.png",
+      "sha256": "b930106c93a1b1be1818bb3c097fd25e53f17f9deed29934e4ecba6e39021565",
+      "bytes": 203,
+      "name": "bitmap-121.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-122.png",
+      "sha256": "fbdb63f4d95a10350528967e3979c008d978e0dc5faa3b51fc2711b7937dc680",
+      "bytes": 219,
+      "name": "bitmap-122.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-123.png",
+      "sha256": "db774ce951999e65a67c3fb0d46632f892fd0109fde672659eeb3ac6076735d6",
+      "bytes": 160,
+      "name": "bitmap-123.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-124.png",
+      "sha256": "8caf4b1c38a16b499e300d611a622f2e9aaf83a37c515fe06c6e3c6396f98a65",
+      "bytes": 188,
+      "name": "bitmap-124.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-125.png",
+      "sha256": "09709b5e1aaf1beb49e6a2f1c1212802638e9b96e2800808190941a22ef3ab05",
+      "bytes": 205,
+      "name": "bitmap-125.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-126.png",
+      "sha256": "4d3abdb1f870bd4b6968a196c31e04f17d167e250535b16f4bfba49f1c8d5aa0",
+      "bytes": 115,
+      "name": "bitmap-126.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-127.png",
+      "sha256": "fc8d8224f633994fad506e40606e44fb87b53348fdb0d0989895dcb702be64b8",
+      "bytes": 160,
+      "name": "bitmap-127.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-128.png",
+      "sha256": "4f4ddbaa0b7411ef8f53ae5fac60d22ccca4177ebe5445a26c9677af00b2b33e",
+      "bytes": 184,
+      "name": "bitmap-128.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-129.png",
+      "sha256": "6726dd6729f1dec7c3a5491c33e0e620e6fd36013ea76210487af1b60bb6844a",
+      "bytes": 211,
+      "name": "bitmap-129.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-130.png",
+      "sha256": "1c2ce41135f5472bb3a2ad2b1bf78c8aa5c9c6f561b425c32e8ea889fd3f788b",
+      "bytes": 176,
+      "name": "bitmap-130.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-131.png",
+      "sha256": "01071b69727b893247b129f5c96be1b7a58a9d721ba5f2a8e326903ee8b7b76c",
+      "bytes": 202,
+      "name": "bitmap-131.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-132.png",
+      "sha256": "fa046dba79768ab88b8c2165b781a8569e925a7e9fe1548a6dc2725587c486ec",
+      "bytes": 221,
+      "name": "bitmap-132.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-133.png",
+      "sha256": "7a17b12c07561087d83c4971ded327be4edbeba10678c1e4d10eb5c1e7d80703",
+      "bytes": 187,
+      "name": "bitmap-133.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-134.png",
+      "sha256": "57332f0c70374bca298b4fda4fbd6f34ad6b8a1c69ff2508a22ff60168472429",
+      "bytes": 222,
+      "name": "bitmap-134.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-135.png",
+      "sha256": "9eec4806f0fb177024c73eb0cb71e39dac5339664022ebb779b85c0a173e363e",
+      "bytes": 229,
+      "name": "bitmap-135.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-136.png",
+      "sha256": "668d73c9634ce4d74afb2b903826424b861b77408471214b255106f877066d68",
+      "bytes": 158,
+      "name": "bitmap-136.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-137.png",
+      "sha256": "1079bd4061ea31c58af051c6b8242788e82cb051d7e04191d728ae563d4e60d9",
+      "bytes": 191,
+      "name": "bitmap-137.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-138.png",
+      "sha256": "f49e3412b1ee46dc54315c1e8cc97180afc1f19c971927ca35aa2ed3fbf53785",
+      "bytes": 191,
+      "name": "bitmap-138.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-139.png",
+      "sha256": "db1918b0885f97514215915cfaeb732dbda8a6f7742cfe868b88adec5c9f45a0",
+      "bytes": 114,
+      "name": "bitmap-139.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-140.png",
+      "sha256": "bb9b944c3ba3aab38cb513864ec5656565fa5c285f4c485507ea64ae5f134730",
+      "bytes": 185,
+      "name": "bitmap-140.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-141.png",
+      "sha256": "95b6780b8663f44bffcffc447e40f67f299f85b66821395a9719355a5f373b28",
+      "bytes": 221,
+      "name": "bitmap-141.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-142.png",
+      "sha256": "1ab40b7b28d9c403a6729a63e5afe2842008b41cde4476f9071d96846a6670f0",
+      "bytes": 231,
+      "name": "bitmap-142.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-143.png",
+      "sha256": "1a5460097c709492f6427ae3a7b7b49d8d1df4eb4184f7c85978f25d0b8a3bb6",
+      "bytes": 182,
+      "name": "bitmap-143.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-144.png",
+      "sha256": "e6990e805fde10f5a30a41b963ec972682f85ebd5781e9f043857acbc30c108f",
+      "bytes": 220,
+      "name": "bitmap-144.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-145.png",
+      "sha256": "e4b50e57cf8a51d5a82979d5a5aa283330d0943d80b56bd38806cde3344bd995",
+      "bytes": 228,
+      "name": "bitmap-145.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-146.png",
+      "sha256": "b38a6badf0d646aa7dfff0799da0efa19a75aca5e7b3bb84690360e372d47ea9",
+      "bytes": 205,
+      "name": "bitmap-146.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-147.png",
+      "sha256": "6026b6ac35ceddb103f98035b2d305ba404f2c6f6dd41dc57f9f8d190ed0e881",
+      "bytes": 218,
+      "name": "bitmap-147.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-148.png",
+      "sha256": "4262b55c48bf14d8b62d67882e7137d09884ba00ad2753ca911c2660532381f5",
+      "bytes": 252,
+      "name": "bitmap-148.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-149.png",
+      "sha256": "26e61592632822c1490a08b0eec08330f79e156c8e1fe4cbc4565860eef0a81e",
+      "bytes": 165,
+      "name": "bitmap-149.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-150.png",
+      "sha256": "ad81e3942582694b2f1057ccae35edd51863b09ab750b98f76520b3fb47e0c4d",
+      "bytes": 189,
+      "name": "bitmap-150.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-151.png",
+      "sha256": "faa60ede39f9a56aa6fffce20be8f773921a0356e9f35639b35ae654f871fc9c",
+      "bytes": 201,
+      "name": "bitmap-151.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-152.png",
+      "sha256": "ff4b66ac3828e53bf444054091d805bdfacc7ec923a6cbc20d9c19ebcb5bfd5d",
+      "bytes": 117,
+      "name": "bitmap-152.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-153.png",
+      "sha256": "1dfe9436636860a6b78bb42d9c99703d407bd10267667bab8dadd478b4a109c6",
+      "bytes": 192,
+      "name": "bitmap-153.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-154.png",
+      "sha256": "914d24856e5b2efd540c0457500c30a60b131a6eb8b727255b3d084a85674eed",
+      "bytes": 204,
+      "name": "bitmap-154.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-155.png",
+      "sha256": "fa753a24c4f37cbbb9d3b1374712997d34d7a0fe3d2234eb94ad5ecebb8cff96",
+      "bytes": 232,
+      "name": "bitmap-155.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-156.png",
+      "sha256": "e7bbf2bc8fc4d0a0e79bdb818a4150fbcd2c4a36f5fd00becf8971677ddb3e34",
+      "bytes": 197,
+      "name": "bitmap-156.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-157.png",
+      "sha256": "d08341f2f1a630819f9d293d6b4bf34eef7d94cf8413ddc09c0d77135e8acc4d",
+      "bytes": 217,
+      "name": "bitmap-157.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-158.png",
+      "sha256": "ee2eaa804c2ad9abb94e9411e02fcaf548e4d7bb3c7fdeaf0a99a83ba5978945",
+      "bytes": 254,
+      "name": "bitmap-158.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-159.png",
+      "sha256": "2b83e09db55e8aea21fa854faf266877b6952f1d54add9ba5aed766f1f627f7d",
+      "bytes": 185,
+      "name": "bitmap-159.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-160.png",
+      "sha256": "65227767e02f0dd3b70a35825a168149555d8ffc04ae3299550a7afb17ecc24f",
+      "bytes": 207,
+      "name": "bitmap-160.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-161.png",
+      "sha256": "07304272adec05c01460f4a1a25bb377527a639eb1690d025c6f7164d69ca02d",
+      "bytes": 231,
+      "name": "bitmap-161.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-162.png",
+      "sha256": "961c25fd8b442ae559e28d19a6a0e8e4972f2c48eb5053fd624cf0e84f5d5757",
+      "bytes": 115,
+      "name": "bitmap-162.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-163.png",
+      "sha256": "f3768060a7ebba2f1e71f5abbe950a3f4d08e6f5cc019903d857e15f203cca85",
+      "bytes": 185,
+      "name": "bitmap-163.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-164.png",
+      "sha256": "c7c2bc26be46f025da2e6c6c5da437df56ebd72620270a31fbfb976fed51ba46",
+      "bytes": 202,
+      "name": "bitmap-164.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-165.png",
+      "sha256": "344b0813c4e655d45097d11dc69dc1d16a1aefab6bb006cfe596181dddcba7e6",
+      "bytes": 229,
+      "name": "bitmap-165.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-166.png",
+      "sha256": "380b652b2d0b177bb2c3cdcc42166c14ec8b4f7d18d2e79e956a51a936e158bb",
+      "bytes": 185,
+      "name": "bitmap-166.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-167.png",
+      "sha256": "d5753bbcfd39ce05fdec52b87662f74b7f3f47a7a9bdb25163e5083e511a6586",
+      "bytes": 216,
+      "name": "bitmap-167.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-168.png",
+      "sha256": "24d8a62f75ae3cee1e28f7cff0b46116817c77d92ef02f169af3420fce792e63",
+      "bytes": 234,
+      "name": "bitmap-168.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-169.png",
+      "sha256": "9bfde00d68917773ae7287570d36fa2ed86122cba5001abbaa10df90933b685e",
+      "bytes": 152,
+      "name": "bitmap-169.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-170.png",
+      "sha256": "744e4da5f5ee766054a848c4bc1e048d0ebf4c46f3dc7133629ca3138e7a2927",
+      "bytes": 181,
+      "name": "bitmap-170.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-171.png",
+      "sha256": "ba550720e538dbe8cb0f1fce323791bb715c870a70ca88a4504130888d27b9a1",
+      "bytes": 192,
+      "name": "bitmap-171.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-203.png",
+      "sha256": "3477d97ddb3a3187c34c2f7fdca9daa252908b74d6717b35d4c981dc89695eca",
+      "bytes": 959,
+      "name": "bitmap-203.png"
+    },
+    {
+      "path": "resources/KEYSTA32.OCX/bitmap-907.png",
+      "sha256": "bc32f0030644faf033f158016a1263b5b2c40a67ab5bc4a77d7c5dd8a1d68e02",
+      "bytes": 1364,
+      "name": "bitmap-907.png"
+    },
+    {
+      "path": "resources/MFC40.DLL/bitmap-26567.png",
+      "sha256": "2293432f8358d899f64124b2a70d07cdda86c9abe3e57ff5f966b5797a237fa4",
+      "bytes": 592,
+      "name": "bitmap-26567.png"
+    },
+    {
+      "path": "resources/MFC40.DLL/bitmap-30994.png",
+      "sha256": "f555e2d4aabdeb91bc11204cb800c03b2e31ee0e5839bd5b1a7a0f045a1998aa",
+      "bytes": 101,
+      "name": "bitmap-30994.png"
+    },
+    {
+      "path": "resources/MFC40.DLL/bitmap-30995.png",
+      "sha256": "229ba3260d6e57389e7c0fdb4a92a5d81927570774e539ab38b0d2d043311c4e",
+      "bytes": 134,
+      "name": "bitmap-30995.png"
+    },
+    {
+      "path": "resources/MFC40.DLL/bitmap-30996.png",
+      "sha256": "f6c1604540f5237ea0a07a44996af440a77ace099df84f094bc813f3396e9a20",
+      "bytes": 157,
+      "name": "bitmap-30996.png"
+    },
+    {
+      "path": "resources/MFC40.DLL/bitmap-32384.png",
+      "sha256": "17561f92d7a10d78bb150383f0e811071aa4de6e29c84af44453a54849991887",
+      "bytes": 134,
+      "name": "bitmap-32384.png"
+    },
+    {
+      "path": "resources/MSCOMM32.OCX/bitmap-1.png",
+      "sha256": "005b5f64dba1e0d62b296ce2131d8ab9368305a1fced23f34416b29ba0cdff89",
+      "bytes": 146,
+      "name": "bitmap-1.png"
+    },
+    {
+      "path": "resources/MSCOMM32.OCX/bitmap-105.png",
+      "sha256": "738816214799aaf09c5842c498bd2d49769afd551becc3ebfc334607ffe0b76b",
+      "bytes": 224,
+      "name": "bitmap-105.png"
+    },
+    {
+      "path": "resources/MSCOMM32.OCX/bitmap-26567.png",
+      "sha256": "2293432f8358d899f64124b2a70d07cdda86c9abe3e57ff5f966b5797a237fa4",
+      "bytes": 592,
+      "name": "bitmap-26567.png"
+    },
+    {
+      "path": "resources/MSCOMM32.OCX/bitmap-30994.png",
+      "sha256": "f555e2d4aabdeb91bc11204cb800c03b2e31ee0e5839bd5b1a7a0f045a1998aa",
+      "bytes": 101,
+      "name": "bitmap-30994.png"
+    },
+    {
+      "path": "resources/MSCOMM32.OCX/bitmap-30995.png",
+      "sha256": "229ba3260d6e57389e7c0fdb4a92a5d81927570774e539ab38b0d2d043311c4e",
+      "bytes": 134,
+      "name": "bitmap-30995.png"
+    },
+    {
+      "path": "resources/MSCOMM32.OCX/bitmap-30996.png",
+      "sha256": "f6c1604540f5237ea0a07a44996af440a77ace099df84f094bc813f3396e9a20",
+      "bytes": 157,
+      "name": "bitmap-30996.png"
+    },
+    {
+      "path": "resources/MSOUTL32.OCX/bitmap-1.png",
+      "sha256": "1a2d583e808712fa709076f68865759dddc22afdf781dedadb27cb8f88cef04e",
+      "bytes": 110,
+      "name": "bitmap-1.png"
+    },
+    {
+      "path": "resources/MSOUTL32.OCX/bitmap-8008.png",
+      "sha256": "c69c0d96d80389ee568ab2694d89239fdde5cf5ea1b49a1d9e6b93710972eb06",
+      "bytes": 109,
+      "name": "bitmap-8008.png"
+    },
+    {
+      "path": "resources/MSOUTL32.OCX/bitmap-8009.png",
+      "sha256": "27cabfbe31c6e93a23f1b12520e937bc0e0a58099bb3d1bbab57124fe5eec460",
+      "bytes": 91,
+      "name": "bitmap-8009.png"
+    },
+    {
+      "path": "resources/MSOUTL32.OCX/bitmap-8010.png",
+      "sha256": "ee467346db87eaf82dca470665e75b7d05257ec1ba00743e503143eccae86eee",
+      "bytes": 129,
+      "name": "bitmap-8010.png"
+    },
+    {
+      "path": "resources/MSOUTL32.OCX/bitmap-8011.png",
+      "sha256": "794c20f66e770ae0785ef33620051c587bf49d206da69864b9eee4e90d5106bc",
+      "bytes": 116,
+      "name": "bitmap-8011.png"
+    },
+    {
+      "path": "resources/MSOUTL32.OCX/bitmap-8012.png",
+      "sha256": "07fbd63f12d6a3d7eca27e06f3bb73311f797a94d8eee5dc82e6a3721cb7740b",
+      "bytes": 119,
+      "name": "bitmap-8012.png"
+    },
+    {
+      "path": "resources/Mfc42.dll/bitmap-26567.png",
+      "sha256": "2293432f8358d899f64124b2a70d07cdda86c9abe3e57ff5f966b5797a237fa4",
+      "bytes": 592,
+      "name": "bitmap-26567.png"
+    },
+    {
+      "path": "resources/Mfc42.dll/bitmap-30994.png",
+      "sha256": "f555e2d4aabdeb91bc11204cb800c03b2e31ee0e5839bd5b1a7a0f045a1998aa",
+      "bytes": 101,
+      "name": "bitmap-30994.png"
+    },
+    {
+      "path": "resources/Mfc42.dll/bitmap-30995.png",
+      "sha256": "229ba3260d6e57389e7c0fdb4a92a5d81927570774e539ab38b0d2d043311c4e",
+      "bytes": 134,
+      "name": "bitmap-30995.png"
+    },
+    {
+      "path": "resources/Mfc42.dll/bitmap-30996.png",
+      "sha256": "f6c1604540f5237ea0a07a44996af440a77ace099df84f094bc813f3396e9a20",
+      "bytes": 157,
+      "name": "bitmap-30996.png"
+    },
+    {
+      "path": "resources/Mfc42.dll/bitmap-32384.png",
+      "sha256": "17561f92d7a10d78bb150383f0e811071aa4de6e29c84af44453a54849991887",
+      "bytes": 134,
+      "name": "bitmap-32384.png"
+    },
+    {
+      "path": "resources/PICCLP32.OCX/bitmap-1.png",
+      "sha256": "786ff7350f974da75aa8557a7f2c88dec82d910a138914d7332e110dbf846276",
+      "bytes": 130,
+      "name": "bitmap-1.png"
+    },
+    {
+      "path": "resources/RICHTX32.OCX/bitmap-1.png",
+      "sha256": "1fb474a6f4ddbc4fbc80330c17037881d3c1b62be6bcec5dc79f0a77d500b631",
+      "bytes": 152,
+      "name": "bitmap-1.png"
+    },
+    {
+      "path": "resources/SPIN32.OCX/bitmap-1.png",
+      "sha256": "62ade7bcd774711878f242fcf5c40cd468cdc423fd65370989495186194ea66f",
+      "bytes": 138,
+      "name": "bitmap-1.png"
+    },
+    {
+      "path": "resources/TABCTL32.OCX/bitmap-1.png",
+      "sha256": "a2380fac88e6684cedf20e78d443c87df14761d0d2e8b57f5bc800b94dd4f7e8",
+      "bytes": 135,
+      "name": "bitmap-1.png"
+    },
+    {
+      "path": "resources/TABCTL32.OCX/bitmap-26567.png",
+      "sha256": "2293432f8358d899f64124b2a70d07cdda86c9abe3e57ff5f966b5797a237fa4",
+      "bytes": 592,
+      "name": "bitmap-26567.png"
+    },
+    {
+      "path": "resources/TABCTL32.OCX/bitmap-30994.png",
+      "sha256": "f555e2d4aabdeb91bc11204cb800c03b2e31ee0e5839bd5b1a7a0f045a1998aa",
+      "bytes": 101,
+      "name": "bitmap-30994.png"
+    },
+    {
+      "path": "resources/TABCTL32.OCX/bitmap-30995.png",
+      "sha256": "229ba3260d6e57389e7c0fdb4a92a5d81927570774e539ab38b0d2d043311c4e",
+      "bytes": 134,
+      "name": "bitmap-30995.png"
+    },
+    {
+      "path": "resources/TABCTL32.OCX/bitmap-30996.png",
+      "sha256": "f6c1604540f5237ea0a07a44996af440a77ace099df84f094bc813f3396e9a20",
+      "bytes": 157,
+      "name": "bitmap-30996.png"
+    },
+    {
+      "path": "resources/THREED32.OCX/bitmap-1.png",
+      "sha256": "d647169d1744c01832af1bb9f5d9ce541483dda7b1de90e67250b6a542de62d1",
+      "bytes": 134,
+      "name": "bitmap-1.png"
+    },
+    {
+      "path": "resources/THREED32.OCX/bitmap-2.png",
+      "sha256": "edaeb3000f3679b70395d1c1542f178f18242327edae65ee73bf9ccb3ac08f13",
+      "bytes": 127,
+      "name": "bitmap-2.png"
+    },
+    {
+      "path": "resources/THREED32.OCX/bitmap-3.png",
+      "sha256": "7b4496abae240cae1993ad761e9e54dd25460ac8e7b4c62ede0d8ebed9ed8275",
+      "bytes": 128,
+      "name": "bitmap-3.png"
+    },
+    {
+      "path": "resources/THREED32.OCX/bitmap-4.png",
+      "sha256": "99be9d5a6518142575f53e127dd45888a266dd789619df3e8b331fca9b8b5e20",
+      "bytes": 97,
+      "name": "bitmap-4.png"
+    },
+    {
+      "path": "resources/THREED32.OCX/bitmap-5.png",
+      "sha256": "b56e1b9d55a59d4707c1b469784f048bcc33fa872f1082eb08749ad9df6152a6",
+      "bytes": 151,
+      "name": "bitmap-5.png"
+    },
+    {
+      "path": "resources/THREED32.OCX/bitmap-6.png",
+      "sha256": "e116260f3fc986b5dc9bbf89efe153626a34084c011092aafa2dfe861ca78361",
+      "bytes": 117,
+      "name": "bitmap-6.png"
+    },
+    {
+      "path": "resources/THREED32.OCX/bitmap-SSCBDN1.png",
+      "sha256": "792dc3b2bbaf7e78edde98d971e76dd97537b6004f46fb4e0ff289edbcbb0729",
+      "bytes": 133,
+      "name": "bitmap-SSCBDN1.png"
+    },
+    {
+      "path": "resources/THREED32.OCX/bitmap-SSCBDN2.png",
+      "sha256": "16064ce6d1010aa163089571a256e9d6df9c5c60c2bcea7c9cff7084acdc3905",
+      "bytes": 110,
+      "name": "bitmap-SSCBDN2.png"
+    },
+    {
+      "path": "resources/THREED32.OCX/bitmap-SSCBDN3.png",
+      "sha256": "abe86f4b233b40b1c62671b6c6e73745b695d8b9e898a8cb00cac73a75ebd30c",
+      "bytes": 116,
+      "name": "bitmap-SSCBDN3.png"
+    },
+    {
+      "path": "resources/THREED32.OCX/bitmap-SSCBUP1.png",
+      "sha256": "7434767c1f5988e0355cc7089158cc6350c63d25370f5c295868fb7404f7837d",
+      "bytes": 136,
+      "name": "bitmap-SSCBUP1.png"
+    },
+    {
+      "path": "resources/THREED32.OCX/bitmap-SSCBUP2.png",
+      "sha256": "16064ce6d1010aa163089571a256e9d6df9c5c60c2bcea7c9cff7084acdc3905",
+      "bytes": 110,
+      "name": "bitmap-SSCBUP2.png"
+    },
+    {
+      "path": "resources/THREED32.OCX/bitmap-SSCBUP3.png",
+      "sha256": "847d0cdbe3d98c9c85dc0628ea133985f761524218f39313b4604735991ee959",
+      "bytes": 116,
+      "name": "bitmap-SSCBUP3.png"
+    },
+    {
+      "path": "resources/THREED32.OCX/bitmap-SSRBDN1.png",
+      "sha256": "7c8c691d9451b80817367124b5b3e3707104e76e0362396cb22e503303e21ce8",
+      "bytes": 139,
+      "name": "bitmap-SSRBDN1.png"
+    },
+    {
+      "path": "resources/THREED32.OCX/bitmap-SSRBDN2.png",
+      "sha256": "73eef9015a9eb1eac75e33e8b8834bf462cee39909b799a46156843e7b182da4",
+      "bytes": 133,
+      "name": "bitmap-SSRBDN2.png"
+    },
+    {
+      "path": "resources/THREED32.OCX/bitmap-SSRBGR1.png",
+      "sha256": "a88255213b5a1881a53d245f91183d32f767ce55c3904ba635a3fd792da34d99",
+      "bytes": 161,
+      "name": "bitmap-SSRBGR1.png"
+    },
+    {
+      "path": "resources/THREED32.OCX/bitmap-SSRBGR2.png",
+      "sha256": "9325be2aca118d87c962c92e9c194874a4c88a4ddab4e2a3a623811e85102ce8",
+      "bytes": 152,
+      "name": "bitmap-SSRBGR2.png"
+    },
+    {
+      "path": "resources/THREED32.OCX/bitmap-SSRBUP1.png",
+      "sha256": "a88255213b5a1881a53d245f91183d32f767ce55c3904ba635a3fd792da34d99",
+      "bytes": 161,
+      "name": "bitmap-SSRBUP1.png"
+    },
+    {
+      "path": "resources/THREED32.OCX/bitmap-SSRBUP2.png",
+      "sha256": "9325be2aca118d87c962c92e9c194874a4c88a4ddab4e2a3a623811e85102ce8",
+      "bytes": 152,
+      "name": "bitmap-SSRBUP2.png"
+    },
+    {
+      "path": "resources/Tab32.dll/bitmap-TTABD.png",
+      "sha256": "ce36cd9b54f2703270a60d70cc2167ec909dcc4888c0154e537c0a84d68ebd0a",
+      "bytes": 175,
+      "name": "bitmap-TTABD.png"
+    },
+    {
+      "path": "resources/Tab32.dll/bitmap-TTABU.png",
+      "sha256": "33bc3730e73fdf345927f75dbd6ca063fb68c9ee9550ad8c852b7724db9e00db",
+      "bytes": 158,
+      "name": "bitmap-TTABU.png"
+    },
+    {
+      "path": "resources/VB40032.DLL/bitmap-26567.png",
+      "sha256": "e6259ed5fcd9c4b19b47ed789da6d8a3099b80c7f9a649ecba62f9e759d006d8",
+      "bytes": 629,
+      "name": "bitmap-26567.png"
+    },
+    {
+      "path": "resources/VB40032.DLL/bitmap-7000.png",
+      "sha256": "d0c6bad88bbd08dde9a25a9b2087fb8c5af2212b6557c1bc8925c67dd69f3644",
+      "bytes": 458,
+      "name": "bitmap-7000.png"
+    },
+    {
+      "path": "resources/VB40032.DLL/bitmap-7001.png",
+      "sha256": "ece1b1636050a7eceb2fdef5f28d71d28ae0b3e7bbec3500940c0932ba2440cf",
+      "bytes": 252,
+      "name": "bitmap-7001.png"
+    },
+    {
+      "path": "resources/VB40032.DLL/bitmap-8100.png",
+      "sha256": "e050c141dc2ad2c66c58ddbe5889cb5071c12cbf7d0ebef72427647e43ecbbfb",
+      "bytes": 114,
+      "name": "bitmap-8100.png"
+    },
+    {
+      "path": "resources/VB40032.DLL/bitmap-8101.png",
+      "sha256": "e2aed1f492df190c9c934a692a62ac82fb14181b7f6aa67565e48e5d7d7e630c",
+      "bytes": 108,
+      "name": "bitmap-8101.png"
+    },
+    {
+      "path": "resources/VB40032.DLL/bitmap-8102.png",
+      "sha256": "c0b65848ccb9404a876eec0b6f2572372553a8d1b9d14ff519544ace1ce915e0",
+      "bytes": 104,
+      "name": "bitmap-8102.png"
+    },
+    {
+      "path": "resources/VB40032.DLL/bitmap-8103.png",
+      "sha256": "7c772fa6107787e6022a3f453affe98b8b524148ff6205afcde6f40c32603c31",
+      "bytes": 112,
+      "name": "bitmap-8103.png"
+    },
+    {
+      "path": "resources/ctl3d32.dll/bitmap-26567.png",
+      "sha256": "2293432f8358d899f64124b2a70d07cdda86c9abe3e57ff5f966b5797a237fa4",
+      "bytes": 592,
+      "name": "bitmap-26567.png"
+    },
+    {
+      "path": "resources/installer/CTL3D32.DLL/bitmap-26567.png",
+      "sha256": "2293432f8358d899f64124b2a70d07cdda86c9abe3e57ff5f966b5797a237fa4",
+      "bytes": 592,
+      "name": "bitmap-26567.png"
+    },
+    {
+      "path": "resources/installer/UNINST.EXE/bitmap-701.png",
+      "sha256": "55b56be4de81afc48f6dc4a52ee7cf57c1bc1c18c7804f12d94d05a773d36a98",
+      "bytes": 6140,
+      "name": "bitmap-701.png"
+    },
+    {
+      "path": "resources/installer/UNINST.EXE/bitmap-702.png",
+      "sha256": "fd8c416b2a9db548d39c2a0517aa84bc633b918d567dd9401d864ee3b84b003f",
+      "bytes": 109,
+      "name": "bitmap-702.png"
+    },
+    {
+      "path": "resources/installer/_ISRES.DLL/bitmap-10300.png",
+      "sha256": "c892378763c9e853eb9fa5bf074af3dd1c4fba1c20246e0f94ed247910c9151f",
+      "bytes": 114,
+      "name": "bitmap-10300.png"
+    },
+    {
+      "path": "resources/installer/_ISRES.DLL/bitmap-10301.png",
+      "sha256": "9d2c4e3a9b5766131faa04afbf42091eceab5ceb8579d1509057fa0263fca37c",
+      "bytes": 80,
+      "name": "bitmap-10301.png"
+    },
+    {
+      "path": "resources/installer/_ISRES.DLL/bitmap-10302.png",
+      "sha256": "2b4c1892ffce2d6acdc7f99a98a00d623a442f188e7e65262e9940dff83ac8bd",
+      "bytes": 109,
+      "name": "bitmap-10302.png"
+    },
+    {
+      "path": "resources/installer/_ISRES.DLL/bitmap-10303.png",
+      "sha256": "8190861749e6177062d5e0e5347bd6f74a5d6f3743d4e4a91213b9e0cc5e0fec",
+      "bytes": 75,
+      "name": "bitmap-10303.png"
+    },
+    {
+      "path": "resources/installer/_ISRES.DLL/bitmap-10304.png",
+      "sha256": "b7651e4b9122462d789cf3353886155d6650b805afd613a2b5772516f7c07224",
+      "bytes": 117,
+      "name": "bitmap-10304.png"
+    },
+    {
+      "path": "resources/installer/_ISRES.DLL/bitmap-10305.png",
+      "sha256": "102d3378443b365bd65fd4e3a31ece1c32ed44ab7231e804425ad051dd4ec347",
+      "bytes": 84,
+      "name": "bitmap-10305.png"
+    },
+    {
+      "path": "resources/installer/_ISRES.DLL/bitmap-10550.png",
+      "sha256": "9dd477c5ef78870edeb39991533cb34a2e50ee35b4c0afaeccdd0623f176eef9",
+      "bytes": 2859,
+      "name": "bitmap-10550.png"
+    },
+    {
+      "path": "resources/installer/_ISRES.DLL/bitmap-10601.png",
+      "sha256": "523f5e70a03b93782e288ab8c6471b9e7c63137a090940c3f54c27c433bfca24",
+      "bytes": 297,
+      "name": "bitmap-10601.png"
+    },
+    {
+      "path": "resources/installer/_ISRES.DLL/bitmap-10602.png",
+      "sha256": "b96d579ae98d20275ed82b4664f181ec74d4099714a00a19cd001f0fab4e71ba",
+      "bytes": 306,
+      "name": "bitmap-10602.png"
+    },
+    {
+      "path": "resources/installer/_ISRES.DLL/bitmap-10603.png",
+      "sha256": "7405fe5d7d6bf13f3b3ebd9260ecad12f5d2d2ccdf297c713fd7e37f789ef4be",
+      "bytes": 239,
+      "name": "bitmap-10603.png"
+    },
+    {
+      "path": "resources/installer/_ISRES.DLL/bitmap-10604.png",
+      "sha256": "cbc525622c701ab5feda6a2e7eed61dfc0ffcbb4c2f9af221c4d31bbb60b158e",
+      "bytes": 232,
+      "name": "bitmap-10604.png"
+    },
+    {
+      "path": "resources/installer/_ISRES.DLL/bitmap-10605.png",
+      "sha256": "4e69407ff3bea5ce03c3ba45a595587036770936eeacb1a9dd02372ced500b19",
+      "bytes": 296,
+      "name": "bitmap-10605.png"
+    },
+    {
+      "path": "resources/installer/_ISRES.DLL/bitmap-10606.png",
+      "sha256": "f338220a5eabf441b3a78d5feca2733fc04588c03300f6f90e72d03527e93e9c",
+      "bytes": 286,
+      "name": "bitmap-10606.png"
+    },
+    {
+      "path": "resources/installer/_ISRES.DLL/bitmap-10776.png",
+      "sha256": "6e7725ecf76ce3afccac1f60995ad2926e247ab13cb5b04b942dbe0de4777e4e",
+      "bytes": 505,
+      "name": "bitmap-10776.png"
+    },
+    {
+      "path": "resources/installer/_ISRES.DLL/bitmap-11001.png",
+      "sha256": "d31c09e4c83d5a3b4e57e5957d5bf981dbbb930891192d8a83b85d1afc0f9228",
+      "bytes": 372,
+      "name": "bitmap-11001.png"
+    },
+    {
+      "path": "resources/installer/_ISRES.DLL/bitmap-11002.png",
+      "sha256": "898197f047ca20f1b8fd3ffa94eefddd2b3e9a1300e45edeb050be9adcdfea60",
+      "bytes": 169,
+      "name": "bitmap-11002.png"
+    },
+    {
+      "path": "resources/installer/_ISRES.DLL/bitmap-11003.png",
+      "sha256": "b863bdb568a5f335d2b81d9e2b17b0fc3a2c502fad9e0bc34d4358f9f4159e56",
+      "bytes": 475,
+      "name": "bitmap-11003.png"
+    },
+    {
+      "path": "resources/installer/_ISRES.DLL/bitmap-11004.png",
+      "sha256": "46ac17241b97b00dc515a3076a9a6b2354b7a7a3ae01a5a95fbe3099b4585edf",
+      "bytes": 215,
+      "name": "bitmap-11004.png"
+    },
+    {
+      "path": "resources/installer/_ISRES.DLL/bitmap-11005.png",
+      "sha256": "da5aa83282926e0d9188ad3c9c49d28be457383c00e729382d6c9e64a4611097",
+      "bytes": 217,
+      "name": "bitmap-11005.png"
+    },
+    {
+      "path": "resources/installer/_ISRES.DLL/bitmap-12001.png",
+      "sha256": "0525eff42d17fe3716be0245c0de34c375d5459af4dfe58f7ef770a6f3f9bf97",
+      "bytes": 220,
+      "name": "bitmap-12001.png"
+    },
+    {
+      "path": "resources/installer/_ISRES.DLL/bitmap-12002.png",
+      "sha256": "ccf21e1de0d4a3ed2989ce72450e189750d166513a13cbb0d6d8621af5b773fd",
+      "bytes": 281,
+      "name": "bitmap-12002.png"
+    },
+    {
+      "path": "resources/installer/_ISRES.DLL/bitmap-12003.png",
+      "sha256": "cdb2699d3e6e4e2fa2d75f3aa6036e01889610cc1bc5ea4ef8fe8c1b406d9a1f",
+      "bytes": 315,
+      "name": "bitmap-12003.png"
+    },
+    {
+      "path": "resources/installer/_ISRES.DLL/bitmap-12004.png",
+      "sha256": "29f39a219b1690c5551bd4e8848026ffd3aad9bc2e9e62d458d03431ae7ddcfa",
+      "bytes": 284,
+      "name": "bitmap-12004.png"
+    },
+    {
+      "path": "resources/penpad.exe/bitmap-128.png",
+      "sha256": "e2b9e8b986d2278657813cf0e265773c1c593cff60faa80509519df230060f55",
+      "bytes": 523,
+      "name": "bitmap-128.png"
+    },
+    {
+      "path": "workbench-extract/Mus_hand.png",
+      "sha256": "e178f86893877bf79970c122155605d2206e1b3c2391507f5939c16dc3b01501",
+      "bytes": 1485,
+      "name": "Mus_hand.png",
+      "allowlistedRepoPath": "data/Mus_hand.png"
+    }
+  ]
+}

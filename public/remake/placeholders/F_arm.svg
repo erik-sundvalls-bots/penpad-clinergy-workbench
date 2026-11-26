@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="116" height="240" viewBox="0 0 116 240" role="img" aria-label="female arm (placeholder)">
+  <title>female arm (placeholder) — PLACEHOLDER · CC0</title>
+  <!-- Independent outline artwork for the PEN&amp;PAD-style body-map remake.
+       Not traced from the 1998 Clinergy bitmaps. Dedicated to the public domain (CC0 1.0). -->
+  <rect width="116" height="240" fill="#f4f1ea" stroke="#b7b1a4" stroke-width="1"/>
+  
+  <text x="58.0" y="14" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" fill="#8a6a28">PLACEHOLDER · CC0</text>
+  <text x="58.0" y="26" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#5c564c">female arm</text>
+  <!-- schematic arm, shoulder top, hand bottom -->
+  <ellipse cx="58.0" cy="36" rx="28" ry="16" fill="#efe8d8" stroke="#2c4a38" stroke-width="1.5"/>
+  <text x="58.0" y="40" text-anchor="middle" font-size="7" fill="#3d3a34" font-family="system-ui,sans-serif">shoulder</text>
+  <rect x="42.0" y="48" width="32" height="55" rx="10" fill="#efe8d8" stroke="#2c4a38" stroke-width="1.5"/>
+  <text x="58.0" y="78" text-anchor="middle" font-size="7" fill="#3d3a34" font-family="system-ui,sans-serif">arm</text>
+  <ellipse cx="58.0" cy="112" rx="18" ry="12" fill="#efe8d8" stroke="#2c4a38" stroke-width="1.5"/>
+  <text x="58.0" y="116" text-anchor="middle" font-size="7" fill="#3d3a34" font-family="system-ui,sans-serif">elbow</text>
+  <rect x="44.0" y="122" width="28" height="48" rx="10" fill="#efe8d8" stroke="#2c4a38" stroke-width="1.5"/>
+  <text x="58.0" y="148" text-anchor="middle" font-size="7" fill="#3d3a34" font-family="system-ui,sans-serif">forearm</text>
+  <rect x="42.0" y="168" width="32" height="16" rx="6" fill="#efe8d8" stroke="#2c4a38" stroke-width="1.5"/>
+  <text x="58.0" y="180" text-anchor="middle" font-size="7" fill="#3d3a34" font-family="system-ui,sans-serif">wrist</text>
+  <path d="M38.0 186 L78.0 186 L82.0 230 L34.0 230 Z" fill="#efe8d8" stroke="#2c4a38" stroke-width="1.5"/>
+  <text x="58.0" y="212" text-anchor="middle" font-size="7" fill="#3d3a34" font-family="system-ui,sans-serif">hand</text>
+
+  <text x="4" y="236" font-family="system-ui,sans-serif" font-size="7" fill="#9a8f7c">PLACEHOLDER · CC0</text>
+
+</svg>

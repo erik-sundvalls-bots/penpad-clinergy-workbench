@@ -1,0 +1,310 @@
+{
+  "Comtopic.ini": [
+    {
+      "label": "Cough",
+      "topicPermId": 62,
+      "locationPermId": 0
+    },
+    {
+      "label": "Vomiting",
+      "topicPermId": 48,
+      "locationPermId": 0
+    },
+    {
+      "label": "Diarrhoea",
+      "topicPermId": 49,
+      "locationPermId": 0
+    },
+    {
+      "label": "Depression",
+      "topicPermId": 166,
+      "locationPermId": 0
+    },
+    {
+      "label": "Catarrh in chest",
+      "topicPermId": 174,
+      "locationPermId": 60
+    },
+    {
+      "label": "Chest pain",
+      "topicPermId": 61,
+      "locationPermId": 60
+    },
+    {
+      "label": "Palpitations",
+      "topicPermId": 575,
+      "locationPermId": 0
+    },
+    {
+      "label": "Wheezing",
+      "topicPermId": 65,
+      "locationPermId": 0
+    },
+    {
+      "label": "Dyspnoea",
+      "topicPermId": 64,
+      "locationPermId": 0
+    },
+    {
+      "label": "Sleep problem",
+      "topicPermId": 171,
+      "locationPermId": 0
+    },
+    {
+      "label": "Anxiety",
+      "topicPermId": 165,
+      "locationPermId": 0
+    },
+    {
+      "label": "Hot flushes",
+      "topicPermId": 1371,
+      "locationPermId": 0
+    },
+    {
+      "label": "Pyrexia",
+      "topicPermId": 316,
+      "locationPermId": 0
+    },
+    {
+      "label": "Tiredness",
+      "topicPermId": 423,
+      "locationPermId": 0
+    },
+    {
+      "label": "Headache",
+      "topicPermId": 342,
+      "locationPermId": 1
+    },
+    {
+      "label": "Tenderness of throat",
+      "topicPermId": 608,
+      "locationPermId": 175
+    },
+    {
+      "label": "Lump in breast",
+      "topicPermId": 450,
+      "locationPermId": 832
+    },
+    {
+      "label": "Epigastrium pain",
+      "topicPermId": 2314,
+      "locationPermId": 0
+    },
+    {
+      "label": "Abdominal colic",
+      "topicPermId": 52,
+      "locationPermId": 0
+    },
+    {
+      "label": "Skin dryness on back",
+      "topicPermId": 568,
+      "locationPermId": 241
+    },
+    {
+      "label": "Menorrhagia",
+      "topicPermId": 1636,
+      "locationPermId": 0
+    },
+    {
+      "label": "Urinary frequency",
+      "topicPermId": 473,
+      "locationPermId": 0
+    },
+    {
+      "label": "Vaginal discharge",
+      "topicPermId": 1036,
+      "locationPermId": 0
+    },
+    {
+      "label": "Vaginal dryness",
+      "topicPermId": 1042,
+      "locationPermId": 0
+    },
+    {
+      "label": "Itching of anus",
+      "topicPermId": 313,
+      "locationPermId": 699
+    },
+    {
+      "label": "Oedema of leg",
+      "topicPermId": 561,
+      "locationPermId": 303
+    },
+    {
+      "label": "Dysuria",
+      "topicPermId": 472,
+      "locationPermId": 0
+    },
+    {
+      "label": "Anal pain",
+      "topicPermId": 282,
+      "locationPermId": 699
+    }
+  ],
+  "Symptoms.ini": [
+    {
+      "label": "Cough",
+      "topicPermId": 62,
+      "locationPermId": 0
+    },
+    {
+      "label": "Vomiting",
+      "topicPermId": 48,
+      "locationPermId": 0
+    },
+    {
+      "label": "Depressed mood",
+      "topicPermId": 116,
+      "locationPermId": 0
+    },
+    {
+      "label": "Chest pain",
+      "topicPermId": 445,
+      "locationPermId": 60
+    },
+    {
+      "label": "Dyspnoea",
+      "topicPermId": 64,
+      "locationPermId": 60
+    },
+    {
+      "label": "Headache",
+      "topicPermId": 394,
+      "locationPermId": 0
+    },
+    {
+      "label": "Sore throat",
+      "topicPermId": 1717,
+      "locationPermId": 0
+    },
+    {
+      "label": "Vaginal discharge",
+      "topicPermId": 1364,
+      "locationPermId": 646
+    },
+    {
+      "label": "Ankle swelling",
+      "topicPermId": 59,
+      "locationPermId": 488
+    },
+    {
+      "label": "Dysuria",
+      "topicPermId": 347,
+      "locationPermId": 89
+    },
+    {
+      "label": "Back pain",
+      "topicPermId": 445,
+      "locationPermId": 87
+    },
+    {
+      "label": "Earache",
+      "topicPermId": 1658,
+      "locationPermId": 0
+    },
+    {
+      "label": "Abdominal pain",
+      "topicPermId": 445,
+      "locationPermId": 51
+    },
+    {
+      "label": "Dyspepsia",
+      "topicPermId": 4,
+      "locationPermId": 0
+    },
+    {
+      "label": "Auditory canal foreign body",
+      "topicPermId": 1656,
+      "locationPermId": 0
+    },
+    {
+      "label": "Anxiousness",
+      "topicPermId": 117,
+      "locationPermId": 0
+    },
+    {
+      "label": "Agitation",
+      "topicPermId": 507,
+      "locationPermId": 0
+    }
+  ],
+  "Diseases.ini": [
+    {
+      "label": "Tonsillitis",
+      "topicPermId": 199,
+      "locationPermId": 0
+    },
+    {
+      "label": "Upper respiratory tract infection",
+      "topicPermId": 273,
+      "locationPermId": 0
+    },
+    {
+      "label": "Gastroenteritis",
+      "topicPermId": 314,
+      "locationPermId": 0
+    },
+    {
+      "label": "Anxiety",
+      "topicPermId": 416,
+      "locationPermId": 0
+    },
+    {
+      "label": "Influenza",
+      "topicPermId": 275,
+      "locationPermId": 0
+    },
+    {
+      "label": "Urinary tract infection",
+      "topicPermId": 276,
+      "locationPermId": 0
+    },
+    {
+      "label": "Vaginal candidiasis",
+      "topicPermId": 1359,
+      "locationPermId": 646
+    },
+    {
+      "label": "Constipation",
+      "topicPermId": 566,
+      "locationPermId": 0
+    },
+    {
+      "label": "Acute serous otitis media",
+      "topicPermId": 1693,
+      "locationPermId": 0
+    },
+    {
+      "label": "Acute conjunctivitis",
+      "topicPermId": 402,
+      "locationPermId": 0
+    }
+  ],
+  "Famhist.ini": [
+    {
+      "label": "FH of mental disorder",
+      "topicPermId": 3502,
+      "locationPermId": 0
+    }
+  ],
+  "Healthch.ini": [
+    {
+      "label": "Contraceptive check",
+      "topicPermId": 3195,
+      "locationPermId": 0
+    },
+    {
+      "label": "Hypertension check",
+      "topicPermId": 3197,
+      "locationPermId": 0
+    },
+    {
+      "label": "Med3 certificate",
+      "topicPermId": 3650,
+      "locationPermId": 0
+    }
+  ],
+  "Exams.ini": [],
+  "Pasthist.ini": [],
+  "Procs.ini": []
+}
