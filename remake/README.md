@@ -14,17 +14,17 @@ This is an independent recreation of a PEN&PAD / 1998 Clinergy-style data-entry 
 - Thumb pain form (and thumb swelling / thumb diagnoses opened from it) with constrained-option controls, a live original-equivalent summary sentence, and Accept to save to the patient record.
 - Mouse and keyboard only in this version.
 
-## Images
+## Images and image packs
 
-The public build uses the CC0 placeholders in `public/remake/placeholders/` (simple self-made outlines, clearly marked placeholder). Original Clinergy images must **never** be committed or published.
+Artwork and all body-map hotspot coordinates travel together as an **image pack** (`penpad-image-pack/v1`). The format is documented in [`docs/image-pack.md`](../docs/image-pack.md).
 
-A pluggable image source maps logical ids (`M_main`, `B_fhnd`, `All1`, …) from `remake/data/images-manifest.json` to files. Switch modes with `?images=local` or the host-screen control.
+The public build ships a built-in pack of CC0 placeholders at `public/remake/packs/cc0-placeholders/` (simple self-made outlines, clearly marked placeholder). You can upload a different pack zip in the browser; it is unzipped client-side and stored in IndexedDB until you revert to the built-in pack.
 
-To load originals **privately** on your machine, see [`local-originals/README.md`](local-originals/README.md). A CI / test guard fails if a fingerprint of any original image appears in the git tree or in `dist/` (the existing workbench extract `data/Mus_hand.png` is the only allowlisted path).
+Original Clinergy images must **never** be committed or published. To load a locally produced pack **privately** on your machine, see [`local-originals/README.md`](local-originals/README.md). A CI / test guard fails if a fingerprint of any original image appears in the git tree or in `dist/` (the existing workbench extract `data/Mus_hand.png` is the only allowlisted path).
 
 ## Data
 
-Form definitions, sentence rules, and body-map coordinates come from the extractor YAML already in `data/` plus remake-specific JSON under `remake/data/` (hotspots, topic index, location–topic links). Those are data, not images.
+Form definitions, sentence rules, and topic indexes come from the extractor YAML already in `data/` plus remake-specific JSON under `remake/data/`. Body-map geometry is **not** read from those JSON files at runtime; it comes from the active image pack.
 
 ## Develop
 

@@ -65,6 +65,7 @@ export function hitTest(
 }
 
 export function anatomyMapFor(data: BodyMapData, sex: "male" | "female"): string {
+  if (data.defaultMaps) return sex === "female" ? data.defaultMaps.female : data.defaultMaps.male;
   return sex === "female" ? "FemaleSurfaceAnatomy" : "MaleSurfaceAnatomy";
 }
 

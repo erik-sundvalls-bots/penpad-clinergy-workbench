@@ -6,3 +6,6 @@ dist/
 # Remake: original Clinergy images, local-only. Never publish.
 remake/local-originals/**
 !remake/local-originals/README.md
+
+# Local image-pack zips (may contain 1998 originals; never commit)
+*.zip

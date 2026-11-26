@@ -199,3 +199,9 @@ button { cursor: pointer; }
 
 .workbench-link { font-size: 0.85rem; }
 .workbench-link a { color: var(--accent); }
+
+.pack-controls { display: flex; flex-direction: column; gap: 4px; }
+.pack-controls .pack-file {
+  position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0);
+}
+.pack-error { color: #8a1f1f; font-size: 0.85rem; margin: 4px 0 0; max-width: 36rem; white-space: pre-wrap; }

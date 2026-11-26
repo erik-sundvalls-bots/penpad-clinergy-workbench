@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="330" viewBox="0 0 240 330" role="img" aria-label="Male surface anatomy (placeholder)">
+  <title>Male surface anatomy (placeholder) — PLACEHOLDER · CC0</title>
+  <!-- Independent outline artwork for the PEN&amp;PAD-style body-map remake.
+       Not traced from the 1998 Clinergy bitmaps. Dedicated to the public domain (CC0 1.0). -->
+  <rect width="240" height="330" fill="#f4f1ea" stroke="#b7b1a4" stroke-width="1"/>
+  
+  <text x="120" y="14" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" fill="#7a7368">FRONT</text>
+  <text x="186" y="14" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" fill="#7a7368">BACK</text>
+  <text x="120" y="26" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#8a6a28">PLACEHOLDER · CC0</text>
+<line x1="120" y1="28" x2="120" y2="320" stroke="#d9d3c6" stroke-width="1" stroke-dasharray="3 3"/><ellipse cx="78" cy="64" rx="20" ry="22" fill="#efe8d8" stroke="#2c4a38" stroke-width="1.6"/>
+<circle cx="72" cy="62" r="1.4" fill="#2c4a38"/>
+        <circle cx="84" cy="62" r="1.4" fill="#2c4a38"/>
+        <path d="M73 74 Q78 78 83 74" fill="none" stroke="#2c4a38" stroke-width="1"/>
+<line x1="78" y1="86" x2="78" y2="96" stroke="#2c4a38" stroke-width="3"/>
+<path d="M58 96 L98 96 L104 142 L52 142 Z" fill="#efe8d8" stroke="#2c4a38" stroke-width="1.6"/>
+<path d="M52 142 L104 142 L100 186 L56 186 Z" fill="#efe8d8" stroke="#2c4a38" stroke-width="1.6"/>
+<path d="M56 186 L100 186 L96 204 L60 204 Z" fill="#efe8d8" stroke="#2c4a38" stroke-width="1.6"/>
+<path d="M62 204 L78 204 L76 288 L60 288 Z" fill="#efe8d8" stroke="#2c4a38" stroke-width="1.6"/>
+        <path d="M80 204 L96 204 L98 288 L82 288 Z" fill="#efe8d8" stroke="#2c4a38" stroke-width="1.6"/>
+<ellipse cx="68" cy="300" rx="14" ry="8" fill="#efe8d8" stroke="#2c4a38" stroke-width="1.6"/>
+        <ellipse cx="90" cy="300" rx="14" ry="8" fill="#efe8d8" stroke="#2c4a38" stroke-width="1.6"/>
+<path d="M58 100 L32 168" fill="none" stroke="#2c4a38" stroke-width="6" stroke-linecap="round"/>
+        <path d="M98 100 L124 168" fill="none" stroke="#2c4a38" stroke-width="6" stroke-linecap="round"/>
+        <ellipse cx="24" cy="184" rx="12" ry="16" fill="#efe8d8" stroke="#2c4a38" stroke-width="1.6"/>
+        <ellipse cx="132" cy="184" rx="12" ry="16" fill="#efe8d8" stroke="#2c4a38" stroke-width="1.6"/>
+<line x1="68" y1="198" x2="88" y2="198" stroke="#2c4a38" stroke-width="1"/><ellipse cx="202" cy="64" rx="20" ry="22" fill="#efe8d8" stroke="#2c4a38" stroke-width="1.6"/>
+<line x1="202" y1="86" x2="202" y2="96" stroke="#2c4a38" stroke-width="3"/>
+<path d="M182 96 L222 96 L228 142 L176 142 Z" fill="#efe8d8" stroke="#2c4a38" stroke-width="1.6"/>
+<line x1="202" y1="100" x2="202" y2="186" stroke="#2c4a38" stroke-width="1.2"/>
+<path d="M176 142 L228 142 L224 186 L180 186 Z" fill="#efe8d8" stroke="#2c4a38" stroke-width="1.6"/>
+<path d="M180 186 L224 186 L220 204 L184 204 Z" fill="#efe8d8" stroke="#2c4a38" stroke-width="1.6"/>
+<path d="M186 204 L202 204 L200 288 L184 288 Z" fill="#efe8d8" stroke="#2c4a38" stroke-width="1.6"/>
+        <path d="M204 204 L220 204 L222 288 L206 288 Z" fill="#efe8d8" stroke="#2c4a38" stroke-width="1.6"/>
+<ellipse cx="192" cy="300" rx="14" ry="8" fill="#efe8d8" stroke="#2c4a38" stroke-width="1.6"/>
+        <ellipse cx="214" cy="300" rx="14" ry="8" fill="#efe8d8" stroke="#2c4a38" stroke-width="1.6"/>
+<path d="M182 100 L156 168" fill="none" stroke="#2c4a38" stroke-width="6" stroke-linecap="round"/>
+        <path d="M222 100 L248 168" fill="none" stroke="#2c4a38" stroke-width="6" stroke-linecap="round"/>
+        <ellipse cx="148" cy="184" rx="12" ry="16" fill="#efe8d8" stroke="#2c4a38" stroke-width="1.6"/>
+        <ellipse cx="256" cy="184" rx="12" ry="16" fill="#efe8d8" stroke="#2c4a38" stroke-width="1.6"/>
+  <text x="4" y="326" font-family="system-ui,sans-serif" font-size="8" fill="#9a8f7c">PLACEHOLDER · CC0</text>
+
+</svg>
