@@ -4,6 +4,13 @@ import { formOf, topicDisplay } from "../knowledge-data.ts";
 
 export const DURATION_UNITS = ["second", "minute", "hour", "day", "week", "month", "year"] as const;
 
+function isQuantityToken(values: unknown[]): boolean {
+  if (values.length !== 1) return false;
+  const v = values[0];
+  return typeof v === "string" && /Value$/.test(v);
+}
+
+
 export type LateralityChoice = "left" | "right";
 
 export interface FeatureSelection {
@@ -32,17 +39,86 @@ export interface FormState {
 }
 
 export function emptyFormState(form: RemakeForm, extras?: Partial<FormState>): FormState {
+  const features: Record<string, FeatureSelection> = {};
+  let laterality: LateralityChoice[] = extras?.laterality ? [...extras.laterality] : [];
+  let subLocation = extras?.subLocation;
+  for (const row of [...(form.firstLayer ?? []), ...(form.moreLayer ?? [])]) {
+    if (row.default === undefined) continue;
+    const key = rowKey(row);
+    if (!key) continue;
+    if (key === "laterality") {
+      const sides = Array.isArray(row.default) ? row.default : [row.default];
+      laterality = sides.filter((s): s is LateralityChoice => s === "left" || s === "right");
+      continue;
+    }
+    if (typeof row.default === "object" && row.default && !Array.isArray(row.default)) {
+      const d = row.default as { values?: string[]; number?: number; unit?: string; value?: string };
+      features[key] = {
+        values: d.values ?? (d.value ? [d.value] : []),
+        number: d.number,
+        unit: d.unit,
+      };
+    } else if (Array.isArray(row.default)) {
+      features[key] = { values: row.default.map(String) };
+    } else {
+      features[key] = { values: [String(row.default)] };
+    }
+    if (key === "sublocation") subLocation = features[key].values[0] ?? subLocation;
+  }
   return {
     topic: form.topic,
     location: extras?.location ?? form.location,
-    laterality: extras?.laterality ? [...extras.laterality] : [],
-    subLocation: extras?.subLocation,
-    features: {},
+    laterality,
+    subLocation,
+    features,
     associated: {},
     diagnoses: {},
     comment: "",
     moreOpen: false,
   };
+}
+
+export function rowKey(row: FormRow): string {
+  if (row.feature) return row.feature;
+  if (row.criterialLink) return `criterial:${row.criterialLink}`;
+  return "";
+}
+
+export function valueKey(raw: unknown): string {
+  if (typeof raw === "string" || typeof raw === "number" || typeof raw === "boolean") return String(raw);
+  if (raw && typeof raw === "object" && "value" in raw) return String((raw as { value: unknown }).value);
+  return JSON.stringify(raw);
+}
+
+export function rowIsVisible(row: FormRow, state: FormState): boolean {
+  const cond = row.visibleWhen;
+  if (!cond) return true;
+  if (cond.feature === "laterality") {
+    return cond.values.some((v) => state.laterality.includes(v as LateralityChoice) || state.laterality.includes(v.replace(/Selection$/, "") as LateralityChoice));
+  }
+  const selected = state.features[cond.feature]?.values ?? [];
+  return cond.values.some((v) => selected.includes(v));
+}
+
+export function setQuantity(
+  state: FormState,
+  feature: string,
+  valueToken: string,
+  number: number | undefined,
+  unit: string | undefined,
+): FormState {
+  const next: FeatureSelection = {
+    values: number !== undefined && number > 0 ? [valueToken] : [],
+    number: number !== undefined && number > 0 ? number : undefined,
+    unit: unit || undefined,
+  };
+  return { ...state, features: { ...state.features, [feature]: next } };
+}
+
+export function setSubLocation(state: FormState, value: string, multiple: boolean): FormState {
+  const next = setFeatureValue(state, "sublocation", value, multiple);
+  const selected = next.features.sublocation?.values ?? [];
+  return { ...next, subLocation: selected[0] };
 }
 
 export function toggleLaterality(state: FormState, side: LateralityChoice, multiple: boolean): FormState {
@@ -103,16 +179,23 @@ function qualifiersFromFeatures(form: RemakeForm, state: FormState): Qualifier[]
   const rows = [...form.firstLayer, ...form.moreLayer];
   const out: Qualifier[] = [];
   for (const row of rows) {
-    if (!row.feature || row.feature === "laterality") continue;
-    const sel = state.features[row.feature];
+    const key = rowKey(row);
+    if (!key || key === "laterality" || key === "sublocation") continue;
+    const sel = state.features[key];
     if (!sel) continue;
-    if (sel.values.includes("TemporalValue") && sel.number && sel.unit) {
-      out.push({ descriptor: row.feature, value: "TemporalValue", number: sel.number, unit: sel.unit });
+    const token = (row.values ?? []).length === 1 && typeof row.values![0] === "string" ? String(row.values![0]) : undefined;
+    if (sel.number && (sel.values.some((v) => /Value$/.test(v)) || isQuantityToken(row.values ?? []))) {
+      out.push({
+        descriptor: row.criterialLink ?? row.feature ?? key,
+        value: sel.values[0] ?? token ?? "TemporalValue",
+        number: sel.number,
+        unit: sel.unit,
+      });
       continue;
     }
     for (const value of sel.values) {
-      if (value === "TemporalValue") continue;
-      out.push({ descriptor: row.feature, value });
+      if (/Value$/.test(value) && !sel.number) continue;
+      out.push({ descriptor: row.criterialLink ?? row.feature ?? key, value });
     }
   }
   return out;
@@ -190,11 +273,13 @@ export function featureLabel(feature: string): string {
   return feature.replace(/^Absolute/, "").replace(/([a-z0-9])([A-Z])/g, "$1 $2");
 }
 
-export function valueLabel(value: string): string {
-  if (value === "leftSelection") return "left";
-  if (value === "rightSelection") return "right";
-  if (value === "TemporalValue") return "duration";
-  return value.replace(/Selection$/, "").replace(/Pain$/, "").replace(/([a-z0-9])([A-Z])/g, "$1 $2").toLowerCase();
+export function valueLabel(value: string | unknown): string {
+  const key = typeof value === "string" ? value : valueKey(value);
+  if (key === "leftSelection") return "left";
+  if (key === "rightSelection") return "right";
+  if (key === "TemporalValue") return "duration";
+  if (/Value$/.test(key)) return "value";
+  return key.replace(/Selection$/, "").replace(/Pain$/, "").replace(/([a-z0-9])([A-Z])/g, "$1 $2").toLowerCase();
 }
 
 export function linkLabel(link: FormLink): string {
@@ -203,8 +288,9 @@ export function linkLabel(link: FormLink): string {
   return `${topicDisplay(link.concept)}${loc}`;
 }
 
-export function rowsOf(form: RemakeForm, moreOpen: boolean): FormRow[] {
-  return moreOpen ? [...form.firstLayer, ...form.moreLayer] : [...form.firstLayer];
+export function rowsOf(form: RemakeForm, moreOpen: boolean, state?: FormState): FormRow[] {
+  const rows = moreOpen ? [...form.firstLayer, ...form.moreLayer] : [...form.firstLayer];
+  return state ? rows.filter((row) => rowIsVisible(row, state)) : rows;
 }
 
 export function hasMoreLayer(form: RemakeForm): boolean {

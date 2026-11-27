@@ -1,0 +1,13 @@
+topic: DemoAlphaSymptom
+display: hand-built alpha override
+category: symptom
+summaryType: AbsentPresent
+location: DemoRegion
+firstLayer:
+  - feature: laterality
+    values: [leftSelection, rightSelection]
+    multiple: true
+moreLayer: []
+associatedSymptomsAndSigns: []
+diagnoses: []
+examinations: []

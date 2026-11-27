@@ -1,0 +1,44 @@
+topic: DemoAlphaSymptom
+display: demo alpha symptom
+category: symptom
+summaryType: AbsentPresent
+location: DemoRegion
+extractedAt: "1999-01-01T00:00:00Z"
+readCode: "SHOULD-NOT-APPEAR"
+opengalen:
+  topic: ignored
+firstLayer:
+  - feature: laterality
+    values: [leftSelection, rightSelection]
+    multiple: true
+  - feature: QuantityDuration
+    values: [TemporalValue]
+  - feature: AbsoluteSeverity
+    values: [mild, moderate, severe]
+    default: moderate
+  - feature: AbsoluteOnset
+    values: [gradual, sudden]
+    visibleWhen:
+      feature: AbsoluteSeverity
+      values: [severe]
+moreLayer:
+  - feature: AbsoluteProgress
+    values: [better, same, worse]
+associatedSymptomsAndSigns:
+  - item: DemoBetaSign of DemoRegion
+    concept: DemoBetaSign
+    preposition: of
+    location: DemoRegion
+    preCoordinated: DemoBetaSign
+    category: sign
+    summaryType: AbsentPresent
+diagnoses:
+  - item: DemoGammaDisease
+    concept: DemoGammaDisease
+    preposition: null
+    location: null
+    preCoordinated: DemoGammaDisease
+    category: disease
+    summaryType: PresentPossibleExcluded
+otherLinks: []
+examinations: []

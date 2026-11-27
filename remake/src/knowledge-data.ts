@@ -67,6 +67,10 @@ export interface FormRow {
   values: unknown[];
   multiple?: boolean;
   inheritance?: string;
+  /** Applied when the form is first opened. */
+  default?: unknown;
+  /** Hide this row unless the named feature (or laterality) has one of these values. */
+  visibleWhen?: { feature: string; values: string[] };
 }
 
 export interface FormLink {
@@ -96,6 +100,7 @@ export interface RemakeForm {
   moreLayer: FormRow[];
   associatedSymptomsAndSigns: FormLink[];
   diagnoses: FormLink[];
+  otherLinks?: FormLink[];
   examinations: FormExam[];
 }
 
@@ -130,13 +135,31 @@ const FORM_YAML: Record<string, string> = {
   ThumbJointDislocation: dislocationRaw,
 };
 
-const forms: Record<string, RemakeForm> = {};
+/** Hand-built forms shipped in data/. These win over a generated catalogue. */
+const overrideForms: Record<string, RemakeForm> = {};
 for (const [topic, raw] of Object.entries(FORM_YAML)) {
-  forms[topic] = parse(raw) as RemakeForm;
+  overrideForms[topic] = parse(raw) as RemakeForm;
+}
+
+/** Forms produced by the generator from a local extract. Loaded at startup if present. */
+let generatedForms: Record<string, RemakeForm> = {};
+
+export function setGeneratedForms(forms: Record<string, RemakeForm> | null): void {
+  generatedForms = forms ?? {};
+}
+
+export function overrideFormOf(topic: string): RemakeForm | null {
+  return overrideForms[topic] ?? null;
+}
+
+export function formSource(topic: string): "override" | "generated" | null {
+  if (overrideForms[topic]) return "override";
+  if (generatedForms[topic]) return "generated";
+  return null;
 }
 
 export function formOf(topic: string): RemakeForm | null {
-  return forms[topic] ?? null;
+  return overrideForms[topic] ?? generatedForms[topic] ?? null;
 }
 
 export function topicDisplay(topic: string): string {
@@ -179,7 +202,7 @@ export function topicsForSelector(kind: SelectorKind, location: string | null, s
 }
 
 function formMatchesLocation(topic: string, location: string): boolean {
-  const form = forms[topic];
+  const form = formOf(topic);
   return form?.location === location;
 }
 

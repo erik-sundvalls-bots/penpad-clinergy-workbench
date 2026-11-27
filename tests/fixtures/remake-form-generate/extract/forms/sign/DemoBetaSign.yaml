@@ -1,0 +1,30 @@
+topic: DemoBetaSign
+display: demo beta sign
+category: sign
+summaryType: AbsentPresent
+location: DemoRegion
+firstLayer:
+  - feature: sublocation
+    values: [proximalPart, distalPart]
+  - feature: QuantityCount
+    values: [CountValue]
+  - criterialLink: ConseqDemoFinding
+    values:
+      - { attribute: hasClinicalAbsence, value: absence }
+      - { attribute: hasClinicalAbsence, value: presence }
+moreLayer: []
+associatedSymptomsAndSigns: []
+diagnoses: []
+otherLinks:
+  - item: DemoFollowUpAction
+    concept: DemoFollowUpAction
+    preposition: null
+    location: null
+    preCoordinated: DemoFollowUpAction
+    category: action
+    summaryType: null
+examinations:
+  - exam: DemoRegionExam
+    perSide: [left, right]
+    signs: [DemoBetaSign]
+    subExams: []
