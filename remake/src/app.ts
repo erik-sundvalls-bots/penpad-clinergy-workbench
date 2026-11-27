@@ -9,7 +9,8 @@ import {
   type MapRegion,
   type BodyMapData,
 } from "./knowledge-data.ts";
-import { anatomyMapFor, hitTest, insetForConcept, regionsOf, type Hotspot } from "./selector/hit.ts";
+import { hitTest, insetForConcept, regionsOf, type Hotspot } from "./selector/hit.ts";
+import { DEFAULT_SYSTEM, mapNameForSelector, tsFlagForKind } from "./selector/anatomy-map.ts";
 import { imageUrl, setActivePack } from "./images/source.ts";
 import {
   installPackFromUrl,
@@ -145,7 +146,7 @@ export async function mountAsync(el: HTMLElement): Promise<void> {
     gpTab: "topics",
     aboutOpen: false,
     selectorKind: "SYM",
-    system: "FunctionalSystem",
+    system: DEFAULT_SYSTEM,
     location: null,
     openInset: null,
     hover: null,
@@ -178,11 +179,7 @@ function canvas(): { width: number; height: number } {
 
 function currentMapName(): string {
   const sex = patient().sex === "female" ? "F" : "M";
-  const selector = maps().selectors.find((s) => s.tsFlagType === (state.selectorKind === "DIS" ? "disease" : "symptom"))
-    ?? maps().selectors[0];
-  const opt = selector?.options.find((o) => o.sex === sex && o.system === state.system);
-  if (opt?.anatomyMap) return opt.anatomyMap;
-  return anatomyMapFor(maps(), patient().sex);
+  return mapNameForSelector(maps(), tsFlagForKind(state.selectorKind), sex, state.system);
 }
 
 function patient(): Patient {
@@ -503,9 +500,12 @@ function hostView(): HTMLElement {
 
   const launch = el("div", { class: "launch" });
   for (const item of LAUNCH) {
-    const b = btn(item.key, () => openSelector(item.kind));
-    b.append(el("span", { class: "khint" }, item.hint));
+    const b = btn("", () => openSelector(item.kind));
+    const keyrow = el("span", { class: "launch-keyrow" });
+    keyrow.append(el("span", { class: "launch-key" }, item.key), el("span", { class: "khint" }, item.hint));
+    b.append(keyrow, el("span", { class: "launch-name" }, selectorTitles[item.kind]));
     b.title = selectorTitles[item.kind];
+    b.setAttribute("aria-label", `${item.key}: ${selectorTitles[item.kind]}`);
     launch.append(b);
   }
   panel.append(launch);
@@ -731,6 +731,17 @@ function packWindowView(): HTMLElement {
 
 function packListRow(item: PackListItem): HTMLElement {
   const row = el("div", { class: "pack-item" + (item.active ? " active" : "") });
+  if (item.previewUrl) {
+    const thumb = document.createElement("img");
+    thumb.className = "pack-thumb";
+    thumb.src = item.previewUrl;
+    thumb.alt = `${item.name}: male full-body preview`;
+    thumb.width = 48;
+    thumb.height = 66;
+    thumb.addEventListener("error", () => thumb.remove());
+    row.append(thumb);
+  }
+  const body = el("div", { class: "pack-item-body" });
   const head = el("div", { class: "spread" });
   const title = el("div");
   const name = el("strong", {}, item.name);
@@ -791,19 +802,20 @@ function packListRow(item: PackListItem): HTMLElement {
     btns.append(rm);
   }
   head.append(btns);
-  row.append(head);
+  body.append(head);
   const credits: string[] = [];
   credits.push(`Licence: ${item.license.name}` + (item.license.spdx ? ` (${item.license.spdx})` : ""));
   if (item.license.notice) credits.push(item.license.notice);
   if (item.attribution) credits.push(item.attribution);
   if (item.description) credits.push(item.description);
-  row.append(el("p", { class: "note pack-credits" }, credits.join(" ")));
+  body.append(el("p", { class: "note pack-credits" }, credits.join(" ")));
+  row.append(body);
   return row;
 }
 
 function openSelector(kind: SelectorKind): void {
   state.selectorKind = kind;
-  state.system = "FunctionalSystem";
+  state.system = DEFAULT_SYSTEM;
   state.location = null;
   state.openInset = null;
   state.hover = null;

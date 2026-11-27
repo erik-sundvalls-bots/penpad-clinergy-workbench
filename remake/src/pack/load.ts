@@ -23,6 +23,7 @@ import {
   resolvePackQueryUrl,
   type PackListItem,
 } from "./catalog.ts";
+import { blobPreviewUrl, folderPreviewUrl, forgetListedPreviewUrls } from "./preview.ts";
 import { formatPackError } from "./errors.ts";
 import type { ImagePack } from "./types.ts";
 import type { BodyMapData } from "../knowledge-data.ts";
@@ -198,18 +199,23 @@ export async function revertAndClearUploads(base?: string): Promise<ActivePack> 
 }
 
 export async function listAvailablePacks(activeKey: string, base?: string): Promise<PackListItem[]> {
+  forgetListedPreviewUrls();
   const builtins: PackListItem[] = [];
   for (const info of BUILTIN_CATALOG) {
     const pack = await loadFolderPack(info.dir, "builtin", info.key, base);
-    if (pack) builtins.push(itemFromConfig(info.key, "builtin", pack.config, activeKey));
+    if (pack) {
+      builtins.push(itemFromConfig(info.key, "builtin", pack.config, activeKey, folderPreviewUrl(info.dir, pack.config, base ?? rootBase())));
+    }
   }
   let uploaded: PackListItem[] = [];
   if (typeof indexedDB !== "undefined") {
     const rows = await listUserPacks();
-    uploaded = rows.map((row) => itemFromConfig(row.key, "idb", row.config, activeKey));
+    uploaded = rows.map((row) => itemFromConfig(row.key, "idb", row.config, activeKey, blobPreviewUrl(row.files, row.config)));
   }
   const localPack = await loadLocalDevPack(base);
-  const local = localPack ? itemFromConfig("local", "local", localPack.config, activeKey) : null;
+  const local = localPack
+    ? itemFromConfig("local", "local", localPack.config, activeKey, folderPreviewUrl(LOCAL_DIR, localPack.config, base ?? rootBase()))
+    : null;
   return mergePackList(builtins, uploaded, local, activeKey);
 }
 

@@ -355,3 +355,81 @@ describe("pixelRatio", () => {
     expect(warnings.some((w) => w.path === "images.M_main")).toBe(false);
   });
 });
+
+
+describe("pack preview thumbnail (M_main)", () => {
+  it("resolves the male full-body path and a folder URL, and returns nothing when M_main is missing", async () => {
+    const { maleMainImagePath, folderPreviewUrl, folderAssetUrl, PACK_PREVIEW_IMAGE_ID } = await import("../remake/src/pack/preview.ts");
+    expect(PACK_PREVIEW_IMAGE_ID).toBe("M_main");
+    for (const dir of [DAVINCI, CLINICAL, PLACEHOLDERS]) {
+      const pack = assertValidPack(parseYaml(readFileSync(join(dir, "pack.yaml"), "utf8")));
+      const path = maleMainImagePath(pack);
+      expect(path).toBeDefined();
+      expect(path!.startsWith("images/bodymap/M_main.")).toBe(true);
+      expect(folderPreviewUrl("remake/packs/example", pack, "/penpad-clinergy-workbench/")).toBe(
+        `/penpad-clinergy-workbench/remake/packs/example/${path}`,
+      );
+    }
+    const pack = minimalPack();
+    delete pack.images.M_main;
+    expect(maleMainImagePath(pack)).toBeUndefined();
+    expect(folderPreviewUrl("remake/packs/example", pack, "/")).toBeUndefined();
+    expect(folderAssetUrl("remake/packs/x", "images/bodymap/M_main.svg", "/base/")).toBe(
+      "/base/remake/packs/x/images/bodymap/M_main.svg",
+    );
+  });
+});
+
+describe("Onelist disease-selector maps (default, muscular, skeletal)", () => {
+  it("starts DIS on FunctionalSystem → MaleSelectSystem, not the muscular filter, and muscular/skeletal reuse the surface picture", async () => {
+    const { mapNameForSelector, DEFAULT_SYSTEM } = await import("../remake/src/selector/anatomy-map.ts");
+    expect(DEFAULT_SYSTEM).toBe("FunctionalSystem");
+    const pack = assertValidPack(parseYaml(readFileSync(join(DAVINCI, "pack.yaml"), "utf8")));
+    const data = bodyMapFromPack(pack);
+    expect(mapNameForSelector(data, "disease", "M", DEFAULT_SYSTEM)).toBe("MaleSelectSystem");
+    expect(mapNameForSelector(data, "disease", "F", DEFAULT_SYSTEM)).toBe("FemaleSelectSystem");
+    expect(data.mainGraphics.MaleSelectSystem.imageId).toBe("M_select");
+    expect(data.mainGraphics.FemaleSelectSystem.imageId).toBe("F_select");
+    expect(mapNameForSelector(data, "disease", "M", "MuscularSystem")).toBe("MaleMuscularAnatomy");
+    expect(mapNameForSelector(data, "disease", "M", "SkeletalSystem")).toBe("MaleSkeletalAnatomy");
+    expect(data.mainGraphics.MaleMuscularAnatomy.imageId).toBe("M_main");
+    expect(data.mainGraphics.MaleSkeletalAnatomy.imageId).toBe("M_main");
+    expect(data.mainGraphics.MaleSurfaceAnatomy.imageId).toBe("M_main");
+    expect(mapNameForSelector(data, "disease", "M", "GeneralSystem")).toBe("MaleSurfaceAnatomy");
+    // Symptom filters stay on the surface map.
+    expect(mapNameForSelector(data, "symptom", "M", "DigestiveSystem")).toBe("MaleSurfaceAnatomy");
+    expect(mapNameForSelector(data, "disease", "M", "DigestiveSystem")).toBe("DigestiveAnatomy");
+    expect(data.mainGraphics.DigestiveAnatomy.imageId).toBe("Digmain");
+  });
+
+  it("matches the extracted Onelist.ini OptionButton anatomyMap values", () => {
+    const onelist = JSON.parse(readFileSync(join(import.meta.dirname, "../remake/data/bodymap-onelist.json"), "utf8"));
+    const disease = onelist.selectors.find((s: { settings?: Record<string, string[]> }) => (s.settings?.TSFlagType ?? [])[0] === "disease")
+      ?? onelist.selectors.find((s: { label?: string }) => s.label === "Disease Selector");
+    const opt = (sex: string, system: string) => disease.options.find((o: { sex: string; system: string }) => o.sex === sex && o.system === system);
+    expect(opt("M", "FunctionalSystem").anatomyMap).toBe("MaleSelectSystem");
+    expect(opt("M", "GeneralSystem").anatomyMap).toBe("MaleSurfaceAnatomy");
+    expect(opt("M", "MuscularSystem").anatomyMap).toBe("MaleMuscularAnatomy");
+    expect(opt("M", "SkeletalSystem").anatomyMap).toBe("MaleSkeletalAnatomy");
+    expect(onelist.mainGraphics.MaleMuscularAnatomy.picture.toLowerCase()).toBe("m_main.bmp");
+    expect(onelist.mainGraphics.MaleSkeletalAnatomy.picture.toLowerCase()).toBe("m_main.bmp");
+    expect(onelist.mainGraphics.MaleSelectSystem.picture.toLowerCase()).toBe("m_select.bmp");
+    expect(onelist.mainGraphics.MaleSurfaceAnatomy.picture.toLowerCase()).toBe("m_main.bmp");
+  });
+});
+
+describe("launch button full names", () => {
+  it("uses the existing selectorTitles strings and does not leave a launch kind unnamed", async () => {
+    const { selectorTitles } = await import("../remake/src/knowledge-data.ts");
+    expect(selectorTitles.SYM).toBe("Symptom selector");
+    expect(selectorTitles.DIS).toBe("Disease selector");
+    expect(selectorTitles.QDE).toBe("Quick data entry — common topics");
+    expect(selectorTitles.CHK).toBe("Health-check selector");
+    expect(selectorTitles.FH).toBe("Family-history selector");
+    expect(selectorTitles.PMH).toBe("Past-history selector");
+    expect(selectorTitles.INT).toBe("Intervention selector");
+    for (const kind of ["QDE", "SYM", "DIS", "CHK", "FH", "PMH", "INT"] as const) {
+      expect(selectorTitles[kind].length).toBeGreaterThan(0);
+    }
+  });
+});

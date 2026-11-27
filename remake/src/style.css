@@ -85,8 +85,28 @@ button { cursor: pointer; }
 .empty { color: var(--muted); font-style: italic; }
 
 .launch { margin-top: 10px; display: flex; gap: 6px; flex-wrap: wrap; }
-.launch button { min-width: 3.2rem; font-weight: 650; letter-spacing: 0.04em; }
-.khint { font-size: 0.75rem; color: var(--muted); margin-left: 4px; font-weight: 400; }
+.launch button {
+  min-width: 6.4rem;
+  max-width: 8.6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+  padding: 5px 6px;
+  line-height: 1.15;
+}
+.launch .launch-keyrow { display: flex; align-items: baseline; gap: 4px; }
+.launch .launch-name {
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--ink, #222);
+  white-space: normal;
+  text-align: center;
+}
+.khint { font-size: 0.75rem; color: var(--muted); font-weight: 400; }
 
 /* Selector */
 .selector { display: grid; grid-template-columns: 252px 1fr; gap: 10px; }
@@ -301,7 +321,19 @@ body, #app { background: var(--desktop); }
   border: 1px solid var(--line);
   background: #fffdf8;
   padding: 8px 10px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
 }
 .pack-item.active { outline: 2px solid var(--accent); background: #f3faf5; }
+.pack-item-body { flex: 1; min-width: 0; }
+.pack-thumb {
+  width: 48px;
+  height: 66px;
+  object-fit: contain;
+  flex-shrink: 0;
+  background: #fbf8f1;
+  border: 1px solid var(--line);
+}
 .pack-flags { color: var(--muted); font-weight: 400; font-size: 0.85rem; }
 .pack-credits { margin: 6px 0 0; }

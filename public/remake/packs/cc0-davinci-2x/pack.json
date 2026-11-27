@@ -2,7 +2,7 @@
   "schema": "penpad-image-pack/v1",
   "id": "cc0-davinci-2x",
   "name": "CC0 Da Vinci Anatomical Folio (2x WebP)",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "pixelRatio": 2,
   "license": {
     "name": "CC0 1.0 Universal",

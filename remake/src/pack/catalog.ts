@@ -37,6 +37,8 @@ export interface PackListItem {
   imageCount: number;
   removable: boolean;
   active: boolean;
+  /** URL of the male full-body main map (M_main), when the pack has one. */
+  previewUrl?: string;
 }
 
 export function itemFromConfig(
@@ -44,6 +46,7 @@ export function itemFromConfig(
   origin: PackListOrigin,
   config: ImagePack,
   activeKey: string,
+  previewUrl?: string,
 ): PackListItem {
   return {
     key,
@@ -57,6 +60,7 @@ export function itemFromConfig(
     imageCount: Object.keys(config.images).length,
     removable: origin === "idb",
     active: key === activeKey,
+    previewUrl,
   };
 }
 
