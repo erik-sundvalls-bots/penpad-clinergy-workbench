@@ -36,7 +36,7 @@ function serveLocalOriginals(): Plugin {
 export default defineConfig({
   base: "/penpad-clinergy-workbench/",
   plugins: [serveLocalOriginals()],
-  test: { environment: "node" },
+  test: { environment: "node", setupFiles: ["tests/setup-generated-forms.ts"] },
   build: {
     rollupOptions: {
       input: {

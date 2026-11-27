@@ -1,7 +1,7 @@
 import { setGeneratedForms, type RemakeForm } from "../knowledge-data.ts";
 import { GENERATED_FORMS_SCHEMA, type GeneratedCatalog } from "./generate.ts";
 
-/** Catalogue written next to the remake when `npm run generate:forms` is pointed at a local extract. */
+/** Committed remake form catalogue (public/remake/generated/forms.json). */
 export function generatedFormsUrl(): string {
   const base = import.meta.env.BASE_URL ?? "/";
   return `${base}remake/generated/forms.json`;

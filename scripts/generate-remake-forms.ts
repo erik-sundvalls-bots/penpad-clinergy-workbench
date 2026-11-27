@@ -3,8 +3,8 @@
  *
  *   npx vite-node scripts/generate-remake-forms.ts --in /path/to/extract --out public/remake/generated
  *
- * The output directory is gitignored. Do not commit generated catalogues derived
- * from the 1998 demo (see data/README.md and docs/remake-form-generator.md).
+ * Writes public/remake/generated/forms.json, which is committed. coverage.json
+ * in that folder is gitignored. See docs/remake-form-generator.md.
  */
 import { mkdirSync, writeFileSync, readFileSync, readdirSync, statSync, existsSync } from "node:fs";
 import { join, basename } from "node:path";

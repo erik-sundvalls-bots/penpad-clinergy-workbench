@@ -2,12 +2,11 @@
  * Deterministic generator: extractor form YAML → remake form definitions.
  *
  * Same input always yields byte-identical output: keys are sorted, ids are the
- * extractor topic names, and the writer never emits timestamps. Hand-built
- * forms are applied later by mergeFormCatalog (overrides win).
+ * extractor topic names, and the writer never emits timestamps.
  *
- * The public repository only includes a small, already-approved form extract.
- * This module does not embed original-derived catalogues; a local extract
- * directory is supplied at generation time. See docs/remake-form-generator.md.
+ * The remake uses only this generated catalogue for every topic. Hand-built
+ * YAML under data/ is for the separate thumb-pain demo, not the remake.
+ * See docs/remake-form-generator.md.
  */
 
 import type { FormExam, FormLink, FormRow, RemakeForm } from "../knowledge-data.ts";
@@ -198,21 +197,6 @@ export function generateRemakeForms(input: ExtractInput): GeneratedCatalog {
     forms[form.topic] = form;
   }
   return { schema: GENERATED_FORMS_SCHEMA, forms };
-}
-
-/**
- * Hand-built / override forms win on topic id. Generated entries fill everything else.
- */
-export function mergeFormCatalog(
-  generated: Record<string, RemakeForm>,
-  overrides: Record<string, RemakeForm>,
-): Record<string, RemakeForm> {
-  const out: Record<string, RemakeForm> = {};
-  const keys = new Set([...Object.keys(generated), ...Object.keys(overrides)]);
-  for (const topic of [...keys].sort((a, b) => (a < b ? -1 : a > b ? 1 : 0))) {
-    out[topic] = overrides[topic] ?? generated[topic]!;
-  }
-  return out;
 }
 
 function rowConstructs(row: FormRow): string[] {

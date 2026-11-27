@@ -7,12 +7,10 @@ import {
   assessCoverage,
   generateRemakeForms,
   loadExtractFromDir,
-  mergeFormCatalog,
   stableStringify,
   type DirReader,
 } from "../remake/src/form/generate.ts";
 import { emptyFormState, findingsFromForm, rowIsVisible, rowsOf, setFeatureValue } from "../remake/src/form/engine.ts";
-import type { RemakeForm } from "../remake/src/knowledge-data.ts";
 
 const FIXTURE = join(dirname(fileURLToPath(import.meta.url)), "fixtures/remake-form-generate");
 const EXTRACT = join(FIXTURE, "extract");
@@ -59,16 +57,6 @@ describe("remake form generator", () => {
     expect(forms.DemoBetaSign.otherLinks?.[0]?.concept).toBe("DemoFollowUpAction");
   });
 
-  it("lets a hand-built override win over the generated form", () => {
-    const generated = catalogFromFixture().forms;
-    const raw = readFileSync(join(FIXTURE, "overrides/DemoAlphaSymptom.yaml"), "utf8");
-    const override = parse(raw) as RemakeForm;
-    const merged = mergeFormCatalog(generated, { DemoAlphaSymptom: override });
-    expect(merged.DemoAlphaSymptom.display).toBe("hand-built alpha override");
-    expect(merged.DemoAlphaSymptom.firstLayer).toHaveLength(1);
-    expect(merged.DemoBetaSign.display).toBe("demo beta sign");
-    expect(merged.DemoEmptyAction.display).toBe("demo empty action");
-  });
 
   it("classifies coverage: empty is full, examinations are partial", () => {
     const report = assessCoverage(catalogFromFixture().forms);

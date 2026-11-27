@@ -8,7 +8,8 @@
     "test": "vitest run",
     "post:cdr": "npx vite-node scripts/post-thumb-cases.ts",
     "preview": "vite preview --host 127.0.0.1 --port 4173",
-    "generate:forms": "npx vite-node scripts/generate-remake-forms.ts"
+    "generate:forms": "npx vite-node scripts/generate-remake-forms.ts",
+    "check:forms-catalog": "npx vite-node scripts/check-generated-forms.ts"
   },
   "dependencies": {
     "fflate": "^0.8.3",

@@ -137,12 +137,16 @@ export async function mountAsync(el: HTMLElement): Promise<void> {
   root.textContent = "Loading image pack…";
   let started;
   try {
-    started = await resolveStartupPack();
+    // Load the form catalogue in parallel with the image pack so the 3.9 MiB
+    // (≈215 KiB gzipped) JSON does not add a serial wait after the pack.
+    const packResult = resolveStartupPack();
+    const formsResult = loadGeneratedForms();
+    started = await packResult;
+    await formsResult;
   } catch (err) {
     root.textContent = err instanceof Error ? err.message : String(err);
     throw err;
   }
-  await loadGeneratedForms();
   const pack = started.pack;
   setActivePack(pack);
   state = {
@@ -844,7 +848,7 @@ function selectorView(): HTMLElement {
       el(
         "p",
         { class: "note" },
-        "Hand-built thumb-path forms are always available. Other topics open a form when a generated catalogue has been loaded; otherwise they show as stubs.",
+        "Forms are loaded from the generated catalogue. A topic with no definition yet shows as a stub.",
       ),
     );
   }
@@ -1087,7 +1091,7 @@ function openSelectedForm(): void {
   if (!form) {
     state.confirm = {
       title: "Form not in this slice",
-      message: `“${topicDisplay(id)}” is in the topic catalogue, but no form definition is loaded for it. Hand-built forms always apply; a locally generated catalogue fills the rest when present.`,
+      message: `“${topicDisplay(id)}” is in the topic catalogue, but no form definition is loaded for it.`,
       yes: "OK",
       onYes: () => {},
     };
