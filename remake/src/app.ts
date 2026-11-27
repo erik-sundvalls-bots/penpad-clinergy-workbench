@@ -1,7 +1,6 @@
 import {
   conceptDisplay,
   formOf,
-  implementedTopics,
   selectorTitles,
   topicDisplay,
   topicsForSelector,
@@ -42,15 +41,20 @@ import {
   hasMoreLayer,
   lateralityPhrase,
   linkLabel,
+  rowKey,
   rowsOf,
-  setDuration,
   setFeatureValue,
   setLinkSummary,
+  setQuantity,
+  setSubLocation,
   toggleLaterality,
+  valueKey,
   valueLabel,
   type FormState,
   type LateralityChoice,
 } from "./form/engine.ts";
+import { isQuantityRow } from "./form/generate.ts";
+import { loadGeneratedForms } from "./form/catalog.ts";
 import {
   acceptTopPopup,
   cancelTopPopup,
@@ -65,7 +69,7 @@ import {
 } from "./form/popups.ts";
 import { renderSentence } from "./sentence/render.ts";
 import { sentenceKnowledge } from "./knowledge-data.ts";
-import type { RemakeForm, FormLink } from "./knowledge-data.ts";
+import type { RemakeForm, FormLink, FormRow } from "./knowledge-data.ts";
 
 
 interface Hover {
@@ -133,7 +137,12 @@ export async function mountAsync(el: HTMLElement): Promise<void> {
   root.textContent = "Loading image pack…";
   let started;
   try {
-    started = await resolveStartupPack();
+    // Load the form catalogue in parallel with the image pack so the 3.9 MiB
+    // (≈215 KiB gzipped) JSON does not add a serial wait after the pack.
+    const packResult = resolveStartupPack();
+    const formsResult = loadGeneratedForms();
+    started = await packResult;
+    await formsResult;
   } catch (err) {
     root.textContent = err instanceof Error ? err.message : String(err);
     throw err;
@@ -839,7 +848,7 @@ function selectorView(): HTMLElement {
       el(
         "p",
         { class: "note" },
-        "This slice implements the symptom path (body map → thumb → thumb pain form) in full. Other launch buttons list topics from the extracted catalogues; opening a form other than the implemented thumb set shows a stub.",
+        "Forms are loaded from the generated catalogue. A topic with no definition yet shows as a stub.",
       ),
     );
   }
@@ -1082,7 +1091,7 @@ function openSelectedForm(): void {
   if (!form) {
     state.confirm = {
       title: "Form not in this slice",
-      message: `“${topicDisplay(id)}” is in the extracted topic catalogue, but only the thumb-path forms are implemented so far (${implementedTopics.join(", ")}). The engine is data-driven: adding the YAML later should light the form up.`,
+      message: `“${topicDisplay(id)}” is in the topic catalogue, but no form definition is loaded for it.`,
       yes: "OK",
       onYes: () => {},
     };
@@ -1134,8 +1143,8 @@ function formFields(form: RemakeForm, fs: FormState, commit: (next: FormState) =
   const col = el("div");
   const desc = el("section", { class: "section" });
   desc.append(el("h3", {}, "Descriptors"));
-  for (const row of rowsOf(form, fs.moreOpen)) {
-    desc.append(featureRow(form, fs, row.feature ?? "", row.multiple === true, row.values, commit));
+  for (const row of rowsOf(form, fs.moreOpen, fs)) {
+    desc.append(featureRow(form, fs, row, commit));
   }
   if (hasMoreLayer(form)) {
     const more = btn(fs.moreOpen ? "<< hide" : ">> more", () => {
@@ -1150,6 +1159,9 @@ function formFields(form: RemakeForm, fs: FormState, commit: (next: FormState) =
   }
   if (form.diagnoses?.length) {
     col.append(linkSection("Diagnoses", "diagnoses", form.diagnoses, fs, commit, from));
+  }
+  if (form.otherLinks?.length) {
+    col.append(linkSection("Other", "associated", form.otherLinks, fs, commit, from));
   }
   if (form.examinations?.length) {
     const sec = el("section", { class: "section" });
@@ -1186,9 +1198,12 @@ function formFields(form: RemakeForm, fs: FormState, commit: (next: FormState) =
   return col;
 }
 
-function featureRow(form: RemakeForm, fs: FormState, feature: string, multiple: boolean, values: unknown[], commit: (next: FormState) => void): HTMLElement {
+function featureRow(form: RemakeForm, fs: FormState, row: FormRow, commit: (next: FormState) => void): HTMLElement {
+  const feature = rowKey(row);
+  const multiple = row.multiple === true;
+  const values = row.values ?? [];
   const wrap = el("div", { class: "feat" });
-  wrap.append(el("div", { class: "name" }, featureLabel(feature)));
+  wrap.append(el("div", { class: "name" }, featureLabel(row.criterialLink ?? row.feature ?? feature)));
   if (feature === "laterality") {
     const chips = el("div", { class: "chips" });
     for (const side of ["left", "right"] as LateralityChoice[]) {
@@ -1209,37 +1224,64 @@ function featureRow(form: RemakeForm, fs: FormState, feature: string, multiple: 
     });
     return wrap;
   }
-  if (feature === "QuantityDuration" || values.includes("TemporalValue")) {
+  if (feature === "sublocation") {
+    const chips = el("div", { class: "chips" });
+    const selected = new Set(fs.features.sublocation?.values ?? (fs.subLocation ? [fs.subLocation] : []));
+    for (const raw of values) {
+      const value = valueKey(raw);
+      const b = btn(valueLabel(value), () => {
+        commit(setSubLocation(fs, value, multiple));
+      });
+      if (selected.has(value)) b.classList.add("on");
+      chips.append(b);
+    }
+    wrap.append(chips);
+    return wrap;
+  }
+  if (feature === "QuantityDuration" || values.includes("TemporalValue") || isQuantityRow(row)) {
     const dur = el("div", { class: "duration" });
     const sel = fs.features[feature];
+    const token = typeof values[0] === "string" ? String(values[0]) : "TemporalValue";
+    const timeLike = token === "TemporalValue" || token === "PastHistoryValue" || /Duration|Time/.test(token) || feature === "QuantityDuration";
     const num = document.createElement("input");
     num.type = "number";
     num.min = "0";
     num.step = "1";
     num.value = sel?.number ? String(sel.number) : "";
-    const unit = document.createElement("select");
-    for (const u of DURATION_UNITS) {
-      const opt = document.createElement("option");
-      opt.value = u;
-      opt.textContent = u + "s";
-      if ((sel?.unit ?? "day") === u) opt.selected = true;
-      unit.append(opt);
-    }
-    const apply = () => {
+    const apply = (unit: string) => {
       const n = num.value === "" ? undefined : Number(num.value);
-      commit(setDuration(fs, feature, Number.isFinite(n as number) ? n : undefined, unit.value));
+      commit(setQuantity(fs, feature, token, Number.isFinite(n as number) ? n : undefined, unit));
     };
-    num.addEventListener("change", () => { apply(); });
-    unit.addEventListener("change", () => { apply(); });
-    dur.append(num, unit);
+    if (timeLike) {
+      const unit = document.createElement("select");
+      for (const u of DURATION_UNITS) {
+        const opt = document.createElement("option");
+        opt.value = u;
+        opt.textContent = u + "s";
+        if ((sel?.unit ?? "day") === u) opt.selected = true;
+        unit.append(opt);
+      }
+      num.addEventListener("change", () => { apply(unit.value); });
+      unit.addEventListener("change", () => { apply(unit.value); });
+      dur.append(num, unit);
+    } else {
+      const unit = document.createElement("input");
+      unit.type = "text";
+      unit.className = "qty-unit";
+      unit.placeholder = "unit";
+      unit.value = sel?.unit ?? "";
+      num.addEventListener("change", () => { apply(unit.value); });
+      unit.addEventListener("change", () => { apply(unit.value); });
+      dur.append(num, unit);
+    }
     wrap.append(dur);
     return wrap;
   }
   const chips = el("div", { class: "chips" });
   const selected = new Set(fs.features[feature]?.values ?? []);
   for (const raw of values) {
-    const value = String(raw);
-    const b = btn(valueLabel(value), () => {
+    const value = valueKey(raw);
+    const b = btn(valueLabel(raw), () => {
       commit(setFeatureValue(fs, feature, value, multiple));
     });
     if (selected.has(value)) b.classList.add("on");
@@ -1249,8 +1291,8 @@ function featureRow(form: RemakeForm, fs: FormState, feature: string, multiple: 
   wrap.addEventListener("contextmenu", (ev) => {
     ev.preventDefault();
     const items: MenuItem[] = values.map((raw) => ({
-      label: valueLabel(String(raw)),
-      action: () => { commit(setFeatureValue({ ...fs, features: { ...fs.features, [feature]: { values: [] } } }, feature, String(raw), false)); },
+      label: valueLabel(raw),
+      action: () => { commit(setFeatureValue({ ...fs, features: { ...fs.features, [feature]: { values: [] } } }, feature, valueKey(raw), false)); },
     }));
     items.push({ label: "Clear", action: () => { commit(setFeatureValue({ ...fs, features: { ...fs.features, [feature]: { values: [fs.features[feature]?.values[0] ?? ""] } } }, feature, fs.features[feature]?.values[0] ?? "", false)); } });
     openMenu(ev.clientX, ev.clientY, items);

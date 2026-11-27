@@ -9,3 +9,7 @@ remake/local-originals/**
 
 # Local image-pack zips (may contain 1998 originals; never commit)
 *.zip
+
+# Local coverage report from the form generator. The committed catalogue is public/remake/generated/forms.json.
+public/remake/generated/coverage.json
+remake/generated/

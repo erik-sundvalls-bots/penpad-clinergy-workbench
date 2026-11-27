@@ -4,16 +4,10 @@ import topicsIndex from "../data/topics-index.json";
 import locationTopics from "../data/location-topics.json";
 import topicSystems from "../data/topic-systems.json";
 import topicLists from "../data/topic-lists.json";
-import implemented from "../data/implemented-forms.json";
 import manifest from "../data/images-manifest.json";
 import rulesRaw from "../../data/sentence-rules.yaml?raw";
 import conceptsRaw from "../../data/concepts.yaml?raw";
 import linksRaw from "../../data/concept-links.yaml?raw";
-import painRaw from "../../data/ThumbPainSymptom.yaml?raw";
-import swellingRaw from "../../data/ThumbSwellingSymptom.yaml?raw";
-import sprainRaw from "../../data/forms/ThumbSprain.yaml?raw";
-import fractureRaw from "../../data/forms/ThumbFracture.yaml?raw";
-import dislocationRaw from "../../data/forms/ThumbJointDislocation.yaml?raw";
 import { knowledgeFromExtract } from "./sentence/knowledge.ts";
 import type { SentenceKnowledge } from "./sentence/types.ts";
 
@@ -67,6 +61,10 @@ export interface FormRow {
   values: unknown[];
   multiple?: boolean;
   inheritance?: string;
+  /** Applied when the form is first opened. */
+  default?: unknown;
+  /** Hide this row unless the named feature (or laterality) has one of these values. */
+  visibleWhen?: { feature: string; values: string[] };
 }
 
 export interface FormLink {
@@ -96,6 +94,7 @@ export interface RemakeForm {
   moreLayer: FormRow[];
   associatedSymptomsAndSigns: FormLink[];
   diagnoses: FormLink[];
+  otherLinks?: FormLink[];
   examinations: FormExam[];
 }
 
@@ -116,27 +115,20 @@ export const topics: Record<string, TopicInfo> = (topicsIndex as { topics: Recor
 export const locationTopicIndex = locationTopics as Record<string, { tsLinks: string[]; exams: string[]; systemLinks: string[] }>;
 export const topicSystemIndex = topicSystems as Record<string, string[]>;
 export const quickLists = topicLists as Record<string, Array<{ label: string; topicPermId: number; locationPermId: number }>>;
-export const implementedTopics: string[] = (implemented as { topics: string[] }).topics;
 export const imageManifest = manifest as {
   version: number;
   images: Record<string, { id: string; originalRel: string; placeholder: string; folder: string; width: number | null; height: number | null }>;
 };
 
-const FORM_YAML: Record<string, string> = {
-  ThumbPainSymptom: painRaw,
-  ThumbSwellingSymptom: swellingRaw,
-  ThumbSprain: sprainRaw,
-  ThumbFracture: fractureRaw,
-  ThumbJointDislocation: dislocationRaw,
-};
+/** Every remake form comes from the generated catalogue (loaded at startup). Hand-built YAML in data/ is for the separate thumb-pain demo only. */
+let generatedForms: Record<string, RemakeForm> = {};
 
-const forms: Record<string, RemakeForm> = {};
-for (const [topic, raw] of Object.entries(FORM_YAML)) {
-  forms[topic] = parse(raw) as RemakeForm;
+export function setGeneratedForms(forms: Record<string, RemakeForm> | null): void {
+  generatedForms = forms ?? {};
 }
 
 export function formOf(topic: string): RemakeForm | null {
-  return forms[topic] ?? null;
+  return generatedForms[topic] ?? null;
 }
 
 export function topicDisplay(topic: string): string {
@@ -179,7 +171,7 @@ export function topicsForSelector(kind: SelectorKind, location: string | null, s
 }
 
 function formMatchesLocation(topic: string, location: string): boolean {
-  const form = forms[topic];
+  const form = formOf(topic);
   return form?.location === location;
 }
 

@@ -2,7 +2,10 @@
 
 A small extract of the 1998 Clinergy / PEN&PAD thumb pain and thumb swelling forms, published in this repository with the owner's approval so the workbench can run in a browser.
 
-**Clinergy content is © 1997-8 Semantic Technologies Ltd / Victoria University of Manchester. All rights reserved.** Only this small extract is included, and only for demonstration. Do not add other Clinergy forms.
+**Clinergy content is © 1997-8 Semantic Technologies Ltd / Victoria University of Manchester. All rights reserved.** The YAML files in this folder are a small, approved extract for the thumb-pain demo. Do not add other raw form YAML here.
+
+The remake does not load these hand-built files. Every remake topic comes from the generated catalogue at `public/remake/generated/forms.json`, which is committed and regenerated deterministically from a local extractor output tree (text and structure only). See `docs/remake-form-generator.md`.
+
 
 | File | What it is |
 |---|---|

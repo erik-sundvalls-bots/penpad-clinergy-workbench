@@ -1,0 +1,159 @@
+{
+  "forms": {
+    "DemoAlphaSymptom": {
+      "associatedSymptomsAndSigns": [
+        {
+          "category": "sign",
+          "concept": "DemoBetaSign",
+          "item": "DemoBetaSign of DemoRegion",
+          "location": "DemoRegion",
+          "preCoordinated": "DemoBetaSign",
+          "preposition": "of",
+          "summaryType": "AbsentPresent"
+        }
+      ],
+      "category": "symptom",
+      "diagnoses": [
+        {
+          "category": "disease",
+          "concept": "DemoGammaDisease",
+          "item": "DemoGammaDisease",
+          "location": null,
+          "preCoordinated": "DemoGammaDisease",
+          "preposition": null,
+          "summaryType": "PresentPossibleExcluded"
+        }
+      ],
+      "display": "demo alpha symptom",
+      "examinations": [],
+      "firstLayer": [
+        {
+          "feature": "laterality",
+          "multiple": true,
+          "values": [
+            "leftSelection",
+            "rightSelection"
+          ]
+        },
+        {
+          "feature": "QuantityDuration",
+          "values": [
+            "TemporalValue"
+          ]
+        },
+        {
+          "default": "moderate",
+          "feature": "AbsoluteSeverity",
+          "values": [
+            "mild",
+            "moderate",
+            "severe"
+          ]
+        },
+        {
+          "feature": "AbsoluteOnset",
+          "values": [
+            "gradual",
+            "sudden"
+          ],
+          "visibleWhen": {
+            "feature": "AbsoluteSeverity",
+            "values": [
+              "severe"
+            ]
+          }
+        }
+      ],
+      "location": "DemoRegion",
+      "moreLayer": [
+        {
+          "feature": "AbsoluteProgress",
+          "values": [
+            "better",
+            "same",
+            "worse"
+          ]
+        }
+      ],
+      "otherLinks": [],
+      "summaryType": "AbsentPresent",
+      "topic": "DemoAlphaSymptom"
+    },
+    "DemoBetaSign": {
+      "associatedSymptomsAndSigns": [],
+      "category": "sign",
+      "diagnoses": [],
+      "display": "demo beta sign",
+      "examinations": [
+        {
+          "exam": "DemoRegionExam",
+          "perSide": [
+            "left",
+            "right"
+          ],
+          "signs": [
+            "DemoBetaSign"
+          ],
+          "subExams": []
+        }
+      ],
+      "firstLayer": [
+        {
+          "feature": "sublocation",
+          "values": [
+            "proximalPart",
+            "distalPart"
+          ]
+        },
+        {
+          "feature": "QuantityCount",
+          "values": [
+            "CountValue"
+          ]
+        },
+        {
+          "criterialLink": "ConseqDemoFinding",
+          "values": [
+            {
+              "attribute": "hasClinicalAbsence",
+              "value": "absence"
+            },
+            {
+              "attribute": "hasClinicalAbsence",
+              "value": "presence"
+            }
+          ]
+        }
+      ],
+      "location": "DemoRegion",
+      "moreLayer": [],
+      "otherLinks": [
+        {
+          "category": "action",
+          "concept": "DemoFollowUpAction",
+          "item": "DemoFollowUpAction",
+          "location": null,
+          "preCoordinated": "DemoFollowUpAction",
+          "preposition": null,
+          "summaryType": null
+        }
+      ],
+      "summaryType": "AbsentPresent",
+      "topic": "DemoBetaSign"
+    },
+    "DemoEmptyAction": {
+      "associatedSymptomsAndSigns": [],
+      "category": "action",
+      "diagnoses": [],
+      "display": "demo empty action",
+      "examinations": [],
+      "firstLayer": [],
+      "location": null,
+      "moreLayer": [],
+      "otherLinks": [],
+      "summaryType": "AbsentPresent",
+      "topic": "DemoEmptyAction"
+    }
+  },
+  "schema": "penpad-remake-forms/v1"
+}
