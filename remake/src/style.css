@@ -337,3 +337,15 @@ body, #app { background: var(--desktop); }
 }
 .pack-flags { color: var(--muted); font-weight: 400; font-size: 0.85rem; }
 .pack-credits { margin: 6px 0 0; }
+
+.exam-row .lab { text-transform: none; }
+.exam-sign { margin: 8px 0 10px; padding-bottom: 6px; border-bottom: 1px solid #eee8dc; }
+.exam-sign .name { font-weight: 600; margin-bottom: 4px; text-transform: capitalize; }
+.exam-prose {
+  white-space: pre-wrap;
+  font-family: inherit;
+  font-size: inherit;
+  margin: 8px 0 0;
+  line-height: 1.4;
+}
+.win-exam { min-width: 28rem; max-width: 36rem; }

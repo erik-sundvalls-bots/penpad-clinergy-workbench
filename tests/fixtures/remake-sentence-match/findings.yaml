@@ -1,0 +1,96 @@
+# Structured findings for the thumb-pain walkthrough.
+# Each `finding` is input. The sentences they produce are asserted in
+# tests/sentence_test.ts, from the lines read off the public page.
+# https://pen-pad-revival.github.io/docs/clinergy-thumb-pain-demo/
+- id: pain-bare
+  finding:
+    topic: ThumbPainSymptom
+    location: Thumb
+    qualifiers: []
+- id: pain-right
+  finding:
+    topic: ThumbPainSymptom
+    location: Thumb
+    laterality: right
+    qualifiers: []
+- id: pain-left
+  finding:
+    topic: ThumbPainSymptom
+    location: Thumb
+    laterality: left
+    qualifiers: []
+- id: swelling-present
+  finding:
+    topic: ThumbSwellingSymptom
+    location: Thumb
+    summary: presence
+    qualifiers: []
+- id: swelling-left
+  finding:
+    topic: ThumbSwellingSymptom
+    location: Thumb
+    laterality: left
+    summary: presence
+    qualifiers: []
+- id: swelling-distal
+  finding:
+    topic: ThumbSwellingSymptom
+    location: Thumb
+    laterality: left
+    subLocation: DistalPhalanx
+    summary: presence
+    qualifiers: []
+- id: swelling-2-days
+  finding:
+    topic: ThumbSwellingSymptom
+    location: Thumb
+    laterality: left
+    subLocation: DistalPhalanx
+    summary: presence
+    qualifiers:
+      - descriptor: Duration
+        value: day
+        number: 2
+        unit: day
+- id: swelling-2-weeks
+  finding:
+    topic: ThumbSwellingSymptom
+    location: Thumb
+    laterality: left
+    subLocation: DistalPhalanx
+    summary: presence
+    qualifiers:
+      - descriptor: Duration
+        value: week
+        number: 2
+        unit: week
+- id: swelling-onset
+  finding:
+    topic: ThumbSwellingSymptom
+    location: Thumb
+    laterality: left
+    subLocation: DistalPhalanx
+    summary: presence
+    qualifiers:
+      - descriptor: Onset
+        value: gradual
+      - descriptor: Duration
+        value: week
+        number: 2
+        unit: week
+- id: swelling-full
+  finding:
+    topic: ThumbSwellingSymptom
+    location: Thumb
+    laterality: left
+    subLocation: DistalPhalanx
+    summary: presence
+    qualifiers:
+      - descriptor: Onset
+        value: gradual
+      - descriptor: Severity
+        value: moderate
+      - descriptor: Duration
+        value: week
+        number: 2
+        unit: week

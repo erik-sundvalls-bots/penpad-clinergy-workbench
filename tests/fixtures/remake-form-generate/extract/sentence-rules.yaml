@@ -1,0 +1,42 @@
+descriptors:
+  hasClinicalAbsence:
+    precedence: 1
+    rules:
+      - value: presence
+        valueForm: valueNoun
+        descriptorForm: NoDescriptor
+        order: descFirst
+        position: afterTopic
+        valuePrecedence: 2
+      - value: absence
+        valueForm: valueAdj
+        descriptorForm: NoDescriptor
+        order: valFirst
+        position: beforeTopic
+        valuePrecedence: 1
+  hasAbnormalityStatus:
+    precedence: 0
+    rules:
+      - value: normal
+        valueForm: valueNoun
+        descriptorForm: NoDescriptor
+        order: descFirst
+        position: afterTopic
+        valuePrecedence:
+      - value: notExamined
+        valueForm: valueNoun
+        descriptorForm: NoDescriptor
+        order: descFirst
+        position: afterTopic
+        valuePrecedence:
+valuePrecedences: {}
+summaryTypes:
+  - "AbsentPresent: { hasClinicalAbsence absence } { hasClinicalAbsence presence }"
+  - "NormalNotEx: { hasAbnormalityStatus normal } { hasAbnormalityStatus notExamined }"
+  - "Normal: { hasAbnormalityStatus normal }"
+lexicon:
+  descriptors: {}
+  valueAdverbs:
+    mild: mildly
+    moderate: moderately
+    severe: severely

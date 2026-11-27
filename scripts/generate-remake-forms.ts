@@ -3,8 +3,9 @@
  *
  *   npx vite-node scripts/generate-remake-forms.ts --in /path/to/extract --out public/remake/generated
  *
- * Writes public/remake/generated/forms.json, which is committed. coverage.json
- * in that folder is gitignored. See docs/remake-form-generator.md.
+ * Writes public/remake/generated/forms.json, exams.json, and sentences.json,
+ * which are committed. coverage.json in that folder is gitignored.
+ * See docs/remake-form-generator.md.
  */
 import { mkdirSync, writeFileSync, readFileSync, readdirSync, statSync, existsSync } from "node:fs";
 import { join, basename } from "node:path";
@@ -17,6 +18,8 @@ import {
   type DirReader,
   type CoverageReport,
 } from "../remake/src/form/generate.ts";
+import { generateRemakeExams } from "../remake/src/form/exams.ts";
+import { generateSentenceKnowledge } from "../remake/src/sentence/generate.ts";
 
 function arg(flag: string, fallback?: string): string | undefined {
   const i = process.argv.indexOf(flag);
@@ -67,13 +70,34 @@ function main(): number {
   }
   const extract = loadExtractFromDir(input, nodeReader(), (text) => parse(text));
   const catalog = generateRemakeForms(extract);
-  const coverage = assessCoverage(catalog.forms);
+  const exams = generateRemakeExams({
+    exams: extract.exams ?? {},
+    concepts: extract.concepts ?? {},
+    completeForms: catalog.forms,
+    summaryTypes: Array.isArray((extract.sentenceRules as { summaryTypes?: unknown } | undefined)?.summaryTypes)
+      ? ((extract.sentenceRules as { summaryTypes: unknown[] }).summaryTypes)
+      : [],
+  });
+  const coverage = assessCoverage(catalog.forms, new Set(Object.keys(exams.exams)));
   mkdirSync(outDir, { recursive: true });
   const formsPath = join(outDir, "forms.json");
+  const examsPath = join(outDir, "exams.json");
+  const sentencesPath = join(outDir, "sentences.json");
   const coveragePath = join(outDir, "coverage.json");
   writeFileSync(formsPath, stableStringify(catalog));
+  writeFileSync(examsPath, stableStringify(exams));
+  if (extract.sentenceRules && extract.concepts) {
+    const sentences = generateSentenceKnowledge({
+      sentenceRules: extract.sentenceRules,
+      concepts: extract.concepts,
+      conceptLinks: extract.conceptLinks ?? {},
+    });
+    writeFileSync(sentencesPath, stableStringify(sentences));
+    console.log(`wrote ${sentencesPath} (${Object.keys(sentences.concepts).length} concepts)`);
+  }
   writeFileSync(coveragePath, stableStringify(coverage));
   console.log(`wrote ${formsPath} (${Object.keys(catalog.forms).length} forms)`);
+  console.log(`wrote ${examsPath} (${Object.keys(exams.exams).length} exams, ${Object.keys(exams.signs).length} sign forms)`);
   console.log(`wrote ${coveragePath}`);
   console.log(JSON.stringify(slimCoverage(coverage), null, 2));
   void basename;

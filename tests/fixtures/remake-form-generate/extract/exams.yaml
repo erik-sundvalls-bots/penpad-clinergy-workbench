@@ -1,0 +1,29 @@
+DemoRegionExam:
+  name: DemoRegionExam
+  group: location
+  lateral: true
+  super: ""
+  level: 2
+  baseSign: DemoRegionBaseSign
+  baseLocation: DemoRegion
+  signs0:
+    - DemoTendernessSign
+  signs1:
+    - DemoTendernessSign
+  subExams:
+    - DemoMovementExam
+  symptomLinks: []
+DemoMovementExam:
+  name: DemoMovementExam
+  group: sub
+  lateral: true
+  super: DemoRegionExam
+  level: 3
+  baseSign: DemoJointSign
+  baseLocation: DemoJoint
+  signs0:
+    - DemoFlexionSign
+  signs1:
+    - DemoFlexionSign S+
+  subExams: []
+  symptomLinks: []

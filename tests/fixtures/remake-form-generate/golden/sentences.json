@@ -1,0 +1,122 @@
+{
+  "concepts": {
+    "DemoAlphaSymptom": {
+      "category": "symptom",
+      "display": "demo alpha symptom",
+      "summaryType": "AbsentPresent"
+    },
+    "DemoFlexionSign": {
+      "category": "Incomplete sign",
+      "display": "flexion",
+      "summaryType": "Normal"
+    },
+    "DemoJoint": {
+      "category": "location",
+      "display": "demo joint",
+      "summaryType": "No Summary"
+    },
+    "DemoJointSign": {
+      "category": "Complete sign",
+      "display": "demo joint",
+      "summaryType": "NormalNotEx"
+    },
+    "DemoRegion": {
+      "category": "location",
+      "display": "demo region",
+      "summaryType": "No Summary"
+    },
+    "DemoRegionBaseSign": {
+      "category": "Complete sign",
+      "display": "demo region",
+      "summaryType": "NormalNotEx"
+    },
+    "DemoTendernessSign": {
+      "category": "Incomplete sign",
+      "display": "tenderness",
+      "summaryType": "AbsentPresent"
+    },
+    "absence": {
+      "display": "absent"
+    },
+    "mild": {
+      "display": "mild"
+    },
+    "normal": {
+      "display": "normal"
+    },
+    "notExamined": {
+      "display": "not examined"
+    },
+    "presence": {
+      "display": "present"
+    }
+  },
+  "locatives": {
+    "DemoAlphaSymptom": {
+      "locativeLinks": [
+        "in DemoRegion"
+      ]
+    }
+  },
+  "rules": {
+    "descriptors": {
+      "hasAbnormalityStatus": {
+        "precedence": 0,
+        "rules": [
+          {
+            "descriptorForm": "NoDescriptor",
+            "order": "descFirst",
+            "position": "afterTopic",
+            "value": "normal",
+            "valueForm": "valueNoun",
+            "valuePrecedence": null
+          },
+          {
+            "descriptorForm": "NoDescriptor",
+            "order": "descFirst",
+            "position": "afterTopic",
+            "value": "notExamined",
+            "valueForm": "valueNoun",
+            "valuePrecedence": null
+          }
+        ]
+      },
+      "hasClinicalAbsence": {
+        "precedence": 1,
+        "rules": [
+          {
+            "descriptorForm": "NoDescriptor",
+            "order": "descFirst",
+            "position": "afterTopic",
+            "value": "presence",
+            "valueForm": "valueNoun",
+            "valuePrecedence": 2
+          },
+          {
+            "descriptorForm": "NoDescriptor",
+            "order": "valFirst",
+            "position": "beforeTopic",
+            "value": "absence",
+            "valueForm": "valueAdj",
+            "valuePrecedence": 1
+          }
+        ]
+      }
+    },
+    "lexicon": {
+      "descriptors": {},
+      "valueAdverbs": {
+        "mild": "mildly",
+        "moderate": "moderately",
+        "severe": "severely"
+      }
+    },
+    "summaryTypes": [
+      "AbsentPresent: { hasClinicalAbsence absence } { hasClinicalAbsence presence }",
+      "NormalNotEx: { hasAbnormalityStatus normal } { hasAbnormalityStatus notExamined }",
+      "Normal: { hasAbnormalityStatus normal }"
+    ],
+    "valuePrecedences": {}
+  },
+  "schema": "penpad-remake-sentences/v1"
+}
