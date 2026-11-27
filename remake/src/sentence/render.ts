@@ -19,10 +19,22 @@
  *   descriptor named in the topic's summary type (e.g. AbsentPresent maps
  *   presence to hasClinicalAbsence). If that row is missing, hasClinicalAbsence
  *   is used.
- * - While the finding has no laterality and no sub-location, and the topic
- *   display already starts with the location display ("thumb pain"), the head
- *   is that pre-coordinated display. Laterality or a sub-location switches to
- *   the prepositional head ("Pain in right thumb").
+ * - If the topic has a single locative site (its usual location) and the
+ *   finding has no laterality and no sub-location, the head is the
+ *   pre-coordinated topic display ("abdominal pain", "thumb pain",
+ *   "acoustic neuroma"). Laterality, a sub-location, or a location that is
+ *   not that unique site switches to the prepositional head ("Pain in right
+ *   thumb", "Subcutaneous infection on thumb"). The generic noun is the
+ *   remainder after a leading location word, or else the last word of the
+ *   display ("Lump in left anterior ribs region"); "absent …" nominalises
+ *   to "Absence of …".
+ * - PresentPossibleExcluded does not say "present" (just the topic, or
+ *   "? topic", or "topic excluded"). AbsentPresent still says "present" or
+ *   prefixes "no" for absence.
+ * - A few value words are taken from the original engine's sentence forms
+ *   when the extract lexicon has no adverb: possible → "?", absence → "no",
+ *   same → "unchanging". Extract rule values "intermittant"/"persistant"
+ *   also match intermittent/persistent.
  * - A numeric qualifier uses "<descriptor word> <number> <unit>" when the
  *   rule order is descriptor-first, which is how "for 2 weeks" is written.
  * - The first character of the finished sentence is capitalised; nothing else
@@ -94,7 +106,9 @@ function qualifiersOf(finding: Finding, knowledge: SentenceKnowledge, missing: s
   const list = [...(finding.qualifiers ?? [])];
   const descriptor = summaryDescriptor(finding, knowledge);
   if (finding.summary && !list.some((q) => q.value === finding.summary && q.descriptor === descriptor)) {
-    list.push({ descriptor, value: finding.summary });
+    const summaryType = knowledge.concepts[finding.topic]?.summaryType;
+    const skipDefaultPresent = finding.summary === "presence" && summaryType === "PresentPossibleExcluded";
+    if (!skipDefaultPresent) list.push({ descriptor, value: finding.summary });
   }
   if (finding.summary && !knowledge.descriptors[descriptor]) {
     missing.push(`rules:${descriptor}`);
@@ -114,7 +128,7 @@ function summaryDescriptor(finding: Finding, knowledge: SentenceKnowledge): stri
 
 function phraseOf(q: Qualifier, index: number, knowledge: SentenceKnowledge, missing: string[]): BuiltPhrase[] {
   const descriptor = knowledge.descriptors[q.descriptor];
-  const rule = descriptor?.rules.find((r) => r.value === q.value);
+  const rule = descriptor?.rules.find((r) => ruleValueMatches(r.value, q.value));
   if (!rule) {
     missing.push(`rules:${q.descriptor}.${q.value}`);
     const text = q.number != null
@@ -145,6 +159,8 @@ function phraseOf(q: Qualifier, index: number, knowledge: SentenceKnowledge, mis
 }
 
 function wordForValue(valueForm: string, value: string, knowledge: SentenceKnowledge, missing: string[]): string {
+  const engineWord = ENGINE_VALUE_WORDS[value];
+  if (engineWord) return engineWord;
   switch (valueKind(valueForm)) {
     case "adverb":
       return adverbWord(value, knowledge, missing);
@@ -178,15 +194,57 @@ function numericPhrase(order: string, descriptorWord: string | null, n: number, 
   return valueFirst(order) ? joinWords([unit, num, descriptorWord]) : joinWords([descriptorWord, num, unit]);
 }
 
+function uniqueLocative(finding: Finding, knowledge: SentenceKnowledge) {
+  const links = knowledge.locatives[finding.topic] ?? [];
+  return links.length === 1 ? links[0] : undefined;
+}
+
+/** True when location is the topic's only locative site (the usual place). */
+function isInherentLocation(finding: Finding, knowledge: SentenceKnowledge): boolean {
+  return Boolean(finding.location && uniqueLocative(finding, knowledge)?.location === finding.location);
+}
+
+function displayAlreadyLocated(display: string): boolean {
+  return /\b(of|in|on|from)\b/i.test(display);
+}
+
+function shouldExpandHead(finding: Finding, knowledge: SentenceKnowledge): boolean {
+  if (finding.laterality || finding.subLocation) return true;
+  if (!finding.location || isInherentLocation(finding, knowledge)) return false;
+  const topicDisplay = knowledge.concepts[finding.topic]?.display ?? "";
+  // "adenoma of nipple" is already a locative display; do not append a second site.
+  if (displayAlreadyLocated(topicDisplay)) return false;
+  return true;
+}
+
 function grammaticalHead(finding: Finding, knowledge: SentenceKnowledge): string {
-  if (!finding.location) return finding.topic;
+  if (!finding.location || !shouldExpandHead(finding, knowledge)) return finding.topic;
   const topicDisplay = knowledge.concepts[finding.topic]?.display ?? "";
   const locDisplay = knowledge.concepts[finding.location]?.display ?? "";
-  const includes = locDisplay.length > 0 && topicDisplay.toLowerCase().startsWith(locDisplay.toLowerCase() + " ");
-  const expanded = Boolean(finding.laterality || finding.subLocation || !includes);
-  if (!expanded || !includes) return finding.topic;
-  const rest = topicDisplay.slice(locDisplay.length).trim();
-  return baseConcept(finding.topic, rest, knowledge) ?? finding.topic;
+  const rewrite = Boolean(finding.laterality || finding.subLocation);
+  // Attaching a non-inherent location without laterality keeps the full topic
+  // display ("subcutaneous infection on thumb", "adenoma of nipple").
+  if (!rewrite) return finding.topic;
+  if (topicDisplay.toLowerCase().startsWith("absent ")) return "=absence";
+  const GENERIC = new Set(["pain", "swelling", "lump", "ache", "stiffness", "weakness", "tenderness", "rash"]);
+  if (locDisplay && topicDisplay.toLowerCase().startsWith(locDisplay.toLowerCase() + " ")) {
+    const rest = topicDisplay.slice(locDisplay.length).trim();
+    if (GENERIC.has(rest.toLowerCase())) {
+      return baseConcept(finding.topic, rest, knowledge) ?? finding.topic;
+    }
+    // "ear discharge", "eye foreign body": keep the pre-coordinated name and
+    // still attach laterality on the locative ("Ear discharge from left ear").
+    return finding.topic;
+  }
+  const last = topicDisplay.trim().split(/\s+/).pop() ?? "";
+  const prefix = topicDisplay.trim().slice(0, Math.max(0, topicDisplay.trim().length - last.length)).trim().toLowerCase();
+  const locNorm = locDisplay.toLowerCase();
+  const prefixOverlaps = prefix.length > 0 && prefix.split(/\s+/).some((w) => {
+    const stem = (s: string) => s.replace(/s$/, "").slice(0, 4);
+    return w.length >= 4 && locNorm.split(/\s+/).some((lw) => stem(lw) === stem(w));
+  });
+  if (prefixOverlaps && GENERIC.has(last.toLowerCase())) return last;
+  return finding.topic;
 }
 
 function baseConcept(topic: string, rest: string, knowledge: SentenceKnowledge): string | undefined {
@@ -199,13 +257,9 @@ function baseConcept(topic: string, rest: string, knowledge: SentenceKnowledge):
 
 function headOf(finding: Finding, knowledge: SentenceKnowledge, missing: string[]): string {
   const headName = grammaticalHead(finding, knowledge);
-  const noun = nounWord(headName, knowledge, missing);
+  const noun = headName.startsWith("=") ? headName.slice(1) : nounWord(headName, knowledge, missing);
   if (!finding.location) return noun;
-  const locDisplay = knowledge.concepts[finding.location]?.display ?? "";
-  const topicDisplay = knowledge.concepts[finding.topic]?.display ?? "";
-  const includes = locDisplay.length > 0 && topicDisplay.toLowerCase().startsWith(locDisplay.toLowerCase() + " ");
-  const expanded = Boolean(finding.laterality || finding.subLocation || !includes);
-  if (!expanded) return nounWord(finding.topic, knowledge, missing);
+  if (!shouldExpandHead(finding, knowledge)) return nounWord(finding.topic, knowledge, missing);
   const prep = locativePreposition(finding, knowledge, missing);
   const sub = finding.subLocation
     ? `${nounWord(finding.subLocation, knowledge, missing)} of`
@@ -313,6 +367,26 @@ function isBefore(position: string): boolean {
 }
 
 const norm = (s: string) => s.toLowerCase().replace(/[_-\s]/g, "");
+
+/** Original-engine word forms observed in NatLanguageForConcept, used when the extract lexicon has no adverb. */
+const ENGINE_VALUE_WORDS: Record<string, string> = {
+  possible: "?",
+  absence: "no",
+  same: "unchanging",
+};
+
+/** Extract tables misspell two process-pattern values; accept both spellings. */
+const RULE_VALUE_ALIASES: Record<string, string> = {
+  intermittant: "intermittent",
+  intermittent: "intermittant",
+  persistant: "persistent",
+  persistent: "persistant",
+};
+
+function ruleValueMatches(ruleValue: string, value: string): boolean {
+  return ruleValue === value || RULE_VALUE_ALIASES[ruleValue] === value;
+}
+
 
 function closerLast(a: BuiltPhrase, b: BuiltPhrase): number {
   return a.precedence - b.precedence || a.valuePrecedence - b.valuePrecedence || a.index - b.index;

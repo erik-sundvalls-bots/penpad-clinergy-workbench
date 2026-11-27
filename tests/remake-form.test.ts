@@ -45,12 +45,12 @@ describe("thumb-path form engine", () => {
     ]);
   });
 
-  it("records a diagnosis summary without inventing a sentence generator tweak", () => {
+  it("records a diagnosis summary in the original engine's possible form", () => {
     let state = emptyFormState(pain, { location: "Thumb" });
     state = toggleLaterality(state, "right", true);
     state = setLinkSummary(state, "diagnoses", "ThumbSprain", "possible");
     const sentences = findingsFromForm(pain, state).map((f) => renderSentence(f, sentenceKnowledge));
     expect(sentences[0]).toBe("Pain in right thumb");
-    expect(sentences.some((s) => /sprain/i.test(s) && /possible/i.test(s))).toBe(true);
+    expect(sentences.some((s) => s === "? thumb sprain")).toBe(true);
   });
 });

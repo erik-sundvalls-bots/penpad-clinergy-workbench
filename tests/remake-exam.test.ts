@@ -64,6 +64,28 @@ describe("examination entry and On Examination prose", () => {
     expect(prose).toContain("Left demo joint: flexion full range, mildly painful");
   });
 
+  it("matches original engine exam wording for status, absence, and painless movement", () => {
+    const form = formOf("DemoBetaSign")!;
+    const tenderness = formOf("DemoTendernessSign")!;
+    const flexion = formOf("DemoFlexionSign")!;
+
+    let normal = emptyFormState(form);
+    normal = setExamStatus(normal, "DemoRegionExam", "left", "normal");
+    expect(onExamination(form, normal)).toContain("Left demo region normal");
+    expect(onExamination(form, normal)).not.toContain("Left demo region: normal");
+
+    let absent = emptyFormState(form);
+    const tenderAbs = setFormSummary(emptyFormState(tenderness, { location: "DemoRegion" }), "absence");
+    absent = setExamSign(absent, "DemoRegionExam", "left", "DemoTendernessSign", tenderAbs);
+    expect(onExamination(form, absent)).toContain("Left demo region: no tenderness");
+
+    let painless = emptyFormState(form);
+    let flex = setFeatureValue(emptyFormState(flexion, { location: "DemoJoint" }), "RelativeRangeJointArticulation", "reducedRange", false);
+    flex = setFeatureValue(flex, "criterial:ConseqPainOnMovement", "absence", false);
+    painless = setExamSign(painless, "DemoRegionExam", "left", "DemoFlexionSign", flex);
+    expect(onExamination(form, painless)).toContain("Left demo joint: flexion reduced range, painless");
+  });
+
   it("resolves the fixture exam tree", () => {
     expect(examOf("DemoRegionExam")?.signs).toEqual(["DemoTendernessSign"]);
     expect(examOf("DemoMovementExam")?.signs).toEqual(["DemoFlexionSign"]);

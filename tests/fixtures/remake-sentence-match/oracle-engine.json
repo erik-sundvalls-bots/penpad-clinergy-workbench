@@ -1,0 +1,7769 @@
+[
+  {
+    "id": "AIDS-bare",
+    "finding": {
+      "topic": "AIDS",
+      "qualifiers": []
+    },
+    "expected": "AIDS"
+  },
+  {
+    "id": "AIDS-excluded",
+    "finding": {
+      "topic": "AIDS",
+      "summary": "excluded",
+      "qualifiers": []
+    },
+    "expected": "AIDS excluded"
+  },
+  {
+    "id": "AIDS-possible",
+    "finding": {
+      "topic": "AIDS",
+      "summary": "possible",
+      "qualifiers": []
+    },
+    "expected": "? AIDS"
+  },
+  {
+    "id": "AIDS-present",
+    "finding": {
+      "topic": "AIDS",
+      "summary": "presence",
+      "qualifiers": []
+    },
+    "expected": "AIDS"
+  },
+  {
+    "id": "AbdomenStrain-bare",
+    "finding": {
+      "topic": "AbdomenStrain",
+      "qualifiers": []
+    },
+    "expected": "Abdomen strain"
+  },
+  {
+    "id": "AbdomenStrain-excluded",
+    "finding": {
+      "topic": "AbdomenStrain",
+      "summary": "excluded",
+      "qualifiers": []
+    },
+    "expected": "Abdomen strain excluded"
+  },
+  {
+    "id": "AbdomenStrain-possible",
+    "finding": {
+      "topic": "AbdomenStrain",
+      "summary": "possible",
+      "qualifiers": []
+    },
+    "expected": "? abdomen strain"
+  },
+  {
+    "id": "AbdomenStrain-present",
+    "finding": {
+      "topic": "AbdomenStrain",
+      "summary": "presence",
+      "qualifiers": []
+    },
+    "expected": "Abdomen strain"
+  },
+  {
+    "id": "AbdomenSwellingSymptom-2w",
+    "finding": {
+      "topic": "AbdomenSwellingSymptom",
+      "location": "Abdomen",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Abdomen swelling for 2 weeks"
+  },
+  {
+    "id": "AbdomenSwellingSymptom-bare",
+    "finding": {
+      "topic": "AbdomenSwellingSymptom",
+      "location": "Abdomen",
+      "qualifiers": []
+    },
+    "expected": "Abdomen swelling"
+  },
+  {
+    "id": "AbdomenSwellingSymptom-combo",
+    "finding": {
+      "topic": "AbdomenSwellingSymptom",
+      "location": "Abdomen",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe abdomen swelling for 2 weeks"
+  },
+  {
+    "id": "AbdomenSwellingSymptom-mod",
+    "finding": {
+      "topic": "AbdomenSwellingSymptom",
+      "location": "Abdomen",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe abdomen swelling"
+  },
+  {
+    "id": "AbdominalColicSymptom-bare",
+    "finding": {
+      "topic": "AbdominalColicSymptom",
+      "qualifiers": []
+    },
+    "expected": "Abdominal colic"
+  },
+  {
+    "id": "AbdominalColicSymptom-mod",
+    "finding": {
+      "topic": "AbdominalColicSymptom",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe abdominal colic"
+  },
+  {
+    "id": "AbdominalCrampSymptom-bare",
+    "finding": {
+      "topic": "AbdominalCrampSymptom",
+      "qualifiers": []
+    },
+    "expected": "Abdominal cramp"
+  },
+  {
+    "id": "AbdominalCrampSymptom-mod",
+    "finding": {
+      "topic": "AbdominalCrampSymptom",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe abdominal cramp"
+  },
+  {
+    "id": "AbdominalDistensionSymptom-bare",
+    "finding": {
+      "topic": "AbdominalDistensionSymptom",
+      "qualifiers": []
+    },
+    "expected": "Abdominal distension"
+  },
+  {
+    "id": "AbdominalDistensionSymptom-mod",
+    "finding": {
+      "topic": "AbdominalDistensionSymptom",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe abdominal distension"
+  },
+  {
+    "id": "AbdominalLumpSymptom-2w",
+    "finding": {
+      "topic": "AbdominalLumpSymptom",
+      "location": "Abdomen",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Abdominal lump for 2 weeks"
+  },
+  {
+    "id": "AbdominalLumpSymptom-bare",
+    "finding": {
+      "topic": "AbdominalLumpSymptom",
+      "location": "Abdomen",
+      "qualifiers": []
+    },
+    "expected": "Abdominal lump"
+  },
+  {
+    "id": "AbdominalPainSymptom-2w",
+    "finding": {
+      "topic": "AbdominalPainSymptom",
+      "location": "Abdomen",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Abdominal pain for 2 weeks"
+  },
+  {
+    "id": "AbdominalPainSymptom-bare",
+    "finding": {
+      "topic": "AbdominalPainSymptom",
+      "location": "Abdomen",
+      "qualifiers": []
+    },
+    "expected": "Abdominal pain"
+  },
+  {
+    "id": "AbdominalPainSymptom-combo",
+    "finding": {
+      "topic": "AbdominalPainSymptom",
+      "location": "Abdomen",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe abdominal pain for 2 weeks"
+  },
+  {
+    "id": "AbdominalPainSymptom-mod",
+    "finding": {
+      "topic": "AbdominalPainSymptom",
+      "location": "Abdomen",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe abdominal pain"
+  },
+  {
+    "id": "AbsencesSymptom-bare",
+    "finding": {
+      "topic": "AbsencesSymptom",
+      "qualifiers": []
+    },
+    "expected": "Absences"
+  },
+  {
+    "id": "AbsencesSymptom-mod",
+    "finding": {
+      "topic": "AbsencesSymptom",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe absences"
+  },
+  {
+    "id": "AbsentTesticleSymptom-2w",
+    "finding": {
+      "topic": "AbsentTesticleSymptom",
+      "location": "Testis",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Absent testis for 2 weeks"
+  },
+  {
+    "id": "AbsentTesticleSymptom-bare",
+    "finding": {
+      "topic": "AbsentTesticleSymptom",
+      "location": "Testis",
+      "qualifiers": []
+    },
+    "expected": "Absent testis"
+  },
+  {
+    "id": "AbsentTesticleSymptom-left",
+    "finding": {
+      "topic": "AbsentTesticleSymptom",
+      "location": "Testis",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Absence of left testis"
+  },
+  {
+    "id": "AbsentTesticleSymptom-right",
+    "finding": {
+      "topic": "AbsentTesticleSymptom",
+      "location": "Testis",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Absence of right testis"
+  },
+  {
+    "id": "AcanthosisNigricans-bare",
+    "finding": {
+      "topic": "AcanthosisNigricans",
+      "qualifiers": []
+    },
+    "expected": "Acanthosis nigricans"
+  },
+  {
+    "id": "AcanthosisNigricans-excluded",
+    "finding": {
+      "topic": "AcanthosisNigricans",
+      "summary": "excluded",
+      "qualifiers": []
+    },
+    "expected": "Acanthosis nigricans excluded"
+  },
+  {
+    "id": "AcanthosisNigricans-possible",
+    "finding": {
+      "topic": "AcanthosisNigricans",
+      "summary": "possible",
+      "qualifiers": []
+    },
+    "expected": "? acanthosis nigricans"
+  },
+  {
+    "id": "AcanthosisNigricans-present",
+    "finding": {
+      "topic": "AcanthosisNigricans",
+      "summary": "presence",
+      "qualifiers": []
+    },
+    "expected": "Acanthosis nigricans"
+  },
+  {
+    "id": "AcousticNeuroma-bare",
+    "finding": {
+      "topic": "AcousticNeuroma",
+      "location": "VestibuloCochlearNerve",
+      "qualifiers": []
+    },
+    "expected": "Acoustic neuroma"
+  },
+  {
+    "id": "AcousticNeuroma-excluded",
+    "finding": {
+      "topic": "AcousticNeuroma",
+      "location": "VestibuloCochlearNerve",
+      "summary": "excluded",
+      "qualifiers": []
+    },
+    "expected": "Acoustic neuroma excluded"
+  },
+  {
+    "id": "AcousticNeuroma-possible",
+    "finding": {
+      "topic": "AcousticNeuroma",
+      "location": "VestibuloCochlearNerve",
+      "summary": "possible",
+      "qualifiers": []
+    },
+    "expected": "? acoustic neuroma"
+  },
+  {
+    "id": "AcousticNeuroma-present",
+    "finding": {
+      "topic": "AcousticNeuroma",
+      "location": "VestibuloCochlearNerve",
+      "summary": "presence",
+      "qualifiers": []
+    },
+    "expected": "Acoustic neuroma"
+  },
+  {
+    "id": "Acromegaly-bare",
+    "finding": {
+      "topic": "Acromegaly",
+      "qualifiers": []
+    },
+    "expected": "Acromegaly"
+  },
+  {
+    "id": "Acromegaly-excluded",
+    "finding": {
+      "topic": "Acromegaly",
+      "summary": "excluded",
+      "qualifiers": []
+    },
+    "expected": "Acromegaly excluded"
+  },
+  {
+    "id": "Acromegaly-possible",
+    "finding": {
+      "topic": "Acromegaly",
+      "summary": "possible",
+      "qualifiers": []
+    },
+    "expected": "? acromegaly"
+  },
+  {
+    "id": "Acromegaly-present",
+    "finding": {
+      "topic": "Acromegaly",
+      "summary": "presence",
+      "qualifiers": []
+    },
+    "expected": "Acromegaly"
+  },
+  {
+    "id": "AcromioClavicularJointDislocation-bare",
+    "finding": {
+      "topic": "AcromioClavicularJointDislocation",
+      "location": "Shoulder",
+      "qualifiers": []
+    },
+    "expected": "Acromio clavicular joint dislocation"
+  },
+  {
+    "id": "AcromioClavicularJointDislocation-excluded",
+    "finding": {
+      "topic": "AcromioClavicularJointDislocation",
+      "location": "Shoulder",
+      "summary": "excluded",
+      "qualifiers": []
+    },
+    "expected": "Acromio clavicular joint dislocation excluded"
+  },
+  {
+    "id": "AcromioClavicularJointDislocation-possible",
+    "finding": {
+      "topic": "AcromioClavicularJointDislocation",
+      "location": "Shoulder",
+      "summary": "possible",
+      "qualifiers": []
+    },
+    "expected": "? acromio clavicular joint dislocation"
+  },
+  {
+    "id": "AcromioClavicularJointDislocation-present",
+    "finding": {
+      "topic": "AcromioClavicularJointDislocation",
+      "location": "Shoulder",
+      "summary": "presence",
+      "qualifiers": []
+    },
+    "expected": "Acromio clavicular joint dislocation"
+  },
+  {
+    "id": "AcuteAppendicitis-bare",
+    "finding": {
+      "topic": "AcuteAppendicitis",
+      "qualifiers": []
+    },
+    "expected": "Acute appendicitis"
+  },
+  {
+    "id": "AcuteAppendicitis-excluded",
+    "finding": {
+      "topic": "AcuteAppendicitis",
+      "summary": "excluded",
+      "qualifiers": []
+    },
+    "expected": "Acute appendicitis excluded"
+  },
+  {
+    "id": "AcuteAppendicitis-possible",
+    "finding": {
+      "topic": "AcuteAppendicitis",
+      "summary": "possible",
+      "qualifiers": []
+    },
+    "expected": "? acute appendicitis"
+  },
+  {
+    "id": "AcuteAppendicitis-present",
+    "finding": {
+      "topic": "AcuteAppendicitis",
+      "summary": "presence",
+      "qualifiers": []
+    },
+    "expected": "Acute appendicitis"
+  },
+  {
+    "id": "AcuteBronchitis-bare",
+    "finding": {
+      "topic": "AcuteBronchitis",
+      "qualifiers": []
+    },
+    "expected": "Acute bronchitis"
+  },
+  {
+    "id": "AcuteBronchitis-excluded",
+    "finding": {
+      "topic": "AcuteBronchitis",
+      "summary": "excluded",
+      "qualifiers": []
+    },
+    "expected": "Acute bronchitis excluded"
+  },
+  {
+    "id": "AcuteBronchitis-possible",
+    "finding": {
+      "topic": "AcuteBronchitis",
+      "summary": "possible",
+      "qualifiers": []
+    },
+    "expected": "? acute bronchitis"
+  },
+  {
+    "id": "AcuteBronchitis-present",
+    "finding": {
+      "topic": "AcuteBronchitis",
+      "summary": "presence",
+      "qualifiers": []
+    },
+    "expected": "Acute bronchitis"
+  },
+  {
+    "id": "AcuteConjunctivitisDiagnosis-bare",
+    "finding": {
+      "topic": "AcuteConjunctivitisDiagnosis",
+      "location": "Eye",
+      "qualifiers": []
+    },
+    "expected": "Acute conjunctivitis"
+  },
+  {
+    "id": "AcuteConjunctivitisDiagnosis-excluded",
+    "finding": {
+      "topic": "AcuteConjunctivitisDiagnosis",
+      "location": "Eye",
+      "summary": "excluded",
+      "qualifiers": []
+    },
+    "expected": "Acute conjunctivitis excluded"
+  },
+  {
+    "id": "AcuteConjunctivitisDiagnosis-possible",
+    "finding": {
+      "topic": "AcuteConjunctivitisDiagnosis",
+      "location": "Eye",
+      "summary": "possible",
+      "qualifiers": []
+    },
+    "expected": "? acute conjunctivitis"
+  },
+  {
+    "id": "AcuteConjunctivitisDiagnosis-present",
+    "finding": {
+      "topic": "AcuteConjunctivitisDiagnosis",
+      "location": "Eye",
+      "summary": "presence",
+      "qualifiers": []
+    },
+    "expected": "Acute conjunctivitis"
+  },
+  {
+    "id": "AcuteEpiglottitis-bare",
+    "finding": {
+      "topic": "AcuteEpiglottitis",
+      "qualifiers": []
+    },
+    "expected": "Acute epiglottitis"
+  },
+  {
+    "id": "AcuteEpiglottitis-excluded",
+    "finding": {
+      "topic": "AcuteEpiglottitis",
+      "summary": "excluded",
+      "qualifiers": []
+    },
+    "expected": "Acute epiglottitis excluded"
+  },
+  {
+    "id": "AcuteEpiglottitis-possible",
+    "finding": {
+      "topic": "AcuteEpiglottitis",
+      "summary": "possible",
+      "qualifiers": []
+    },
+    "expected": "? acute epiglottitis"
+  },
+  {
+    "id": "AcuteEpiglottitis-present",
+    "finding": {
+      "topic": "AcuteEpiglottitis",
+      "summary": "presence",
+      "qualifiers": []
+    },
+    "expected": "Acute epiglottitis"
+  },
+  {
+    "id": "AcuteGingivitis-bare",
+    "finding": {
+      "topic": "AcuteGingivitis",
+      "qualifiers": []
+    },
+    "expected": "Acute gingivitis"
+  },
+  {
+    "id": "AcuteGingivitis-excluded",
+    "finding": {
+      "topic": "AcuteGingivitis",
+      "summary": "excluded",
+      "qualifiers": []
+    },
+    "expected": "Acute gingivitis excluded"
+  },
+  {
+    "id": "AcuteGingivitis-possible",
+    "finding": {
+      "topic": "AcuteGingivitis",
+      "summary": "possible",
+      "qualifiers": []
+    },
+    "expected": "? acute gingivitis"
+  },
+  {
+    "id": "AcuteGingivitis-present",
+    "finding": {
+      "topic": "AcuteGingivitis",
+      "summary": "presence",
+      "qualifiers": []
+    },
+    "expected": "Acute gingivitis"
+  },
+  {
+    "id": "AcuteGlaucoma-bare",
+    "finding": {
+      "topic": "AcuteGlaucoma",
+      "location": "Eye",
+      "qualifiers": []
+    },
+    "expected": "Acute glaucoma"
+  },
+  {
+    "id": "AcuteGlaucoma-excluded",
+    "finding": {
+      "topic": "AcuteGlaucoma",
+      "location": "Eye",
+      "summary": "excluded",
+      "qualifiers": []
+    },
+    "expected": "Acute glaucoma excluded"
+  },
+  {
+    "id": "AcuteGlaucoma-possible",
+    "finding": {
+      "topic": "AcuteGlaucoma",
+      "location": "Eye",
+      "summary": "possible",
+      "qualifiers": []
+    },
+    "expected": "? acute glaucoma"
+  },
+  {
+    "id": "AcuteGlaucoma-present",
+    "finding": {
+      "topic": "AcuteGlaucoma",
+      "location": "Eye",
+      "summary": "presence",
+      "qualifiers": []
+    },
+    "expected": "Acute glaucoma"
+  },
+  {
+    "id": "AcuteGlomerulonephritis-bare",
+    "finding": {
+      "topic": "AcuteGlomerulonephritis",
+      "qualifiers": []
+    },
+    "expected": "Acute glomerulonephritis"
+  },
+  {
+    "id": "AcuteGlomerulonephritis-excluded",
+    "finding": {
+      "topic": "AcuteGlomerulonephritis",
+      "summary": "excluded",
+      "qualifiers": []
+    },
+    "expected": "Acute glomerulonephritis excluded"
+  },
+  {
+    "id": "AcuteGlomerulonephritis-possible",
+    "finding": {
+      "topic": "AcuteGlomerulonephritis",
+      "summary": "possible",
+      "qualifiers": []
+    },
+    "expected": "? acute glomerulonephritis"
+  },
+  {
+    "id": "AcuteGlomerulonephritis-present",
+    "finding": {
+      "topic": "AcuteGlomerulonephritis",
+      "summary": "presence",
+      "qualifiers": []
+    },
+    "expected": "Acute glomerulonephritis"
+  },
+  {
+    "id": "AcuteHepatitis-bare",
+    "finding": {
+      "topic": "AcuteHepatitis",
+      "qualifiers": []
+    },
+    "expected": "Acute hepatitis"
+  },
+  {
+    "id": "AcuteHepatitis-excluded",
+    "finding": {
+      "topic": "AcuteHepatitis",
+      "summary": "excluded",
+      "qualifiers": []
+    },
+    "expected": "Acute hepatitis excluded"
+  },
+  {
+    "id": "AcuteHepatitis-possible",
+    "finding": {
+      "topic": "AcuteHepatitis",
+      "summary": "possible",
+      "qualifiers": []
+    },
+    "expected": "? acute hepatitis"
+  },
+  {
+    "id": "AcuteHepatitis-present",
+    "finding": {
+      "topic": "AcuteHepatitis",
+      "summary": "presence",
+      "qualifiers": []
+    },
+    "expected": "Acute hepatitis"
+  },
+  {
+    "id": "AcuteIritis-bare",
+    "finding": {
+      "topic": "AcuteIritis",
+      "location": "Eye",
+      "qualifiers": []
+    },
+    "expected": "Acute iritis"
+  },
+  {
+    "id": "AcuteIritis-excluded",
+    "finding": {
+      "topic": "AcuteIritis",
+      "location": "Eye",
+      "summary": "excluded",
+      "qualifiers": []
+    },
+    "expected": "Acute iritis excluded"
+  },
+  {
+    "id": "AcuteIritis-possible",
+    "finding": {
+      "topic": "AcuteIritis",
+      "location": "Eye",
+      "summary": "possible",
+      "qualifiers": []
+    },
+    "expected": "? acute iritis"
+  },
+  {
+    "id": "AcuteIritis-present",
+    "finding": {
+      "topic": "AcuteIritis",
+      "location": "Eye",
+      "summary": "presence",
+      "qualifiers": []
+    },
+    "expected": "Acute iritis"
+  },
+  {
+    "id": "AcuteLabyrinthitis-bare",
+    "finding": {
+      "topic": "AcuteLabyrinthitis",
+      "location": "Ear",
+      "qualifiers": []
+    },
+    "expected": "Acute labyrinthitis"
+  },
+  {
+    "id": "AcuteLabyrinthitis-excluded",
+    "finding": {
+      "topic": "AcuteLabyrinthitis",
+      "location": "Ear",
+      "summary": "excluded",
+      "qualifiers": []
+    },
+    "expected": "Acute labyrinthitis excluded"
+  },
+  {
+    "id": "AcuteLabyrinthitis-possible",
+    "finding": {
+      "topic": "AcuteLabyrinthitis",
+      "location": "Ear",
+      "summary": "possible",
+      "qualifiers": []
+    },
+    "expected": "? acute labyrinthitis"
+  },
+  {
+    "id": "AcuteLabyrinthitis-present",
+    "finding": {
+      "topic": "AcuteLabyrinthitis",
+      "location": "Ear",
+      "summary": "presence",
+      "qualifiers": []
+    },
+    "expected": "Acute labyrinthitis"
+  },
+  {
+    "id": "AcuteLaryngitis-bare",
+    "finding": {
+      "topic": "AcuteLaryngitis",
+      "qualifiers": []
+    },
+    "expected": "Acute laryngitis"
+  },
+  {
+    "id": "AcuteLaryngitis-excluded",
+    "finding": {
+      "topic": "AcuteLaryngitis",
+      "summary": "excluded",
+      "qualifiers": []
+    },
+    "expected": "Acute laryngitis excluded"
+  },
+  {
+    "id": "AcuteLaryngitis-possible",
+    "finding": {
+      "topic": "AcuteLaryngitis",
+      "summary": "possible",
+      "qualifiers": []
+    },
+    "expected": "? acute laryngitis"
+  },
+  {
+    "id": "AcuteLaryngitis-present",
+    "finding": {
+      "topic": "AcuteLaryngitis",
+      "summary": "presence",
+      "qualifiers": []
+    },
+    "expected": "Acute laryngitis"
+  },
+  {
+    "id": "AcuteNonSuppurativeOtitisMedia-bare",
+    "finding": {
+      "topic": "AcuteNonSuppurativeOtitisMedia",
+      "location": "Ear",
+      "qualifiers": []
+    },
+    "expected": "Acute non suppurative otitis media"
+  },
+  {
+    "id": "AcuteNonSuppurativeOtitisMedia-excluded",
+    "finding": {
+      "topic": "AcuteNonSuppurativeOtitisMedia",
+      "location": "Ear",
+      "summary": "excluded",
+      "qualifiers": []
+    },
+    "expected": "Acute non suppurative otitis media excluded"
+  },
+  {
+    "id": "AcuteNonSuppurativeOtitisMedia-possible",
+    "finding": {
+      "topic": "AcuteNonSuppurativeOtitisMedia",
+      "location": "Ear",
+      "summary": "possible",
+      "qualifiers": []
+    },
+    "expected": "? acute non suppurative otitis media"
+  },
+  {
+    "id": "AcuteNonSuppurativeOtitisMedia-present",
+    "finding": {
+      "topic": "AcuteNonSuppurativeOtitisMedia",
+      "location": "Ear",
+      "summary": "presence",
+      "qualifiers": []
+    },
+    "expected": "Acute non suppurative otitis media"
+  },
+  {
+    "id": "AcuteOtitisExterna-bare",
+    "finding": {
+      "topic": "AcuteOtitisExterna",
+      "location": "Ear",
+      "qualifiers": []
+    },
+    "expected": "Acute otitis externa"
+  },
+  {
+    "id": "AcuteOtitisExterna-excluded",
+    "finding": {
+      "topic": "AcuteOtitisExterna",
+      "location": "Ear",
+      "summary": "excluded",
+      "qualifiers": []
+    },
+    "expected": "Acute otitis externa excluded"
+  },
+  {
+    "id": "AcuteOtitisExterna-possible",
+    "finding": {
+      "topic": "AcuteOtitisExterna",
+      "location": "Ear",
+      "summary": "possible",
+      "qualifiers": []
+    },
+    "expected": "? acute otitis externa"
+  },
+  {
+    "id": "AcuteOtitisExterna-present",
+    "finding": {
+      "topic": "AcuteOtitisExterna",
+      "location": "Ear",
+      "summary": "presence",
+      "qualifiers": []
+    },
+    "expected": "Acute otitis externa"
+  },
+  {
+    "id": "AcutePharyngitis-bare",
+    "finding": {
+      "topic": "AcutePharyngitis",
+      "qualifiers": []
+    },
+    "expected": "Acute pharyngitis"
+  },
+  {
+    "id": "AcutePharyngitis-excluded",
+    "finding": {
+      "topic": "AcutePharyngitis",
+      "summary": "excluded",
+      "qualifiers": []
+    },
+    "expected": "Acute pharyngitis excluded"
+  },
+  {
+    "id": "AcutePharyngitis-possible",
+    "finding": {
+      "topic": "AcutePharyngitis",
+      "summary": "possible",
+      "qualifiers": []
+    },
+    "expected": "? acute pharyngitis"
+  },
+  {
+    "id": "AcutePharyngitis-present",
+    "finding": {
+      "topic": "AcutePharyngitis",
+      "summary": "presence",
+      "qualifiers": []
+    },
+    "expected": "Acute pharyngitis"
+  },
+  {
+    "id": "AcuteProstatitis-bare",
+    "finding": {
+      "topic": "AcuteProstatitis",
+      "qualifiers": []
+    },
+    "expected": "Acute prostatitis"
+  },
+  {
+    "id": "AcuteProstatitis-excluded",
+    "finding": {
+      "topic": "AcuteProstatitis",
+      "summary": "excluded",
+      "qualifiers": []
+    },
+    "expected": "Acute prostatitis excluded"
+  },
+  {
+    "id": "AcuteProstatitis-possible",
+    "finding": {
+      "topic": "AcuteProstatitis",
+      "summary": "possible",
+      "qualifiers": []
+    },
+    "expected": "? acute prostatitis"
+  },
+  {
+    "id": "AcuteProstatitis-present",
+    "finding": {
+      "topic": "AcuteProstatitis",
+      "summary": "presence",
+      "qualifiers": []
+    },
+    "expected": "Acute prostatitis"
+  },
+  {
+    "id": "AcutePulmonaryOedema-bare",
+    "finding": {
+      "topic": "AcutePulmonaryOedema",
+      "qualifiers": []
+    },
+    "expected": "Acute pulmonary oedema"
+  },
+  {
+    "id": "AcutePulmonaryOedema-excluded",
+    "finding": {
+      "topic": "AcutePulmonaryOedema",
+      "summary": "excluded",
+      "qualifiers": []
+    },
+    "expected": "Acute pulmonary oedema excluded"
+  },
+  {
+    "id": "AcutePulmonaryOedema-possible",
+    "finding": {
+      "topic": "AcutePulmonaryOedema",
+      "summary": "possible",
+      "qualifiers": []
+    },
+    "expected": "? acute pulmonary oedema"
+  },
+  {
+    "id": "AcutePulmonaryOedema-present",
+    "finding": {
+      "topic": "AcutePulmonaryOedema",
+      "summary": "presence",
+      "qualifiers": []
+    },
+    "expected": "Acute pulmonary oedema"
+  },
+  {
+    "id": "AcuteRhinitis-bare",
+    "finding": {
+      "topic": "AcuteRhinitis",
+      "qualifiers": []
+    },
+    "expected": "Acute rhinitis"
+  },
+  {
+    "id": "AcuteRhinitis-excluded",
+    "finding": {
+      "topic": "AcuteRhinitis",
+      "summary": "excluded",
+      "qualifiers": []
+    },
+    "expected": "Acute rhinitis excluded"
+  },
+  {
+    "id": "AcuteRhinitis-possible",
+    "finding": {
+      "topic": "AcuteRhinitis",
+      "summary": "possible",
+      "qualifiers": []
+    },
+    "expected": "? acute rhinitis"
+  },
+  {
+    "id": "AcuteRhinitis-present",
+    "finding": {
+      "topic": "AcuteRhinitis",
+      "summary": "presence",
+      "qualifiers": []
+    },
+    "expected": "Acute rhinitis"
+  },
+  {
+    "id": "AcuteSerousOtitisMedia-bare",
+    "finding": {
+      "topic": "AcuteSerousOtitisMedia",
+      "location": "Ear",
+      "qualifiers": []
+    },
+    "expected": "Acute serous otitis media"
+  },
+  {
+    "id": "AcuteSerousOtitisMedia-excluded",
+    "finding": {
+      "topic": "AcuteSerousOtitisMedia",
+      "location": "Ear",
+      "summary": "excluded",
+      "qualifiers": []
+    },
+    "expected": "Acute serous otitis media excluded"
+  },
+  {
+    "id": "AcuteSerousOtitisMedia-possible",
+    "finding": {
+      "topic": "AcuteSerousOtitisMedia",
+      "location": "Ear",
+      "summary": "possible",
+      "qualifiers": []
+    },
+    "expected": "? acute serous otitis media"
+  },
+  {
+    "id": "AcuteSerousOtitisMedia-present",
+    "finding": {
+      "topic": "AcuteSerousOtitisMedia",
+      "location": "Ear",
+      "summary": "presence",
+      "qualifiers": []
+    },
+    "expected": "Acute serous otitis media"
+  },
+  {
+    "id": "AcuteSinusitis-bare",
+    "finding": {
+      "topic": "AcuteSinusitis",
+      "qualifiers": []
+    },
+    "expected": "Acute sinusitis"
+  },
+  {
+    "id": "AcuteSinusitis-excluded",
+    "finding": {
+      "topic": "AcuteSinusitis",
+      "summary": "excluded",
+      "qualifiers": []
+    },
+    "expected": "Acute sinusitis excluded"
+  },
+  {
+    "id": "AcuteSinusitis-possible",
+    "finding": {
+      "topic": "AcuteSinusitis",
+      "summary": "possible",
+      "qualifiers": []
+    },
+    "expected": "? acute sinusitis"
+  },
+  {
+    "id": "AcuteSinusitis-present",
+    "finding": {
+      "topic": "AcuteSinusitis",
+      "summary": "presence",
+      "qualifiers": []
+    },
+    "expected": "Acute sinusitis"
+  },
+  {
+    "id": "AcuteSuppurativeOtitisMedia-bare",
+    "finding": {
+      "topic": "AcuteSuppurativeOtitisMedia",
+      "location": "Ear",
+      "qualifiers": []
+    },
+    "expected": "Acute suppurative otitis media"
+  },
+  {
+    "id": "AcuteSuppurativeOtitisMedia-excluded",
+    "finding": {
+      "topic": "AcuteSuppurativeOtitisMedia",
+      "location": "Ear",
+      "summary": "excluded",
+      "qualifiers": []
+    },
+    "expected": "Acute suppurative otitis media excluded"
+  },
+  {
+    "id": "AcuteSuppurativeOtitisMedia-possible",
+    "finding": {
+      "topic": "AcuteSuppurativeOtitisMedia",
+      "location": "Ear",
+      "summary": "possible",
+      "qualifiers": []
+    },
+    "expected": "? acute suppurative otitis media"
+  },
+  {
+    "id": "AcuteSuppurativeOtitisMedia-present",
+    "finding": {
+      "topic": "AcuteSuppurativeOtitisMedia",
+      "location": "Ear",
+      "summary": "presence",
+      "qualifiers": []
+    },
+    "expected": "Acute suppurative otitis media"
+  },
+  {
+    "id": "AcuteTracheitis-bare",
+    "finding": {
+      "topic": "AcuteTracheitis",
+      "qualifiers": []
+    },
+    "expected": "Acute tracheitis"
+  },
+  {
+    "id": "AcuteTracheitis-excluded",
+    "finding": {
+      "topic": "AcuteTracheitis",
+      "summary": "excluded",
+      "qualifiers": []
+    },
+    "expected": "Acute tracheitis excluded"
+  },
+  {
+    "id": "AcuteTracheitis-possible",
+    "finding": {
+      "topic": "AcuteTracheitis",
+      "summary": "possible",
+      "qualifiers": []
+    },
+    "expected": "? acute tracheitis"
+  },
+  {
+    "id": "AcuteTracheitis-present",
+    "finding": {
+      "topic": "AcuteTracheitis",
+      "summary": "presence",
+      "qualifiers": []
+    },
+    "expected": "Acute tracheitis"
+  },
+  {
+    "id": "AcuteUrinaryRetention-bare",
+    "finding": {
+      "topic": "AcuteUrinaryRetention",
+      "qualifiers": []
+    },
+    "expected": "Acute urinary retention"
+  },
+  {
+    "id": "AcuteUrinaryRetention-excluded",
+    "finding": {
+      "topic": "AcuteUrinaryRetention",
+      "summary": "excluded",
+      "qualifiers": []
+    },
+    "expected": "Acute urinary retention excluded"
+  },
+  {
+    "id": "AcuteUrinaryRetention-possible",
+    "finding": {
+      "topic": "AcuteUrinaryRetention",
+      "summary": "possible",
+      "qualifiers": []
+    },
+    "expected": "? acute urinary retention"
+  },
+  {
+    "id": "AcuteUrinaryRetention-present",
+    "finding": {
+      "topic": "AcuteUrinaryRetention",
+      "summary": "presence",
+      "qualifiers": []
+    },
+    "expected": "Acute urinary retention"
+  },
+  {
+    "id": "AddisonsDisease-bare",
+    "finding": {
+      "topic": "AddisonsDisease",
+      "qualifiers": []
+    },
+    "expected": "Addison's disease"
+  },
+  {
+    "id": "AddisonsDisease-excluded",
+    "finding": {
+      "topic": "AddisonsDisease",
+      "summary": "excluded",
+      "qualifiers": []
+    },
+    "expected": "Addison's disease excluded"
+  },
+  {
+    "id": "AddisonsDisease-possible",
+    "finding": {
+      "topic": "AddisonsDisease",
+      "summary": "possible",
+      "qualifiers": []
+    },
+    "expected": "? Addison's disease"
+  },
+  {
+    "id": "AddisonsDisease-present",
+    "finding": {
+      "topic": "AddisonsDisease",
+      "summary": "presence",
+      "qualifiers": []
+    },
+    "expected": "Addison's disease"
+  },
+  {
+    "id": "AdenomaOfNipple-bare",
+    "finding": {
+      "topic": "AdenomaOfNipple",
+      "location": "Breast",
+      "qualifiers": []
+    },
+    "expected": "Adenoma of nipple"
+  },
+  {
+    "id": "AdenomaOfNipple-excluded",
+    "finding": {
+      "topic": "AdenomaOfNipple",
+      "location": "Breast",
+      "summary": "excluded",
+      "qualifiers": []
+    },
+    "expected": "Adenoma of nipple excluded"
+  },
+  {
+    "id": "AdenomaOfNipple-possible",
+    "finding": {
+      "topic": "AdenomaOfNipple",
+      "location": "Breast",
+      "summary": "possible",
+      "qualifiers": []
+    },
+    "expected": "? adenoma of nipple"
+  },
+  {
+    "id": "AdenomaOfNipple-present",
+    "finding": {
+      "topic": "AdenomaOfNipple",
+      "location": "Breast",
+      "summary": "presence",
+      "qualifiers": []
+    },
+    "expected": "Adenoma of nipple"
+  },
+  {
+    "id": "Aerophagy-bare",
+    "finding": {
+      "topic": "Aerophagy",
+      "qualifiers": []
+    },
+    "expected": "Aerophagy"
+  },
+  {
+    "id": "Aerophagy-excluded",
+    "finding": {
+      "topic": "Aerophagy",
+      "summary": "excluded",
+      "qualifiers": []
+    },
+    "expected": "Aerophagy excluded"
+  },
+  {
+    "id": "Aerophagy-possible",
+    "finding": {
+      "topic": "Aerophagy",
+      "summary": "possible",
+      "qualifiers": []
+    },
+    "expected": "? aerophagy"
+  },
+  {
+    "id": "Aerophagy-present",
+    "finding": {
+      "topic": "Aerophagy",
+      "summary": "presence",
+      "qualifiers": []
+    },
+    "expected": "Aerophagy"
+  },
+  {
+    "id": "AgitationSymptom-bare",
+    "finding": {
+      "topic": "AgitationSymptom",
+      "qualifiers": []
+    },
+    "expected": "Agitation"
+  },
+  {
+    "id": "AgitationSymptom-mod",
+    "finding": {
+      "topic": "AgitationSymptom",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe agitation"
+  },
+  {
+    "id": "AlcoholAbuse-bare",
+    "finding": {
+      "topic": "AlcoholAbuse",
+      "qualifiers": []
+    },
+    "expected": "Alcohol abuse"
+  },
+  {
+    "id": "AlcoholAbuse-excluded",
+    "finding": {
+      "topic": "AlcoholAbuse",
+      "summary": "excluded",
+      "qualifiers": []
+    },
+    "expected": "Alcohol abuse excluded"
+  },
+  {
+    "id": "AlcoholAbuse-possible",
+    "finding": {
+      "topic": "AlcoholAbuse",
+      "summary": "possible",
+      "qualifiers": []
+    },
+    "expected": "? alcohol abuse"
+  },
+  {
+    "id": "AlcoholAbuse-present",
+    "finding": {
+      "topic": "AlcoholAbuse",
+      "summary": "presence",
+      "qualifiers": []
+    },
+    "expected": "Alcohol abuse"
+  },
+  {
+    "id": "AlcoholicCirrhosis-bare",
+    "finding": {
+      "topic": "AlcoholicCirrhosis",
+      "qualifiers": []
+    },
+    "expected": "Alcoholic cirrhosis"
+  },
+  {
+    "id": "AlcoholicCirrhosis-excluded",
+    "finding": {
+      "topic": "AlcoholicCirrhosis",
+      "summary": "excluded",
+      "qualifiers": []
+    },
+    "expected": "Alcoholic cirrhosis excluded"
+  },
+  {
+    "id": "AlcoholicCirrhosis-possible",
+    "finding": {
+      "topic": "AlcoholicCirrhosis",
+      "summary": "possible",
+      "qualifiers": []
+    },
+    "expected": "? alcoholic cirrhosis"
+  },
+  {
+    "id": "AlcoholicCirrhosis-present",
+    "finding": {
+      "topic": "AlcoholicCirrhosis",
+      "summary": "presence",
+      "qualifiers": []
+    },
+    "expected": "Alcoholic cirrhosis"
+  },
+  {
+    "id": "AllergicConjunctivitis-bare",
+    "finding": {
+      "topic": "AllergicConjunctivitis",
+      "location": "Eye",
+      "qualifiers": []
+    },
+    "expected": "Allergic conjunctivitis"
+  },
+  {
+    "id": "AllergicConjunctivitis-excluded",
+    "finding": {
+      "topic": "AllergicConjunctivitis",
+      "location": "Eye",
+      "summary": "excluded",
+      "qualifiers": []
+    },
+    "expected": "Allergic conjunctivitis excluded"
+  },
+  {
+    "id": "AllergicConjunctivitis-possible",
+    "finding": {
+      "topic": "AllergicConjunctivitis",
+      "location": "Eye",
+      "summary": "possible",
+      "qualifiers": []
+    },
+    "expected": "? allergic conjunctivitis"
+  },
+  {
+    "id": "AllergicConjunctivitis-present",
+    "finding": {
+      "topic": "AllergicConjunctivitis",
+      "location": "Eye",
+      "summary": "presence",
+      "qualifiers": []
+    },
+    "expected": "Allergic conjunctivitis"
+  },
+  {
+    "id": "AllergicRhinitis-bare",
+    "finding": {
+      "topic": "AllergicRhinitis",
+      "qualifiers": []
+    },
+    "expected": "Allergic rhinitis"
+  },
+  {
+    "id": "AllergicRhinitis-excluded",
+    "finding": {
+      "topic": "AllergicRhinitis",
+      "summary": "excluded",
+      "qualifiers": []
+    },
+    "expected": "Allergic rhinitis excluded"
+  },
+  {
+    "id": "AllergicRhinitis-possible",
+    "finding": {
+      "topic": "AllergicRhinitis",
+      "summary": "possible",
+      "qualifiers": []
+    },
+    "expected": "? allergic rhinitis"
+  },
+  {
+    "id": "AllergicRhinitis-present",
+    "finding": {
+      "topic": "AllergicRhinitis",
+      "summary": "presence",
+      "qualifiers": []
+    },
+    "expected": "Allergic rhinitis"
+  },
+  {
+    "id": "AlopeciaAreata-bare",
+    "finding": {
+      "topic": "AlopeciaAreata",
+      "qualifiers": []
+    },
+    "expected": "Alopecia areata"
+  },
+  {
+    "id": "AlopeciaAreata-excluded",
+    "finding": {
+      "topic": "AlopeciaAreata",
+      "summary": "excluded",
+      "qualifiers": []
+    },
+    "expected": "Alopecia areata excluded"
+  },
+  {
+    "id": "AlopeciaAreata-possible",
+    "finding": {
+      "topic": "AlopeciaAreata",
+      "summary": "possible",
+      "qualifiers": []
+    },
+    "expected": "? alopecia areata"
+  },
+  {
+    "id": "AlopeciaAreata-present",
+    "finding": {
+      "topic": "AlopeciaAreata",
+      "summary": "presence",
+      "qualifiers": []
+    },
+    "expected": "Alopecia areata"
+  },
+  {
+    "id": "Amblyopia-bare",
+    "finding": {
+      "topic": "Amblyopia",
+      "location": "Eye",
+      "qualifiers": []
+    },
+    "expected": "Amblyopia"
+  },
+  {
+    "id": "Amblyopia-excluded",
+    "finding": {
+      "topic": "Amblyopia",
+      "location": "Eye",
+      "summary": "excluded",
+      "qualifiers": []
+    },
+    "expected": "Amblyopia excluded"
+  },
+  {
+    "id": "Amblyopia-possible",
+    "finding": {
+      "topic": "Amblyopia",
+      "location": "Eye",
+      "summary": "possible",
+      "qualifiers": []
+    },
+    "expected": "? amblyopia"
+  },
+  {
+    "id": "Amblyopia-present",
+    "finding": {
+      "topic": "Amblyopia",
+      "location": "Eye",
+      "summary": "presence",
+      "qualifiers": []
+    },
+    "expected": "Amblyopia"
+  },
+  {
+    "id": "AmenorrhoeaSymptom-bare",
+    "finding": {
+      "topic": "AmenorrhoeaSymptom",
+      "qualifiers": []
+    },
+    "expected": "Amenorrhoea"
+  },
+  {
+    "id": "AnalDischargeSymptom-bare",
+    "finding": {
+      "topic": "AnalDischargeSymptom",
+      "qualifiers": []
+    },
+    "expected": "Anal discharge"
+  },
+  {
+    "id": "AnalDischargeSymptom-mod",
+    "finding": {
+      "topic": "AnalDischargeSymptom",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe anal discharge"
+  },
+  {
+    "id": "AnalFissureDiagnosis-bare",
+    "finding": {
+      "topic": "AnalFissureDiagnosis",
+      "qualifiers": []
+    },
+    "expected": "Anal fissure"
+  },
+  {
+    "id": "AnalFissureDiagnosis-excluded",
+    "finding": {
+      "topic": "AnalFissureDiagnosis",
+      "summary": "excluded",
+      "qualifiers": []
+    },
+    "expected": "Anal fissure excluded"
+  },
+  {
+    "id": "AnalFissureDiagnosis-possible",
+    "finding": {
+      "topic": "AnalFissureDiagnosis",
+      "summary": "possible",
+      "qualifiers": []
+    },
+    "expected": "? anal fissure"
+  },
+  {
+    "id": "AnalFissureDiagnosis-present",
+    "finding": {
+      "topic": "AnalFissureDiagnosis",
+      "summary": "presence",
+      "qualifiers": []
+    },
+    "expected": "Anal fissure"
+  },
+  {
+    "id": "AnalLumpSymptom-2w",
+    "finding": {
+      "topic": "AnalLumpSymptom",
+      "location": "Anus",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Anal lump for 2 weeks"
+  },
+  {
+    "id": "AnalLumpSymptom-bare",
+    "finding": {
+      "topic": "AnalLumpSymptom",
+      "location": "Anus",
+      "qualifiers": []
+    },
+    "expected": "Anal lump"
+  },
+  {
+    "id": "AnalPainSymptom-bare",
+    "finding": {
+      "topic": "AnalPainSymptom",
+      "qualifiers": []
+    },
+    "expected": "Anal pain"
+  },
+  {
+    "id": "AnalPainSymptom-mod",
+    "finding": {
+      "topic": "AnalPainSymptom",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe anal pain"
+  },
+  {
+    "id": "AnalStrain-bare",
+    "finding": {
+      "topic": "AnalStrain",
+      "qualifiers": []
+    },
+    "expected": "Anal strain"
+  },
+  {
+    "id": "AnalStrain-excluded",
+    "finding": {
+      "topic": "AnalStrain",
+      "summary": "excluded",
+      "qualifiers": []
+    },
+    "expected": "Anal strain excluded"
+  },
+  {
+    "id": "AnalStrain-possible",
+    "finding": {
+      "topic": "AnalStrain",
+      "summary": "possible",
+      "qualifiers": []
+    },
+    "expected": "? anal strain"
+  },
+  {
+    "id": "AnalStrain-present",
+    "finding": {
+      "topic": "AnalStrain",
+      "summary": "presence",
+      "qualifiers": []
+    },
+    "expected": "Anal strain"
+  },
+  {
+    "id": "AnaphylacticShock-bare",
+    "finding": {
+      "topic": "AnaphylacticShock",
+      "qualifiers": []
+    },
+    "expected": "Anaphylactic shock"
+  },
+  {
+    "id": "AnaphylacticShock-excluded",
+    "finding": {
+      "topic": "AnaphylacticShock",
+      "summary": "excluded",
+      "qualifiers": []
+    },
+    "expected": "Anaphylactic shock excluded"
+  },
+  {
+    "id": "AnaphylacticShock-possible",
+    "finding": {
+      "topic": "AnaphylacticShock",
+      "summary": "possible",
+      "qualifiers": []
+    },
+    "expected": "? anaphylactic shock"
+  },
+  {
+    "id": "AnaphylacticShock-present",
+    "finding": {
+      "topic": "AnaphylacticShock",
+      "summary": "presence",
+      "qualifiers": []
+    },
+    "expected": "Anaphylactic shock"
+  },
+  {
+    "id": "AnklePainSymptom-2w",
+    "finding": {
+      "topic": "AnklePainSymptom",
+      "location": "Ankle",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Ankle pain for 2 weeks"
+  },
+  {
+    "id": "AnklePainSymptom-bare",
+    "finding": {
+      "topic": "AnklePainSymptom",
+      "location": "Ankle",
+      "qualifiers": []
+    },
+    "expected": "Ankle pain"
+  },
+  {
+    "id": "AnklePainSymptom-combo",
+    "finding": {
+      "topic": "AnklePainSymptom",
+      "location": "Ankle",
+      "laterality": "right",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe pain in right ankle for 2 weeks"
+  },
+  {
+    "id": "AnklePainSymptom-left",
+    "finding": {
+      "topic": "AnklePainSymptom",
+      "location": "Ankle",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Pain in left ankle"
+  },
+  {
+    "id": "AnklePainSymptom-mod",
+    "finding": {
+      "topic": "AnklePainSymptom",
+      "location": "Ankle",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe ankle pain"
+  },
+  {
+    "id": "AnklePainSymptom-right",
+    "finding": {
+      "topic": "AnklePainSymptom",
+      "location": "Ankle",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Pain in right ankle"
+  },
+  {
+    "id": "AnkleSwellingSymptom-2w",
+    "finding": {
+      "topic": "AnkleSwellingSymptom",
+      "location": "Ankle",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Ankle swelling for 2 weeks"
+  },
+  {
+    "id": "AnkleSwellingSymptom-bare",
+    "finding": {
+      "topic": "AnkleSwellingSymptom",
+      "location": "Ankle",
+      "qualifiers": []
+    },
+    "expected": "Ankle swelling"
+  },
+  {
+    "id": "AnkleSwellingSymptom-combo",
+    "finding": {
+      "topic": "AnkleSwellingSymptom",
+      "location": "Ankle",
+      "laterality": "right",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe swelling of right ankle for 2 weeks"
+  },
+  {
+    "id": "AnkleSwellingSymptom-left",
+    "finding": {
+      "topic": "AnkleSwellingSymptom",
+      "location": "Ankle",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Swelling of left ankle"
+  },
+  {
+    "id": "AnkleSwellingSymptom-mod",
+    "finding": {
+      "topic": "AnkleSwellingSymptom",
+      "location": "Ankle",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe ankle swelling"
+  },
+  {
+    "id": "AnkleSwellingSymptom-right",
+    "finding": {
+      "topic": "AnkleSwellingSymptom",
+      "location": "Ankle",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Swelling of right ankle"
+  },
+  {
+    "id": "AnteriorRibLumpSymptom-2w",
+    "finding": {
+      "topic": "AnteriorRibLumpSymptom",
+      "location": "AnteriorRibsRegion",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Anterior rib lump for 2 weeks"
+  },
+  {
+    "id": "AnteriorRibLumpSymptom-bare",
+    "finding": {
+      "topic": "AnteriorRibLumpSymptom",
+      "location": "AnteriorRibsRegion",
+      "qualifiers": []
+    },
+    "expected": "Anterior rib lump"
+  },
+  {
+    "id": "AnteriorRibLumpSymptom-left",
+    "finding": {
+      "topic": "AnteriorRibLumpSymptom",
+      "location": "AnteriorRibsRegion",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Lump in left anterior ribs region"
+  },
+  {
+    "id": "AnteriorRibLumpSymptom-right",
+    "finding": {
+      "topic": "AnteriorRibLumpSymptom",
+      "location": "AnteriorRibsRegion",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Lump in right anterior ribs region"
+  },
+  {
+    "id": "AnteriorRibPainSymptom-2w",
+    "finding": {
+      "topic": "AnteriorRibPainSymptom",
+      "location": "AnteriorRibsRegion",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Anterior rib pain for 2 weeks"
+  },
+  {
+    "id": "AnteriorRibPainSymptom-bare",
+    "finding": {
+      "topic": "AnteriorRibPainSymptom",
+      "location": "AnteriorRibsRegion",
+      "qualifiers": []
+    },
+    "expected": "Anterior rib pain"
+  },
+  {
+    "id": "AnteriorRibPainSymptom-combo",
+    "finding": {
+      "topic": "AnteriorRibPainSymptom",
+      "location": "AnteriorRibsRegion",
+      "laterality": "right",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe pain in right anterior ribs region for 2 weeks"
+  },
+  {
+    "id": "AnteriorRibPainSymptom-left",
+    "finding": {
+      "topic": "AnteriorRibPainSymptom",
+      "location": "AnteriorRibsRegion",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Pain in left anterior ribs region"
+  },
+  {
+    "id": "AnteriorRibPainSymptom-mod",
+    "finding": {
+      "topic": "AnteriorRibPainSymptom",
+      "location": "AnteriorRibsRegion",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe anterior rib pain"
+  },
+  {
+    "id": "AnteriorRibPainSymptom-right",
+    "finding": {
+      "topic": "AnteriorRibPainSymptom",
+      "location": "AnteriorRibsRegion",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Pain in right anterior ribs region"
+  },
+  {
+    "id": "AnxietySymptom-bare",
+    "finding": {
+      "topic": "AnxietySymptom",
+      "qualifiers": []
+    },
+    "expected": "Anxiousness"
+  },
+  {
+    "id": "AnxietySymptom-mod",
+    "finding": {
+      "topic": "AnxietySymptom",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe anxiousness"
+  },
+  {
+    "id": "ArmPainSymptom-2w",
+    "finding": {
+      "topic": "ArmPainSymptom",
+      "location": "UpperExtremity",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Arm pain for 2 weeks"
+  },
+  {
+    "id": "ArmPainSymptom-bare",
+    "finding": {
+      "topic": "ArmPainSymptom",
+      "location": "UpperExtremity",
+      "qualifiers": []
+    },
+    "expected": "Arm pain"
+  },
+  {
+    "id": "ArmPainSymptom-combo",
+    "finding": {
+      "topic": "ArmPainSymptom",
+      "location": "UpperExtremity",
+      "laterality": "right",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe pain in right arm for 2 weeks"
+  },
+  {
+    "id": "ArmPainSymptom-left",
+    "finding": {
+      "topic": "ArmPainSymptom",
+      "location": "UpperExtremity",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Pain in left arm"
+  },
+  {
+    "id": "ArmPainSymptom-mod",
+    "finding": {
+      "topic": "ArmPainSymptom",
+      "location": "UpperExtremity",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe arm pain"
+  },
+  {
+    "id": "ArmPainSymptom-right",
+    "finding": {
+      "topic": "ArmPainSymptom",
+      "location": "UpperExtremity",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Pain in right arm"
+  },
+  {
+    "id": "AuditoryCanalForeignBodySymptom-2w",
+    "finding": {
+      "topic": "AuditoryCanalForeignBodySymptom",
+      "location": "Ear",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Auditory canal foreign body for 2 weeks"
+  },
+  {
+    "id": "AuditoryCanalForeignBodySymptom-bare",
+    "finding": {
+      "topic": "AuditoryCanalForeignBodySymptom",
+      "location": "Ear",
+      "qualifiers": []
+    },
+    "expected": "Auditory canal foreign body"
+  },
+  {
+    "id": "AuditoryCanalForeignBodySymptom-left",
+    "finding": {
+      "topic": "AuditoryCanalForeignBodySymptom",
+      "location": "Ear",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Auditory canal foreign body in left ear"
+  },
+  {
+    "id": "AuditoryCanalForeignBodySymptom-right",
+    "finding": {
+      "topic": "AuditoryCanalForeignBodySymptom",
+      "location": "Ear",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Auditory canal foreign body in right ear"
+  },
+  {
+    "id": "AuralBleedingSymptom-2w",
+    "finding": {
+      "topic": "AuralBleedingSymptom",
+      "location": "Ear",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Aural bleeding for 2 weeks"
+  },
+  {
+    "id": "AuralBleedingSymptom-bare",
+    "finding": {
+      "topic": "AuralBleedingSymptom",
+      "location": "Ear",
+      "qualifiers": []
+    },
+    "expected": "Aural bleeding"
+  },
+  {
+    "id": "AuralBleedingSymptom-combo",
+    "finding": {
+      "topic": "AuralBleedingSymptom",
+      "location": "Ear",
+      "laterality": "right",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe aural bleeding from right ear for 2 weeks"
+  },
+  {
+    "id": "AuralBleedingSymptom-left",
+    "finding": {
+      "topic": "AuralBleedingSymptom",
+      "location": "Ear",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Aural bleeding from left ear"
+  },
+  {
+    "id": "AuralBleedingSymptom-mod",
+    "finding": {
+      "topic": "AuralBleedingSymptom",
+      "location": "Ear",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe aural bleeding"
+  },
+  {
+    "id": "AuralBleedingSymptom-right",
+    "finding": {
+      "topic": "AuralBleedingSymptom",
+      "location": "Ear",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Aural bleeding from right ear"
+  },
+  {
+    "id": "AxillaryLumpSymptom-2w",
+    "finding": {
+      "topic": "AxillaryLumpSymptom",
+      "location": "Axilla",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Axillary lump for 2 weeks"
+  },
+  {
+    "id": "AxillaryLumpSymptom-bare",
+    "finding": {
+      "topic": "AxillaryLumpSymptom",
+      "location": "Axilla",
+      "qualifiers": []
+    },
+    "expected": "Axillary lump"
+  },
+  {
+    "id": "AxillaryLumpSymptom-left",
+    "finding": {
+      "topic": "AxillaryLumpSymptom",
+      "location": "Axilla",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Lump in left axilla"
+  },
+  {
+    "id": "AxillaryLumpSymptom-right",
+    "finding": {
+      "topic": "AxillaryLumpSymptom",
+      "location": "Axilla",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Lump in right axilla"
+  },
+  {
+    "id": "AxillaryPainSymptom-2w",
+    "finding": {
+      "topic": "AxillaryPainSymptom",
+      "location": "Axilla",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Axillary pain for 2 weeks"
+  },
+  {
+    "id": "AxillaryPainSymptom-bare",
+    "finding": {
+      "topic": "AxillaryPainSymptom",
+      "location": "Axilla",
+      "qualifiers": []
+    },
+    "expected": "Axillary pain"
+  },
+  {
+    "id": "AxillaryPainSymptom-combo",
+    "finding": {
+      "topic": "AxillaryPainSymptom",
+      "location": "Axilla",
+      "laterality": "right",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe pain in right axilla for 2 weeks"
+  },
+  {
+    "id": "AxillaryPainSymptom-left",
+    "finding": {
+      "topic": "AxillaryPainSymptom",
+      "location": "Axilla",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Pain in left axilla"
+  },
+  {
+    "id": "AxillaryPainSymptom-mod",
+    "finding": {
+      "topic": "AxillaryPainSymptom",
+      "location": "Axilla",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe axillary pain"
+  },
+  {
+    "id": "AxillaryPainSymptom-right",
+    "finding": {
+      "topic": "AxillaryPainSymptom",
+      "location": "Axilla",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Pain in right axilla"
+  },
+  {
+    "id": "BackPainSymptom-2w",
+    "finding": {
+      "topic": "BackPainSymptom",
+      "location": "Back",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Back pain for 2 weeks"
+  },
+  {
+    "id": "BackPainSymptom-bare",
+    "finding": {
+      "topic": "BackPainSymptom",
+      "location": "Back",
+      "qualifiers": []
+    },
+    "expected": "Back pain"
+  },
+  {
+    "id": "BackPainSymptom-combo",
+    "finding": {
+      "topic": "BackPainSymptom",
+      "location": "Back",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe back pain for 2 weeks"
+  },
+  {
+    "id": "BackPainSymptom-mod",
+    "finding": {
+      "topic": "BackPainSymptom",
+      "location": "Back",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe back pain"
+  },
+  {
+    "id": "BadBreathSymptom-bare",
+    "finding": {
+      "topic": "BadBreathSymptom",
+      "qualifiers": []
+    },
+    "expected": "Bad breath"
+  },
+  {
+    "id": "BadBreathSymptom-mod",
+    "finding": {
+      "topic": "BadBreathSymptom",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe bad breath"
+  },
+  {
+    "id": "BleedingGumSymptom-bare",
+    "finding": {
+      "topic": "BleedingGumSymptom",
+      "qualifiers": []
+    },
+    "expected": "Bleeding gum"
+  },
+  {
+    "id": "BleedingGumSymptom-mod",
+    "finding": {
+      "topic": "BleedingGumSymptom",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe bleeding gum"
+  },
+  {
+    "id": "BlockedNoseSymptom-bare",
+    "finding": {
+      "topic": "BlockedNoseSymptom",
+      "qualifiers": []
+    },
+    "expected": "Blocked nose"
+  },
+  {
+    "id": "BlockedNoseSymptom-mod",
+    "finding": {
+      "topic": "BlockedNoseSymptom",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe blocked nose"
+  },
+  {
+    "id": "BodilyCollapseSymptom-bare",
+    "finding": {
+      "topic": "BodilyCollapseSymptom",
+      "qualifiers": []
+    },
+    "expected": "Collapse"
+  },
+  {
+    "id": "BodilyWeaknessSymptom-bare",
+    "finding": {
+      "topic": "BodilyWeaknessSymptom",
+      "qualifiers": []
+    },
+    "expected": "Bodily weakness"
+  },
+  {
+    "id": "BodilyWeaknessSymptom-mod",
+    "finding": {
+      "topic": "BodilyWeaknessSymptom",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe bodily weakness"
+  },
+  {
+    "id": "BodyWeightGainSymptom-bare",
+    "finding": {
+      "topic": "BodyWeightGainSymptom",
+      "qualifiers": []
+    },
+    "expected": "Weight gain"
+  },
+  {
+    "id": "BodyWeightGainSymptom-mod",
+    "finding": {
+      "topic": "BodyWeightGainSymptom",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe weight gain"
+  },
+  {
+    "id": "BodyWeightLossSymptom-bare",
+    "finding": {
+      "topic": "BodyWeightLossSymptom",
+      "qualifiers": []
+    },
+    "expected": "Weight loss"
+  },
+  {
+    "id": "BodyWeightLossSymptom-mod",
+    "finding": {
+      "topic": "BodyWeightLossSymptom",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe weight loss"
+  },
+  {
+    "id": "BorborygmiSymptom-bare",
+    "finding": {
+      "topic": "BorborygmiSymptom",
+      "qualifiers": []
+    },
+    "expected": "Borborygmi"
+  },
+  {
+    "id": "BreastLumpSymptom-2w",
+    "finding": {
+      "topic": "BreastLumpSymptom",
+      "location": "Breast",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Breast lump for 2 weeks"
+  },
+  {
+    "id": "BreastLumpSymptom-bare",
+    "finding": {
+      "topic": "BreastLumpSymptom",
+      "location": "Breast",
+      "qualifiers": []
+    },
+    "expected": "Breast lump"
+  },
+  {
+    "id": "BreastLumpSymptom-left",
+    "finding": {
+      "topic": "BreastLumpSymptom",
+      "location": "Breast",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Lump in left breast"
+  },
+  {
+    "id": "BreastLumpSymptom-right",
+    "finding": {
+      "topic": "BreastLumpSymptom",
+      "location": "Breast",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Lump in right breast"
+  },
+  {
+    "id": "BreastPainSymptom-2w",
+    "finding": {
+      "topic": "BreastPainSymptom",
+      "location": "Breast",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Breast pain for 2 weeks"
+  },
+  {
+    "id": "BreastPainSymptom-bare",
+    "finding": {
+      "topic": "BreastPainSymptom",
+      "location": "Breast",
+      "qualifiers": []
+    },
+    "expected": "Breast pain"
+  },
+  {
+    "id": "BreastPainSymptom-combo",
+    "finding": {
+      "topic": "BreastPainSymptom",
+      "location": "Breast",
+      "laterality": "right",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe pain in right breast for 2 weeks"
+  },
+  {
+    "id": "BreastPainSymptom-left",
+    "finding": {
+      "topic": "BreastPainSymptom",
+      "location": "Breast",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Pain in left breast"
+  },
+  {
+    "id": "BreastPainSymptom-mod",
+    "finding": {
+      "topic": "BreastPainSymptom",
+      "location": "Breast",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe breast pain"
+  },
+  {
+    "id": "BreastPainSymptom-right",
+    "finding": {
+      "topic": "BreastPainSymptom",
+      "location": "Breast",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Pain in right breast"
+  },
+  {
+    "id": "BreastSwellingSymptom-2w",
+    "finding": {
+      "topic": "BreastSwellingSymptom",
+      "location": "Breast",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Breast swelling for 2 weeks"
+  },
+  {
+    "id": "BreastSwellingSymptom-bare",
+    "finding": {
+      "topic": "BreastSwellingSymptom",
+      "location": "Breast",
+      "qualifiers": []
+    },
+    "expected": "Breast swelling"
+  },
+  {
+    "id": "BreastSwellingSymptom-combo",
+    "finding": {
+      "topic": "BreastSwellingSymptom",
+      "location": "Breast",
+      "laterality": "right",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe swelling of right breast for 2 weeks"
+  },
+  {
+    "id": "BreastSwellingSymptom-left",
+    "finding": {
+      "topic": "BreastSwellingSymptom",
+      "location": "Breast",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Swelling of left breast"
+  },
+  {
+    "id": "BreastSwellingSymptom-mod",
+    "finding": {
+      "topic": "BreastSwellingSymptom",
+      "location": "Breast",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe breast swelling"
+  },
+  {
+    "id": "BreastSwellingSymptom-right",
+    "finding": {
+      "topic": "BreastSwellingSymptom",
+      "location": "Breast",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Swelling of right breast"
+  },
+  {
+    "id": "BreastTendernessSymptom-bare",
+    "finding": {
+      "topic": "BreastTendernessSymptom",
+      "qualifiers": []
+    },
+    "expected": "Breast tenderness"
+  },
+  {
+    "id": "BreastTendernessSymptom-mod",
+    "finding": {
+      "topic": "BreastTendernessSymptom",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe breast tenderness"
+  },
+  {
+    "id": "ButtockPainSymptom-2w",
+    "finding": {
+      "topic": "ButtockPainSymptom",
+      "location": "Buttock",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Buttock pain for 2 weeks"
+  },
+  {
+    "id": "ButtockPainSymptom-bare",
+    "finding": {
+      "topic": "ButtockPainSymptom",
+      "location": "Buttock",
+      "qualifiers": []
+    },
+    "expected": "Buttock pain"
+  },
+  {
+    "id": "ButtockPainSymptom-combo",
+    "finding": {
+      "topic": "ButtockPainSymptom",
+      "location": "Buttock",
+      "laterality": "right",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe pain in right buttock for 2 weeks"
+  },
+  {
+    "id": "ButtockPainSymptom-left",
+    "finding": {
+      "topic": "ButtockPainSymptom",
+      "location": "Buttock",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Pain in left buttock"
+  },
+  {
+    "id": "ButtockPainSymptom-mod",
+    "finding": {
+      "topic": "ButtockPainSymptom",
+      "location": "Buttock",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe buttock pain"
+  },
+  {
+    "id": "ButtockPainSymptom-right",
+    "finding": {
+      "topic": "ButtockPainSymptom",
+      "location": "Buttock",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Pain in right buttock"
+  },
+  {
+    "id": "CervicalSpinePainSymptom-bare",
+    "finding": {
+      "topic": "CervicalSpinePainSymptom",
+      "qualifiers": []
+    },
+    "expected": "Cervical spine pain"
+  },
+  {
+    "id": "CervicalSpinePainSymptom-mod",
+    "finding": {
+      "topic": "CervicalSpinePainSymptom",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe cervical spine pain"
+  },
+  {
+    "id": "ChangeInBowelHabitSymptom-bare",
+    "finding": {
+      "topic": "ChangeInBowelHabitSymptom",
+      "qualifiers": []
+    },
+    "expected": "Change in bowel habit"
+  },
+  {
+    "id": "ChangeInBowelHabitSymptom-mod",
+    "finding": {
+      "topic": "ChangeInBowelHabitSymptom",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe change in bowel habit"
+  },
+  {
+    "id": "ChangeOfAppearanceSymptom-bare",
+    "finding": {
+      "topic": "ChangeOfAppearanceSymptom",
+      "qualifiers": []
+    },
+    "expected": "Change of appearance"
+  },
+  {
+    "id": "ChangeOfAppearanceSymptom-mod",
+    "finding": {
+      "topic": "ChangeOfAppearanceSymptom",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe change of appearance"
+  },
+  {
+    "id": "CheekLumpSymptom-2w",
+    "finding": {
+      "topic": "CheekLumpSymptom",
+      "location": "InsideOfCheek",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Cheek lump for 2 weeks"
+  },
+  {
+    "id": "CheekLumpSymptom-bare",
+    "finding": {
+      "topic": "CheekLumpSymptom",
+      "location": "InsideOfCheek",
+      "qualifiers": []
+    },
+    "expected": "Cheek lump"
+  },
+  {
+    "id": "CheekPainSymptom-bare",
+    "finding": {
+      "topic": "CheekPainSymptom",
+      "qualifiers": []
+    },
+    "expected": "Cheek pain"
+  },
+  {
+    "id": "CheekPainSymptom-mod",
+    "finding": {
+      "topic": "CheekPainSymptom",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe cheek pain"
+  },
+  {
+    "id": "ChestPainSymptom-2w",
+    "finding": {
+      "topic": "ChestPainSymptom",
+      "location": "Chest",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Chest pain for 2 weeks"
+  },
+  {
+    "id": "ChestPainSymptom-bare",
+    "finding": {
+      "topic": "ChestPainSymptom",
+      "location": "Chest",
+      "qualifiers": []
+    },
+    "expected": "Chest pain"
+  },
+  {
+    "id": "ChestPainSymptom-combo",
+    "finding": {
+      "topic": "ChestPainSymptom",
+      "location": "Chest",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe chest pain for 2 weeks"
+  },
+  {
+    "id": "ChestPainSymptom-mod",
+    "finding": {
+      "topic": "ChestPainSymptom",
+      "location": "Chest",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe chest pain"
+  },
+  {
+    "id": "ChestTightnessSymptom-bare",
+    "finding": {
+      "topic": "ChestTightnessSymptom",
+      "qualifiers": []
+    },
+    "expected": "Chest tightness"
+  },
+  {
+    "id": "ChestTightnessSymptom-mod",
+    "finding": {
+      "topic": "ChestTightnessSymptom",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe chest tightness"
+  },
+  {
+    "id": "ClavicularPainSymptom-bare",
+    "finding": {
+      "topic": "ClavicularPainSymptom",
+      "qualifiers": []
+    },
+    "expected": "Clavicular pain"
+  },
+  {
+    "id": "ClavicularPainSymptom-mod",
+    "finding": {
+      "topic": "ClavicularPainSymptom",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe clavicular pain"
+  },
+  {
+    "id": "CoccygealPainSymptom-bare",
+    "finding": {
+      "topic": "CoccygealPainSymptom",
+      "qualifiers": []
+    },
+    "expected": "Coccygeal pain"
+  },
+  {
+    "id": "CoccygealPainSymptom-mod",
+    "finding": {
+      "topic": "CoccygealPainSymptom",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe coccygeal pain"
+  },
+  {
+    "id": "DorsalHandLumpSymptom-2w",
+    "finding": {
+      "topic": "DorsalHandLumpSymptom",
+      "location": "DorsumOfHand",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Dorsal hand lump for 2 weeks"
+  },
+  {
+    "id": "DorsalHandLumpSymptom-bare",
+    "finding": {
+      "topic": "DorsalHandLumpSymptom",
+      "location": "DorsumOfHand",
+      "qualifiers": []
+    },
+    "expected": "Dorsal hand lump"
+  },
+  {
+    "id": "DorsalHandLumpSymptom-left",
+    "finding": {
+      "topic": "DorsalHandLumpSymptom",
+      "location": "DorsumOfHand",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Lump on left dorsum"
+  },
+  {
+    "id": "DorsalHandLumpSymptom-right",
+    "finding": {
+      "topic": "DorsalHandLumpSymptom",
+      "location": "DorsumOfHand",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Lump on right dorsum"
+  },
+  {
+    "id": "DorsalHandPainSymptom-2w",
+    "finding": {
+      "topic": "DorsalHandPainSymptom",
+      "location": "DorsumOfHand",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Dorsal hand pain for 2 weeks"
+  },
+  {
+    "id": "DorsalHandPainSymptom-bare",
+    "finding": {
+      "topic": "DorsalHandPainSymptom",
+      "location": "DorsumOfHand",
+      "qualifiers": []
+    },
+    "expected": "Dorsal hand pain"
+  },
+  {
+    "id": "DorsalHandPainSymptom-combo",
+    "finding": {
+      "topic": "DorsalHandPainSymptom",
+      "location": "DorsumOfHand",
+      "laterality": "right",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe pain in right dorsum for 2 weeks"
+  },
+  {
+    "id": "DorsalHandPainSymptom-left",
+    "finding": {
+      "topic": "DorsalHandPainSymptom",
+      "location": "DorsumOfHand",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Pain in left dorsum"
+  },
+  {
+    "id": "DorsalHandPainSymptom-mod",
+    "finding": {
+      "topic": "DorsalHandPainSymptom",
+      "location": "DorsumOfHand",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe dorsal hand pain"
+  },
+  {
+    "id": "DorsalHandPainSymptom-right",
+    "finding": {
+      "topic": "DorsalHandPainSymptom",
+      "location": "DorsumOfHand",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Pain in right dorsum"
+  },
+  {
+    "id": "DorsumOfFootLumpSymptom-2w",
+    "finding": {
+      "topic": "DorsumOfFootLumpSymptom",
+      "location": "DorsumOfFoot",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Dorsum of foot lump for 2 weeks"
+  },
+  {
+    "id": "DorsumOfFootLumpSymptom-bare",
+    "finding": {
+      "topic": "DorsumOfFootLumpSymptom",
+      "location": "DorsumOfFoot",
+      "qualifiers": []
+    },
+    "expected": "Dorsum of foot lump"
+  },
+  {
+    "id": "DorsumOfFootLumpSymptom-left",
+    "finding": {
+      "topic": "DorsumOfFootLumpSymptom",
+      "location": "DorsumOfFoot",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Lump on left dorsum of foot"
+  },
+  {
+    "id": "DorsumOfFootLumpSymptom-right",
+    "finding": {
+      "topic": "DorsumOfFootLumpSymptom",
+      "location": "DorsumOfFoot",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Lump on right dorsum of foot"
+  },
+  {
+    "id": "DorsumOfFootPainSymptom-2w",
+    "finding": {
+      "topic": "DorsumOfFootPainSymptom",
+      "location": "DorsumOfFoot",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Dorsum of foot pain for 2 weeks"
+  },
+  {
+    "id": "DorsumOfFootPainSymptom-bare",
+    "finding": {
+      "topic": "DorsumOfFootPainSymptom",
+      "location": "DorsumOfFoot",
+      "qualifiers": []
+    },
+    "expected": "Dorsum of foot pain"
+  },
+  {
+    "id": "DorsumOfFootPainSymptom-combo",
+    "finding": {
+      "topic": "DorsumOfFootPainSymptom",
+      "location": "DorsumOfFoot",
+      "laterality": "right",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe pain in right dorsum of foot for 2 weeks"
+  },
+  {
+    "id": "DorsumOfFootPainSymptom-left",
+    "finding": {
+      "topic": "DorsumOfFootPainSymptom",
+      "location": "DorsumOfFoot",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Pain in left dorsum of foot"
+  },
+  {
+    "id": "DorsumOfFootPainSymptom-mod",
+    "finding": {
+      "topic": "DorsumOfFootPainSymptom",
+      "location": "DorsumOfFoot",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe dorsum of foot pain"
+  },
+  {
+    "id": "DorsumOfFootPainSymptom-right",
+    "finding": {
+      "topic": "DorsumOfFootPainSymptom",
+      "location": "DorsumOfFoot",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Pain in right dorsum of foot"
+  },
+  {
+    "id": "EarDischargeSymptom-2w",
+    "finding": {
+      "topic": "EarDischargeSymptom",
+      "location": "Ear",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Ear discharge for 2 weeks"
+  },
+  {
+    "id": "EarDischargeSymptom-bare",
+    "finding": {
+      "topic": "EarDischargeSymptom",
+      "location": "Ear",
+      "qualifiers": []
+    },
+    "expected": "Ear discharge"
+  },
+  {
+    "id": "EarDischargeSymptom-combo",
+    "finding": {
+      "topic": "EarDischargeSymptom",
+      "location": "Ear",
+      "laterality": "right",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe ear discharge from right ear for 2 weeks"
+  },
+  {
+    "id": "EarDischargeSymptom-left",
+    "finding": {
+      "topic": "EarDischargeSymptom",
+      "location": "Ear",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Ear discharge from left ear"
+  },
+  {
+    "id": "EarDischargeSymptom-mod",
+    "finding": {
+      "topic": "EarDischargeSymptom",
+      "location": "Ear",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe ear discharge"
+  },
+  {
+    "id": "EarDischargeSymptom-right",
+    "finding": {
+      "topic": "EarDischargeSymptom",
+      "location": "Ear",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Ear discharge from right ear"
+  },
+  {
+    "id": "EarSwellingSymptom-2w",
+    "finding": {
+      "topic": "EarSwellingSymptom",
+      "location": "Ear",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Ear swelling for 2 weeks"
+  },
+  {
+    "id": "EarSwellingSymptom-bare",
+    "finding": {
+      "topic": "EarSwellingSymptom",
+      "location": "Ear",
+      "qualifiers": []
+    },
+    "expected": "Ear swelling"
+  },
+  {
+    "id": "EarSwellingSymptom-combo",
+    "finding": {
+      "topic": "EarSwellingSymptom",
+      "location": "Ear",
+      "laterality": "right",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe swelling of right ear for 2 weeks"
+  },
+  {
+    "id": "EarSwellingSymptom-left",
+    "finding": {
+      "topic": "EarSwellingSymptom",
+      "location": "Ear",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Swelling of left ear"
+  },
+  {
+    "id": "EarSwellingSymptom-mod",
+    "finding": {
+      "topic": "EarSwellingSymptom",
+      "location": "Ear",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe ear swelling"
+  },
+  {
+    "id": "EarSwellingSymptom-right",
+    "finding": {
+      "topic": "EarSwellingSymptom",
+      "location": "Ear",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Swelling of right ear"
+  },
+  {
+    "id": "EaracheSymptom-2w",
+    "finding": {
+      "topic": "EaracheSymptom",
+      "location": "Ear",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Earache for 2 weeks"
+  },
+  {
+    "id": "EaracheSymptom-bare",
+    "finding": {
+      "topic": "EaracheSymptom",
+      "location": "Ear",
+      "qualifiers": []
+    },
+    "expected": "Earache"
+  },
+  {
+    "id": "EaracheSymptom-combo",
+    "finding": {
+      "topic": "EaracheSymptom",
+      "location": "Ear",
+      "laterality": "right",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe earache in right ear for 2 weeks"
+  },
+  {
+    "id": "EaracheSymptom-left",
+    "finding": {
+      "topic": "EaracheSymptom",
+      "location": "Ear",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Earache in left ear"
+  },
+  {
+    "id": "EaracheSymptom-mod",
+    "finding": {
+      "topic": "EaracheSymptom",
+      "location": "Ear",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe earache"
+  },
+  {
+    "id": "EaracheSymptom-right",
+    "finding": {
+      "topic": "EaracheSymptom",
+      "location": "Ear",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Earache in right ear"
+  },
+  {
+    "id": "ElbowLumpSymptom-2w",
+    "finding": {
+      "topic": "ElbowLumpSymptom",
+      "location": "Elbow",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Elbow lump for 2 weeks"
+  },
+  {
+    "id": "ElbowLumpSymptom-bare",
+    "finding": {
+      "topic": "ElbowLumpSymptom",
+      "location": "Elbow",
+      "qualifiers": []
+    },
+    "expected": "Elbow lump"
+  },
+  {
+    "id": "ElbowLumpSymptom-left",
+    "finding": {
+      "topic": "ElbowLumpSymptom",
+      "location": "Elbow",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Lump on left elbow"
+  },
+  {
+    "id": "ElbowLumpSymptom-right",
+    "finding": {
+      "topic": "ElbowLumpSymptom",
+      "location": "Elbow",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Lump on right elbow"
+  },
+  {
+    "id": "ElbowPainSymptom-2w",
+    "finding": {
+      "topic": "ElbowPainSymptom",
+      "location": "Elbow",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Elbow pain for 2 weeks"
+  },
+  {
+    "id": "ElbowPainSymptom-bare",
+    "finding": {
+      "topic": "ElbowPainSymptom",
+      "location": "Elbow",
+      "qualifiers": []
+    },
+    "expected": "Elbow pain"
+  },
+  {
+    "id": "ElbowPainSymptom-combo",
+    "finding": {
+      "topic": "ElbowPainSymptom",
+      "location": "Elbow",
+      "laterality": "right",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe pain in right elbow for 2 weeks"
+  },
+  {
+    "id": "ElbowPainSymptom-left",
+    "finding": {
+      "topic": "ElbowPainSymptom",
+      "location": "Elbow",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Pain in left elbow"
+  },
+  {
+    "id": "ElbowPainSymptom-mod",
+    "finding": {
+      "topic": "ElbowPainSymptom",
+      "location": "Elbow",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe elbow pain"
+  },
+  {
+    "id": "ElbowPainSymptom-right",
+    "finding": {
+      "topic": "ElbowPainSymptom",
+      "location": "Elbow",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Pain in right elbow"
+  },
+  {
+    "id": "ElbowSwellingSymptom-2w",
+    "finding": {
+      "topic": "ElbowSwellingSymptom",
+      "location": "Elbow",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Elbow swelling for 2 weeks"
+  },
+  {
+    "id": "ElbowSwellingSymptom-bare",
+    "finding": {
+      "topic": "ElbowSwellingSymptom",
+      "location": "Elbow",
+      "qualifiers": []
+    },
+    "expected": "Elbow swelling"
+  },
+  {
+    "id": "ElbowSwellingSymptom-combo",
+    "finding": {
+      "topic": "ElbowSwellingSymptom",
+      "location": "Elbow",
+      "laterality": "right",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe swelling of right elbow for 2 weeks"
+  },
+  {
+    "id": "ElbowSwellingSymptom-left",
+    "finding": {
+      "topic": "ElbowSwellingSymptom",
+      "location": "Elbow",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Swelling of left elbow"
+  },
+  {
+    "id": "ElbowSwellingSymptom-mod",
+    "finding": {
+      "topic": "ElbowSwellingSymptom",
+      "location": "Elbow",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe elbow swelling"
+  },
+  {
+    "id": "ElbowSwellingSymptom-right",
+    "finding": {
+      "topic": "ElbowSwellingSymptom",
+      "location": "Elbow",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Swelling of right elbow"
+  },
+  {
+    "id": "EpigastriumLumpSymptom-2w",
+    "finding": {
+      "topic": "EpigastriumLumpSymptom",
+      "location": "Epigastrium",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Epigastrium lump for 2 weeks"
+  },
+  {
+    "id": "EpigastriumLumpSymptom-bare",
+    "finding": {
+      "topic": "EpigastriumLumpSymptom",
+      "location": "Epigastrium",
+      "qualifiers": []
+    },
+    "expected": "Epigastrium lump"
+  },
+  {
+    "id": "EyeDischargeSymptom-2w",
+    "finding": {
+      "topic": "EyeDischargeSymptom",
+      "location": "Eye",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Eye discharge for 2 weeks"
+  },
+  {
+    "id": "EyeDischargeSymptom-bare",
+    "finding": {
+      "topic": "EyeDischargeSymptom",
+      "location": "Eye",
+      "qualifiers": []
+    },
+    "expected": "Eye discharge"
+  },
+  {
+    "id": "EyeDischargeSymptom-combo",
+    "finding": {
+      "topic": "EyeDischargeSymptom",
+      "location": "Eye",
+      "laterality": "right",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe eye discharge from right eye for 2 weeks"
+  },
+  {
+    "id": "EyeDischargeSymptom-left",
+    "finding": {
+      "topic": "EyeDischargeSymptom",
+      "location": "Eye",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Eye discharge from left eye"
+  },
+  {
+    "id": "EyeDischargeSymptom-mod",
+    "finding": {
+      "topic": "EyeDischargeSymptom",
+      "location": "Eye",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe eye discharge"
+  },
+  {
+    "id": "EyeDischargeSymptom-right",
+    "finding": {
+      "topic": "EyeDischargeSymptom",
+      "location": "Eye",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Eye discharge from right eye"
+  },
+  {
+    "id": "EyeForeignBodySymptom-2w",
+    "finding": {
+      "topic": "EyeForeignBodySymptom",
+      "location": "Eye",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Eye foreign body for 2 weeks"
+  },
+  {
+    "id": "EyeForeignBodySymptom-bare",
+    "finding": {
+      "topic": "EyeForeignBodySymptom",
+      "location": "Eye",
+      "qualifiers": []
+    },
+    "expected": "Eye foreign body"
+  },
+  {
+    "id": "EyeForeignBodySymptom-left",
+    "finding": {
+      "topic": "EyeForeignBodySymptom",
+      "location": "Eye",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Eye foreign body in left eye"
+  },
+  {
+    "id": "EyeForeignBodySymptom-right",
+    "finding": {
+      "topic": "EyeForeignBodySymptom",
+      "location": "Eye",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Eye foreign body in right eye"
+  },
+  {
+    "id": "EyeLumpSymptom-2w",
+    "finding": {
+      "topic": "EyeLumpSymptom",
+      "location": "Eye",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Eye lump for 2 weeks"
+  },
+  {
+    "id": "EyeLumpSymptom-bare",
+    "finding": {
+      "topic": "EyeLumpSymptom",
+      "location": "Eye",
+      "qualifiers": []
+    },
+    "expected": "Eye lump"
+  },
+  {
+    "id": "EyeLumpSymptom-left",
+    "finding": {
+      "topic": "EyeLumpSymptom",
+      "location": "Eye",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Lump on left eye"
+  },
+  {
+    "id": "EyeLumpSymptom-right",
+    "finding": {
+      "topic": "EyeLumpSymptom",
+      "location": "Eye",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Lump on right eye"
+  },
+  {
+    "id": "EyePainSymptom-2w",
+    "finding": {
+      "topic": "EyePainSymptom",
+      "location": "Eye",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Eye pain for 2 weeks"
+  },
+  {
+    "id": "EyePainSymptom-bare",
+    "finding": {
+      "topic": "EyePainSymptom",
+      "location": "Eye",
+      "qualifiers": []
+    },
+    "expected": "Eye pain"
+  },
+  {
+    "id": "EyePainSymptom-combo",
+    "finding": {
+      "topic": "EyePainSymptom",
+      "location": "Eye",
+      "laterality": "right",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe pain in right eye for 2 weeks"
+  },
+  {
+    "id": "EyePainSymptom-left",
+    "finding": {
+      "topic": "EyePainSymptom",
+      "location": "Eye",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Pain in left eye"
+  },
+  {
+    "id": "EyePainSymptom-mod",
+    "finding": {
+      "topic": "EyePainSymptom",
+      "location": "Eye",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe eye pain"
+  },
+  {
+    "id": "EyePainSymptom-right",
+    "finding": {
+      "topic": "EyePainSymptom",
+      "location": "Eye",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Pain in right eye"
+  },
+  {
+    "id": "EyelidLumpSymptom-2w",
+    "finding": {
+      "topic": "EyelidLumpSymptom",
+      "location": "Eyelid",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Eyelid lump for 2 weeks"
+  },
+  {
+    "id": "EyelidLumpSymptom-bare",
+    "finding": {
+      "topic": "EyelidLumpSymptom",
+      "location": "Eyelid",
+      "qualifiers": []
+    },
+    "expected": "Eyelid lump"
+  },
+  {
+    "id": "EyelidLumpSymptom-left",
+    "finding": {
+      "topic": "EyelidLumpSymptom",
+      "location": "Eyelid",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Lump on left eyelid"
+  },
+  {
+    "id": "EyelidLumpSymptom-right",
+    "finding": {
+      "topic": "EyelidLumpSymptom",
+      "location": "Eyelid",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Lump on right eyelid"
+  },
+  {
+    "id": "EyelidSwellingSymptom-2w",
+    "finding": {
+      "topic": "EyelidSwellingSymptom",
+      "location": "Eyelid",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Eyelid swelling for 2 weeks"
+  },
+  {
+    "id": "EyelidSwellingSymptom-bare",
+    "finding": {
+      "topic": "EyelidSwellingSymptom",
+      "location": "Eyelid",
+      "qualifiers": []
+    },
+    "expected": "Eyelid swelling"
+  },
+  {
+    "id": "EyelidSwellingSymptom-combo",
+    "finding": {
+      "topic": "EyelidSwellingSymptom",
+      "location": "Eyelid",
+      "laterality": "right",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe swelling of right eyelid for 2 weeks"
+  },
+  {
+    "id": "EyelidSwellingSymptom-left",
+    "finding": {
+      "topic": "EyelidSwellingSymptom",
+      "location": "Eyelid",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Swelling of left eyelid"
+  },
+  {
+    "id": "EyelidSwellingSymptom-mod",
+    "finding": {
+      "topic": "EyelidSwellingSymptom",
+      "location": "Eyelid",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe eyelid swelling"
+  },
+  {
+    "id": "EyelidSwellingSymptom-right",
+    "finding": {
+      "topic": "EyelidSwellingSymptom",
+      "location": "Eyelid",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Swelling of right eyelid"
+  },
+  {
+    "id": "FacialLumpSymptom-2w",
+    "finding": {
+      "topic": "FacialLumpSymptom",
+      "location": "Face",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Facial lump for 2 weeks"
+  },
+  {
+    "id": "FacialLumpSymptom-bare",
+    "finding": {
+      "topic": "FacialLumpSymptom",
+      "location": "Face",
+      "qualifiers": []
+    },
+    "expected": "Facial lump"
+  },
+  {
+    "id": "FacialPainSymptom-2w",
+    "finding": {
+      "topic": "FacialPainSymptom",
+      "location": "Face",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Facial pain for 2 weeks"
+  },
+  {
+    "id": "FacialPainSymptom-bare",
+    "finding": {
+      "topic": "FacialPainSymptom",
+      "location": "Face",
+      "qualifiers": []
+    },
+    "expected": "Facial pain"
+  },
+  {
+    "id": "FacialPainSymptom-combo",
+    "finding": {
+      "topic": "FacialPainSymptom",
+      "location": "Face",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe facial pain for 2 weeks"
+  },
+  {
+    "id": "FacialPainSymptom-mod",
+    "finding": {
+      "topic": "FacialPainSymptom",
+      "location": "Face",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe facial pain"
+  },
+  {
+    "id": "FemaleUrethralLumpSymptom-2w",
+    "finding": {
+      "topic": "FemaleUrethralLumpSymptom",
+      "location": "FemaleUrethralMeatus",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Female urethral lump for 2 weeks"
+  },
+  {
+    "id": "FemaleUrethralLumpSymptom-bare",
+    "finding": {
+      "topic": "FemaleUrethralLumpSymptom",
+      "location": "FemaleUrethralMeatus",
+      "qualifiers": []
+    },
+    "expected": "Female urethral lump"
+  },
+  {
+    "id": "FemaleUrethralPainSymptom-2w",
+    "finding": {
+      "topic": "FemaleUrethralPainSymptom",
+      "location": "FemaleUrethralMeatus",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Urethral pain for 2 weeks"
+  },
+  {
+    "id": "FemaleUrethralPainSymptom-bare",
+    "finding": {
+      "topic": "FemaleUrethralPainSymptom",
+      "location": "FemaleUrethralMeatus",
+      "qualifiers": []
+    },
+    "expected": "Urethral pain"
+  },
+  {
+    "id": "FemaleUrethralPainSymptom-combo",
+    "finding": {
+      "topic": "FemaleUrethralPainSymptom",
+      "location": "FemaleUrethralMeatus",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe urethral pain for 2 weeks"
+  },
+  {
+    "id": "FemaleUrethralPainSymptom-mod",
+    "finding": {
+      "topic": "FemaleUrethralPainSymptom",
+      "location": "FemaleUrethralMeatus",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe urethral pain"
+  },
+  {
+    "id": "FifthToeLumpSymptom-2w",
+    "finding": {
+      "topic": "FifthToeLumpSymptom",
+      "location": "FifthToe",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Fifth toe lump for 2 weeks"
+  },
+  {
+    "id": "FifthToeLumpSymptom-bare",
+    "finding": {
+      "topic": "FifthToeLumpSymptom",
+      "location": "FifthToe",
+      "qualifiers": []
+    },
+    "expected": "Fifth toe lump"
+  },
+  {
+    "id": "FifthToeLumpSymptom-left",
+    "finding": {
+      "topic": "FifthToeLumpSymptom",
+      "location": "FifthToe",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Lump on left fifth toe"
+  },
+  {
+    "id": "FifthToeLumpSymptom-right",
+    "finding": {
+      "topic": "FifthToeLumpSymptom",
+      "location": "FifthToe",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Lump on right fifth toe"
+  },
+  {
+    "id": "FifthToePainSymptom-2w",
+    "finding": {
+      "topic": "FifthToePainSymptom",
+      "location": "FifthToe",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Fifth toe pain for 2 weeks"
+  },
+  {
+    "id": "FifthToePainSymptom-bare",
+    "finding": {
+      "topic": "FifthToePainSymptom",
+      "location": "FifthToe",
+      "qualifiers": []
+    },
+    "expected": "Fifth toe pain"
+  },
+  {
+    "id": "FifthToePainSymptom-combo",
+    "finding": {
+      "topic": "FifthToePainSymptom",
+      "location": "FifthToe",
+      "laterality": "right",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe pain in right fifth toe for 2 weeks"
+  },
+  {
+    "id": "FifthToePainSymptom-left",
+    "finding": {
+      "topic": "FifthToePainSymptom",
+      "location": "FifthToe",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Pain in left fifth toe"
+  },
+  {
+    "id": "FifthToePainSymptom-mod",
+    "finding": {
+      "topic": "FifthToePainSymptom",
+      "location": "FifthToe",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe fifth toe pain"
+  },
+  {
+    "id": "FifthToePainSymptom-right",
+    "finding": {
+      "topic": "FifthToePainSymptom",
+      "location": "FifthToe",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Pain in right fifth toe"
+  },
+  {
+    "id": "FifthToeSwellingSymptom-2w",
+    "finding": {
+      "topic": "FifthToeSwellingSymptom",
+      "location": "FifthToe",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Fifth toe swelling for 2 weeks"
+  },
+  {
+    "id": "FifthToeSwellingSymptom-bare",
+    "finding": {
+      "topic": "FifthToeSwellingSymptom",
+      "location": "FifthToe",
+      "qualifiers": []
+    },
+    "expected": "Fifth toe swelling"
+  },
+  {
+    "id": "FifthToeSwellingSymptom-combo",
+    "finding": {
+      "topic": "FifthToeSwellingSymptom",
+      "location": "FifthToe",
+      "laterality": "right",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe swelling of right fifth toe for 2 weeks"
+  },
+  {
+    "id": "FifthToeSwellingSymptom-left",
+    "finding": {
+      "topic": "FifthToeSwellingSymptom",
+      "location": "FifthToe",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Swelling of left fifth toe"
+  },
+  {
+    "id": "FifthToeSwellingSymptom-mod",
+    "finding": {
+      "topic": "FifthToeSwellingSymptom",
+      "location": "FifthToe",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe fifth toe swelling"
+  },
+  {
+    "id": "FifthToeSwellingSymptom-right",
+    "finding": {
+      "topic": "FifthToeSwellingSymptom",
+      "location": "FifthToe",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Swelling of right fifth toe"
+  },
+  {
+    "id": "FingerJointLumpSymptom-2w",
+    "finding": {
+      "topic": "FingerJointLumpSymptom",
+      "location": "InterphalangealJoint",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Finger joint lump for 2 weeks"
+  },
+  {
+    "id": "FingerJointLumpSymptom-bare",
+    "finding": {
+      "topic": "FingerJointLumpSymptom",
+      "location": "InterphalangealJoint",
+      "qualifiers": []
+    },
+    "expected": "Finger joint lump"
+  },
+  {
+    "id": "FingerJointPainSymptom-2w",
+    "finding": {
+      "topic": "FingerJointPainSymptom",
+      "location": "InterphalangealJoint",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Finger joint pain for 2 weeks"
+  },
+  {
+    "id": "FingerJointPainSymptom-bare",
+    "finding": {
+      "topic": "FingerJointPainSymptom",
+      "location": "InterphalangealJoint",
+      "qualifiers": []
+    },
+    "expected": "Finger joint pain"
+  },
+  {
+    "id": "FingerJointPainSymptom-combo",
+    "finding": {
+      "topic": "FingerJointPainSymptom",
+      "location": "InterphalangealJoint",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe finger joint pain for 2 weeks"
+  },
+  {
+    "id": "FingerJointPainSymptom-mod",
+    "finding": {
+      "topic": "FingerJointPainSymptom",
+      "location": "InterphalangealJoint",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe finger joint pain"
+  },
+  {
+    "id": "FingerJointSwellingSymptom-2w",
+    "finding": {
+      "topic": "FingerJointSwellingSymptom",
+      "location": "FingerJoint",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Finger joint swelling for 2 weeks"
+  },
+  {
+    "id": "FingerJointSwellingSymptom-bare",
+    "finding": {
+      "topic": "FingerJointSwellingSymptom",
+      "location": "FingerJoint",
+      "qualifiers": []
+    },
+    "expected": "Finger joint swelling"
+  },
+  {
+    "id": "FingerJointSwellingSymptom-combo",
+    "finding": {
+      "topic": "FingerJointSwellingSymptom",
+      "location": "FingerJoint",
+      "laterality": "right",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe swelling of right finger joint for 2 weeks"
+  },
+  {
+    "id": "FingerJointSwellingSymptom-left",
+    "finding": {
+      "topic": "FingerJointSwellingSymptom",
+      "location": "FingerJoint",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Swelling of left finger joint"
+  },
+  {
+    "id": "FingerJointSwellingSymptom-mod",
+    "finding": {
+      "topic": "FingerJointSwellingSymptom",
+      "location": "FingerJoint",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe finger joint swelling"
+  },
+  {
+    "id": "FingerJointSwellingSymptom-right",
+    "finding": {
+      "topic": "FingerJointSwellingSymptom",
+      "location": "FingerJoint",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Swelling of right finger joint"
+  },
+  {
+    "id": "FingerLumpSymptom-2w",
+    "finding": {
+      "topic": "FingerLumpSymptom",
+      "location": "Finger",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Finger lump for 2 weeks"
+  },
+  {
+    "id": "FingerLumpSymptom-bare",
+    "finding": {
+      "topic": "FingerLumpSymptom",
+      "location": "Finger",
+      "qualifiers": []
+    },
+    "expected": "Finger lump"
+  },
+  {
+    "id": "FingerLumpSymptom-left",
+    "finding": {
+      "topic": "FingerLumpSymptom",
+      "location": "Finger",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Lump on left finger"
+  },
+  {
+    "id": "FingerLumpSymptom-right",
+    "finding": {
+      "topic": "FingerLumpSymptom",
+      "location": "Finger",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Lump on right finger"
+  },
+  {
+    "id": "FingerNailLumpSymptom-2w",
+    "finding": {
+      "topic": "FingerNailLumpSymptom",
+      "location": "FingerNail",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Finger nail lump for 2 weeks"
+  },
+  {
+    "id": "FingerNailLumpSymptom-bare",
+    "finding": {
+      "topic": "FingerNailLumpSymptom",
+      "location": "FingerNail",
+      "qualifiers": []
+    },
+    "expected": "Finger nail lump"
+  },
+  {
+    "id": "FingerNailLumpSymptom-left",
+    "finding": {
+      "topic": "FingerNailLumpSymptom",
+      "location": "FingerNail",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Lump on left finger nail"
+  },
+  {
+    "id": "FingerNailLumpSymptom-right",
+    "finding": {
+      "topic": "FingerNailLumpSymptom",
+      "location": "FingerNail",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Lump on right finger nail"
+  },
+  {
+    "id": "FingerNailPainSymptom-2w",
+    "finding": {
+      "topic": "FingerNailPainSymptom",
+      "location": "FingerNail",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Finger nail pain for 2 weeks"
+  },
+  {
+    "id": "FingerNailPainSymptom-bare",
+    "finding": {
+      "topic": "FingerNailPainSymptom",
+      "location": "FingerNail",
+      "qualifiers": []
+    },
+    "expected": "Finger nail pain"
+  },
+  {
+    "id": "FingerNailPainSymptom-combo",
+    "finding": {
+      "topic": "FingerNailPainSymptom",
+      "location": "FingerNail",
+      "laterality": "right",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe pain in right finger nail for 2 weeks"
+  },
+  {
+    "id": "FingerNailPainSymptom-left",
+    "finding": {
+      "topic": "FingerNailPainSymptom",
+      "location": "FingerNail",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Pain in left finger nail"
+  },
+  {
+    "id": "FingerNailPainSymptom-mod",
+    "finding": {
+      "topic": "FingerNailPainSymptom",
+      "location": "FingerNail",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe finger nail pain"
+  },
+  {
+    "id": "FingerNailPainSymptom-right",
+    "finding": {
+      "topic": "FingerNailPainSymptom",
+      "location": "FingerNail",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Pain in right finger nail"
+  },
+  {
+    "id": "FootLumpSymptom-2w",
+    "finding": {
+      "topic": "FootLumpSymptom",
+      "location": "Foot",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Foot lump for 2 weeks"
+  },
+  {
+    "id": "FootLumpSymptom-bare",
+    "finding": {
+      "topic": "FootLumpSymptom",
+      "location": "Foot",
+      "qualifiers": []
+    },
+    "expected": "Foot lump"
+  },
+  {
+    "id": "FootLumpSymptom-left",
+    "finding": {
+      "topic": "FootLumpSymptom",
+      "location": "Foot",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Lump on left foot"
+  },
+  {
+    "id": "FootLumpSymptom-right",
+    "finding": {
+      "topic": "FootLumpSymptom",
+      "location": "Foot",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Lump on right foot"
+  },
+  {
+    "id": "FootPainSymptom-2w",
+    "finding": {
+      "topic": "FootPainSymptom",
+      "location": "Foot",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Foot pain for 2 weeks"
+  },
+  {
+    "id": "FootPainSymptom-bare",
+    "finding": {
+      "topic": "FootPainSymptom",
+      "location": "Foot",
+      "qualifiers": []
+    },
+    "expected": "Foot pain"
+  },
+  {
+    "id": "FootPainSymptom-combo",
+    "finding": {
+      "topic": "FootPainSymptom",
+      "location": "Foot",
+      "laterality": "right",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe pain in right foot for 2 weeks"
+  },
+  {
+    "id": "FootPainSymptom-left",
+    "finding": {
+      "topic": "FootPainSymptom",
+      "location": "Foot",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Pain in left foot"
+  },
+  {
+    "id": "FootPainSymptom-mod",
+    "finding": {
+      "topic": "FootPainSymptom",
+      "location": "Foot",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe foot pain"
+  },
+  {
+    "id": "FootPainSymptom-right",
+    "finding": {
+      "topic": "FootPainSymptom",
+      "location": "Foot",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Pain in right foot"
+  },
+  {
+    "id": "FootSwellingSymptom-2w",
+    "finding": {
+      "topic": "FootSwellingSymptom",
+      "location": "Foot",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Foot swelling for 2 weeks"
+  },
+  {
+    "id": "FootSwellingSymptom-bare",
+    "finding": {
+      "topic": "FootSwellingSymptom",
+      "location": "Foot",
+      "qualifiers": []
+    },
+    "expected": "Foot swelling"
+  },
+  {
+    "id": "FootSwellingSymptom-combo",
+    "finding": {
+      "topic": "FootSwellingSymptom",
+      "location": "Foot",
+      "laterality": "right",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe swelling of right foot for 2 weeks"
+  },
+  {
+    "id": "FootSwellingSymptom-left",
+    "finding": {
+      "topic": "FootSwellingSymptom",
+      "location": "Foot",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Swelling of left foot"
+  },
+  {
+    "id": "FootSwellingSymptom-mod",
+    "finding": {
+      "topic": "FootSwellingSymptom",
+      "location": "Foot",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe foot swelling"
+  },
+  {
+    "id": "FootSwellingSymptom-right",
+    "finding": {
+      "topic": "FootSwellingSymptom",
+      "location": "Foot",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Swelling of right foot"
+  },
+  {
+    "id": "ForearmPainSymptom-2w",
+    "finding": {
+      "topic": "ForearmPainSymptom",
+      "location": "Forearm",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Forearm pain for 2 weeks"
+  },
+  {
+    "id": "ForearmPainSymptom-bare",
+    "finding": {
+      "topic": "ForearmPainSymptom",
+      "location": "Forearm",
+      "qualifiers": []
+    },
+    "expected": "Forearm pain"
+  },
+  {
+    "id": "ForearmPainSymptom-combo",
+    "finding": {
+      "topic": "ForearmPainSymptom",
+      "location": "Forearm",
+      "laterality": "right",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe pain in right forearm for 2 weeks"
+  },
+  {
+    "id": "ForearmPainSymptom-left",
+    "finding": {
+      "topic": "ForearmPainSymptom",
+      "location": "Forearm",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Pain in left forearm"
+  },
+  {
+    "id": "ForearmPainSymptom-mod",
+    "finding": {
+      "topic": "ForearmPainSymptom",
+      "location": "Forearm",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe forearm pain"
+  },
+  {
+    "id": "ForearmPainSymptom-right",
+    "finding": {
+      "topic": "ForearmPainSymptom",
+      "location": "Forearm",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Pain in right forearm"
+  },
+  {
+    "id": "FourthToeLumpSymptom-2w",
+    "finding": {
+      "topic": "FourthToeLumpSymptom",
+      "location": "FourthToe",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Fourth toe lump for 2 weeks"
+  },
+  {
+    "id": "FourthToeLumpSymptom-bare",
+    "finding": {
+      "topic": "FourthToeLumpSymptom",
+      "location": "FourthToe",
+      "qualifiers": []
+    },
+    "expected": "Fourth toe lump"
+  },
+  {
+    "id": "FourthToeLumpSymptom-left",
+    "finding": {
+      "topic": "FourthToeLumpSymptom",
+      "location": "FourthToe",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Lump on left fourth toe"
+  },
+  {
+    "id": "FourthToeLumpSymptom-right",
+    "finding": {
+      "topic": "FourthToeLumpSymptom",
+      "location": "FourthToe",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Lump on right fourth toe"
+  },
+  {
+    "id": "FourthToePainSymptom-2w",
+    "finding": {
+      "topic": "FourthToePainSymptom",
+      "location": "FourthToe",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Fourth toe pain for 2 weeks"
+  },
+  {
+    "id": "FourthToePainSymptom-bare",
+    "finding": {
+      "topic": "FourthToePainSymptom",
+      "location": "FourthToe",
+      "qualifiers": []
+    },
+    "expected": "Fourth toe pain"
+  },
+  {
+    "id": "FourthToePainSymptom-combo",
+    "finding": {
+      "topic": "FourthToePainSymptom",
+      "location": "FourthToe",
+      "laterality": "right",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe pain in right fourth toe for 2 weeks"
+  },
+  {
+    "id": "FourthToePainSymptom-left",
+    "finding": {
+      "topic": "FourthToePainSymptom",
+      "location": "FourthToe",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Pain in left fourth toe"
+  },
+  {
+    "id": "FourthToePainSymptom-mod",
+    "finding": {
+      "topic": "FourthToePainSymptom",
+      "location": "FourthToe",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe fourth toe pain"
+  },
+  {
+    "id": "FourthToePainSymptom-right",
+    "finding": {
+      "topic": "FourthToePainSymptom",
+      "location": "FourthToe",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Pain in right fourth toe"
+  },
+  {
+    "id": "FourthToeSwellingSymptom-2w",
+    "finding": {
+      "topic": "FourthToeSwellingSymptom",
+      "location": "FourthToe",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Fourth toe swelling for 2 weeks"
+  },
+  {
+    "id": "FourthToeSwellingSymptom-bare",
+    "finding": {
+      "topic": "FourthToeSwellingSymptom",
+      "location": "FourthToe",
+      "qualifiers": []
+    },
+    "expected": "Fourth toe swelling"
+  },
+  {
+    "id": "FourthToeSwellingSymptom-combo",
+    "finding": {
+      "topic": "FourthToeSwellingSymptom",
+      "location": "FourthToe",
+      "laterality": "right",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe swelling of right fourth toe for 2 weeks"
+  },
+  {
+    "id": "FourthToeSwellingSymptom-left",
+    "finding": {
+      "topic": "FourthToeSwellingSymptom",
+      "location": "FourthToe",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Swelling of left fourth toe"
+  },
+  {
+    "id": "FourthToeSwellingSymptom-mod",
+    "finding": {
+      "topic": "FourthToeSwellingSymptom",
+      "location": "FourthToe",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe fourth toe swelling"
+  },
+  {
+    "id": "FourthToeSwellingSymptom-right",
+    "finding": {
+      "topic": "FourthToeSwellingSymptom",
+      "location": "FourthToe",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Swelling of right fourth toe"
+  },
+  {
+    "id": "GeneralisedAchingSymptom-2w",
+    "finding": {
+      "topic": "GeneralisedAchingSymptom",
+      "location": "BodyAsAWhole",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Generalised aching for 2 weeks"
+  },
+  {
+    "id": "GeneralisedAchingSymptom-bare",
+    "finding": {
+      "topic": "GeneralisedAchingSymptom",
+      "location": "BodyAsAWhole",
+      "qualifiers": []
+    },
+    "expected": "Generalised aching"
+  },
+  {
+    "id": "GeneralisedAchingSymptom-combo",
+    "finding": {
+      "topic": "GeneralisedAchingSymptom",
+      "location": "BodyAsAWhole",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe generalised aching for 2 weeks"
+  },
+  {
+    "id": "GeneralisedAchingSymptom-mod",
+    "finding": {
+      "topic": "GeneralisedAchingSymptom",
+      "location": "BodyAsAWhole",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe generalised aching"
+  },
+  {
+    "id": "GeneralisedRashSymptom-2w",
+    "finding": {
+      "topic": "GeneralisedRashSymptom",
+      "location": "BodyAsAWhole",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Rash for 2 weeks"
+  },
+  {
+    "id": "GeneralisedRashSymptom-bare",
+    "finding": {
+      "topic": "GeneralisedRashSymptom",
+      "location": "BodyAsAWhole",
+      "qualifiers": []
+    },
+    "expected": "Rash"
+  },
+  {
+    "id": "GeneralisedRashSymptom-combo",
+    "finding": {
+      "topic": "GeneralisedRashSymptom",
+      "location": "BodyAsAWhole",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe rash for 2 weeks"
+  },
+  {
+    "id": "GeneralisedRashSymptom-mod",
+    "finding": {
+      "topic": "GeneralisedRashSymptom",
+      "location": "BodyAsAWhole",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe rash"
+  },
+  {
+    "id": "GreatToeLumpSymptom-2w",
+    "finding": {
+      "topic": "GreatToeLumpSymptom",
+      "location": "GreatToe",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Great toe lump for 2 weeks"
+  },
+  {
+    "id": "GreatToeLumpSymptom-bare",
+    "finding": {
+      "topic": "GreatToeLumpSymptom",
+      "location": "GreatToe",
+      "qualifiers": []
+    },
+    "expected": "Great toe lump"
+  },
+  {
+    "id": "GreatToeLumpSymptom-left",
+    "finding": {
+      "topic": "GreatToeLumpSymptom",
+      "location": "GreatToe",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Lump on left great toe"
+  },
+  {
+    "id": "GreatToeLumpSymptom-right",
+    "finding": {
+      "topic": "GreatToeLumpSymptom",
+      "location": "GreatToe",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Lump on right great toe"
+  },
+  {
+    "id": "GreatToePainSymptom-2w",
+    "finding": {
+      "topic": "GreatToePainSymptom",
+      "location": "GreatToe",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Great toe pain for 2 weeks"
+  },
+  {
+    "id": "GreatToePainSymptom-bare",
+    "finding": {
+      "topic": "GreatToePainSymptom",
+      "location": "GreatToe",
+      "qualifiers": []
+    },
+    "expected": "Great toe pain"
+  },
+  {
+    "id": "GreatToePainSymptom-combo",
+    "finding": {
+      "topic": "GreatToePainSymptom",
+      "location": "GreatToe",
+      "laterality": "right",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe pain in right great toe for 2 weeks"
+  },
+  {
+    "id": "GreatToePainSymptom-left",
+    "finding": {
+      "topic": "GreatToePainSymptom",
+      "location": "GreatToe",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Pain in left great toe"
+  },
+  {
+    "id": "GreatToePainSymptom-mod",
+    "finding": {
+      "topic": "GreatToePainSymptom",
+      "location": "GreatToe",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe great toe pain"
+  },
+  {
+    "id": "GreatToePainSymptom-right",
+    "finding": {
+      "topic": "GreatToePainSymptom",
+      "location": "GreatToe",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Pain in right great toe"
+  },
+  {
+    "id": "GreatToeSwellingSymptom-2w",
+    "finding": {
+      "topic": "GreatToeSwellingSymptom",
+      "location": "GreatToe",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Great toe swelling for 2 weeks"
+  },
+  {
+    "id": "GreatToeSwellingSymptom-bare",
+    "finding": {
+      "topic": "GreatToeSwellingSymptom",
+      "location": "GreatToe",
+      "qualifiers": []
+    },
+    "expected": "Great toe swelling"
+  },
+  {
+    "id": "GreatToeSwellingSymptom-combo",
+    "finding": {
+      "topic": "GreatToeSwellingSymptom",
+      "location": "GreatToe",
+      "laterality": "right",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe swelling of right great toe for 2 weeks"
+  },
+  {
+    "id": "GreatToeSwellingSymptom-left",
+    "finding": {
+      "topic": "GreatToeSwellingSymptom",
+      "location": "GreatToe",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Swelling of left great toe"
+  },
+  {
+    "id": "GreatToeSwellingSymptom-mod",
+    "finding": {
+      "topic": "GreatToeSwellingSymptom",
+      "location": "GreatToe",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe great toe swelling"
+  },
+  {
+    "id": "GreatToeSwellingSymptom-right",
+    "finding": {
+      "topic": "GreatToeSwellingSymptom",
+      "location": "GreatToe",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Swelling of right great toe"
+  },
+  {
+    "id": "GrittyEyeSymptom-2w",
+    "finding": {
+      "topic": "GrittyEyeSymptom",
+      "location": "Eye",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gritty eye for 2 weeks"
+  },
+  {
+    "id": "GrittyEyeSymptom-bare",
+    "finding": {
+      "topic": "GrittyEyeSymptom",
+      "location": "Eye",
+      "qualifiers": []
+    },
+    "expected": "Gritty eye"
+  },
+  {
+    "id": "GrittyEyeSymptom-left",
+    "finding": {
+      "topic": "GrittyEyeSymptom",
+      "location": "Eye",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Gritty eye of left eye"
+  },
+  {
+    "id": "GrittyEyeSymptom-mod",
+    "finding": {
+      "topic": "GrittyEyeSymptom",
+      "location": "Eye",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe gritty eye"
+  },
+  {
+    "id": "GrittyEyeSymptom-right",
+    "finding": {
+      "topic": "GrittyEyeSymptom",
+      "location": "Eye",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Gritty eye of right eye"
+  },
+  {
+    "id": "GroinLumpSymptom-2w",
+    "finding": {
+      "topic": "GroinLumpSymptom",
+      "location": "Groin",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Groin lump for 2 weeks"
+  },
+  {
+    "id": "GroinLumpSymptom-bare",
+    "finding": {
+      "topic": "GroinLumpSymptom",
+      "location": "Groin",
+      "qualifiers": []
+    },
+    "expected": "Groin lump"
+  },
+  {
+    "id": "GroinLumpSymptom-left",
+    "finding": {
+      "topic": "GroinLumpSymptom",
+      "location": "Groin",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Lump in left groin"
+  },
+  {
+    "id": "GroinLumpSymptom-right",
+    "finding": {
+      "topic": "GroinLumpSymptom",
+      "location": "Groin",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Lump in right groin"
+  },
+  {
+    "id": "GroinPainSymptom-2w",
+    "finding": {
+      "topic": "GroinPainSymptom",
+      "location": "Groin",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Groin pain for 2 weeks"
+  },
+  {
+    "id": "GroinPainSymptom-bare",
+    "finding": {
+      "topic": "GroinPainSymptom",
+      "location": "Groin",
+      "qualifiers": []
+    },
+    "expected": "Groin pain"
+  },
+  {
+    "id": "GroinPainSymptom-combo",
+    "finding": {
+      "topic": "GroinPainSymptom",
+      "location": "Groin",
+      "laterality": "right",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe pain in right groin for 2 weeks"
+  },
+  {
+    "id": "GroinPainSymptom-left",
+    "finding": {
+      "topic": "GroinPainSymptom",
+      "location": "Groin",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Pain in left groin"
+  },
+  {
+    "id": "GroinPainSymptom-mod",
+    "finding": {
+      "topic": "GroinPainSymptom",
+      "location": "Groin",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe groin pain"
+  },
+  {
+    "id": "GroinPainSymptom-right",
+    "finding": {
+      "topic": "GroinPainSymptom",
+      "location": "Groin",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Pain in right groin"
+  },
+  {
+    "id": "GumLumpSymptom-2w",
+    "finding": {
+      "topic": "GumLumpSymptom",
+      "location": "Gum",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gum lump for 2 weeks"
+  },
+  {
+    "id": "GumLumpSymptom-bare",
+    "finding": {
+      "topic": "GumLumpSymptom",
+      "location": "Gum",
+      "qualifiers": []
+    },
+    "expected": "Gum lump"
+  },
+  {
+    "id": "GumSwellingSymptom-2w",
+    "finding": {
+      "topic": "GumSwellingSymptom",
+      "location": "Gum",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gum swelling for 2 weeks"
+  },
+  {
+    "id": "GumSwellingSymptom-bare",
+    "finding": {
+      "topic": "GumSwellingSymptom",
+      "location": "Gum",
+      "qualifiers": []
+    },
+    "expected": "Gum swelling"
+  },
+  {
+    "id": "GumSwellingSymptom-combo",
+    "finding": {
+      "topic": "GumSwellingSymptom",
+      "location": "Gum",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe gum swelling for 2 weeks"
+  },
+  {
+    "id": "GumSwellingSymptom-mod",
+    "finding": {
+      "topic": "GumSwellingSymptom",
+      "location": "Gum",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe gum swelling"
+  },
+  {
+    "id": "HandLumpSymptom-2w",
+    "finding": {
+      "topic": "HandLumpSymptom",
+      "location": "Hand",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Hand lump for 2 weeks"
+  },
+  {
+    "id": "HandLumpSymptom-bare",
+    "finding": {
+      "topic": "HandLumpSymptom",
+      "location": "Hand",
+      "qualifiers": []
+    },
+    "expected": "Hand lump"
+  },
+  {
+    "id": "HandLumpSymptom-left",
+    "finding": {
+      "topic": "HandLumpSymptom",
+      "location": "Hand",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Lump on left hand"
+  },
+  {
+    "id": "HandLumpSymptom-right",
+    "finding": {
+      "topic": "HandLumpSymptom",
+      "location": "Hand",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Lump on right hand"
+  },
+  {
+    "id": "HandPainSymptom-2w",
+    "finding": {
+      "topic": "HandPainSymptom",
+      "location": "Hand",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Hand pain for 2 weeks"
+  },
+  {
+    "id": "HandPainSymptom-bare",
+    "finding": {
+      "topic": "HandPainSymptom",
+      "location": "Hand",
+      "qualifiers": []
+    },
+    "expected": "Hand pain"
+  },
+  {
+    "id": "HandPainSymptom-combo",
+    "finding": {
+      "topic": "HandPainSymptom",
+      "location": "Hand",
+      "laterality": "right",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe pain in right hand for 2 weeks"
+  },
+  {
+    "id": "HandPainSymptom-left",
+    "finding": {
+      "topic": "HandPainSymptom",
+      "location": "Hand",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Pain in left hand"
+  },
+  {
+    "id": "HandPainSymptom-mod",
+    "finding": {
+      "topic": "HandPainSymptom",
+      "location": "Hand",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe hand pain"
+  },
+  {
+    "id": "HandPainSymptom-right",
+    "finding": {
+      "topic": "HandPainSymptom",
+      "location": "Hand",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Pain in right hand"
+  },
+  {
+    "id": "HandSwellingSymptom-2w",
+    "finding": {
+      "topic": "HandSwellingSymptom",
+      "location": "Hand",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Hand swelling for 2 weeks"
+  },
+  {
+    "id": "HandSwellingSymptom-bare",
+    "finding": {
+      "topic": "HandSwellingSymptom",
+      "location": "Hand",
+      "qualifiers": []
+    },
+    "expected": "Hand swelling"
+  },
+  {
+    "id": "HandSwellingSymptom-combo",
+    "finding": {
+      "topic": "HandSwellingSymptom",
+      "location": "Hand",
+      "laterality": "right",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe swelling of right hand for 2 weeks"
+  },
+  {
+    "id": "HandSwellingSymptom-left",
+    "finding": {
+      "topic": "HandSwellingSymptom",
+      "location": "Hand",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Swelling of left hand"
+  },
+  {
+    "id": "HandSwellingSymptom-mod",
+    "finding": {
+      "topic": "HandSwellingSymptom",
+      "location": "Hand",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe hand swelling"
+  },
+  {
+    "id": "HandSwellingSymptom-right",
+    "finding": {
+      "topic": "HandSwellingSymptom",
+      "location": "Hand",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Swelling of right hand"
+  },
+  {
+    "id": "HeadacheSymptom-2w",
+    "finding": {
+      "topic": "HeadacheSymptom",
+      "location": "Head",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Headache for 2 weeks"
+  },
+  {
+    "id": "HeadacheSymptom-bare",
+    "finding": {
+      "topic": "HeadacheSymptom",
+      "location": "Head",
+      "qualifiers": []
+    },
+    "expected": "Headache"
+  },
+  {
+    "id": "HeadacheSymptom-combo",
+    "finding": {
+      "topic": "HeadacheSymptom",
+      "location": "Head",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe headache for 2 weeks"
+  },
+  {
+    "id": "HeadacheSymptom-mod",
+    "finding": {
+      "topic": "HeadacheSymptom",
+      "location": "Head",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe headache"
+  },
+  {
+    "id": "HearingDisturbanceSymptom-2w",
+    "finding": {
+      "topic": "HearingDisturbanceSymptom",
+      "location": "Ear",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Hearing disturbance for 2 weeks"
+  },
+  {
+    "id": "HearingDisturbanceSymptom-bare",
+    "finding": {
+      "topic": "HearingDisturbanceSymptom",
+      "location": "Ear",
+      "qualifiers": []
+    },
+    "expected": "Hearing disturbance"
+  },
+  {
+    "id": "HearingDisturbanceSymptom-combo",
+    "finding": {
+      "topic": "HearingDisturbanceSymptom",
+      "location": "Ear",
+      "laterality": "right",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe hearing disturbance in right ear for 2 weeks"
+  },
+  {
+    "id": "HearingDisturbanceSymptom-left",
+    "finding": {
+      "topic": "HearingDisturbanceSymptom",
+      "location": "Ear",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Hearing disturbance in left ear"
+  },
+  {
+    "id": "HearingDisturbanceSymptom-mod",
+    "finding": {
+      "topic": "HearingDisturbanceSymptom",
+      "location": "Ear",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe hearing disturbance"
+  },
+  {
+    "id": "HearingDisturbanceSymptom-right",
+    "finding": {
+      "topic": "HearingDisturbanceSymptom",
+      "location": "Ear",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Hearing disturbance in right ear"
+  },
+  {
+    "id": "HeelLumpSymptom-2w",
+    "finding": {
+      "topic": "HeelLumpSymptom",
+      "location": "Heel",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Heel lump for 2 weeks"
+  },
+  {
+    "id": "HeelLumpSymptom-bare",
+    "finding": {
+      "topic": "HeelLumpSymptom",
+      "location": "Heel",
+      "qualifiers": []
+    },
+    "expected": "Heel lump"
+  },
+  {
+    "id": "HeelLumpSymptom-left",
+    "finding": {
+      "topic": "HeelLumpSymptom",
+      "location": "Heel",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Lump on left heel"
+  },
+  {
+    "id": "HeelLumpSymptom-right",
+    "finding": {
+      "topic": "HeelLumpSymptom",
+      "location": "Heel",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Lump on right heel"
+  },
+  {
+    "id": "HeelPainSymptom-2w",
+    "finding": {
+      "topic": "HeelPainSymptom",
+      "location": "Heel",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Heel pain for 2 weeks"
+  },
+  {
+    "id": "HeelPainSymptom-bare",
+    "finding": {
+      "topic": "HeelPainSymptom",
+      "location": "Heel",
+      "qualifiers": []
+    },
+    "expected": "Heel pain"
+  },
+  {
+    "id": "HeelPainSymptom-combo",
+    "finding": {
+      "topic": "HeelPainSymptom",
+      "location": "Heel",
+      "laterality": "right",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe pain in right heel for 2 weeks"
+  },
+  {
+    "id": "HeelPainSymptom-left",
+    "finding": {
+      "topic": "HeelPainSymptom",
+      "location": "Heel",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Pain in left heel"
+  },
+  {
+    "id": "HeelPainSymptom-mod",
+    "finding": {
+      "topic": "HeelPainSymptom",
+      "location": "Heel",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe heel pain"
+  },
+  {
+    "id": "HeelPainSymptom-right",
+    "finding": {
+      "topic": "HeelPainSymptom",
+      "location": "Heel",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Pain in right heel"
+  },
+  {
+    "id": "HipPainSymptom-2w",
+    "finding": {
+      "topic": "HipPainSymptom",
+      "location": "Hip",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Hip pain for 2 weeks"
+  },
+  {
+    "id": "HipPainSymptom-bare",
+    "finding": {
+      "topic": "HipPainSymptom",
+      "location": "Hip",
+      "qualifiers": []
+    },
+    "expected": "Hip pain"
+  },
+  {
+    "id": "HipPainSymptom-combo",
+    "finding": {
+      "topic": "HipPainSymptom",
+      "location": "Hip",
+      "laterality": "right",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe pain in right hip for 2 weeks"
+  },
+  {
+    "id": "HipPainSymptom-left",
+    "finding": {
+      "topic": "HipPainSymptom",
+      "location": "Hip",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Pain in left hip"
+  },
+  {
+    "id": "HipPainSymptom-mod",
+    "finding": {
+      "topic": "HipPainSymptom",
+      "location": "Hip",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe hip pain"
+  },
+  {
+    "id": "HipPainSymptom-right",
+    "finding": {
+      "topic": "HipPainSymptom",
+      "location": "Hip",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Pain in right hip"
+  },
+  {
+    "id": "IndexFingerLumpSymptom-2w",
+    "finding": {
+      "topic": "IndexFingerLumpSymptom",
+      "location": "IndexFinger",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Index finger lump for 2 weeks"
+  },
+  {
+    "id": "IndexFingerLumpSymptom-bare",
+    "finding": {
+      "topic": "IndexFingerLumpSymptom",
+      "location": "IndexFinger",
+      "qualifiers": []
+    },
+    "expected": "Index finger lump"
+  },
+  {
+    "id": "IndexFingerLumpSymptom-left",
+    "finding": {
+      "topic": "IndexFingerLumpSymptom",
+      "location": "IndexFinger",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Lump on left index finger"
+  },
+  {
+    "id": "IndexFingerLumpSymptom-right",
+    "finding": {
+      "topic": "IndexFingerLumpSymptom",
+      "location": "IndexFinger",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Lump on right index finger"
+  },
+  {
+    "id": "IndexFingerPainSymptom-2w",
+    "finding": {
+      "topic": "IndexFingerPainSymptom",
+      "location": "IndexFinger",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Index finger pain for 2 weeks"
+  },
+  {
+    "id": "IndexFingerPainSymptom-bare",
+    "finding": {
+      "topic": "IndexFingerPainSymptom",
+      "location": "IndexFinger",
+      "qualifiers": []
+    },
+    "expected": "Index finger pain"
+  },
+  {
+    "id": "IndexFingerPainSymptom-combo",
+    "finding": {
+      "topic": "IndexFingerPainSymptom",
+      "location": "IndexFinger",
+      "laterality": "right",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe pain in right index finger for 2 weeks"
+  },
+  {
+    "id": "IndexFingerPainSymptom-left",
+    "finding": {
+      "topic": "IndexFingerPainSymptom",
+      "location": "IndexFinger",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Pain in left index finger"
+  },
+  {
+    "id": "IndexFingerPainSymptom-mod",
+    "finding": {
+      "topic": "IndexFingerPainSymptom",
+      "location": "IndexFinger",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe index finger pain"
+  },
+  {
+    "id": "IndexFingerPainSymptom-right",
+    "finding": {
+      "topic": "IndexFingerPainSymptom",
+      "location": "IndexFinger",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Pain in right index finger"
+  },
+  {
+    "id": "IndexFingerSwellingSymptom-2w",
+    "finding": {
+      "topic": "IndexFingerSwellingSymptom",
+      "location": "IndexFinger",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Index finger swelling for 2 weeks"
+  },
+  {
+    "id": "IndexFingerSwellingSymptom-bare",
+    "finding": {
+      "topic": "IndexFingerSwellingSymptom",
+      "location": "IndexFinger",
+      "qualifiers": []
+    },
+    "expected": "Index finger swelling"
+  },
+  {
+    "id": "IndexFingerSwellingSymptom-combo",
+    "finding": {
+      "topic": "IndexFingerSwellingSymptom",
+      "location": "IndexFinger",
+      "laterality": "right",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe swelling of right index finger for 2 weeks"
+  },
+  {
+    "id": "IndexFingerSwellingSymptom-left",
+    "finding": {
+      "topic": "IndexFingerSwellingSymptom",
+      "location": "IndexFinger",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Swelling of left index finger"
+  },
+  {
+    "id": "IndexFingerSwellingSymptom-mod",
+    "finding": {
+      "topic": "IndexFingerSwellingSymptom",
+      "location": "IndexFinger",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe index finger swelling"
+  },
+  {
+    "id": "IndexFingerSwellingSymptom-right",
+    "finding": {
+      "topic": "IndexFingerSwellingSymptom",
+      "location": "IndexFinger",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Swelling of right index finger"
+  },
+  {
+    "id": "IntermittentClaudicationSymptom-2w",
+    "finding": {
+      "topic": "IntermittentClaudicationSymptom",
+      "location": "Leg",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Intermittent claudication for 2 weeks"
+  },
+  {
+    "id": "IntermittentClaudicationSymptom-bare",
+    "finding": {
+      "topic": "IntermittentClaudicationSymptom",
+      "location": "Leg",
+      "qualifiers": []
+    },
+    "expected": "Intermittent claudication"
+  },
+  {
+    "id": "IntermittentClaudicationSymptom-left",
+    "finding": {
+      "topic": "IntermittentClaudicationSymptom",
+      "location": "Leg",
+      "laterality": "left",
+      "qualifiers": []
+    },
+    "expected": "Intermittent claudication in left lower leg"
+  },
+  {
+    "id": "IntermittentClaudicationSymptom-mod",
+    "finding": {
+      "topic": "IntermittentClaudicationSymptom",
+      "location": "Leg",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe intermittent claudication"
+  },
+  {
+    "id": "IntermittentClaudicationSymptom-right",
+    "finding": {
+      "topic": "IntermittentClaudicationSymptom",
+      "location": "Leg",
+      "laterality": "right",
+      "qualifiers": []
+    },
+    "expected": "Intermittent claudication in right lower leg"
+  },
+  {
+    "id": "fracture-present",
+    "finding": {
+      "topic": "ThumbFracture",
+      "summary": "presence",
+      "qualifiers": []
+    },
+    "expected": "Thumb fracture"
+  },
+  {
+    "id": "infection-present",
+    "finding": {
+      "topic": "SubcutaneousInfection",
+      "location": "Thumb",
+      "summary": "presence",
+      "qualifiers": []
+    },
+    "expected": "Subcutaneous infection on thumb"
+  },
+  {
+    "id": "pain-2-days",
+    "finding": {
+      "topic": "ThumbPainSymptom",
+      "location": "Thumb",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "day"
+        }
+      ]
+    },
+    "expected": "Thumb pain for 2 days"
+  },
+  {
+    "id": "pain-2-weeks",
+    "finding": {
+      "topic": "ThumbPainSymptom",
+      "location": "Thumb",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Thumb pain for 2 weeks"
+  },
+  {
+    "id": "pain-aching-frequent",
+    "finding": {
+      "topic": "ThumbPainSymptom",
+      "location": "Thumb",
+      "qualifiers": [
+        {
+          "descriptor": "AbsolutePainDescriptor",
+          "value": "achingPain"
+        },
+        {
+          "descriptor": "AbsoluteFrequency",
+          "value": "frequent"
+        }
+      ]
+    },
+    "expected": "Frequent, aching thumb pain"
+  },
+  {
+    "id": "pain-bare",
+    "finding": {
+      "topic": "ThumbPainSymptom",
+      "location": "Thumb",
+      "qualifiers": []
+    },
+    "expected": "Thumb pain"
+  },
+  {
+    "id": "pain-better",
+    "finding": {
+      "topic": "ThumbPainSymptom",
+      "location": "Thumb",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteProgress",
+          "value": "better"
+        }
+      ]
+    },
+    "expected": "Thumb pain getting better"
+  },
+  {
+    "id": "pain-burning",
+    "finding": {
+      "topic": "ThumbPainSymptom",
+      "location": "Thumb",
+      "qualifiers": [
+        {
+          "descriptor": "AbsolutePainDescriptor",
+          "value": "burningPain"
+        }
+      ]
+    },
+    "expected": "Burning thumb pain"
+  },
+  {
+    "id": "pain-continuous",
+    "finding": {
+      "topic": "ThumbPainSymptom",
+      "location": "Thumb",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteProcessPattern",
+          "value": "continuous"
+        }
+      ]
+    },
+    "expected": "Continuous thumb pain"
+  },
+  {
+    "id": "pain-dull",
+    "finding": {
+      "topic": "ThumbPainSymptom",
+      "location": "Thumb",
+      "qualifiers": [
+        {
+          "descriptor": "AbsolutePainDescriptor",
+          "value": "dullPain"
+        }
+      ]
+    },
+    "expected": "Dull thumb pain"
+  },
+  {
+    "id": "pain-dur-1-day",
+    "finding": {
+      "topic": "ThumbPainSymptom",
+      "location": "Thumb",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 1,
+          "unit": "day"
+        }
+      ]
+    },
+    "expected": "Thumb pain for 1 day"
+  },
+  {
+    "id": "pain-dur-1-month",
+    "finding": {
+      "topic": "ThumbPainSymptom",
+      "location": "Thumb",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 1,
+          "unit": "month"
+        }
+      ]
+    },
+    "expected": "Thumb pain for 1 month"
+  },
+  {
+    "id": "pain-dur-1-week",
+    "finding": {
+      "topic": "ThumbPainSymptom",
+      "location": "Thumb",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 1,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Thumb pain for 1 week"
+  },
+  {
+    "id": "pain-dur-1-year",
+    "finding": {
+      "topic": "ThumbPainSymptom",
+      "location": "Thumb",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 1,
+          "unit": "year"
+        }
+      ]
+    },
+    "expected": "Thumb pain for 1 year"
+  },
+  {
+    "id": "pain-dur-2-years",
+    "finding": {
+      "topic": "ThumbPainSymptom",
+      "location": "Thumb",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "year"
+        }
+      ]
+    },
+    "expected": "Thumb pain for 2 years"
+  },
+  {
+    "id": "pain-dur-3-days",
+    "finding": {
+      "topic": "ThumbPainSymptom",
+      "location": "Thumb",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 3,
+          "unit": "day"
+        }
+      ]
+    },
+    "expected": "Thumb pain for 3 days"
+  },
+  {
+    "id": "pain-dur-3-months",
+    "finding": {
+      "topic": "ThumbPainSymptom",
+      "location": "Thumb",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 3,
+          "unit": "month"
+        }
+      ]
+    },
+    "expected": "Thumb pain for 3 months"
+  },
+  {
+    "id": "pain-dur-4-hours",
+    "finding": {
+      "topic": "ThumbPainSymptom",
+      "location": "Thumb",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 4,
+          "unit": "hour"
+        }
+      ]
+    },
+    "expected": "Thumb pain for 4 hours"
+  },
+  {
+    "id": "pain-dur-6-weeks",
+    "finding": {
+      "topic": "ThumbPainSymptom",
+      "location": "Thumb",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 6,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Thumb pain for 6 weeks"
+  },
+  {
+    "id": "pain-full",
+    "finding": {
+      "topic": "ThumbPainSymptom",
+      "location": "Thumb",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ],
+      "laterality": "right"
+    },
+    "expected": "Gradual onset, moderately severe pain in right thumb for 2 weeks"
+  },
+  {
+    "id": "pain-gradual",
+    "finding": {
+      "topic": "ThumbPainSymptom",
+      "location": "Thumb",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        }
+      ]
+    },
+    "expected": "Gradual onset thumb pain"
+  },
+  {
+    "id": "pain-infrequent",
+    "finding": {
+      "topic": "ThumbPainSymptom",
+      "location": "Thumb",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteFrequency",
+          "value": "infrequent"
+        }
+      ]
+    },
+    "expected": "Infrequent thumb pain"
+  },
+  {
+    "id": "pain-intermittent",
+    "finding": {
+      "topic": "ThumbPainSymptom",
+      "location": "Thumb",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteProcessPattern",
+          "value": "intermittent"
+        }
+      ]
+    },
+    "expected": "Intermittent thumb pain"
+  },
+  {
+    "id": "pain-left",
+    "finding": {
+      "topic": "ThumbPainSymptom",
+      "location": "Thumb",
+      "qualifiers": [],
+      "laterality": "left"
+    },
+    "expected": "Pain in left thumb"
+  },
+  {
+    "id": "pain-mild",
+    "finding": {
+      "topic": "ThumbPainSymptom",
+      "location": "Thumb",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "mild"
+        }
+      ]
+    },
+    "expected": "Mild thumb pain"
+  },
+  {
+    "id": "pain-moderate",
+    "finding": {
+      "topic": "ThumbPainSymptom",
+      "location": "Thumb",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        }
+      ]
+    },
+    "expected": "Moderately severe thumb pain"
+  },
+  {
+    "id": "pain-occasional",
+    "finding": {
+      "topic": "ThumbPainSymptom",
+      "location": "Thumb",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteFrequency",
+          "value": "occasional"
+        }
+      ]
+    },
+    "expected": "Occasional thumb pain"
+  },
+  {
+    "id": "pain-piercing",
+    "finding": {
+      "topic": "ThumbPainSymptom",
+      "location": "Thumb",
+      "qualifiers": [
+        {
+          "descriptor": "AbsolutePainDescriptor",
+          "value": "piercingPain"
+        }
+      ]
+    },
+    "expected": "Piercing thumb pain"
+  },
+  {
+    "id": "pain-rapid",
+    "finding": {
+      "topic": "ThumbPainSymptom",
+      "location": "Thumb",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "rapid"
+        }
+      ]
+    },
+    "expected": "Rapid onset thumb pain"
+  },
+  {
+    "id": "pain-right",
+    "finding": {
+      "topic": "ThumbPainSymptom",
+      "location": "Thumb",
+      "qualifiers": [],
+      "laterality": "right"
+    },
+    "expected": "Pain in right thumb"
+  },
+  {
+    "id": "pain-same",
+    "finding": {
+      "topic": "ThumbPainSymptom",
+      "location": "Thumb",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteProgress",
+          "value": "same"
+        }
+      ]
+    },
+    "expected": "Thumb pain unchanging"
+  },
+  {
+    "id": "pain-severe",
+    "finding": {
+      "topic": "ThumbPainSymptom",
+      "location": "Thumb",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "severe"
+        }
+      ]
+    },
+    "expected": "Severe thumb pain"
+  },
+  {
+    "id": "pain-single",
+    "finding": {
+      "topic": "ThumbPainSymptom",
+      "location": "Thumb",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteProcessPattern",
+          "value": "single"
+        }
+      ]
+    },
+    "expected": "Single occurrence thumb pain"
+  },
+  {
+    "id": "pain-sudden",
+    "finding": {
+      "topic": "ThumbPainSymptom",
+      "location": "Thumb",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "sudden"
+        }
+      ]
+    },
+    "expected": "Sudden onset thumb pain"
+  },
+  {
+    "id": "pain-throbbing",
+    "finding": {
+      "topic": "ThumbPainSymptom",
+      "location": "Thumb",
+      "qualifiers": [
+        {
+          "descriptor": "AbsolutePainDescriptor",
+          "value": "throbbingPain"
+        }
+      ]
+    },
+    "expected": "Throbbing thumb pain"
+  },
+  {
+    "id": "pain-worse-persistent",
+    "finding": {
+      "topic": "ThumbPainSymptom",
+      "location": "Thumb",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteProgress",
+          "value": "worse"
+        },
+        {
+          "descriptor": "AbsoluteProcessPattern",
+          "value": "persistent"
+        }
+      ]
+    },
+    "expected": "Persistent thumb pain getting worse"
+  },
+  {
+    "id": "sprain-excluded",
+    "finding": {
+      "topic": "ThumbSprain",
+      "summary": "excluded",
+      "qualifiers": []
+    },
+    "expected": "Thumb sprain excluded"
+  },
+  {
+    "id": "sprain-possible",
+    "finding": {
+      "topic": "ThumbSprain",
+      "summary": "possible",
+      "qualifiers": []
+    },
+    "expected": "? thumb sprain"
+  },
+  {
+    "id": "sprain-present",
+    "finding": {
+      "topic": "ThumbSprain",
+      "summary": "presence",
+      "qualifiers": []
+    },
+    "expected": "Thumb sprain"
+  },
+  {
+    "id": "swelling-2-days",
+    "finding": {
+      "topic": "ThumbSwellingSymptom",
+      "location": "Thumb",
+      "laterality": "left",
+      "subLocation": "distalPhalanx",
+      "summary": "presence",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "day"
+        }
+      ]
+    },
+    "expected": "Swelling of distal phalanx of left thumb for 2 days, present"
+  },
+  {
+    "id": "swelling-2-weeks",
+    "finding": {
+      "topic": "ThumbSwellingSymptom",
+      "location": "Thumb",
+      "laterality": "left",
+      "subLocation": "distalPhalanx",
+      "summary": "presence",
+      "qualifiers": [
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Swelling of distal phalanx of left thumb for 2 weeks, present"
+  },
+  {
+    "id": "swelling-absent",
+    "finding": {
+      "topic": "ThumbSwellingSymptom",
+      "location": "Thumb",
+      "summary": "absence",
+      "qualifiers": []
+    },
+    "expected": "No thumb swelling"
+  },
+  {
+    "id": "swelling-distal",
+    "finding": {
+      "topic": "ThumbSwellingSymptom",
+      "location": "Thumb",
+      "laterality": "left",
+      "subLocation": "distalPhalanx",
+      "summary": "presence",
+      "qualifiers": []
+    },
+    "expected": "Swelling of distal phalanx of left thumb present"
+  },
+  {
+    "id": "swelling-full",
+    "finding": {
+      "topic": "ThumbSwellingSymptom",
+      "location": "Thumb",
+      "laterality": "left",
+      "subLocation": "distalPhalanx",
+      "summary": "presence",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "AbsoluteSeverity",
+          "value": "moderate"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset, moderately severe swelling of distal phalanx of left thumb for 2 weeks, present"
+  },
+  {
+    "id": "swelling-left",
+    "finding": {
+      "topic": "ThumbSwellingSymptom",
+      "location": "Thumb",
+      "laterality": "left",
+      "summary": "presence",
+      "qualifiers": []
+    },
+    "expected": "Swelling of left thumb present"
+  },
+  {
+    "id": "swelling-onset",
+    "finding": {
+      "topic": "ThumbSwellingSymptom",
+      "location": "Thumb",
+      "laterality": "left",
+      "subLocation": "distalPhalanx",
+      "summary": "presence",
+      "qualifiers": [
+        {
+          "descriptor": "AbsoluteOnset",
+          "value": "gradual"
+        },
+        {
+          "descriptor": "QuantityDuration",
+          "value": "TemporalValue",
+          "number": 2,
+          "unit": "week"
+        }
+      ]
+    },
+    "expected": "Gradual onset swelling of distal phalanx of left thumb for 2 weeks, present"
+  },
+  {
+    "id": "swelling-present",
+    "finding": {
+      "topic": "ThumbSwellingSymptom",
+      "location": "Thumb",
+      "summary": "presence",
+      "qualifiers": []
+    },
+    "expected": "Thumb swelling present"
+  }
+]

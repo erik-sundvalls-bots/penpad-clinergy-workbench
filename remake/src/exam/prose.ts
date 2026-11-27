@@ -3,7 +3,7 @@
  * thumb-pain walkthrough (heading, one line per examined side, indented
  * sub-exam line with movements joined by semicolons; e.g. "flexion full
  * range, mildly painful"). Feature values come from the extract (range
- * tokens and ConseqPainOnMovement absence / mild / moderate / severe).
+ * tokens and ConseqPainOnMovement painless / mildly painful / moderately painful / severely painful).
  *
  * The 1998 engine source is not in this repository. Phrases that the
  * walkthrough does not illustrate are composed from concept displays and
@@ -26,7 +26,7 @@ import type { Finding } from "../sentence/types.ts";
 const RANGE_NOUN = "range";
 
 const PAIN_PHRASE: Record<string, string> = {
-  absence: "not painful",
+  absence: "painless",
   mild: "mildly painful",
   moderate: "moderately painful",
   severe: "severely painful",
@@ -96,7 +96,7 @@ function signSentence(sign: string, state: FormState, form: RemakeForm, laterali
   if (state.summary && !Object.values(state.features).some((f) => f.values.length || (f.number ?? 0) > 0)) {
     const name = (form.display || conceptDisplay(sign)).toLowerCase();
     if (state.summary === "presence") return `${name} present`;
-    if (state.summary === "absence") return `${name} absent`;
+    if (state.summary === "absence") return `no ${name}`;
   }
   const rendered = renderSentence(
     {
@@ -110,7 +110,7 @@ function signSentence(sign: string, state: FormState, form: RemakeForm, laterali
   void rendered;
   const name = (form.display || conceptDisplay(sign)).toLowerCase();
   if (state.summary === "presence") return `${name} present`;
-  if (state.summary === "absence") return `${name} absent`;
+  if (state.summary === "absence") return `no ${name}`;
   if (state.summary) return `${name} ${state.summary.replace(/([a-z0-9])([A-Z])/g, "$1 $2").toLowerCase()}`;
   return null;
 }
@@ -176,9 +176,15 @@ function sideLine(
     }
   }
   if (!bits.length && !jointParts.length) return null;
+  const statusOnly = bits.length > 0 && bits.every((b) => b === "normal" || b === "not examined") && !jointParts.length;
+  const header = !bits.length
+    ? `${headerHead}:`
+    : statusOnly
+      ? `${headerHead} ${bits.join(", ")}`
+      : `${headerHead}: ${bits.join(", ")}`;
   return {
-    header: bits.length ? `${headerHead}: ${bits.join(", ")}` : `${headerHead}:`,
-    joint: jointParts.length && jointLabel ? ` ${jointLabel}: ${jointParts.join("; ")}` : null,
+    header,
+    joint: jointParts.length && jointLabel ? `  ${jointLabel}: ${jointParts.join("; ")}` : null,
   };
 }
 

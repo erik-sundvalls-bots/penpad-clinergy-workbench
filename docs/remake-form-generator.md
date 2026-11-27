@@ -41,7 +41,9 @@ The remake renderer is an original-equivalent implementation of the algorithm do
 
 `sentences.json` supplies the full extracted rule tables and a compact cut of concepts and locative links so generated-topic sentences are no longer limited to the trimmed thumb-demo extract. The extractor marks the lexicon scan as heuristic; missing lexicon entries still fall back as documented.
 
-The extract does not store a large corpus of saved clinical sentences. The match set is the published walkthrough lines plus the extractor's thumb-pain findings fixture (ten cases, a superset of the five walkthrough sentences already in `data/expectations.yaml`). Uncertain or ungrounded rules are not invented.
+The extract does not store a large corpus of saved clinical sentences. The match set is the published walkthrough lines plus the extractor's thumb-pain findings fixture (ten cases, a superset of the five walkthrough sentences already in `data/expectations.yaml`), plus a sanitized fixture of 636 expected sentence strings (`tests/fixtures/remake-sentence-match/oracle-engine.json`). Those strings were produced from the original engine's text-generation API (NatLanguageForConcept) and contain only English sentences plus catalogue concept ids — no original binaries, images, or engine source.
+
+That comparison also settled wording the walkthrough left open: PresentPossibleExcluded does not say "present" (it uses "? topic" and "topic excluded"); AbsentPresent absence is "No …"; a topic's unique locative site is omitted unless laterality or a sub-location forces the prepositional head; exam status is "Left thumb normal" without a colon, while findings use "Left thumb: tenderness present" or "Left thumb: no tenderness"; movement pain absence is "painless". The lone "normal" chip on a form is the overall Examination status (it has no "not examined" value); per-site rows have both. Signs1 / S / S+ suffixes were not visible in the runtime form tree, so their meaning is still open.
 
 ## Coverage labels
 
