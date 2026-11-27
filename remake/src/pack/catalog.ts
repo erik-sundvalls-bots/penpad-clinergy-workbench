@@ -7,10 +7,11 @@ export interface BuiltinPackInfo {
   isDefault: boolean;
 }
 
-export const DEFAULT_BUILTIN_KEY = "builtin:cc0-clinical-vector";
+export const DEFAULT_BUILTIN_KEY = "builtin:cc0-davinci-2x";
 
 export const BUILTIN_CATALOG: BuiltinPackInfo[] = [
-  { key: DEFAULT_BUILTIN_KEY, dir: "remake/packs/cc0-clinical-vector", isDefault: true },
+  { key: DEFAULT_BUILTIN_KEY, dir: "remake/packs/cc0-davinci-2x", isDefault: true },
+  { key: "builtin:cc0-clinical-vector", dir: "remake/packs/cc0-clinical-vector", isDefault: false },
   { key: "builtin:cc0-placeholders", dir: "remake/packs/cc0-placeholders", isDefault: false },
 ];
 

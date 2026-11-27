@@ -31,7 +31,14 @@ function walkDir(root, out) {
   if (!existsSync(root)) return;
   for (const name of readdirSync(root)) {
     const p = join(root, name);
-    if (statSync(p).isDirectory()) walkDir(p, out);
+    let st;
+    try {
+      st = statSync(p);
+    } catch {
+      // Skip broken symlinks (e.g. a local remake/local-originals/ pointer).
+      continue;
+    }
+    if (st.isDirectory()) walkDir(p, out);
     else out.push(p);
   }
 }

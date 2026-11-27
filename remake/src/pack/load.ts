@@ -223,8 +223,10 @@ export interface StartupPack {
  * Resolve the pack to use at startup.
  * `?images=local` tries remake/local-originals/pack.yaml (dev).
  * `?images=placeholders` / `cc0` forces the outline placeholder pack.
+ * `?images=clinical` forces the CC0 clinical vector pack.
+ * `?images=davinci` / `leonardo` forces the Leonardo-style folio pack.
  * `?pack=<url>` downloads a pack zip (http/https) and stores it in IndexedDB.
- * Otherwise the last active pack in IndexedDB wins, else the built-in clinical pack.
+ * Otherwise the last active pack in IndexedDB wins; a fresh profile uses the default built-in pack.
  */
 export async function resolveStartupPack(win: Window = window, base?: string): Promise<StartupPack> {
   const url = new URL(win.location.href);
@@ -242,6 +244,9 @@ export async function resolveStartupPack(win: Window = window, base?: string): P
     return { pack: await loadBuiltinPack(base, "builtin:cc0-placeholders"), error: null, localFallback: false };
   }
   if (images === "clinical" || images === "clinical-vector") {
+    return { pack: await loadBuiltinPack(base, "builtin:cc0-clinical-vector"), error: null, localFallback: false };
+  }
+  if (images === "davinci" || images === "da-vinci" || images === "leonardo") {
     return { pack: await loadBuiltinPack(base, DEFAULT_BUILTIN_KEY), error: null, localFallback: false };
   }
   if (packParam) {

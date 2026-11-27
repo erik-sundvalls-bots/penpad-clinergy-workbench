@@ -22,7 +22,7 @@ import {
   type ActivePack,
 } from "./pack/load.ts";
 import { formatPackError } from "./pack/errors.ts";
-import type { PackListItem } from "./pack/catalog.ts";
+import { DEFAULT_BUILTIN_KEY, type PackListItem } from "./pack/catalog.ts";
 import { PATIENTS, ageInYears, patientById, type Patient } from "./patients.ts";
 import {
   emptyStore,
@@ -719,7 +719,7 @@ function packWindowView(): HTMLElement {
       }
     })();
   });
-  const onDefault = state.pack.key === "builtin:cc0-clinical-vector" || (state.pack.origin === "builtin" && state.pack.config.id === "cc0-clinical-vector");
+  const onDefault = state.pack.key === DEFAULT_BUILTIN_KEY;
   revert.disabled = onDefault || state.packBusy;
   actions.append(
     revert,
@@ -1366,7 +1366,7 @@ function aboutView(): HTMLElement {
     el(
       "p",
       {},
-      "Artwork in the public build comes from a built-in CC0 clinical vector image pack (new original drawings, dedicated to the public domain, not copied or traced from the 1998 bitmaps). A simpler CC0 outline pack is also shipped and can be chosen in the Image pack window. You can upload further pack zips; they stay in this browser’s IndexedDB until you remove them. A pack produced locally from the 1998 demo (via the extractor’s --image-pack option) must never be committed or published. Developers can also load an unpacked pack from remake/local-originals/ with ?images=local, or pass ?pack= with the URL of a pack zip.",
+      "Artwork in the public build defaults to a built-in CC0 Leonardo-style anatomical folio pack (made with Google Antigravity; newly created, dedicated to the public domain, not copied or traced from the 1998 bitmaps). A CC0 clinical vector pack and a simpler CC0 outline pack are also shipped and can be chosen in the Image pack window. You can upload further pack zips; they stay in this browser’s IndexedDB until you remove them. A pack produced locally from the 1998 demo (via the extractor’s --image-pack option) must never be committed or published. Developers can also load an unpacked pack from remake/local-originals/ with ?images=local, or pass ?pack= with the URL of a pack zip.",
     ),
   );
   panel.append(
