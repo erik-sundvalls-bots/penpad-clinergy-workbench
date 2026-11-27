@@ -1,7 +1,9 @@
 import {
   conceptDisplay,
+  examOf,
   formOf,
   selectorTitles,
+  summaryOptions,
   topicDisplay,
   topicsForSelector,
   type SelectorKind,
@@ -35,26 +37,35 @@ import {
 } from "./storage.ts";
 import {
   DURATION_UNITS,
+  emptyExamSideState,
   emptyFormState,
   featureLabel,
   findingsFromForm,
+  getExamSide,
   hasMoreLayer,
+  isExamSideDirty,
   lateralityPhrase,
   linkLabel,
   rowKey,
   rowsOf,
+  setExamSide,
+  setExamSign,
+  setExamStatus,
   setFeatureValue,
+  setFormSummary,
   setLinkSummary,
   setQuantity,
   setSubLocation,
   toggleLaterality,
   valueKey,
   valueLabel,
+  type ExamSideKey,
+  type ExamSideState,
   type FormState,
   type LateralityChoice,
 } from "./form/engine.ts";
 import { isQuantityRow } from "./form/generate.ts";
-import { loadGeneratedForms } from "./form/catalog.ts";
+import { loadGeneratedCatalogs } from "./form/catalog.ts";
 import {
   acceptTopPopup,
   cancelTopPopup,
@@ -68,8 +79,10 @@ import {
   type PopupParent,
 } from "./form/popups.ts";
 import { renderSentence } from "./sentence/render.ts";
-import { sentenceKnowledge } from "./knowledge-data.ts";
-import type { RemakeForm, FormLink, FormRow } from "./knowledge-data.ts";
+import { getSentenceKnowledge, sentenceKnowledge } from "./knowledge-data.ts";
+import type { RemakeForm, FormExam, FormLink, FormRow } from "./knowledge-data.ts";
+import { examSidesFor, onExamination, sideLabel } from "./exam/prose.ts";
+import type { ExamDefinition } from "./form/exams.ts";
 
 
 interface Hover {
@@ -89,6 +102,14 @@ interface Confirm {
   onYes: () => void;
 }
 
+interface ExamPopup {
+  exam: string;
+  side: ExamSideKey;
+  entry: FormExam;
+  sideState: ExamSideState;
+  openedState: ExamSideState;
+}
+
 interface AppState {
   store: RemakeStore;
   /** Data-entry window (topic selector + form tabs) open over the host. */
@@ -105,6 +126,7 @@ interface AppState {
   form: RemakeForm | null;
   formState: FormState | null;
   popups: FormPopup[];
+  examPopup: ExamPopup | null;
   menu: { x: number; y: number; items: MenuItem[] } | null;
   confirm: Confirm | null;
   pack: ActivePack;
@@ -140,7 +162,7 @@ export async function mountAsync(el: HTMLElement): Promise<void> {
     // Load the form catalogue in parallel with the image pack so the 3.9 MiB
     // (≈215 KiB gzipped) JSON does not add a serial wait after the pack.
     const packResult = resolveStartupPack();
-    const formsResult = loadGeneratedForms();
+    const formsResult = loadGeneratedCatalogs();
     started = await packResult;
     await formsResult;
   } catch (err) {
@@ -164,6 +186,7 @@ export async function mountAsync(el: HTMLElement): Promise<void> {
     form: null,
     formState: null,
     popups: [],
+    examPopup: null,
     menu: null,
     confirm: null,
     pack,
@@ -211,19 +234,20 @@ function render(): void {
     className: "win-host",
     fill: hostView(),
     close: null,
-    inert: state.popups.length > 0 || state.packWindowOpen,
+    inert: state.popups.length > 0 || !!state.examPopup || state.packWindowOpen,
     menuItems: windowMenuItems(),
   });
   stage.append(host);
   if (state.gpOpen) stage.append(gpWindow());
   state.popups.forEach((popup, i) => stage.append(popupWindow(popup, i)));
+  if (state.examPopup) stage.append(examPopupWindow(state.examPopup));
   if (state.aboutOpen) {
     stage.append(windowFrame({
       title: "About / credits",
       className: "win-about",
       fill: aboutView(),
       close: () => { state.aboutOpen = false; render(); },
-      inert: state.popups.length > 0 || state.packWindowOpen,
+      inert: state.popups.length > 0 || !!state.examPopup || state.packWindowOpen,
     }));
   }
   if (state.packWindowOpen) {
@@ -232,7 +256,7 @@ function render(): void {
       className: "win-pack",
       fill: packWindowView(),
       close: () => { state.packWindowOpen = false; render(); },
-      inert: state.popups.length > 0,
+      inert: state.popups.length > 0 || !!state.examPopup,
       z: 6,
     });
     packWin.setAttribute("role", "dialog");
@@ -342,7 +366,7 @@ function gpWindow(): HTMLElement {
     className: "win-gp",
     fill,
     close: () => closeGpWindow(),
-    inert: state.popups.length > 0 || state.packWindowOpen,
+    inert: state.popups.length > 0 || !!state.examPopup || state.packWindowOpen,
     z: 3,
     menuItems: windowMenuItems(),
   });
@@ -354,6 +378,7 @@ function closeGpWindow(): void {
   state.form = null;
   state.formState = null;
   state.popups = [];
+  state.examPopup = null;
   render();
 }
 
@@ -532,7 +557,7 @@ function hostView(): HTMLElement {
           state.gpTab = "topics";
           state.form = null;
           state.formState = null;
-          state.popups = [];
+          state.popups = []; state.examPopup = null;
         },
       };
       render();
@@ -1102,7 +1127,7 @@ function openSelectedForm(): void {
   state.formState = emptyFormState(form, {
     location: state.location ?? form.location,
   });
-  state.popups = [];
+  state.popups = []; state.examPopup = null;
   state.gpOpen = true;
   state.gpTab = "form";
   render();
@@ -1139,6 +1164,245 @@ function formView(): HTMLElement {
   return panel;
 }
 
+
+function statusLabel(value: string): string {
+  if (value === "presence") return "present";
+  if (value === "absence") return "absent";
+  if (value === "notExamined") return "not examined";
+  if (value === "yesPMH") return "yes";
+  if (value === "noPMH") return "no";
+  return valueLabel(value);
+}
+
+/** Walkthrough wording for pain-on-movement chips (absence / mild / moderate / severe). */
+function examValueLabel(row: FormRow, raw: unknown): string {
+  const key = valueKey(raw);
+  if (row.criterialLink === "ConseqPainOnMovement") {
+    if (key === "absence") return "not painful";
+    if (key === "mild") return "mildly painful";
+    if (key === "moderate") return "moderately painful";
+    if (key === "severe") return "severely painful";
+  }
+  return valueLabel(raw);
+}
+
+function summaryValues(summaryType: string | null | undefined): string[] {
+  const options = summaryOptions(summaryType);
+  if (options.length) return options.map((o) => o.value);
+  return ["normal", "notExamined"];
+}
+
+function examTitle(definition: ExamDefinition | null, entry: FormExam, side: ExamSideKey): string {
+  const place = definition?.display || entry.exam.replace(/Exam$/, "").replace(/([a-z0-9])([A-Z])/g, "$1 $2").toLowerCase();
+  const label = sideLabel(side);
+  const head = label ? `${label} ${place}` : place;
+  return `${head[0].toUpperCase()}${head.slice(1)} examination`;
+}
+
+function examSection(form: RemakeForm, fs: FormState, commit: (next: FormState) => void): HTMLElement {
+  const sec = el("section", { class: "section" });
+  sec.append(el("h3", {}, "Examinations"));
+  for (const entry of form.examinations) {
+    const definition = examOf(entry.exam);
+    if (!definition) {
+      const row = el("div", { class: "link-row exam-row" });
+      row.append(el("span", { class: "lab" }, entry.exam.replace(/([a-z0-9])([A-Z])/g, "$1 $2")));
+      row.append(el("span", { class: "note" }, "Examination definition not loaded."));
+      sec.append(row);
+      continue;
+    }
+    const baseType = formOf(definition.baseSign ?? "")?.summaryType ?? "NormalNotEx";
+    const values = summaryValues(baseType);
+    for (const side of examSidesFor(entry, definition)) {
+      const current = getExamSide(fs, entry.exam, side);
+      const row = el("div", { class: "link-row exam-row" });
+      const place = definition.display;
+      const label = sideLabel(side);
+      row.append(el("span", { class: "lab" }, label ? `${label} ${place}` : place));
+      for (const value of values) {
+        const b = btn(statusLabel(value), () => {
+          commit(setExamStatus(fs, entry.exam, side, current.status === value ? undefined : value));
+        });
+        if (current.status === value) b.classList.add("on");
+        row.append(b);
+      }
+      const more = btn("more…", () => openExamPopup(entry, side));
+      if (isExamSideDirty({ ...current, status: undefined })) more.classList.add("on");
+      row.append(more);
+      sec.append(row);
+    }
+  }
+  return sec;
+}
+
+function openExamPopup(entry: FormExam, side: ExamSideKey): void {
+  if (!state.formState) return;
+  const current = getExamSide(state.formState, entry.exam, side);
+  const sideState = structuredClone(current.signs ? current : emptyExamSideState());
+  if (!sideState.signs) sideState.signs = {};
+  state.examPopup = {
+    exam: entry.exam,
+    side,
+    entry,
+    sideState: structuredClone(sideState),
+    openedState: structuredClone(sideState),
+  };
+  render();
+}
+
+function commitExamPopup(next: ExamSideState): void {
+  if (!state.examPopup) return;
+  state.examPopup = { ...state.examPopup, sideState: next };
+  render();
+}
+
+function acceptExamPopup(): void {
+  if (!state.examPopup || !state.formState) return;
+  const popup = state.examPopup;
+  state.formState = setExamSide(state.formState, popup.exam, popup.side, popup.sideState);
+  state.examPopup = null;
+  render();
+}
+
+function cancelExamPopup(): void {
+  state.examPopup = null;
+  render();
+}
+
+function resetExamPopup(): void {
+  if (!state.examPopup) return;
+  state.examPopup = { ...state.examPopup, sideState: structuredClone(state.examPopup.openedState) };
+  render();
+}
+
+function examPopupAcceptEnabled(popup: ExamPopup): boolean {
+  return JSON.stringify(popup.sideState) !== JSON.stringify(popup.openedState);
+}
+
+function signStateFor(sideState: ExamSideState, sign: string, location: string | null): FormState {
+  const existing = sideState.signs[sign];
+  if (existing) return existing;
+  const form = formOf(sign);
+  if (form) return emptyFormState(form, { location: location ?? form.location });
+  return emptyFormState({
+    topic: sign,
+    display: sign,
+    summaryType: "AbsentPresent",
+    location,
+    firstLayer: [],
+    moreLayer: [],
+    associatedSymptomsAndSigns: [],
+    diagnoses: [],
+    examinations: [],
+  }, { location });
+}
+
+function examSignBlock(
+  sign: string,
+  sideState: ExamSideState,
+  location: string | null,
+  laterality: LateralityChoice[],
+): HTMLElement {
+  const form = formOf(sign);
+  const display = form?.display || sign.replace(/Sign$/, "").replace(/([a-z0-9])([A-Z])/g, "$1 $2").toLowerCase();
+  const wrap = el("div", { class: "exam-sign" });
+  wrap.append(el("div", { class: "name" }, display));
+  const fs = signStateFor(sideState, sign, location);
+  const commit = (next: FormState) => {
+    const popup = state.examPopup;
+    if (!popup) return;
+    const signs = { ...popup.sideState.signs, [sign]: next };
+    commitExamPopup({ ...popup.sideState, signs });
+  };
+  const type = form?.summaryType ?? "AbsentPresent";
+  const values = summaryValues(type).filter((v) => v !== "normal" || type === "Normal" || type === "NormalAbnormal" || type === "NormalNotEx");
+  // Presence-style signs get present/absent chips; NormalNotEx on a nested sign is unusual.
+  if (type !== "NormalNotEx" && values.length) {
+    const chips = el("div", { class: "chips" });
+    for (const value of values) {
+      const b = btn(statusLabel(value), () => {
+        commit(setFormSummary(fs, fs.summary === value ? undefined : value));
+      });
+      if (fs.summary === value) b.classList.add("on");
+      chips.append(b);
+    }
+    wrap.append(chips);
+  }
+  if (form) {
+    for (const row of rowsOf(form, true, fs)) {
+      wrap.append(featureRow(form, { ...fs, laterality }, row, commit));
+    }
+  }
+  return wrap;
+}
+
+function examPopupWindow(popup: ExamPopup): HTMLElement {
+  const definition = examOf(popup.exam);
+  const fill = el("div", { class: "exam-dialog" });
+  const baseType = formOf(definition?.baseSign ?? "")?.summaryType ?? "NormalNotEx";
+  const statusValues = summaryValues(baseType);
+  const statusRow = el("div", { class: "link-row" });
+  statusRow.append(el("span", { class: "lab" }, "Status"));
+  for (const value of statusValues) {
+    const b = btn(statusLabel(value), () => {
+      const next = { ...popup.sideState, signs: popup.sideState.signs, status: popup.sideState.status === value ? undefined : value };
+      if (!next.status) delete next.status;
+      commitExamPopup(next);
+    });
+    if (popup.sideState.status === value) b.classList.add("on");
+    statusRow.append(b);
+  }
+  fill.append(statusRow);
+  if (definition?.signs.length) {
+    const sec = el("section", { class: "section" });
+    sec.append(el("h3", {}, "Signs"));
+    for (const sign of definition.signs) {
+      sec.append(examSignBlock(sign, popup.sideState, definition.baseLocation, popup.side === "left" || popup.side === "right" ? [popup.side] : []));
+    }
+    fill.append(sec);
+  }
+  for (const subName of definition?.subExams ?? []) {
+    const sub = examOf(subName);
+    const sec = el("section", { class: "section" });
+    sec.append(el("h3", {}, sub?.display || subName.replace(/([a-z0-9])([A-Z])/g, "$1 $2")));
+    for (const sign of sub?.signs ?? []) {
+      sec.append(examSignBlock(sign, popup.sideState, sub?.baseLocation ?? definition?.baseLocation ?? null, popup.side === "left" || popup.side === "right" ? [popup.side] : []));
+    }
+    fill.append(sec);
+  }
+  const actions = el("div", { class: "actions" });
+  const accept = btn("Accept", () => acceptExamPopup(), "primary");
+  accept.disabled = !examPopupAcceptEnabled(popup);
+  actions.append(
+    accept,
+    btn("Reset", () => {
+      state.confirm = {
+        title: "Reset this window?",
+        message: "Clear the values in this examination window only. The parent form is left alone.",
+        yes: "Reset",
+        onYes: () => { resetExamPopup(); },
+      };
+      render();
+    }),
+    btn("Cancel", () => cancelExamPopup()),
+  );
+  fill.append(actions);
+  const win = windowFrame({
+    title: examTitle(definition, popup.entry, popup.side),
+    className: "win-popup win-exam",
+    fill,
+    close: () => cancelExamPopup(),
+    inert: false,
+    top: "96px",
+    left: "220px",
+    z: 12,
+  });
+  win.setAttribute("role", "dialog");
+  win.setAttribute("aria-modal", "true");
+  trapFocus(win);
+  return win;
+}
+
 function formFields(form: RemakeForm, fs: FormState, commit: (next: FormState) => void, from: PopupParent): HTMLElement {
   const col = el("div");
   const desc = el("section", { class: "section" });
@@ -1164,19 +1428,7 @@ function formFields(form: RemakeForm, fs: FormState, commit: (next: FormState) =
     col.append(linkSection("Other", "associated", form.otherLinks, fs, commit, from));
   }
   if (form.examinations?.length) {
-    const sec = el("section", { class: "section" });
-    sec.append(el("h3", {}, "Examinations"));
-    sec.append(
-      el(
-        "p",
-        { class: "note" },
-        "Examination entry (thumb exam, nested joint signs) is stubbed in this slice. The section is shown because the form lists it; a later slice should drive it from exams.yaml.",
-      ),
-    );
-    for (const ex of form.examinations) {
-      sec.append(el("div", { class: "link-row" }, ex.exam.replace(/([a-z0-9])([A-Z])/g, "$1 $2")));
-    }
-    col.append(sec);
+    col.append(examSection(form, fs, commit));
   }
 
   const com = el("section", { class: "section" });
@@ -1281,7 +1533,7 @@ function featureRow(form: RemakeForm, fs: FormState, row: FormRow, commit: (next
   const selected = new Set(fs.features[feature]?.values ?? []);
   for (const raw of values) {
     const value = valueKey(raw);
-    const b = btn(valueLabel(raw), () => {
+    const b = btn(examValueLabel(row, raw), () => {
       commit(setFeatureValue(fs, feature, value, multiple));
     });
     if (selected.has(value)) b.classList.add("on");
@@ -1291,7 +1543,7 @@ function featureRow(form: RemakeForm, fs: FormState, row: FormRow, commit: (next
   wrap.addEventListener("contextmenu", (ev) => {
     ev.preventDefault();
     const items: MenuItem[] = values.map((raw) => ({
-      label: valueLabel(raw),
+      label: examValueLabel(row, raw),
       action: () => { commit(setFeatureValue({ ...fs, features: { ...fs.features, [feature]: { values: [] } } }, feature, valueKey(raw), false)); },
     }));
     items.push({ label: "Clear", action: () => { commit(setFeatureValue({ ...fs, features: { ...fs.features, [feature]: { values: [fs.features[feature]?.values[0] ?? ""] } } }, feature, fs.features[feature]?.values[0] ?? "", false)); } });
@@ -1352,7 +1604,9 @@ function acceptForm(): void {
     return;
   }
   const findings = findingsFromForm(form, fs);
-  const sentences = findings.map((f) => renderSentence(f, sentenceKnowledge));
+  const sentences = findings.map((f) => renderSentence(f, getSentenceKnowledge()));
+  const examBlock = onExamination(form, fs);
+  if (examBlock) sentences.push(examBlock);
   if (fs.comment.trim()) sentences.push(fs.comment.trim());
   const rec = {
     id: newRecordId(),
@@ -1382,11 +1636,16 @@ function summaryPane(form: RemakeForm, fs: FormState): HTMLElement {
   const findings = findingsFromForm(form, fs);
   if (!findings.length) pane.append(el("p", { class: "empty" }, "Nothing entered yet."));
   for (const f of findings) {
-    pane.append(el("p", {}, renderSentence(f, sentenceKnowledge)));
+    pane.append(el("p", {}, renderSentence(f, getSentenceKnowledge())));
   }
   const sides = lateralityPhrase(fs.laterality);
   if (sides === "left-and-right") {
     pane.append(el("p", { class: "note" }, "Both sides are selected, so the remake writes one sentence per side (the generator has no “both” token)."));
+  }
+  const examBlock = onExamination(form, fs);
+  if (examBlock) {
+    const pre = el("pre", { class: "exam-prose" }, examBlock);
+    pane.append(pre);
   }
   return pane;
 }
@@ -1520,6 +1779,7 @@ function onKey(ev: KeyboardEvent): void {
   if (ev.key === "Escape") {
     if (state.menu) { state.menu = null; render(); ev.preventDefault(); return; }
     if (state.confirm) { state.confirm = null; render(); ev.preventDefault(); return; }
+    if (state.examPopup) { cancelExamPopup(); ev.preventDefault(); return; }
     if (state.popups.length) { state.popups = cancelTopPopup(state.popups); render(); ev.preventDefault(); return; }
     if (state.packWindowOpen) { state.packWindowOpen = false; render(); ev.preventDefault(); return; }
     if (state.aboutOpen) { state.aboutOpen = false; render(); ev.preventDefault(); return; }
@@ -1527,6 +1787,10 @@ function onKey(ev: KeyboardEvent): void {
     return;
   }
   if (ev.key === "Enter" && !typing && !state.menu && !state.confirm) {
+    if (state.examPopup) {
+      if (examPopupAcceptEnabled(state.examPopup)) { acceptExamPopup(); ev.preventDefault(); }
+      return;
+    }
     if (state.popups.length) {
       const top = state.popups[state.popups.length - 1];
       if (popupAcceptEnabled(top)) { acceptPopup(); ev.preventDefault(); }

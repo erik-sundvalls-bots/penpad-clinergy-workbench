@@ -1,0 +1,156 @@
+{
+  "exams": {
+    "DemoMovementExam": {
+      "baseLocation": "DemoJoint",
+      "baseSign": "DemoJointSign",
+      "display": "demo joint",
+      "group": "sub",
+      "lateral": true,
+      "level": 3,
+      "name": "DemoMovementExam",
+      "signs": [
+        "DemoFlexionSign"
+      ],
+      "signs1Raw": [
+        "DemoFlexionSign S+"
+      ],
+      "subExams": [],
+      "super": "DemoRegionExam"
+    },
+    "DemoRegionExam": {
+      "baseLocation": "DemoRegion",
+      "baseSign": "DemoRegionBaseSign",
+      "display": "demo region",
+      "group": "location",
+      "lateral": true,
+      "level": 2,
+      "name": "DemoRegionExam",
+      "signs": [
+        "DemoTendernessSign"
+      ],
+      "subExams": [
+        "DemoMovementExam"
+      ],
+      "super": null
+    }
+  },
+  "schema": "penpad-remake-exams/v1",
+  "signs": {
+    "DemoFlexionSign": {
+      "associatedSymptomsAndSigns": [],
+      "category": "Incomplete sign",
+      "diagnoses": [],
+      "display": "flexion",
+      "examinations": [],
+      "firstLayer": [
+        {
+          "feature": "RelativeRangeJointArticulation",
+          "values": [
+            "fullRange",
+            "reducedRange",
+            "limitedRange",
+            "fixedRange"
+          ]
+        },
+        {
+          "criterialLink": "ConseqPainOnMovement",
+          "values": [
+            {
+              "attribute": "hasClinicalAbsence",
+              "value": "absence"
+            },
+            {
+              "attribute": "AbsoluteSeverity",
+              "value": "mild"
+            },
+            {
+              "attribute": "AbsoluteSeverity",
+              "value": "moderate"
+            },
+            {
+              "attribute": "AbsoluteSeverity",
+              "value": "severe"
+            }
+          ]
+        }
+      ],
+      "location": null,
+      "moreLayer": [],
+      "summaryType": "Normal",
+      "topic": "DemoFlexionSign"
+    },
+    "DemoJointSign": {
+      "associatedSymptomsAndSigns": [],
+      "category": "Complete sign",
+      "diagnoses": [],
+      "display": "demo joint",
+      "examinations": [],
+      "firstLayer": [],
+      "location": null,
+      "moreLayer": [],
+      "summaryType": "NormalNotEx",
+      "topic": "DemoJointSign"
+    },
+    "DemoRegionBaseSign": {
+      "associatedSymptomsAndSigns": [],
+      "category": "Complete sign",
+      "diagnoses": [],
+      "display": "demo region",
+      "examinations": [],
+      "firstLayer": [],
+      "location": null,
+      "moreLayer": [],
+      "summaryType": "NormalNotEx",
+      "topic": "DemoRegionBaseSign"
+    },
+    "DemoTendernessSign": {
+      "associatedSymptomsAndSigns": [],
+      "category": "Incomplete sign",
+      "diagnoses": [],
+      "display": "tenderness",
+      "examinations": [],
+      "firstLayer": [
+        {
+          "feature": "AbsoluteSeverity",
+          "values": [
+            "mild",
+            "moderate",
+            "severe"
+          ]
+        }
+      ],
+      "location": null,
+      "moreLayer": [],
+      "summaryType": "AbsentPresent",
+      "topic": "DemoTendernessSign"
+    }
+  },
+  "summaryTypes": {
+    "AbsentPresent": [
+      {
+        "attribute": "hasClinicalAbsence",
+        "value": "absence"
+      },
+      {
+        "attribute": "hasClinicalAbsence",
+        "value": "presence"
+      }
+    ],
+    "Normal": [
+      {
+        "attribute": "hasAbnormalityStatus",
+        "value": "normal"
+      }
+    ],
+    "NormalNotEx": [
+      {
+        "attribute": "hasAbnormalityStatus",
+        "value": "normal"
+      },
+      {
+        "attribute": "hasAbnormalityStatus",
+        "value": "notExamined"
+      }
+    ]
+  }
+}

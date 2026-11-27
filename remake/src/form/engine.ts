@@ -1,6 +1,6 @@
 import type { Finding, Qualifier } from "../sentence/types.ts";
 import type { FormLink, FormRow, RemakeForm } from "../knowledge-data.ts";
-import { formOf, topicDisplay } from "../knowledge-data.ts";
+import { examOf, formOf, topicDisplay } from "../knowledge-data.ts";
 
 export const DURATION_UNITS = ["second", "minute", "hour", "day", "week", "month", "year"] as const;
 
@@ -26,6 +26,17 @@ export interface LinkSelection {
   form?: FormState;
 }
 
+export type ExamSideKey = "left" | "right" | "all";
+
+export interface ExamSideState {
+  status?: string;
+  signs: Record<string, FormState>;
+}
+
+export interface ExamSelection {
+  sides: Partial<Record<ExamSideKey, ExamSideState>>;
+}
+
 export interface FormState {
   topic: string;
   location: string | null;
@@ -34,6 +45,9 @@ export interface FormState {
   features: Record<string, FeatureSelection>;
   associated: Record<string, LinkSelection>;
   diagnoses: Record<string, LinkSelection>;
+  /** Present/absent-style value on a sign or topic, e.g. "presence". */
+  summary?: string;
+  exams: Record<string, ExamSelection>;
   comment: string;
   moreOpen: boolean;
 }
@@ -73,9 +87,57 @@ export function emptyFormState(form: RemakeForm, extras?: Partial<FormState>): F
     features,
     associated: {},
     diagnoses: {},
+    summary: extras?.summary,
+    exams: extras?.exams ?? {},
     comment: "",
     moreOpen: false,
   };
+}
+
+export function emptyExamSideState(): ExamSideState {
+  return { signs: {} };
+}
+
+export function getExamSide(state: FormState, exam: string, side: ExamSideKey): ExamSideState {
+  return state.exams?.[exam]?.sides?.[side] ?? emptyExamSideState();
+}
+
+export function setExamSide(state: FormState, exam: string, side: ExamSideKey, next: ExamSideState): FormState {
+  return {
+    ...state,
+    exams: {
+      ...state.exams,
+      [exam]: {
+        sides: {
+          ...(state.exams?.[exam]?.sides ?? {}),
+          [side]: next,
+        },
+      },
+    },
+  };
+}
+
+export function setExamStatus(state: FormState, exam: string, side: ExamSideKey, status: string | undefined): FormState {
+  const current = getExamSide(state, exam, side);
+  const next: ExamSideState = { ...current, status, signs: current.signs };
+  if (!status) delete next.status;
+  return setExamSide(state, exam, side, next);
+}
+
+export function setExamSign(state: FormState, exam: string, side: ExamSideKey, sign: string, signState: FormState): FormState {
+  const current = getExamSide(state, exam, side);
+  return setExamSide(state, exam, side, { ...current, signs: { ...current.signs, [sign]: signState } });
+}
+
+export function setFormSummary(state: FormState, summary: string | undefined): FormState {
+  const next = { ...state, summary };
+  if (!summary) delete next.summary;
+  return next;
+}
+
+export function isExamSideDirty(side: ExamSideState | undefined): boolean {
+  if (!side) return false;
+  return !!side.status || Object.values(side.signs).some((s) => isFormDirty(s));
 }
 
 export function rowKey(row: FormRow): string {
@@ -202,7 +264,7 @@ function qualifiersFromFeatures(form: RemakeForm, state: FormState): Qualifier[]
 }
 
 /** Findings produced by a filled-in form, including accepted associated/diagnosis links. */
-export function findingsFromForm(form: RemakeForm, state: FormState): Finding[] {
+export function findingsFromForm(form: RemakeForm, state: FormState, opts?: { includeExams?: boolean }): Finding[] {
   const findings: Finding[] = [];
   const sides = lateralityPhrase(state.laterality);
   const base: Finding = {
@@ -211,6 +273,7 @@ export function findingsFromForm(form: RemakeForm, state: FormState): Finding[] 
     laterality: sides === "left" || sides === "right" ? sides : undefined,
     subLocation: state.subLocation,
     qualifiers: qualifiersFromFeatures(form, state),
+    summary: state.summary,
   };
   // When both sides are selected, emit two laterality-specific sentences (the
   // original multiple:true laterality row). Not a "both" token in the generator.
@@ -228,7 +291,7 @@ export function findingsFromForm(form: RemakeForm, state: FormState): Finding[] 
       if (sel.form) {
         const nestedForm = formOf(sel.form.topic);
         if (nestedForm) {
-          const nested = findingsFromForm(nestedForm, sel.form);
+          const nested = findingsFromForm(nestedForm, sel.form, { includeExams: false });
           if (sel.summary) {
             for (const f of nested) {
               if (!f.summary) f.summary = sel.summary;
@@ -254,16 +317,72 @@ export function findingsFromForm(form: RemakeForm, state: FormState): Finding[] 
   };
   addLinks(form.associatedSymptomsAndSigns ?? [], state.associated);
   addLinks(form.diagnoses ?? [], state.diagnoses);
+  if (opts?.includeExams !== false) {
+    findings.push(...findingsFromExams(form, state));
+  }
   return findings;
+}
+
+function findingsFromExams(form: RemakeForm, state: FormState): Finding[] {
+  const out: Finding[] = [];
+  for (const entry of form.examinations ?? []) {
+    const sel = state.exams?.[entry.exam];
+    if (!sel) continue;
+    const definition = examOf(entry.exam);
+    const examLocation = definition?.baseLocation || state.location || undefined;
+    for (const [side, sideState] of Object.entries(sel.sides ?? {}) as Array<[ExamSideKey, ExamSideState]>) {
+      if (!isExamSideDirty(sideState)) continue;
+      const laterality: Finding["laterality"] = side === "left" || side === "right" ? side : lateralityOf(state.laterality);
+      if (sideState.status) {
+        out.push({
+          topic: definition?.baseSign || entry.exam,
+          location: examLocation,
+          laterality,
+          qualifiers: [],
+          summary: sideState.status,
+        });
+      }
+      for (const [sign, signState] of Object.entries(sideState.signs ?? {})) {
+        if (!isFormDirty(signState)) continue;
+        const signForm = formOf(sign);
+        if (!signForm) {
+          out.push({
+            topic: sign,
+            location: signState.location ?? examLocation,
+            laterality,
+            subLocation: signState.subLocation,
+            qualifiers: [],
+            summary: signState.summary,
+          });
+          continue;
+        }
+        const localized: FormState = {
+          ...signState,
+          location: signState.location ?? examLocation ?? state.location,
+          laterality: laterality ? [laterality] : signState.laterality,
+        };
+        const nested = findingsFromForm(signForm, localized, { includeExams: false });
+        for (const f of nested) {
+          if (!f.laterality && laterality) f.laterality = laterality;
+          if (!f.location && localized.location) f.location = localized.location;
+          if (!f.summary && signState.summary) f.summary = signState.summary;
+        }
+        out.push(...nested);
+      }
+    }
+  }
+  return out;
 }
 
 export function isFormDirty(state: FormState): boolean {
   return (
     state.laterality.length > 0 ||
+    !!state.summary ||
     state.comment.trim().length > 0 ||
     Object.values(state.features).some((f) => f.values.length > 0 || (f.number ?? 0) > 0) ||
     Object.keys(state.associated).length > 0 ||
-    Object.keys(state.diagnoses).length > 0
+    Object.keys(state.diagnoses).length > 0 ||
+    Object.values(state.exams ?? {}).some((ex) => Object.values(ex.sides).some((s) => isExamSideDirty(s)))
   );
 }
 

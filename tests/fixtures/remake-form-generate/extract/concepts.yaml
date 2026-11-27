@@ -1,0 +1,58 @@
+DemoRegion:
+  display: demo region
+  category: location
+  summaryType: No Summary
+DemoJoint:
+  display: demo joint
+  category: location
+  summaryType: No Summary
+DemoRegionBaseSign:
+  display: demo region
+  category: Complete sign
+  summaryType: NormalNotEx
+  form: forms/sign/DemoRegionBaseSign.yaml
+  visibleFeatures: []
+DemoJointSign:
+  display: demo joint
+  category: Complete sign
+  summaryType: NormalNotEx
+  visibleFeatures: []
+DemoTendernessSign:
+  display: tenderness
+  category: Incomplete sign
+  summaryType: AbsentPresent
+  form:
+  visibleFeatures:
+    - feature: AbsoluteSeverity
+      values: [mild, moderate, severe]
+      layer: first
+DemoFlexionSign:
+  display: flexion
+  category: Incomplete sign
+  summaryType: Normal
+  visibleFeatures:
+    - feature: RelativeRangeJointArticulation
+      values: [fullRange, reducedRange, limitedRange, fixedRange]
+      layer: first
+  criterialLinkSummaries:
+    - criterialLink: ConseqPainOnMovement
+      values:
+        - { attribute: hasClinicalAbsence, value: absence }
+        - { attribute: AbsoluteSeverity, value: mild }
+        - { attribute: AbsoluteSeverity, value: moderate }
+        - { attribute: AbsoluteSeverity, value: severe }
+      layer: first
+DemoAlphaSymptom:
+  display: demo alpha symptom
+  category: symptom
+  summaryType: AbsentPresent
+presence:
+  display: present
+absence:
+  display: absent
+normal:
+  display: normal
+notExamined:
+  display: not examined
+mild:
+  display: mild

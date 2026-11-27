@@ -10,6 +10,8 @@ import conceptsRaw from "../../data/concepts.yaml?raw";
 import linksRaw from "../../data/concept-links.yaml?raw";
 import { knowledgeFromExtract } from "./sentence/knowledge.ts";
 import type { SentenceKnowledge } from "./sentence/types.ts";
+import type { ExamDefinition, GeneratedExamsCatalog } from "./form/exams.ts";
+import { sentenceKnowledgeFromGenerated, type GeneratedSentenceKnowledge } from "./sentence/generate.ts";
 
 export interface MapSublocation {
   label: string | null;
@@ -105,11 +107,33 @@ export interface TopicInfo {
 }
 
 export const bodyMap = bodymap as unknown as BodyMapData;
-export const sentenceKnowledge: SentenceKnowledge = knowledgeFromExtract(
+const fallbackSentenceKnowledge: SentenceKnowledge = knowledgeFromExtract(
   parse(rulesRaw),
   parse(conceptsRaw),
   parse(linksRaw),
 );
+
+let sentenceKnowledgeState: SentenceKnowledge = fallbackSentenceKnowledge;
+
+/** Live binding used by the remake; replaced when the generated catalogue loads. */
+export let sentenceKnowledge: SentenceKnowledge = sentenceKnowledgeState;
+
+export function getSentenceKnowledge(): SentenceKnowledge {
+  return sentenceKnowledgeState;
+}
+
+export function setSentenceKnowledge(next: SentenceKnowledge | null): void {
+  sentenceKnowledgeState = next ?? fallbackSentenceKnowledge;
+  sentenceKnowledge = sentenceKnowledgeState;
+}
+
+export function applyGeneratedSentenceKnowledge(doc: GeneratedSentenceKnowledge | null): void {
+  if (!doc) {
+    setSentenceKnowledge(null);
+    return;
+  }
+  setSentenceKnowledge(sentenceKnowledgeFromGenerated(doc));
+}
 
 export const topics: Record<string, TopicInfo> = (topicsIndex as { topics: Record<string, TopicInfo> }).topics;
 export const locationTopicIndex = locationTopics as Record<string, { tsLinks: string[]; exams: string[]; systemLinks: string[] }>;
@@ -122,13 +146,31 @@ export const imageManifest = manifest as {
 
 /** Every remake form comes from the generated catalogue (loaded at startup). Hand-built YAML in data/ is for the separate thumb-pain demo only. */
 let generatedForms: Record<string, RemakeForm> = {};
+let generatedSignForms: Record<string, RemakeForm> = {};
+let generatedExams: Record<string, ExamDefinition> = {};
+let generatedSummaryTypes: GeneratedExamsCatalog["summaryTypes"] = {};
 
 export function setGeneratedForms(forms: Record<string, RemakeForm> | null): void {
   generatedForms = forms ?? {};
 }
 
+export function setGeneratedExams(catalog: GeneratedExamsCatalog | null): void {
+  generatedExams = catalog?.exams ?? {};
+  generatedSignForms = catalog?.signs ?? {};
+  generatedSummaryTypes = catalog?.summaryTypes ?? {};
+}
+
+export function examOf(name: string): ExamDefinition | null {
+  return generatedExams[name] ?? null;
+}
+
+export function summaryOptions(summaryType: string | null | undefined): Array<{ attribute: string; value: string }> {
+  if (!summaryType) return [];
+  return generatedSummaryTypes[summaryType] ?? [];
+}
+
 export function formOf(topic: string): RemakeForm | null {
-  return generatedForms[topic] ?? null;
+  return generatedForms[topic] ?? generatedSignForms[topic] ?? null;
 }
 
 export function topicDisplay(topic: string): string {

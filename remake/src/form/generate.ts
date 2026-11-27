@@ -54,6 +54,10 @@ const EXAM_KEYS = ["exam", "perSide", "signs", "subExams"] as const;
 export interface ExtractInput {
   /** Parsed form documents, keyed by topic (or by a unique fallback id). */
   forms: Record<string, unknown>;
+  exams?: Record<string, unknown>;
+  concepts?: Record<string, unknown>;
+  sentenceRules?: unknown;
+  conceptLinks?: Record<string, unknown>;
 }
 
 export interface GeneratedCatalog {
@@ -230,12 +234,11 @@ export function isQuantityRow(row: FormRow): boolean {
 }
 
 /**
- * Constructs the remake does not yet render fully. Examinations are listed on
- * the form but the entry UI is still a stub, so those forms count as partial.
+ * Constructs the remake does not yet render fully. Examinations are rendered
+ * when the exam catalogue can resolve every named exam; otherwise the form
+ * is partial with missing-exam-definition.
  */
-const STUBBED_CONSTRUCTS = new Set(["examinations"]);
-
-export function assessFormCoverage(form: RemakeForm): FormCoverage {
+export function assessFormCoverage(form: RemakeForm, examNames?: Set<string> | ReadonlySet<string>): FormCoverage {
   const unsupported: string[] = [];
   const rows = [...(form.firstLayer ?? []), ...(form.moreLayer ?? [])];
   for (const row of rows) {
@@ -244,7 +247,10 @@ export function assessFormCoverage(form: RemakeForm): FormCoverage {
       unsupported.push("feature-attribute-value");
     }
   }
-  if (form.examinations?.length) unsupported.push("examinations");
+  if (form.examinations?.length) {
+    const missing = form.examinations.filter((ex) => ex.exam && !examNames?.has(ex.exam));
+    if (missing.length) unsupported.push("missing-exam-definition");
+  }
   const unique = [...new Set(unsupported)];
   const empty =
     rows.length === 0 &&
@@ -253,24 +259,23 @@ export function assessFormCoverage(form: RemakeForm): FormCoverage {
     !(form.otherLinks?.length) &&
     !(form.examinations?.length);
   let level: RenderLevel = "full";
-  if (unique.some((c) => !STUBBED_CONSTRUCTS.has(c) && c !== "examinations")) {
-    // truly unknown field shapes
-    const blocking = unique.filter((c) => c !== "examinations");
-    level = blocking.length ? "partial" : form.examinations?.length ? "partial" : "full";
+  if (unique.length) {
+    level = "partial";
     // row-without-key and feature-attribute-value are partial, not none —
     // the rest of the form still renders.
-    if (blocking.length && rows.length === 0 && !form.associatedSymptomsAndSigns?.length) level = "none";
-  } else if (form.examinations?.length) {
-    level = "partial";
+    if (rows.length === 0 && !form.associatedSymptomsAndSigns?.length && !form.examinations?.length) level = "none";
   }
   // A form we could not identify would be "none"; formFromExtractDoc already dropped those.
   return { topic: form.topic, level, unsupported: unique, empty };
 }
 
-export function assessCoverage(forms: Record<string, RemakeForm>): CoverageReport {
+export function assessCoverage(
+  forms: Record<string, RemakeForm>,
+  examNames?: Set<string> | ReadonlySet<string>,
+): CoverageReport {
   const items = Object.keys(forms)
     .sort((a, b) => (a < b ? -1 : a > b ? 1 : 0))
-    .map((t) => assessFormCoverage(forms[t]!));
+    .map((t) => assessFormCoverage(forms[t]!, examNames));
   const constructs: Record<string, { count: number; examples: string[] }> = {};
   const bump = (name: string, topic: string) => {
     const slot = (constructs[name] ??= { count: 0, examples: [] });
@@ -320,7 +325,24 @@ export function loadExtractFromDir(root: string, io: DirReader, parseYaml: (text
         : base.replace(/\.ya?ml$/, "");
     forms[topic] = doc;
   }
-  return { forms };
+  const optionalYaml = (file: string): unknown | undefined => {
+    const path = joinPath(root, file);
+    if (!io.exists(path)) return undefined;
+    return parseYaml(io.read(path));
+  };
+  const examsDoc = optionalYaml("exams.yaml") ?? optionalYaml("exams.yml");
+  const conceptsDoc = optionalYaml("concepts.yaml") ?? optionalYaml("concepts.yml");
+  const rulesDoc = optionalYaml("sentence-rules.yaml") ?? optionalYaml("sentence-rules.yml");
+  const linksDoc = optionalYaml("concept-links.yaml") ?? optionalYaml("concept-links.yml");
+  const asMap = (doc: unknown): Record<string, unknown> | undefined =>
+    doc && typeof doc === "object" && !Array.isArray(doc) ? (doc as Record<string, unknown>) : undefined;
+  return {
+    forms,
+    exams: asMap(examsDoc),
+    concepts: asMap(conceptsDoc),
+    sentenceRules: rulesDoc,
+    conceptLinks: asMap(linksDoc),
+  };
 }
 
 function walkYaml(dir: string, io: DirReader): string[] {
