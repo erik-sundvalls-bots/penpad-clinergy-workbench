@@ -46,7 +46,13 @@ function walkDir(root: string, out: string[]): void {
   if (!existsSync(root)) return;
   for (const name of readdirSync(root)) {
     const p = join(root, name);
-    const st = statSync(p);
+    let st: ReturnType<typeof statSync>;
+    try {
+      st = statSync(p);
+    } catch {
+      // Skip broken symlinks (e.g. a local remake/local-originals/ pointer).
+      continue;
+    }
     if (st.isDirectory()) walkDir(p, out);
     else out.push(p);
   }

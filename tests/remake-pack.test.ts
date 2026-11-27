@@ -12,6 +12,7 @@ import type { ImagePack } from "../remake/src/pack/types.ts";
 
 const CLINICAL = join(import.meta.dirname, "../public/remake/packs/cc0-clinical-vector");
 const PLACEHOLDERS = join(import.meta.dirname, "../public/remake/packs/cc0-placeholders");
+const DAVINCI = join(import.meta.dirname, "../public/remake/packs/cc0-davinci-2x");
 const BUILTIN = CLINICAL;
 
 function walkFiles(dir: string, prefix = ""): string[] {
@@ -98,7 +99,7 @@ describe("image pack validation", () => {
   });
 });
 
-describe("built-in CC0 pack", () => {
+describe("built-in CC0 clinical vector pack", () => {
   it("validates pack.yaml against the files on disk", () => {
     const raw = parseYaml(readFileSync(join(BUILTIN, "pack.yaml"), "utf8"));
     const files = walkFiles(BUILTIN);
@@ -180,6 +181,9 @@ describe("repo relative path for docs", () => {
   it("keeps the format doc at docs/image-pack.md", () => {
     const doc = readFileSync(join(import.meta.dirname, "../docs/image-pack.md"), "utf8");
     expect(doc).toContain("penpad-image-pack/v1");
+    expect(relative(join(import.meta.dirname, ".."), DAVINCI).replace(/\\/g, "/")).toBe(
+      "public/remake/packs/cc0-davinci-2x",
+    );
     expect(relative(join(import.meta.dirname, ".."), CLINICAL).replace(/\\/g, "/")).toBe(
       "public/remake/packs/cc0-clinical-vector",
     );
@@ -189,6 +193,41 @@ describe("repo relative path for docs", () => {
   });
 });
 
+
+describe("built-in CC0 Leonardo-style folio pack (default)", () => {
+  it("validates pack.yaml against the files on disk", () => {
+    const raw = parseYaml(readFileSync(join(DAVINCI, "pack.yaml"), "utf8"));
+    const files = walkFiles(DAVINCI);
+    expect(validatePack(raw, files)).toEqual([]);
+    const pack = assertValidPack(raw, files);
+    expect(pack.id).toBe("cc0-davinci-2x");
+    expect(pack.license.spdx).toBe("CC0-1.0");
+    expect(pack.pixelRatio).toBe(2);
+    expect(Object.keys(pack.images)).toHaveLength(95);
+    expect(pack.attribution).toMatch(/Leonardo-style art made with Google Antigravity/i);
+    const text = [
+      readFileSync(join(DAVINCI, "pack.yaml"), "utf8"),
+      readFileSync(join(DAVINCI, "pack.json"), "utf8"),
+      readFileSync(join(DAVINCI, "ORIGINALITY.txt"), "utf8"),
+    ].join("\n");
+    expect(text).not.toMatch(/clinergy/i);
+  });
+
+  it("hit-tests inset-local sublocation boxes the same way as the remake", () => {
+    const pack = assertValidPack(parseYaml(readFileSync(join(DAVINCI, "pack.yaml"), "utf8")));
+    const data = bodyMapFromPack(pack);
+    const male = regionsOf(data, anatomyMapFor(data, "male"));
+    const hand = insetForConcept(male, "Hand", "B_fhnd");
+    expect(hand?.insetImageId).toBe("B_fhnd");
+    expect(hand?.insetRect).toEqual([7, 95, 96, 148]);
+    // A click on the front-hand inset's thumb hotspot (inset-local box, plus inset.rect).
+    const x = 7 + (7 + 37) / 2;
+    const y = 95 + (42 + 99) / 2;
+    const hit = hitTest(x, y, male, hand);
+    expect(hit.concept).toBe("Thumb");
+    expect(hit.kind).toBe("sublocation");
+  });
+});
 
 describe("built-in CC0 placeholder pack (still shipped)", () => {
   it("validates pack.yaml against the files on disk", () => {
@@ -224,6 +263,20 @@ describe("pack catalog helpers", () => {
     expect(resolvePackQueryUrl("/packs/a.zip", "https://example.org/remake/")).toBe("https://example.org/packs/a.zip");
     expect(() => resolvePackQueryUrl("javascript:alert(1)")).toThrow(/http or https/i);
     expect(() => resolvePackQueryUrl("")).toThrow(/empty/i);
+  });
+
+  it("ships the Leonardo-style folio as the default built-in pack, with clinical and outline packs still listed", async () => {
+    const { BUILTIN_CATALOG, DEFAULT_BUILTIN_KEY, defaultBuiltin } = await import("../remake/src/pack/catalog.ts");
+    expect(DEFAULT_BUILTIN_KEY).toBe("builtin:cc0-davinci-2x");
+    expect(defaultBuiltin().key).toBe(DEFAULT_BUILTIN_KEY);
+    expect(defaultBuiltin().dir).toBe("remake/packs/cc0-davinci-2x");
+    const keys = BUILTIN_CATALOG.map((b) => b.key);
+    expect(keys).toEqual([
+      "builtin:cc0-davinci-2x",
+      "builtin:cc0-clinical-vector",
+      "builtin:cc0-placeholders",
+    ]);
+    expect(BUILTIN_CATALOG.filter((b) => b.isDefault)).toHaveLength(1);
   });
 });
 

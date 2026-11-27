@@ -12,10 +12,12 @@ pack is how you switch artwork **and** geometry. Alternative image sets with a
 different size or layout work as long as their `pack.yaml` describes them.
 
 This document is the canonical schema. The extractor (`clinergy-extractor`)
-emits the same format. The built-in online pack is the CC0 clinical vector set at
-`public/remake/packs/cc0-clinical-vector/`. The earlier CC0 outline
-placeholders remain at `public/remake/packs/cc0-placeholders/` and can
-be chosen in the Image pack window.
+emits the same format. The default built-in pack is a CC0 Leonardo-style anatomical folio
+(made with Google Antigravity) at `public/remake/packs/cc0-davinci-2x/`.
+A CC0 clinical vector set remains at `public/remake/packs/cc0-clinical-vector/`,
+and the earlier CC0 outline placeholders remain at
+`public/remake/packs/cc0-placeholders/`. Both can be chosen in the Image
+pack window. A browser that already stored a pack choice keeps that choice.
 
 ## Zip layout
 
@@ -137,11 +139,15 @@ selectors:
 
 ## How the remake uses a pack
 
-1. **Built-in** — `public/remake/packs/cc0-clinical-vector/` is the default
-   pack shipped with the site (CC0 clinical vector artwork; geometry from the
-   extracted Onelist.ini). `public/remake/packs/cc0-placeholders/` is also
-   shipped and can be selected in the Image pack window. `?images=placeholders`
-   forces the outline pack.
+1. **Built-in** — `public/remake/packs/cc0-davinci-2x/` is the default pack
+   shipped with the site (CC0 Leonardo-style artwork made with Google
+   Antigravity; newly created, not copied or traced from the 1998 original).
+   `public/remake/packs/cc0-clinical-vector/` and
+   `public/remake/packs/cc0-placeholders/` are also shipped and can be
+   selected in the Image pack window. A stored IndexedDB pack choice is left
+   alone. `?images=placeholders` forces the outline pack;
+   `?images=clinical` forces the clinical vector pack;
+   `?images=davinci` forces the Leonardo-style folio pack.
 2. **Upload** — the Image pack window accepts a `.zip` (file picker or
    drag-and-drop). It is unzipped client-side (`fflate`), validated, and stored
    in IndexedDB (`penpad-remake` / `packs`). Several uploaded packs can be kept
