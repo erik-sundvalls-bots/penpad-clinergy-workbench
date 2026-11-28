@@ -135,7 +135,7 @@ function qualifiersOf(finding: Finding, knowledge: SentenceKnowledge, missing: s
 }
 
 
-function isImplicitDefaultSummary(summary: string | undefined, summaryType: string | undefined): boolean {
+function isImplicitDefaultSummary(summary: string | undefined, summaryType: string | null | undefined): boolean {
   if (summary === "presence" && summaryType === "PresentPossibleExcluded") return true;
   if (summary === "yesPMH" && summaryType === "YesNoPMH") return true;
   if (summary === "done" && summaryType === "ActionDoneSummary") return true;
