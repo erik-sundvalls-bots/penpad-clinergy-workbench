@@ -35,6 +35,9 @@
  *   when the extract lexicon has no adverb: possible → "?", absence → "no",
  *   same → "unchanging". Extract rule values "intermittant"/"persistant"
  *   also match intermittent/persistent.
+ * - typ=5 consequence signs (ConseqTendernessSign, LocatInflammationSign)
+ *   use the engine's short phrases (tender / non tender, inflamed / non
+ *   inflamed) rather than descriptor adjective + "presently".
  * - A numeric qualifier uses "<descriptor word> <number> <unit>" when the
  *   rule order is descriptor-first, which is how "for 2 weeks" is written.
  * - The first character of the finished sentence is capitalised; nothing else
@@ -142,12 +145,15 @@ function phraseOf(q: Qualifier, index: number, knowledge: SentenceKnowledge, mis
       index,
     }];
   }
+  const consequence = CONSEQUENCE_PHRASES[q.descriptor]?.[q.value];
   const descKind = descriptorKind(rule.descriptorForm);
   const valueWord = wordForValue(rule.valueForm, q.value, knowledge, missing);
   const descWord = wordForDescriptor(descKind, q.descriptor, knowledge, missing);
   const text = q.number != null
     ? numericPhrase(rule.order, descWord, q.number, unitWord(q.unit ?? q.value, q.number, knowledge, missing))
-    : joinWords(valueFirst(rule.order) ? [valueWord, descWord] : [descWord, valueWord]);
+    : consequence
+      ? consequence
+      : joinWords(valueFirst(rule.order) ? [valueWord, descWord] : [descWord, valueWord]);
   if (!text) return [];
   return [{
     text,
@@ -367,6 +373,12 @@ function isBefore(position: string): boolean {
 }
 
 const norm = (s: string) => s.toLowerCase().replace(/[_-\s]/g, "");
+
+/** typ=5 consequence phrases (engine s17) used in place of adjective + "presently". */
+const CONSEQUENCE_PHRASES: Record<string, Record<string, string>> = {
+  ConseqTendernessSign: { presence: "tender", absence: "non tender" },
+  LocatInflammationSign: { presence: "inflamed", absence: "non inflamed" },
+};
 
 /** Original-engine word forms observed in NatLanguageForConcept, used when the extract lexicon has no adverb. */
 const ENGINE_VALUE_WORDS: Record<string, string> = {

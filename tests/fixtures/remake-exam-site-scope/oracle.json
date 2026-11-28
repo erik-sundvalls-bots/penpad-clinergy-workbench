@@ -1,0 +1,46 @@
+{
+  "schema": "penpad-remake-exam-oracle/v1",
+  "notes": "Expected strings observed from the original engine (NatLanguageForConcept / NatLanguageForExam). Concept ids only; no engine binaries or images.",
+  "cases": {
+    "rightKidneyLumpPresent": {
+      "finding": "Lump in right kidney present",
+      "exam": "On Examination\nGenitourinary system:\n  Right kidney: lump present"
+    },
+    "rightKidneyLumpAbsent": {
+      "finding": "No lump in right kidney",
+      "exam": "On Examination\nGenitourinary system:\n  Right kidney: no lump"
+    },
+    "rightKidneyLumpQualified": {
+      "finding": "Medium size, firm, nodular, fixed lump in right kidney present",
+      "exam": "On Examination\nGenitourinary system:\n  Right kidney: medium size, firm, nodular, fixed lump present"
+    },
+    "rightKidneyLumpTenderQualified": {
+      "finding": "Tender, medium size, firm, nodular, fixed lump in right kidney present",
+      "exam": "On Examination\nGenitourinary system:\n  Right kidney: tender, medium size, firm, nodular, fixed lump present"
+    },
+    "rightKidneyLumpInflamed": {
+      "finding": "Inflamed lump in right kidney present",
+      "exam": "On Examination\nGenitourinary system:\n  Right kidney: inflamed lump present"
+    },
+    "rightKidneyLumpNonTender": {
+      "finding": "Non tender lump in right kidney present",
+      "exam": "On Examination\nGenitourinary system:\n  Right kidney: non tender lump present"
+    },
+    "prostateTendernessPresent": {
+      "finding": "Tenderness of prostate present",
+      "exam": "On Examination\nGenitourinary system:\n  Prostate: tenderness present"
+    },
+    "rightKidneyLumpAndProstateTenderness": {
+      "exam": "On Examination\nGenitourinary system:\n  Right kidney: lump present\n  Prostate: tenderness present"
+    },
+    "rightKidneyMediumAndPelvicLarge": {
+      "exam": "On Examination\nGenitourinary system:\n  Right kidney: medium size lump present\n  Pelvic region: large lump present"
+    },
+    "rightKidneyPresentLeftAbsent": {
+      "exam": "On Examination\nGenitourinary system:\n  Right kidney: lump present\n  Left kidney: no lump"
+    },
+    "rightKidneyNormal": {
+      "exam": "On Examination\nGenitourinary system:\n  Right kidney normal"
+    }
+  }
+}

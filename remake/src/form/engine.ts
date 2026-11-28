@@ -30,7 +30,10 @@ export type ExamSideKey = "left" | "right" | "all";
 
 export interface ExamSideState {
   status?: string;
+  /** Sign form state, keyed by examSignKey(siteExam, sign) so the same sign on two sites does not share values. */
   signs: Record<string, FormState>;
+  /** Per-sub-exam Normal / Not examined status, keyed by the sub-exam id. */
+  siteStatus?: Record<string, string>;
 }
 
 export interface ExamSelection {
@@ -95,7 +98,18 @@ export function emptyFormState(form: RemakeForm, extras?: Partial<FormState>): F
 }
 
 export function emptyExamSideState(): ExamSideState {
-  return { signs: {} };
+  return { signs: {}, siteStatus: {} };
+}
+
+/** Composite key so a repeated sign (e.g. LumpSign on each kidney) has its own state. */
+export function examSignKey(siteExam: string | undefined, sign: string): string {
+  return siteExam ? `${siteExam}::${sign}` : sign;
+}
+
+export function getExamSign(side: ExamSideState | undefined, sign: string, siteExam?: string): FormState | undefined {
+  if (!side) return undefined;
+  if (siteExam) return side.signs[examSignKey(siteExam, sign)] ?? side.signs[sign];
+  return side.signs[sign];
 }
 
 export function getExamSide(state: FormState, exam: string, side: ExamSideKey): ExamSideState {
@@ -124,9 +138,35 @@ export function setExamStatus(state: FormState, exam: string, side: ExamSideKey,
   return setExamSide(state, exam, side, next);
 }
 
-export function setExamSign(state: FormState, exam: string, side: ExamSideKey, sign: string, signState: FormState): FormState {
+export function setExamSign(
+  state: FormState,
+  exam: string,
+  side: ExamSideKey,
+  sign: string,
+  signState: FormState,
+  siteExam?: string,
+): FormState {
   const current = getExamSide(state, exam, side);
-  return setExamSide(state, exam, side, { ...current, signs: { ...current.signs, [sign]: signState } });
+  const key = examSignKey(siteExam, sign);
+  return setExamSide(state, exam, side, { ...current, signs: { ...current.signs, [key]: signState } });
+}
+
+export function getExamSiteStatus(side: ExamSideState | undefined, siteExam: string): string | undefined {
+  return side?.siteStatus?.[siteExam];
+}
+
+export function setExamSiteStatus(
+  state: FormState,
+  exam: string,
+  side: ExamSideKey,
+  siteExam: string,
+  status: string | undefined,
+): FormState {
+  const current = getExamSide(state, exam, side);
+  const siteStatus = { ...(current.siteStatus ?? {}) };
+  if (!status) delete siteStatus[siteExam];
+  else siteStatus[siteExam] = status;
+  return setExamSide(state, exam, side, { ...current, siteStatus });
 }
 
 export function setFormSummary(state: FormState, summary: string | undefined): FormState {
@@ -137,7 +177,11 @@ export function setFormSummary(state: FormState, summary: string | undefined): F
 
 export function isExamSideDirty(side: ExamSideState | undefined): boolean {
   if (!side) return false;
-  return !!side.status || Object.values(side.signs).some((s) => isFormDirty(s));
+  return (
+    !!side.status
+    || Object.values(side.siteStatus ?? {}).some(Boolean)
+    || Object.values(side.signs).some((s) => isFormDirty(s))
+  );
 }
 
 export function rowKey(row: FormRow): string {
@@ -333,42 +377,56 @@ function findingsFromExams(form: RemakeForm, state: FormState): Finding[] {
     for (const [side, sideState] of Object.entries(sel.sides ?? {}) as Array<[ExamSideKey, ExamSideState]>) {
       if (!isExamSideDirty(sideState)) continue;
       const laterality: Finding["laterality"] = side === "left" || side === "right" ? side : lateralityOf(state.laterality);
-      if (sideState.status) {
-        out.push({
-          topic: definition?.baseSign || entry.exam,
-          location: examLocation,
-          laterality,
-          qualifiers: [],
-          summary: sideState.status,
-        });
-      }
-      for (const [sign, signState] of Object.entries(sideState.signs ?? {})) {
-        if (!isFormDirty(signState)) continue;
-        const signForm = formOf(sign);
-        if (!signForm) {
-          out.push({
-            topic: sign,
-            location: signState.location ?? examLocation,
-            laterality,
-            subLocation: signState.subLocation,
-            qualifiers: [],
-            summary: signState.summary,
-          });
-          continue;
+
+      const addStatus = (status: string | undefined, topic: string, location: string | undefined) => {
+        if (!status) return;
+        out.push({ topic, location, laterality, qualifiers: [], summary: status });
+      };
+
+      const addSigns = (signs: string[], siteExam: string | undefined, location: string | undefined) => {
+        for (const sign of signs) {
+          const signState = getExamSign(sideState, sign, siteExam);
+          if (!signState || !isFormDirty(signState)) continue;
+          const loc = signState.location ?? location ?? examLocation ?? state.location;
+          const signForm = formOf(sign);
+          if (!signForm) {
+            out.push({
+              topic: sign,
+              location: loc ?? undefined,
+              laterality,
+              subLocation: signState.subLocation,
+              qualifiers: [],
+              summary: signState.summary,
+            });
+            continue;
+          }
+          const localized: FormState = {
+            ...signState,
+            location: loc,
+            laterality: laterality ? [laterality] : signState.laterality,
+          };
+          const nested = findingsFromForm(signForm, localized, { includeExams: false });
+          for (const f of nested) {
+            if (!f.laterality && laterality) f.laterality = laterality;
+            if (!f.location && localized.location) f.location = localized.location;
+            if (!f.summary && signState.summary) f.summary = signState.summary;
+          }
+          out.push(...nested);
         }
-        const localized: FormState = {
-          ...signState,
-          location: signState.location ?? examLocation ?? state.location,
-          laterality: laterality ? [laterality] : signState.laterality,
-        };
-        const nested = findingsFromForm(signForm, localized, { includeExams: false });
-        for (const f of nested) {
-          if (!f.laterality && laterality) f.laterality = laterality;
-          if (!f.location && localized.location) f.location = localized.location;
-          if (!f.summary && signState.summary) f.summary = signState.summary;
+      };
+
+      addStatus(sideState.status, definition?.baseSign || entry.exam, examLocation);
+      addSigns(definition?.signs ?? [], entry.exam, examLocation);
+      const walk = (def: NonNullable<typeof definition>) => {
+        for (const subName of def.subExams) {
+          const sub = examOf(subName);
+          if (!sub) continue;
+          addStatus(getExamSiteStatus(sideState, subName), sub.baseSign || subName, sub.baseLocation ?? examLocation);
+          addSigns(sub.signs, subName, sub.baseLocation ?? examLocation);
+          walk(sub);
         }
-        out.push(...nested);
-      }
+      };
+      if (definition) walk(definition);
     }
   }
   return out;
