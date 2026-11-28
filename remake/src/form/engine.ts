@@ -1,6 +1,6 @@
 import type { Finding, Qualifier } from "../sentence/types.ts";
 import type { FormLink, FormRow, RemakeForm } from "../knowledge-data.ts";
-import { conceptDisplay, examOf, formOf, topicDisplay } from "../knowledge-data.ts";
+import { conceptDisplay, examOf, formOf, sentenceKnowledge, topicDisplay } from "../knowledge-data.ts";
 import { FEATURE_CAPTIONS, featureCaption } from "./quantities.ts";
 
 export const DURATION_UNITS = ["second", "minute", "hour", "day", "week", "month", "year"] as const;
@@ -514,11 +514,140 @@ export function valueLabel(value: string | unknown): string {
   return key.replace(/Selection$/, "").replace(/Pain$/, "").replace(/([a-z0-9])([A-Z])/g, "$1 $2").toLowerCase();
 }
 
-export function linkLabel(link: FormLink): string {
-  if (link.preCoordinated) return topicDisplay(link.preCoordinated);
-  const locDisp = link.location ? conceptDisplay(link.location) : "";
-  const loc = locDisp ? ` ${link.preposition ?? ""} ${locDisp}`.replace(/\s+/g, " ") : "";
-  return `${topicDisplay(link.concept)}${loc}`;
+function conceptCategory(name: string): string {
+  return sentenceKnowledge.concepts[name]?.category ?? "";
+}
+
+function isIncompleteConcept(name: string): boolean {
+  return /incomplete/i.test(conceptCategory(name));
+}
+
+function isCompleteConcept(name: string): boolean {
+  return /complete/i.test(conceptCategory(name));
+}
+
+/** Sanctioned preposition for attaching a location to a (usually incomplete) concept. */
+export function locativePreposition(concept: string, location: string): string | null {
+  const links = sentenceKnowledge.locatives[concept] ?? [];
+  const hit = links.find((row) => row.location === location);
+  return hit?.preposition ?? null;
+}
+
+function isCompletePainTopic(name: string): boolean {
+  if (!isCompleteConcept(name)) return false;
+  return name.endsWith("PainSymptom") || name === "HeadacheSymptom" || name.endsWith("HeadacheSymptom");
+}
+
+function titleWords(text: string): string {
+  return text.split(/\s+/).filter(Boolean).map((w) => w[0].toUpperCase() + w.slice(1)).join("");
+}
+
+/** Candidate surface forms for a named body-part pain at `location`. */
+function bodyPartPainDisplays(location: string): string[] {
+  const locDisp = conceptDisplay(location).toLowerCase();
+  const out: string[] = [`${locDisp} pain`];
+  if (locDisp === "head") out.push("headache");
+  if (locDisp === "face") out.push("facial pain");
+  if (locDisp.endsWith(" region")) {
+    const base = locDisp.slice(0, -" region".length);
+    out.push(`${base} pain`, `${base} spine pain`);
+    const parts = base.split(" ");
+    const last = parts[parts.length - 1];
+    if (last && last.endsWith("s") && last.length > 1) {
+      out.push(`${[...parts.slice(0, -1), last.slice(0, -1)].join(" ")} pain`);
+    }
+  }
+  if (locDisp.endsWith("us") && locDisp.length > 3) out.push(`${locDisp.slice(0, -2)}al pain`);
+  if (locDisp.endsWith("um") && locDisp.length > 3) {
+    out.push(`${locDisp.slice(0, -2)}ic pain`, `${locDisp.slice(0, -2)}al pain`);
+  }
+  if (locDisp.endsWith("vis")) out.push(`${locDisp.slice(0, -1)}c pain`);
+  const seen = new Set<string>();
+  return out.filter((s) => (seen.has(s) ? false : (seen.add(s), true)));
+}
+
+let painByDisplayCache: { knowledge: typeof sentenceKnowledge; map: Map<string, string> } | null = null;
+
+function completePainByDisplay(): Map<string, string> {
+  if (painByDisplayCache && painByDisplayCache.knowledge === sentenceKnowledge) {
+    return painByDisplayCache.map;
+  }
+  const map = new Map<string, string>();
+  for (const [name, fact] of Object.entries(sentenceKnowledge.concepts)) {
+    if (!isCompletePainTopic(name)) continue;
+    const key = (fact.display || topicDisplay(name)).toLowerCase();
+    if (!map.has(key)) map.set(key, name);
+  }
+  painByDisplayCache = { knowledge: sentenceKnowledge, map };
+  return map;
+}
+
+/**
+ * Complete body-part pain (or headache) topic for a location, e.g. Anus → AnalPainSymptom,
+ * CervicalRegion → CervicalSpinePainSymptom, Leg → LowerLegPainSymptom, Head → HeadacheSymptom.
+ */
+export function resolveBodyPartPainTopic(location: string): string | null {
+  const byDisplay = completePainByDisplay();
+  for (const label of bodyPartPainDisplays(location)) {
+    const hit = byDisplay.get(label);
+    if (hit) return hit;
+  }
+  const locDisp = conceptDisplay(location);
+  const stems = [location, titleWords(locDisp)];
+  if (location.endsWith("Region")) {
+    const base = location.slice(0, -"Region".length);
+    stems.push(base, `${base}Spine`);
+  }
+  if (locDisp.toLowerCase().endsWith(" region")) {
+    const base = locDisp.slice(0, -" region".length);
+    stems.push(titleWords(base), titleWords(`${base} spine`));
+  }
+  for (const stem of stems) {
+    const name = `${stem}PainSymptom`;
+    if (isCompletePainTopic(name)) return name;
+  }
+  return null;
+}
+
+/**
+ * Caption for an associated / diagnosis link.
+ * Incomplete concepts inherit the parent form location when the link itself
+ * has none, using the sanctioned preposition from locative links. Named body-part
+ * pain uses the complete precoordinated topic ("anal pain", not "pain in anus").
+ * Complete concepts keep their own display and do not gain a parent locative.
+ */
+export function linkLabel(link: FormLink, formLocation?: string | null): string {
+  const location = link.location
+    ?? (isIncompleteConcept(link.concept) ? formLocation ?? null : null)
+    ?? null;
+
+  if (link.concept === "NAMEDBodyPartPainSymptom" && location) {
+    const resolved = resolveBodyPartPainTopic(location)
+      ?? (link.preCoordinated && isCompletePainTopic(link.preCoordinated) ? link.preCoordinated : null);
+    if (resolved) return topicDisplay(resolved);
+  }
+
+  if (link.preCoordinated && link.preCoordinated !== link.concept) {
+    return topicDisplay(link.preCoordinated);
+  }
+
+  if (location && isIncompleteConcept(link.concept)) {
+    if (location === "BodyAsAWhole") {
+      const generalised = `Generalised${link.concept}`;
+      if (isCompleteConcept(generalised)) return topicDisplay(generalised);
+    }
+    const named = `${location}${link.concept}`;
+    if (isCompleteConcept(named)) return topicDisplay(named);
+  }
+
+  const locDisp = location ? conceptDisplay(location) : "";
+  const prep = link.preposition || (location ? locativePreposition(link.concept, location) : null);
+  const loc = locDisp && prep ? ` ${prep} ${locDisp}` : "";
+  const head = topicDisplay(link.concept);
+  if (loc && locDisp && locDisp.toLowerCase() && head.toLowerCase().includes(locDisp.toLowerCase())) {
+    return head;
+  }
+  return `${head}${loc}`.replace(/\s+/g, " ").trim();
 }
 
 export function rowsOf(form: RemakeForm, moreOpen: boolean, state?: FormState): FormRow[] {
