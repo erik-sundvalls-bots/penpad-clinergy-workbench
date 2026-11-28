@@ -1,0 +1,389 @@
+{
+  "sites": {
+    "Abdomen": [
+      "RightHypochondrium",
+      "Epigastrium",
+      "LeftHypochondrium",
+      "RightFlank",
+      "Umbilicus",
+      "LeftFlank",
+      "RightIliacFossa",
+      "SupraPubicRegion",
+      "LeftIliacFossa"
+    ],
+    "Ankle": [
+      "AnkleJoint",
+      "AchillesTendon",
+      "MedialMalleolus",
+      "LateralMalleolus"
+    ],
+    "AuditoryCanal": [
+      "AnteriorWallOfAuditoryCanal",
+      "PosteriorWallOfAuditoryCanal",
+      "RoofOfAuditoryCanal",
+      "FloorOfAuditoryCanal"
+    ],
+    "Back": [
+      "PosteriorRibsRegion",
+      "ScapularRegion",
+      "CervicalRegion",
+      "ThoracicRegion",
+      "LumbarRegion",
+      "SacralRegion",
+      "CoccygealRegion",
+      "Loin",
+      "LowBackRegion"
+    ],
+    "BodyAsAWhole": [
+      "Head",
+      "Neck",
+      "Chest",
+      "Abdomen",
+      "Pelvis",
+      "Back",
+      "RightArm",
+      "LeftArm",
+      "RightLeg",
+      "LeftLeg"
+    ],
+    "Breast": [
+      "UpperOuterQuadrantOfBreast",
+      "UpperInnerQuadrantOfBreast",
+      "LowerOuterQuadrantOfBreast",
+      "LowerInnerQuadrantOfBreast",
+      "Nipple",
+      "Areola",
+      "TailOfBreast"
+    ],
+    "Chest": [
+      "LeftChest",
+      "RightChest",
+      "ClavicularRegion",
+      "SternalRegion",
+      "AnteriorRibsRegion",
+      "PosteriorRibsRegion",
+      "SternoclavicularJoint",
+      "CostochondralJoint"
+    ],
+    "Colon": [
+      "AscendingColon",
+      "HepaticFlexure",
+      "SplenicFlexure",
+      "TransverseColon",
+      "DescendingColon",
+      "SigmoidColon"
+    ],
+    "Ear": [
+      "OuterEar",
+      "MiddleEar"
+    ],
+    "Elbow": [
+      "AntecubitalFossa",
+      "Olecranon",
+      "MedialElbow",
+      "LateralElbow"
+    ],
+    "Eye": [
+      "Cornea",
+      "Lens",
+      "Iris",
+      "Conjunctiva",
+      "Sclera"
+    ],
+    "Eyelid": [
+      "UpperEyelid",
+      "LowerEyelid"
+    ],
+    "Face": [
+      "Forehead",
+      "Nose",
+      "LowerLip",
+      "UpperLip",
+      "Chin",
+      "RightCheek",
+      "LeftCheek",
+      "RightSideOfFace",
+      "LeftSideOfFace"
+    ],
+    "FifthToe": [
+      "ToeNail",
+      "proximalPhalanx",
+      "middlePhalanx",
+      "distalPhalanx",
+      "PIPJoint",
+      "DIPJoint"
+    ],
+    "Foot": [
+      "SoleOfFoot",
+      "DorsumOfFoot",
+      "GreatToe",
+      "SecondToe",
+      "ThirdToe",
+      "FourthToe",
+      "FifthToe",
+      "Heel"
+    ],
+    "FourthToe": [
+      "ToeNail",
+      "proximalPhalanx",
+      "middlePhalanx",
+      "distalPhalanx",
+      "PIPJoint",
+      "DIPJoint"
+    ],
+    "GreatToe": [
+      "ToeNail",
+      "proximalPhalanx",
+      "distalPhalanx",
+      "InterphalangealJoint",
+      "MetatarsoPhalangealJoint"
+    ],
+    "Hand": [
+      "Palm",
+      "DorsumOfHand",
+      "Thumb",
+      "IndexFinger",
+      "MiddleFinger",
+      "RingFinger",
+      "LittleFinger"
+    ],
+    "Head": [
+      "TemporalRegion",
+      "FrontalRegion",
+      "ParietalRegion",
+      "Occiput",
+      "Vertex",
+      "RightSideOfHead",
+      "LeftSideOfHead"
+    ],
+    "IndexFinger": [
+      "FingerNail",
+      "MetacarpoPhalangealJoint",
+      "PIPJoint",
+      "DIPJoint",
+      "proximalPhalanx",
+      "middlePhalanx",
+      "distalPhalanx"
+    ],
+    "Jaw": [
+      "JawMuscleGroup",
+      "TemporoMandibularJoint"
+    ],
+    "Knee": [
+      "PoplitealFossa",
+      "AnteriorAspectOfKnee",
+      "MedialAspectOfKnee",
+      "LateralAspectOfKnee"
+    ],
+    "Leg": [
+      "Shin",
+      "Calf"
+    ],
+    "LittleFinger": [
+      "FingerNail",
+      "MetacarpoPhalangealJoint",
+      "PIPJoint",
+      "DIPJoint",
+      "proximalPhalanx",
+      "middlePhalanx",
+      "distalPhalanx"
+    ],
+    "LowerExtremity": [
+      "Buttock",
+      "Groin",
+      "Hip",
+      "Thigh",
+      "Knee",
+      "Leg",
+      "Ankle",
+      "Foot"
+    ],
+    "MiddleFinger": [
+      "FingerNail",
+      "MetacarpoPhalangealJoint",
+      "PIPJoint",
+      "DIPJoint",
+      "proximalPhalanx",
+      "middlePhalanx",
+      "distalPhalanx"
+    ],
+    "Mouth": [
+      "Tooth",
+      "Tongue",
+      "Gum",
+      "SoftPalate",
+      "InsideOfCheek",
+      "RoofOfMouth",
+      "Tonsil",
+      "Uvula",
+      "UpperLip",
+      "LowerLip"
+    ],
+    "Neck": [
+      "SubmandibularRegion",
+      "SupraclavicularFossa",
+      "FrontOfNeck",
+      "NapeOfNeck",
+      "PosteriorTriangleOfNeck",
+      "AnteriorTriangleOfNeck"
+    ],
+    "Nose": [
+      "LeftNostril",
+      "RightNostril",
+      "NasalSeptum",
+      "AlaNasi",
+      "BridgeOfNose",
+      "ApexOfNose"
+    ],
+    "OuterEar": [
+      "Pinna",
+      "Earlobe",
+      "Tragus",
+      "Antitragus",
+      "AuditoryCanal"
+    ],
+    "Penis": [
+      "ShaftOfPenis",
+      "GlansPenis",
+      "Prepuce"
+    ],
+    "RingFinger": [
+      "FingerNail",
+      "MetacarpoPhalangealJoint",
+      "PIPJoint",
+      "DIPJoint",
+      "proximalPhalanx",
+      "middlePhalanx",
+      "distalPhalanx"
+    ],
+    "RoofOfMouth": [
+      "Palate",
+      "SoftPalate"
+    ],
+    "Scrotum": [
+      "LeftTestis",
+      "RightTestis",
+      "LeftEpididymis",
+      "RightEpididymis",
+      "LeftVasDeferens",
+      "RightVasDeferens"
+    ],
+    "SecondToe": [
+      "ToeNail",
+      "proximalPhalanx",
+      "middlePhalanx",
+      "distalPhalanx",
+      "PIPJoint",
+      "DIPJoint",
+      "MetatarsoPhalangealJoint"
+    ],
+    "Shoulder": [
+      "ShoulderJoint",
+      "AcromioclavicularJoint"
+    ],
+    "Thigh": [
+      "AnteriorThigh",
+      "PosteriorThigh",
+      "MedialThigh",
+      "LateralThigh"
+    ],
+    "ThirdToe": [
+      "ToeNail",
+      "proximalPhalanx",
+      "middlePhalanx",
+      "distalPhalanx",
+      "PIPJoint",
+      "DIPJoint"
+    ],
+    "Thorax": [
+      "LeftChest",
+      "RightChest",
+      "LeftAnteriorChest",
+      "LeftSideOfChest",
+      "LeftBase",
+      "LeftMidZone",
+      "LeftApex",
+      "RightAnteriorChest",
+      "RightSideOfChest",
+      "RightBase",
+      "RightMidZone",
+      "RightApex"
+    ],
+    "Thumb": [
+      "ThumbNail",
+      "proximalPhalanx",
+      "distalPhalanx",
+      "InterphalangealJoint",
+      "MetacarpoPhalangealJoint",
+      "ThenarEminence"
+    ],
+    "UpperExtremity": [
+      "Shoulder",
+      "Axilla",
+      "Arm",
+      "Elbow",
+      "Forearm",
+      "Wrist",
+      "Hand"
+    ],
+    "UterineAdnexa": [
+      "LeftOvary",
+      "RightOvary",
+      "LeftFallopianTube",
+      "RightFallopianTube"
+    ],
+    "Uterus": [
+      "UterineFundus",
+      "BodyOfUterus",
+      "CervixUteri"
+    ],
+    "Vagina": [
+      "VaginalVault",
+      "VaginalFornix",
+      "LeftLateralVaginalWall",
+      "RightLateralVaginalWall",
+      "AnteriorVaginalWall",
+      "PosteriorVaginalWall"
+    ],
+    "Vulva": [
+      "LabiaMinora",
+      "LabiaMajora",
+      "Clitoris",
+      "FemaleUrethralMeatus"
+    ],
+    "Wrist": [
+      "DorsalAspectOfWrist",
+      "VentralAspectOfWrist",
+      "UlnarAspectOfWrist",
+      "RadialAspectOfWrist"
+    ]
+  },
+  "examSites": {
+    "RespSysExam": "Thorax",
+    "RespSoundExam": "Thorax"
+  },
+  "signs": [
+    "TendernessSign",
+    "LumpSign",
+    "InflammationSign",
+    "SwellingSign",
+    "ForeignBodySign",
+    "AbdominalScarSign",
+    "AbdominalTendernessSign",
+    "AbdominalGuardingSign",
+    "AbdominalLumpSign",
+    "AbdominalPercussionSign",
+    "EarWaxSign",
+    "EarDischargeSign",
+    "AbscessSign",
+    "ScrotalLumpSign",
+    "JointSwellingSign",
+    "SkinLesionSign",
+    "DeformitySign",
+    "JointClickingSign",
+    "VaricoseLegVeinSign",
+    "LichenifiedSkinSign",
+    "BreathSoundSign",
+    "ChestPercussionSign"
+  ]
+}

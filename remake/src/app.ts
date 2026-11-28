@@ -87,7 +87,7 @@ import { getSentenceKnowledge, sentenceKnowledge } from "./knowledge-data.ts";
 import type { RemakeForm, FormExam, FormLink, FormRow } from "./knowledge-data.ts";
 import { examSidesFor, onExamination, sideLabel } from "./exam/prose.ts";
 import type { ExamDefinition } from "./form/exams.ts";
-import { examSignTreeCaption, examTreeCaption, inlineExamSign, sidedExamCaption, signHasFeatureFolder } from "./form/exam-tree.ts";
+import { examSignTreeCaption, examTreeCaption, inheritedSublocationRow, inlineExamSign, resolveExamSiteLocation, sidedExamCaption, signHasFeatureFolder } from "./form/exam-tree.ts";
 
 
 interface Hover {
@@ -1365,10 +1365,31 @@ function examSignBlock(
       wrap.append(chips);
     }
   }
+  const siteLocation = parentExam ? resolveExamSiteLocation(parentExam, examOf) : null;
+  const inheritedSub = inheritedSublocationRow(sign, siteLocation);
+  const examRows = form ? rowsOf(form, true, fs) : [];
+  const hasSublocation = examRows.some((row) => (row.feature ?? "") === "sublocation");
+  const rows = [
+    ...(!hasSublocation && inheritedSub ? [inheritedSub] : []),
+    ...examRows.filter((row) => !inline?.hide.has(row.feature ?? row.criterialLink ?? "")),
+  ];
   if (form) {
-    for (const row of rowsOf(form, true, fs)) {
-      if (inline?.hide.has(row.feature ?? row.criterialLink ?? "")) continue;
+    for (const row of rows) {
       wrap.append(featureRow(form, { ...fs, laterality }, row, commit));
+    }
+  } else if (inheritedSub) {
+    for (const row of rows) {
+      wrap.append(featureRow({
+        topic: sign,
+        display: display,
+        summaryType: "AbsentPresent",
+        location: location,
+        firstLayer: [inheritedSub],
+        moreLayer: [],
+        associatedSymptomsAndSigns: [],
+        diagnoses: [],
+        examinations: [],
+      }, { ...fs, laterality }, row, commit));
     }
   }
   return wrap;
