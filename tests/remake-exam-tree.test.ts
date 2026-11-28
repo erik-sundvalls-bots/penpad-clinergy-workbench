@@ -58,6 +58,44 @@ describe("exam tree captions", () => {
     const sign = formOf(exam.baseSign ?? "AbdominalPercussionSign")!;
     expect(signTreeCaption(exam.display, exam.baseSign, exam.baseSign ?? "AbdominalPercussionSign", sign.display, signHasFeatureFolder(sign))).toBe("percussion");
   });
+
+  it("keeps Appearance on tongue and breast even when the Features triad is present", () => {
+    const tongue = examOf("TongueExam")!;
+    const tongueSign = formOf("TongueSign")!;
+    expect(signHasFeatureFolder(tongueSign)).toBe(true);
+    expect(signTreeCaption(tongue.display, tongue.baseSign, "TongueSign", tongueSign.display, true)).toBe("Appearance");
+    const breast = examOf("BreastExam")!;
+    const breastSign = formOf("BreastSign")!;
+    expect(signTreeCaption(breast.display, breast.baseSign, "BreastSign", breastSign.display, true)).toBe("Appearance");
+  });
+
+  it("renders Appearance for tonsils despite the singular sign display", () => {
+    const exam = examOf("TonsilExam")!;
+    const sign = formOf("TonsilSign")!;
+    expect(exam.display).toBe("tonsils");
+    expect(sign.display).toBe("tonsil");
+    expect(signTreeCaption(exam.display, exam.baseSign, "TonsilSign", sign.display, signHasFeatureFolder(sign))).toBe("Appearance");
+  });
+
+  it("treats vaginal size/patency/contents as a Features folder", () => {
+    const exam = examOf("VaginaExam")!;
+    const sign = formOf("VaginaSign")!;
+    expect(signHasFeatureFolder(sign)).toBe(true);
+    expect(signTreeCaption(exam.display, exam.baseSign, "VaginaSign", sign.display, true)).toBe("Features");
+  });
+
+  it("keeps the prostate gland folder rather than renaming it Features", () => {
+    const exam = examOf("ProstateExam")!;
+    const sign = formOf("ProstateGlandSign")!;
+    expect(sign.display).toBe("prostate gland");
+    expect(signTreeCaption(exam.display, exam.baseSign, "ProstateGlandSign", sign.display, true)).toBe("prostate gland");
+  });
+
+  it("captions the urine feature folder as character", () => {
+    const exam = examOf("UrineExam")!;
+    const sign = formOf("UrineFeature")!;
+    expect(signTreeCaption(exam.display, exam.baseSign, "UrineFeature", sign.display, false)).toBe("character");
+  });
 });
 
 describe("sided exam captions", () => {

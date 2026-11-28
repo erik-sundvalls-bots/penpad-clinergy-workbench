@@ -43,18 +43,50 @@ export function inlineExamSign(topic: string | null | undefined): InlineExamSign
 }
 
 
-const FEATURE_ATTRS = new Set(["AbsoluteSize", "AbsoluteTexture", "AbsoluteConsistency"]);
+const FEATURE_ATTRS = new Set([
+  "AbsoluteSize",
+  "AbsoluteTexture",
+  "AbsoluteConsistency",
+  "AbsolutePatency",
+  "contains",
+]);
+
+/** Nested signs whose folder caption is not Features or Appearance. */
+const SIGN_FOLDER_CAPTIONS: Record<string, string> = {
+  UrineFeature: "character",
+  ProstateGlandSign: "prostate gland",
+};
+
+/** Appearance sites that keep that folder even when the Features triad is present. */
+const APPEARANCE_OVER_FEATURES = new Set(["tongue", "breast", "tonsil"]);
 
 /** Body-part exams whose nested base sign is captioned Appearance in the original. */
 const APPEARANCE_SITES = new Set([
   "vulva", "penis", "mouth", "tongue", "lip", "outer ear", "tympanic membrane", "nose",
   "eye", "cornea", "iris", "breast", "foot", "hand", "chest", "face", "arm", "leg", "jaw",
-  "finger nail", "head", "kidney",
+  "finger nail", "head", "kidney", "tonsil",
 ]);
 
+function appearanceKey(display: string): string {
+  return display.trim().toLowerCase().replace(/^(left|right)\s+/, "").replace(/\s+/g, " ");
+}
+
 export function isAppearanceSite(examDisplay: string): boolean {
-  const d = examDisplay.trim().toLowerCase().replace(/^(left|right)\s+/, "");
-  return APPEARANCE_SITES.has(d);
+  const d = appearanceKey(examDisplay);
+  if (APPEARANCE_SITES.has(d)) return true;
+  if (d.endsWith("s") && d.length > 3 && APPEARANCE_SITES.has(d.slice(0, -1))) return true;
+  return false;
+}
+
+function appearanceKeys(display: string): string[] {
+  const d = appearanceKey(display);
+  const keys = [d];
+  if (d.endsWith("s") && d.length > 3) keys.push(d.slice(0, -1));
+  return keys;
+}
+
+function prefersAppearanceFolder(display: string): boolean {
+  return appearanceKeys(display).some((key) => APPEARANCE_OVER_FEATURES.has(key));
 }
 
 export function examTreeCaption(display: string): string {
@@ -97,7 +129,10 @@ export function signTreeCaption(
   signDisplay: string,
   hasFeatures: boolean,
 ): string {
+  const folder = SIGN_FOLDER_CAPTIONS[sign];
+  if (folder) return folder;
   if (isNestedBaseSign(examDisplay, baseSign, sign, signDisplay)) {
+    if (prefersAppearanceFolder(examDisplay) || prefersAppearanceFolder(signDisplay)) return "Appearance";
     if (hasFeatures) return "Features";
     const shortened = examTreeCaption(signDisplay);
     if (shortened !== signDisplay) return shortened;
