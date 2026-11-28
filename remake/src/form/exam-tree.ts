@@ -71,3 +71,11 @@ export function signTreeCaption(
   }
   return examTreeCaption(signDisplay);
 }
+
+/** Original engine captions a per-side exam as "Left groin", "Right ear". */
+export function sidedExamCaption(display: string, side: "left" | "right"): string {
+  const d = display.trim();
+  if (/^(left|right)\s+/i.test(d)) return d[0].toUpperCase() + d.slice(1);
+  const label = side === "left" ? "Left" : "Right";
+  return `${label} ${d}`;
+}
