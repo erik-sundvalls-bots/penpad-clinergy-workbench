@@ -26,8 +26,12 @@
  *   not that unique site switches to the prepositional head ("Pain in right
  *   thumb", "Subcutaneous infection on thumb"). The generic noun is the
  *   remainder after a leading location word, or else the last word of the
- *   display ("Lump in left anterior ribs region"); "absent …" nominalises
- *   to "Absence of …".
+ *   display ("Lump in left anterior ribs region", "Dislocation of left ankle");
+ *   "absent …" nominalises to "Absence of …". A selected sublocation replaces
+ *   the parent site ("Swelling of right hypochondrium"). Laterality attaches to
+ *   a site already named in the display ("Adenoma of nipple of left nipple",
+ *   "Cold left arm") when there is no generic head to lift out. typ=5
+ *   ConseqPain uses "painful" / "painless".
  * - PresentPossibleExcluded does not say "present" (just the topic, or
  *   "? topic", or "topic excluded"). AbsentPresent still says "present" or
  *   prefixes "no" for absence.
@@ -276,6 +280,24 @@ function shouldExpandHead(finding: Finding, knowledge: SentenceKnowledge): boole
   return true;
 }
 
+const GENERIC_HEADS = new Set([
+  "pain", "swelling", "lump", "ache", "stiffness", "weakness", "tenderness", "rash",
+  "oedema", "edema", "dislocation", "fracture", "sprain", "tear", "rupture",
+  "ulcer", "wound", "lesion", "infection", "haemorrhage", "hemorrhage", "bleeding",
+]);
+
+function isGenericHead(rest: string, finding: Finding, knowledge: SentenceKnowledge): boolean {
+  const key = rest.trim().toLowerCase();
+  if (GENERIC_HEADS.has(key)) return true;
+  // Diagnoses say "Foreign body in left eye"; the matching symptom keeps
+  // the pre-coordinated name ("Eye foreign body in left eye").
+  if (key === "foreign body") {
+    const category = knowledge.concepts[finding.topic]?.category ?? "";
+    return /disease|diagnosis/i.test(category) || /Diagnosis$/.test(finding.topic);
+  }
+  return false;
+}
+
 function grammaticalHead(finding: Finding, knowledge: SentenceKnowledge): string {
   if (!finding.location || !shouldExpandHead(finding, knowledge)) return finding.topic;
   const topicDisplay = knowledge.concepts[finding.topic]?.display ?? "";
@@ -285,14 +307,13 @@ function grammaticalHead(finding: Finding, knowledge: SentenceKnowledge): string
   // display ("subcutaneous infection on thumb", "adenoma of nipple").
   if (!rewrite) return finding.topic;
   if (topicDisplay.toLowerCase().startsWith("absent ")) return "=absence";
-  const GENERIC = new Set(["pain", "swelling", "lump", "ache", "stiffness", "weakness", "tenderness", "rash"]);
   if (locDisplay && topicDisplay.toLowerCase().startsWith(locDisplay.toLowerCase() + " ")) {
     const rest = topicDisplay.slice(locDisplay.length).trim();
-    if (GENERIC.has(rest.toLowerCase())) {
-      return baseConcept(finding.topic, rest, knowledge) ?? finding.topic;
+    if (isGenericHead(rest, finding, knowledge)) {
+      return baseConcept(finding.topic, rest, knowledge) ?? rest;
     }
-    // "ear discharge", "eye foreign body": keep the pre-coordinated name and
-    // still attach laterality on the locative ("Ear discharge from left ear").
+    // "ear discharge", "eye foreign body" (symptom): keep the pre-coordinated
+    // name and still attach laterality on the locative.
     return finding.topic;
   }
   // "pitting ankle oedema" + laterality at Ankle → "pitting oedema of left ankle"
@@ -301,9 +322,8 @@ function grammaticalHead(finding: Finding, knowledge: SentenceKnowledge): string
   if (rewrite && locDisplay && !/\s/.test(locDisplay.trim())) {
     const site = locDisplay.trim().toLowerCase();
     const words = topicDisplay.trim().split(/\s+/);
-    const GENERIC = new Set(["pain", "swelling", "lump", "ache", "stiffness", "weakness", "tenderness", "rash", "oedema", "edema"]);
     const filtered = words.filter((w) => w.toLowerCase() !== site);
-    if (filtered.length > 0 && filtered.length < words.length && filtered.some((w) => GENERIC.has(w.toLowerCase()))) {
+    if (filtered.length > 0 && filtered.length < words.length && filtered.some((w) => GENERIC_HEADS.has(w.toLowerCase()))) {
       return filtered.join(" ");
     }
   }
@@ -314,7 +334,7 @@ function grammaticalHead(finding: Finding, knowledge: SentenceKnowledge): string
     const stem = (s: string) => s.replace(/s$/, "").slice(0, 4);
     return w.length >= 4 && locNorm.split(/\s+/).some((lw) => stem(lw) === stem(w));
   });
-  if (prefixOverlaps && GENERIC.has(last.toLowerCase())) return last;
+  if (prefixOverlaps && isGenericHead(last, finding, knowledge)) return last;
   return finding.topic;
 }
 
@@ -326,18 +346,76 @@ function baseConcept(topic: string, rest: string, knowledge: SentenceKnowledge):
   return matches.find(([name]) => supers.has(name))?.[0] ?? matches[0]?.[0];
 }
 
+/** Prefer a locative site that is already named in the topic display (nipple over breast). */
+function resolveLocation(finding: Finding, knowledge: SentenceKnowledge): string | undefined {
+  const topicDisplay = (knowledge.concepts[finding.topic]?.display ?? "").toLowerCase();
+  const links = knowledge.locatives[finding.topic] ?? [];
+  if (topicDisplay && (finding.laterality || finding.subLocation)) {
+    const named = links.find((link) => {
+      const display = (knowledge.concepts[link.location]?.display ?? link.location).toLowerCase();
+      return display.length > 1 && topicDisplay.includes(display);
+    });
+    if (named) return named.location;
+  }
+  return finding.location;
+}
+
+function insertLaterality(display: string, side: string): string {
+  if (new RegExp(`\\b${side}\\b`, "i").test(display)) return display;
+  const words = display.trim().split(/\s+/);
+  if (words.length <= 1) return joinWords([side, display]);
+  return [...words.slice(0, -1), side, words[words.length - 1]].join(" ");
+}
+
+
+function isRelativeSublocation(subWord: string): boolean {
+  return /\b(quadrant|phalanx|pole|aspect|lobe|surface|margin|third|half|segment|part|border|commissure|pulp)\b/i.test(subWord);
+}
+
+function hasLocativePrep(finding: Finding, knowledge: SentenceKnowledge): boolean {
+  const links = knowledge.locatives[finding.topic] ?? [];
+  if (!links.length) return false;
+  if (finding.location && links.some((link) => link.location === finding.location)) return true;
+  return links.length === 1;
+}
+
 function headOf(finding: Finding, knowledge: SentenceKnowledge, missing: string[]): string {
-  const headName = grammaticalHead(finding, knowledge);
+  const location = resolveLocation(finding, knowledge);
+  const located: Finding = location && location !== finding.location ? { ...finding, location } : finding;
+  const topicNoun = nounWord(finding.topic, knowledge, missing);
+
+  if (finding.subLocation) {
+    const headName = grammaticalHead(located, knowledge);
+    const noun = headName.startsWith("=") ? headName.slice(1) : nounWord(headName, knowledge, missing);
+    const prep = locativePreposition(located, knowledge, missing);
+    const subWord = nounWord(finding.subLocation, knowledge, missing);
+    // Named regions stand alone ("Swelling of right hypochondrium").
+    // Relative parts keep the parent site ("Lump in upper outer quadrant of breast",
+    // "Swelling of distal phalanx of left thumb").
+    const keepParent = Boolean(located.location) && (Boolean(finding.laterality) || isRelativeSublocation(subWord));
+    if (keepParent && located.location) {
+      const locWord = nounWord(located.location, knowledge, missing);
+      const lat = finding.laterality ?? "";
+      return joinWords([noun, prep, subWord, "of", lat, locWord]);
+    }
+    return joinWords([noun, prep, subWord]);
+  }
+
+  if (!shouldExpandHead(located, knowledge)) return topicNoun;
+
+  const headName = grammaticalHead(located, knowledge);
+  const rewritten = headName !== finding.topic;
+  const canAttach = hasLocativePrep(located, knowledge) && Boolean(located.location);
+  if (finding.laterality && !rewritten && !canAttach) {
+    // "cold arm" → "cold left arm" when the locative table has no preposition.
+    return insertLaterality(topicNoun, finding.laterality);
+  }
+  if (!located.location) return rewritten ? nounWord(headName, knowledge, missing) : topicNoun;
   const noun = headName.startsWith("=") ? headName.slice(1) : nounWord(headName, knowledge, missing);
-  if (!finding.location) return noun;
-  if (!shouldExpandHead(finding, knowledge)) return nounWord(finding.topic, knowledge, missing);
-  const prep = locativePreposition(finding, knowledge, missing);
-  const sub = finding.subLocation
-    ? `${nounWord(finding.subLocation, knowledge, missing)} of`
-    : "";
+  const prep = locativePreposition(located, knowledge, missing);
   const lat = finding.laterality ?? "";
-  const locWord = nounWord(finding.location, knowledge, missing);
-  return joinWords([noun, prep, sub, lat, locWord]);
+  const locWord = nounWord(located.location, knowledge, missing);
+  return joinWords([noun, prep, lat, locWord]);
 }
 
 function locativePreposition(finding: Finding, knowledge: SentenceKnowledge, missing: string[]): string {
@@ -445,6 +523,7 @@ const norm = (s: string) => s.toLowerCase().replace(/[_-\s]/g, "");
 const CONSEQUENCE_PHRASES: Record<string, Record<string, string>> = {
   ConseqTendernessSign: { presence: "tender", absence: "non tender" },
   LocatInflammationSign: { presence: "inflamed", absence: "non inflamed" },
+  ConseqPain: { presence: "painful", absence: "painless" },
 };
 
 /** Original-engine word forms observed in NatLanguageForConcept, used when the extract lexicon has no adverb. */
@@ -452,6 +531,9 @@ const ENGINE_VALUE_WORDS: Record<string, string> = {
   possible: "?",
   absence: "no",
   same: "unchanging",
+  none: "no",
+  noDiurnalPattern: "no",
+  DepotContraceptiveInjection: "depot injection",
 };
 
 /** Extract tables misspell two process-pattern values; accept both spellings. */

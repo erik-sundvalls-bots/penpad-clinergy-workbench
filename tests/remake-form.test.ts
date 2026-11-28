@@ -51,6 +51,6 @@ describe("thumb-path form engine", () => {
     state = setLinkSummary(state, "diagnoses", "ThumbSprain", "possible");
     const sentences = findingsFromForm(pain, state).map((f) => renderSentence(f, sentenceKnowledge));
     expect(sentences[0]).toBe("Pain in right thumb");
-    expect(sentences.some((s) => s === "? thumb sprain")).toBe(true);
+    expect(sentences.some((s) => s === "? sprain of right thumb")).toBe(true);
   });
 });
