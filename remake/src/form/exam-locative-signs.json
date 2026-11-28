@@ -1,0 +1,33 @@
+{
+  "pairs": [
+    {"sign": "InflammationSign", "location": "Vulva"},
+    {"sign": "InflammationSign", "location": "RoofOfMouth"},
+    {"sign": "InflammationSign", "location": "InsideOfCheek"},
+    {"sign": "InflammationSign", "location": "Penis"},
+    {"sign": "AbscessSign", "location": "Vulva"},
+    {"sign": "ForeignBodySign", "location": "Eyelid"},
+    {"sign": "ForeignBodySign", "location": "Nose"},
+    {"sign": "ForeignBodySign", "location": "Rectum"},
+    {"sign": "ForeignBodySign", "location": "Throat"},
+    {"sign": "ForeignBodySign", "location": "Mouth"},
+    {"sign": "ForeignBodySign", "location": "Vagina"},
+    {"sign": "BleedingSign", "location": "Gum"},
+    {"sign": "MuscularAtrophySign", "location": "Buttock"},
+    {"sign": "JointSwellingSign", "location": "Ankle"},
+    {"sign": "SkinLesionSign", "location": "Face"},
+    {"sign": "RashSign", "location": "Scalp"},
+    {"sign": "DeformitySign", "location": "Back"},
+    {"sign": "FistulaSign", "location": "Perineum"},
+    {"sign": "MaceratedSkinSign", "location": "Perineum"},
+    {"sign": "ExcoriatedSkinSign", "location": "Perineum"},
+    {"sign": "JointClickingSign", "location": "Jaw"},
+    {"sign": "FlexionSign", "location": "FifthToeJoint"},
+    {"sign": "ExtensionSign", "location": "FifthToeJoint"},
+    {"sign": "FlexionSign", "location": "FourthToeJoint"},
+    {"sign": "ExtensionSign", "location": "FourthToeJoint"},
+    {"sign": "FlexionSign", "location": "ThirdToeJoint"},
+    {"sign": "ExtensionSign", "location": "ThirdToeJoint"},
+    {"sign": "FlexionSign", "location": "SecondToeJoint"},
+    {"sign": "ExtensionSign", "location": "SecondToeJoint"}
+  ]
+}

@@ -4,8 +4,10 @@
 import { describe, expect, it } from "vitest";
 import { examOf, formOf } from "../remake/src/knowledge-data.ts";
 import {
+  examSignTreeCaption,
   examTreeCaption,
   inlineExamSign,
+  locativeExamSignCaption,
   sidedExamCaption,
   signHasFeatureFolder,
   signTreeCaption,
@@ -96,5 +98,46 @@ describe("inline exam-sign value lists", () => {
     expect(inlineExamSign("MoodSign")?.feature).toBe("ExpectedProcessActivityLevel");
     expect(inlineExamSign("EyeContactSign")?.feature).toBe("AbsoluteQuality");
     expect(inlineExamSign("InhalerTechniqueSign")?.feature).toBe("AbsoluteQuality");
+  });
+});
+
+describe("locative exam-sign captions", () => {
+  it("attaches the exam site with the sanctioned preposition", () => {
+    expect(locativeExamSignCaption("InflammationSign", "inflammation", "Vulva")).toBe("inflammation of vulva");
+    expect(locativeExamSignCaption("AbscessSign", "abscess", "Vulva")).toBe("abscess on vulva");
+    expect(locativeExamSignCaption("ForeignBodySign", "foreign body", "Eyelid")).toBe("foreign body in eyelid");
+    expect(locativeExamSignCaption("BleedingSign", "bleeding", "Gum")).toBe("bleeding from gum");
+    expect(locativeExamSignCaption("InflammationSign", "inflammation", "RoofOfMouth")).toBe("inflammation of roof of mouth");
+    expect(locativeExamSignCaption("InflammationSign", "inflammation", "InsideOfCheek")).toBe("inflammation of inside of cheek");
+  });
+
+  it("leaves Appearance and Features folders alone", () => {
+    expect(locativeExamSignCaption("VulvaSign", "Appearance", "Vulva")).toBe("Appearance");
+    expect(locativeExamSignCaption("LiverSign", "Features", "Liver")).toBe("Features");
+  });
+
+  it("does not add a locative for signs the original keeps short", () => {
+    expect(locativeExamSignCaption("LumpSign", "lump", "Stomach")).toBe("lump");
+    expect(locativeExamSignCaption("TendernessSign", "tenderness", "Stomach")).toBe("tenderness");
+    expect(locativeExamSignCaption("InflammationSign", "inflammation", "Throat")).toBe("inflammation");
+  });
+
+  it("adds a locative on flexion at toe joints but not at the shoulder", () => {
+    expect(locativeExamSignCaption("FlexionSign", "flexion", "FifthToeJoint")).toBe("flexion of fifth toe joint");
+    expect(locativeExamSignCaption("FlexionSign", "flexion", "ShoulderJoint")).toBe("flexion");
+  });
+
+  it("does not double-attach a site already in the caption", () => {
+    expect(locativeExamSignCaption("InflammationSign", "inflammation of vulva", "Vulva")).toBe("inflammation of vulva");
+  });
+
+  it("is used after the usual exam-tree shortening", () => {
+    const exam = { display: "vulva", baseSign: "VulvaSign" };
+    expect(
+      examSignTreeCaption(exam.display, exam.baseSign, "InflammationSign", "inflammation", false, "Vulva"),
+    ).toBe("inflammation of vulva");
+    expect(
+      examSignTreeCaption(exam.display, exam.baseSign, "VulvaSign", "vulva", false, "Vulva"),
+    ).toBe("Appearance");
   });
 });
