@@ -4,7 +4,7 @@
  */
 import { describe, expect, it } from "vitest";
 import { formOf } from "../remake/src/knowledge-data.ts";
-import { linkLabel } from "../remake/src/form/engine.ts";
+import { isStrictCompleteConcept, linkAllowedOnForm, linkLabel } from "../remake/src/form/engine.ts";
 import type { FormLink } from "../remake/src/knowledge-data.ts";
 
 function linkOn(topic: string, bag: "diagnoses" | "associatedSymptomsAndSigns", concept: string): { link: FormLink; location: string | null } {
@@ -93,5 +93,25 @@ describe("other locative wording", () => {
   it("uses a complete Location+concept topic when one exists (breast tenderness)", () => {
     const mastalgia = linkOn("CyclicalMastalgia", "associatedSymptomsAndSigns", "TendernessSymptom");
     expect(linkLabel(mastalgia.link, mastalgia.location).toLowerCase()).toBe("breast tenderness");
+  });
+});
+
+
+describe("diagnosis membership at a form site", () => {
+  it("treats Incomplete as not complete", () => {
+    expect(isStrictCompleteConcept("Sialolithiasis")).toBe(true);
+    expect(isStrictCompleteConcept("DermoidCyst")).toBe(false);
+    expect(isStrictCompleteConcept("Ganglion")).toBe(false);
+  });
+
+  it("keeps a diagnosis only when it is complete or has a locative at the site", () => {
+    const cheek = formOf("CheekLumpSymptom")!;
+    expect(linkAllowedOnForm(cheek.diagnoses.find((l) => l.concept === "Sialolithiasis")!, cheek.location)).toBe(true);
+    expect(linkAllowedOnForm(cheek.diagnoses.find((l) => l.concept === "DermoidCyst")!, cheek.location)).toBe(false);
+
+    const hand = formOf("DorsalHandLumpSymptom")!;
+    expect(linkAllowedOnForm(hand.diagnoses.find((l) => l.concept === "CutaneousAbscess")!, hand.location)).toBe(true);
+    expect(linkAllowedOnForm(hand.diagnoses.find((l) => l.concept === "Ganglion")!, hand.location)).toBe(false);
+    expect(linkAllowedOnForm(hand.diagnoses.find((l) => l.concept === "Tenosynovitis")!, hand.location)).toBe(false);
   });
 });

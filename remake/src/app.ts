@@ -47,6 +47,7 @@ import {
   hasMoreLayer,
   isExamSideDirty,
   lateralityPhrase,
+  linkAllowedOnForm,
   linkLabel,
   rowKey,
   rowsOf,
@@ -1472,11 +1473,14 @@ function formFields(form: RemakeForm, fs: FormState, commit: (next: FormState) =
   }
   col.append(desc);
 
-  if (form.associatedSymptomsAndSigns?.length) {
-    col.append(linkSection("Associated symptoms and signs", "associated", form.associatedSymptomsAndSigns, fs, commit, from));
+  const location = form.location;
+  const associated = (form.associatedSymptomsAndSigns ?? []).filter((link) => linkAllowedOnForm(link, location));
+  const diagnoses = (form.diagnoses ?? []).filter((link) => linkAllowedOnForm(link, location));
+  if (associated.length) {
+    col.append(linkSection("Associated symptoms and signs", "associated", associated, fs, commit, from));
   }
-  if (form.diagnoses?.length) {
-    col.append(linkSection("Diagnoses", "diagnoses", form.diagnoses, fs, commit, from));
+  if (diagnoses.length) {
+    col.append(linkSection("Diagnoses", "diagnoses", diagnoses, fs, commit, from));
   }
   if (form.otherLinks?.length) {
     col.append(linkSection("Other", "associated", form.otherLinks, fs, commit, from));
