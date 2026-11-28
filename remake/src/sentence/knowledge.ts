@@ -74,9 +74,12 @@ export function knowledgeFromExtract(rulesDoc: unknown, conceptsDoc: unknown, li
 }
 
 function parseLocative(link: string): LocativeLink | null {
-  const i = link.indexOf(" ");
-  if (i <= 0) return null;
-  return { preposition: link.slice(0, i), location: link.slice(i + 1) };
+  const trimmed = link.trim();
+  if (!trimmed) return null;
+  const i = trimmed.indexOf(" ");
+  // A bare location token (no preposition) still names the site.
+  if (i <= 0) return { preposition: "", location: trimmed };
+  return { preposition: trimmed.slice(0, i), location: trimmed.slice(i + 1) };
 }
 
 function stringList(v: unknown): string[] {
