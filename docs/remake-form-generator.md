@@ -2,6 +2,8 @@
 
 A deterministic generator turns a [clinergy-extractor](https://github.com/erik-sundvalls-bots/clinergy-extractor) output tree into remake form definitions, examination entry, and compact sentence knowledge. The remake uses this generated catalogue for **every** topic. Same input always yields byte-identical output: object keys are sorted, ids are the extractor topic and exam names, and the writer never emits timestamps. Unit tests run the generator twice and diff the bytes, and compare the result to golden snapshots built from a synthetic fixture (not from the 1998 demo).
 
+The end-to-end pipeline (extraction, form/exam layout, sentence rendering, and the conformance harness) is summarised in [remake algorithm](remake-algorithm.md).
+
 ## Committed catalogues
 
 The generated catalogues are committed under `public/remake/generated/`:
