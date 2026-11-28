@@ -1,7 +1,10 @@
 # Form difference harness
 
 A box-only runner compares the remake's generated catalogues and sentence
-renderer to the original engine, across all 2,121 forms:
+renderer to the original 1998 program, across all 2,121 forms.
+The algorithm those catalogues and the renderer implement is in [remake algorithm](remake-algorithm.md).
+
+The runner compares:
 
 - **Structure:** runtime form specs (descriptor order, captions, value
   lists, numeric / many-valued fields, associated / diagnosis /

@@ -6,6 +6,8 @@ A separate page in this project, published at:
 
 This is an independent recreation of a PEN&PAD / 1998 Clinergy-style data-entry experience in the browser. It is **not** named Clinergy and it is not the original program. See the in-app **About / credits** panel.
 
+How catalogues, forms, sentences, and conformance checks fit together: [remake algorithm](../docs/remake-algorithm.md).
+
 ## This slice
 
 - Gen-Demo-style host: patient header, record list, launch buttons (QDE SYM DIS CHK FH PMH INT).
