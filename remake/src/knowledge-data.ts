@@ -11,6 +11,8 @@ import linksRaw from "../../data/concept-links.yaml?raw";
 import { knowledgeFromExtract } from "./sentence/knowledge.ts";
 import type { SentenceKnowledge } from "./sentence/types.ts";
 import type { ExamDefinition, GeneratedExamsCatalog } from "./form/exams.ts";
+import { applyFormFieldLayout, VACCINATION_STATUS_OPTIONS, VACCINATION_STATUS_SUMMARY } from "./form/form-layout.ts";
+
 import { sentenceKnowledgeFromGenerated, type GeneratedSentenceKnowledge } from "./sentence/generate.ts";
 
 export interface MapSublocation {
@@ -155,14 +157,21 @@ let generatedSignForms: Record<string, RemakeForm> = {};
 let generatedExams: Record<string, ExamDefinition> = {};
 let generatedSummaryTypes: GeneratedExamsCatalog["summaryTypes"] = {};
 
+let formLayoutCache: Record<string, RemakeForm> = {};
+
 export function setGeneratedForms(forms: Record<string, RemakeForm> | null): void {
   generatedForms = forms ?? {};
+  formLayoutCache = {};
 }
 
 export function setGeneratedExams(catalog: GeneratedExamsCatalog | null): void {
   generatedExams = catalog?.exams ?? {};
   generatedSignForms = catalog?.signs ?? {};
-  generatedSummaryTypes = catalog?.summaryTypes ?? {};
+  generatedSummaryTypes = { ...(catalog?.summaryTypes ?? {}) };
+  if (!generatedSummaryTypes[VACCINATION_STATUS_SUMMARY]) {
+    generatedSummaryTypes[VACCINATION_STATUS_SUMMARY] = VACCINATION_STATUS_OPTIONS;
+  }
+  formLayoutCache = {};
 }
 
 export function examOf(name: string): ExamDefinition | null {
@@ -175,7 +184,13 @@ export function summaryOptions(summaryType: string | null | undefined): Array<{ 
 }
 
 export function formOf(topic: string): RemakeForm | null {
-  return generatedForms[topic] ?? generatedSignForms[topic] ?? null;
+  const cached = formLayoutCache[topic];
+  if (cached) return cached;
+  const raw = generatedForms[topic] ?? generatedSignForms[topic] ?? null;
+  if (!raw) return null;
+  const next = applyFormFieldLayout(raw, generatedSummaryTypes);
+  formLayoutCache[topic] = next;
+  return next;
 }
 
 export function topicDisplay(topic: string): string {
