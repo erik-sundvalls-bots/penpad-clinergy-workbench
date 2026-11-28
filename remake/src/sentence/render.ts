@@ -33,8 +33,11 @@
  *   "Cold left arm") when there is no generic head to lift out. typ=5
  *   ConseqPain uses "painful" / "painless".
  * - PresentPossibleExcluded does not say "present" (just the topic, or
- *   "? topic", or "topic excluded"). AbsentPresent still says "present" or
- *   prefixes "no" for absence.
+ *   "? topic", or "topic excluded"). YesNoPMH does not say "yes". ActionDoneSummary
+ *   does not say "done". AbsentPresent still says "present" or prefixes "no"
+ *   for absence. FamilyHistorySummary "none" is "no" in front of the topic.
+ * - hasAggravatingFactor uses "aggravated by <value>", matching the original
+ *   field caption, rather than the humanized descriptor name.
  * - A few value words are taken from the original engine's sentence forms
  *   when the extract lexicon has no adverb: possible → "?", absence → "no",
  *   same → "unchanging". Extract rule values "intermittant"/"persistant"
@@ -93,7 +96,11 @@ export function findingsFromParsed(doc: unknown): Finding[] {
 }
 
 export function humanize(name: string): string {
-  return name.replace(/([a-z0-9])([A-Z])/g, "$1 $2").replace(/[_-]+/g, " ").toLowerCase();
+  return name
+    .replace(/([a-z0-9])([A-Z])/g, "$1 $2")
+    .replace(/_/g, " ")
+    .replace(/([A-Za-z])-+([A-Za-z])/g, "$1 $2")
+    .toLowerCase();
 }
 
 export function pluralizeEn(word: string, n: number): string {
@@ -117,13 +124,22 @@ function qualifiersOf(finding: Finding, knowledge: SentenceKnowledge, missing: s
   const descriptor = summaryDescriptor(finding, knowledge);
   if (finding.summary && !list.some((q) => q.value === finding.summary && q.descriptor === descriptor)) {
     const summaryType = knowledge.concepts[finding.topic]?.summaryType;
-    const skipDefaultPresent = finding.summary === "presence" && summaryType === "PresentPossibleExcluded";
-    if (!skipDefaultPresent) list.push({ descriptor, value: finding.summary });
+    if (!isImplicitDefaultSummary(finding.summary, summaryType)) {
+      list.push({ descriptor, value: finding.summary });
+    }
   }
   if (finding.summary && !knowledge.descriptors[descriptor]) {
     missing.push(`rules:${descriptor}`);
   }
   return list;
+}
+
+
+function isImplicitDefaultSummary(summary: string | undefined, summaryType: string | null | undefined): boolean {
+  if (summary === "presence" && summaryType === "PresentPossibleExcluded") return true;
+  if (summary === "yesPMH" && summaryType === "YesNoPMH") return true;
+  if (summary === "done" && summaryType === "ActionDoneSummary") return true;
+  return false;
 }
 
 function summaryDescriptor(finding: Finding, knowledge: SentenceKnowledge): string {
@@ -171,6 +187,7 @@ function phraseOf(q: Qualifier, index: number, knowledge: SentenceKnowledge, mis
     }];
   }
   const consequence = CONSEQUENCE_PHRASES[q.descriptor]?.[q.value];
+  const prefix = DESCRIPTOR_PHRASE_PREFIX[q.descriptor];
   const descKind = descriptorKind(rule.descriptorForm);
   const valueWord = wordForValue(rule.valueForm, q.value, knowledge, missing);
   const descWord = q.number != null
@@ -180,7 +197,9 @@ function phraseOf(q: Qualifier, index: number, knowledge: SentenceKnowledge, mis
     ? numericPhrase(rule.order, descWord, q.number, unitWord(q.unit ?? q.value, q.number, knowledge, missing))
     : consequence
       ? consequence
-      : joinWords(valueFirst(rule.order) ? [valueWord, descWord] : [descWord, valueWord]);
+      : prefix
+        ? joinWords([prefix, valueWord])
+        : joinWords(valueFirst(rule.order) ? [valueWord, descWord] : [descWord, valueWord]);
   if (!text) return [];
   return [{
     text,
@@ -519,6 +538,11 @@ function isBefore(position: string): boolean {
 
 const norm = (s: string) => s.toLowerCase().replace(/[_-\s]/g, "");
 
+/** Observed original-engine linking phrases for typ=1 factor lists. */
+const DESCRIPTOR_PHRASE_PREFIX: Record<string, string> = {
+  hasAggravatingFactor: "aggravated by",
+};
+
 /** typ=5 consequence phrases (engine s17) used in place of adjective + "presently". */
 const CONSEQUENCE_PHRASES: Record<string, Record<string, string>> = {
   ConseqTendernessSign: { presence: "tender", absence: "non tender" },
@@ -532,6 +556,7 @@ const ENGINE_VALUE_WORDS: Record<string, string> = {
   absence: "no",
   same: "unchanging",
   none: "no",
+  nonePresent: "no",
   noDiurnalPattern: "no",
   DepotContraceptiveInjection: "depot injection",
 };
