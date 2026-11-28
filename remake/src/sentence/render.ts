@@ -39,7 +39,10 @@
  *   use the engine's short phrases (tender / non tender, inflamed / non
  *   inflamed) rather than descriptor adjective + "presently".
  * - A numeric qualifier uses "<descriptor word> <number> <unit>" when the
- *   rule order is descriptor-first, which is how "for 2 weeks" is written.
+ *   rule order is descriptor-first ("for 3 days") and "<number> <unit>
+ *   <descriptor word>" when value-first ("2 weeks ago"). typ=2 consequence
+ *   nouns ("ago", "for") are used when the adjective form is missing.
+ *   Systolic and diastolic blood pressure join as "120/80 mmHg".
  * - The first character of the finished sentence is capitalised; nothing else
  *   is forced to a case.
  * - Engine tokens in the YAML (valueAdj, valueNoun, descAdj, NoDescriptor,
@@ -55,7 +58,7 @@ export function renderSentence(finding: Finding, knowledge: SentenceKnowledge): 
 
 export function renderSentenceReport(finding: Finding, knowledge: SentenceKnowledge): Rendered {
   const missing: string[] = [];
-  const qualifiers = qualifiersOf(finding, knowledge, missing);
+  const qualifiers = foldBloodPressure(qualifiersOf(finding, knowledge, missing), knowledge, missing);
   const phrases = qualifiers.flatMap((q, index) => phraseOf(q, index, knowledge, missing));
   const before = phrases.filter((p) => p.before).sort(closerLast).map((p) => p.text);
   const after = phrases.filter((p) => !p.before).sort(closerFirst).map((p) => p.text);
@@ -133,6 +136,15 @@ function phraseOf(q: Qualifier, index: number, knowledge: SentenceKnowledge, mis
   const descriptor = knowledge.descriptors[q.descriptor];
   const rule = descriptor?.rules.find((r) => ruleValueMatches(r.value, q.value));
   if (!rule) {
+    if (q.number == null && q.unit && /^\d/.test(q.unit.trim())) {
+      return [{
+        text: q.unit,
+        before: false,
+        precedence: descriptor?.precedence ?? 0,
+        valuePrecedence: knowledge.valuePrecedences[q.value] ?? 0,
+        index,
+      }];
+    }
     missing.push(`rules:${q.descriptor}.${q.value}`);
     const text = q.number != null
       ? [String(q.number), unitWord(q.unit ?? q.value, q.number, knowledge, missing)].join(" ")
@@ -145,10 +157,21 @@ function phraseOf(q: Qualifier, index: number, knowledge: SentenceKnowledge, mis
       index,
     }];
   }
+  if (q.number == null && q.unit && /\d/.test(q.unit) && (q.value === "BloodPressureValue" || q.descriptor === "hasManyValuedQuantity")) {
+    return [{
+      text: q.unit,
+      before: isBefore(rule.position),
+      precedence: descriptor?.precedence ?? 0,
+      valuePrecedence: rule.valuePrecedence ?? knowledge.valuePrecedences[q.value] ?? 0,
+      index,
+    }];
+  }
   const consequence = CONSEQUENCE_PHRASES[q.descriptor]?.[q.value];
   const descKind = descriptorKind(rule.descriptorForm);
   const valueWord = wordForValue(rule.valueForm, q.value, knowledge, missing);
-  const descWord = wordForDescriptor(descKind, q.descriptor, knowledge, missing);
+  const descWord = q.number != null
+    ? numericDescriptorWord(q.descriptor, descKind, knowledge, missing)
+    : wordForDescriptor(descKind, q.descriptor, knowledge, missing);
   const text = q.number != null
     ? numericPhrase(rule.order, descWord, q.number, unitWord(q.unit ?? q.value, q.number, knowledge, missing))
     : consequence
@@ -195,9 +218,39 @@ function wordForDescriptor(
   return adjectiveWord(descriptor, knowledge, missing);
 }
 
+function numericDescriptorWord(
+  descriptor: string,
+  kind: "none" | "noun" | "adj" | "negative",
+  knowledge: SentenceKnowledge,
+  missing: string[],
+): string | null {
+  const lex = knowledge.lexicon.descriptors[descriptor];
+  if (kind === "adj" && lex?.adjective) return lex.adjective;
+  if (lex?.noun) return lex.noun;
+  if (lex?.adjective) return lex.adjective;
+  if (kind === "none") return null;
+  return wordForDescriptor(kind, descriptor, knowledge, missing);
+}
+
+function foldBloodPressure(qualifiers: Qualifier[], knowledge: SentenceKnowledge, missing: string[]): Qualifier[] {
+  const sys = qualifiers.find((q) => q.value === "SystolicBPValue" && q.number != null);
+  const dia = qualifiers.find((q) => q.value === "DiastolicBPValue" && q.number != null);
+  if (!sys || !dia) return qualifiers;
+  const unit = unitWord(sys.unit ?? dia.unit ?? "millimetresOfMercury", sys.number ?? 1, knowledge, missing);
+  return [
+    ...qualifiers.filter((q) => q !== sys && q !== dia),
+    {
+      descriptor: "hasManyValuedQuantity",
+      value: "BloodPressureValue",
+      number: undefined,
+      unit: `${sys.number}/${dia.number} ${unit}`,
+    },
+  ];
+}
+
 function numericPhrase(order: string, descriptorWord: string | null, n: number, unit: string): string {
   const num = String(n);
-  return valueFirst(order) ? joinWords([unit, num, descriptorWord]) : joinWords([descriptorWord, num, unit]);
+  return valueFirst(order) ? joinWords([num, unit, descriptorWord]) : joinWords([descriptorWord, num, unit]);
 }
 
 function uniqueLocative(finding: Finding, knowledge: SentenceKnowledge) {
@@ -241,6 +294,18 @@ function grammaticalHead(finding: Finding, knowledge: SentenceKnowledge): string
     // "ear discharge", "eye foreign body": keep the pre-coordinated name and
     // still attach laterality on the locative ("Ear discharge from left ear").
     return finding.topic;
+  }
+  // "pitting ankle oedema" + laterality at Ankle → "pitting oedema of left ankle"
+  // (only drop an exact single-word site that is already in the display, and
+  // only when a generic finding word remains).
+  if (rewrite && locDisplay && !/\s/.test(locDisplay.trim())) {
+    const site = locDisplay.trim().toLowerCase();
+    const words = topicDisplay.trim().split(/\s+/);
+    const GENERIC = new Set(["pain", "swelling", "lump", "ache", "stiffness", "weakness", "tenderness", "rash", "oedema", "edema"]);
+    const filtered = words.filter((w) => w.toLowerCase() !== site);
+    if (filtered.length > 0 && filtered.length < words.length && filtered.some((w) => GENERIC.has(w.toLowerCase()))) {
+      return filtered.join(" ");
+    }
   }
   const last = topicDisplay.trim().split(/\s+/).pop() ?? "";
   const prefix = topicDisplay.trim().slice(0, Math.max(0, topicDisplay.trim().length - last.length)).trim().toLowerCase();
@@ -313,7 +378,9 @@ function adverbWord(name: string, knowledge: SentenceKnowledge, missing: string[
 }
 
 function unitWord(name: string, n: number, knowledge: SentenceKnowledge, missing: string[]): string {
-  return pluralizeEn(displayOf(name, knowledge, missing), n);
+  const display = displayOf(name, knowledge, missing);
+  if (/\s/.test(display) || /^(mmHg|mm|cm|kg|mls)$/i.test(display)) return display;
+  return pluralizeEn(display, n);
 }
 
 function adverbFallback(display: string): string {

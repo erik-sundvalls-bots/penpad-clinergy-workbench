@@ -1,0 +1,135 @@
+{
+  "schema": "penpad-remake-quantity-oracle/v1",
+  "notes": "Expected strings observed from the original engine (NatLanguageForConcept). Concept ids only; no engine binaries or images.",
+  "cases": [
+    {
+      "id": "pmh-malaria-start-time",
+      "finding": {
+        "topic": "PMHOfMalaria",
+        "qualifiers": [
+          { "descriptor": "QuantityStartTime", "value": "PastHistoryValue", "number": 2, "unit": "week" }
+        ]
+      },
+      "expected": "PMH of malaria 2 weeks ago"
+    },
+    {
+      "id": "pmh-malaria-length",
+      "finding": {
+        "topic": "PMHOfMalaria",
+        "qualifiers": [
+          { "descriptor": "QuantityLengthOfHistory", "value": "PastHistoryValue", "number": 3, "unit": "day" }
+        ]
+      },
+      "expected": "PMH of malaria for 3 days"
+    },
+    {
+      "id": "pmh-malaria-start-and-length",
+      "finding": {
+        "topic": "PMHOfMalaria",
+        "qualifiers": [
+          { "descriptor": "QuantityStartTime", "value": "PastHistoryValue", "number": 2, "unit": "week" },
+          { "descriptor": "QuantityLengthOfHistory", "value": "PastHistoryValue", "number": 3, "unit": "day" }
+        ]
+      },
+      "expected": "PMH of malaria 2 weeks ago, for 3 days"
+    },
+    {
+      "id": "pmh-malaria-intermittent-start-length",
+      "finding": {
+        "topic": "PMHOfMalaria",
+        "qualifiers": [
+          { "descriptor": "AbsoluteHistoricalPattern", "value": "intermittant" },
+          { "descriptor": "QuantityStartTime", "value": "PastHistoryValue", "number": 2, "unit": "week" },
+          { "descriptor": "QuantityLengthOfHistory", "value": "PastHistoryValue", "number": 3, "unit": "day" }
+        ]
+      },
+      "expected": "PMH of malaria intermittently, 2 weeks ago, for 3 days"
+    },
+    {
+      "id": "pmh-malaria-single-start-length",
+      "finding": {
+        "topic": "PMHOfMalaria",
+        "qualifiers": [
+          { "descriptor": "AbsoluteHistoricalPattern", "value": "single" },
+          { "descriptor": "QuantityStartTime", "value": "PastHistoryValue", "number": 2, "unit": "week" },
+          { "descriptor": "QuantityLengthOfHistory", "value": "PastHistoryValue", "number": 3, "unit": "day" }
+        ]
+      },
+      "expected": "PMH of malaria single occurrence, 2 weeks ago, for 3 days"
+    },
+    {
+      "id": "pulse-rate-90",
+      "finding": {
+        "topic": "PulseRateSign",
+        "qualifiers": [
+          { "descriptor": "hasQuantity", "value": "PulseRateValue", "number": 90, "unit": "perMinute" }
+        ]
+      },
+      "expected": "Pulse rate 90 per minute"
+    },
+    {
+      "id": "heart-rate-95",
+      "finding": {
+        "topic": "HeartRateSign",
+        "qualifiers": [
+          { "descriptor": "hasQuantity", "value": "HeartRateValue", "number": 95, "unit": "perMinute" }
+        ]
+      },
+      "expected": "Heart rate 95 per minute"
+    },
+    {
+      "id": "blood-pressure-120-80",
+      "finding": {
+        "topic": "BloodPressureSign",
+        "qualifiers": [
+          { "descriptor": "hasManyValuedQuantity", "value": "SystolicBPValue", "number": 120, "unit": "millimetresOfMercury" },
+          { "descriptor": "hasManyValuedQuantity", "value": "DiastolicBPValue", "number": 80, "unit": "millimetresOfMercury" }
+        ]
+      },
+      "expected": "Blood pressure 120/80 mmHg"
+    },
+    {
+      "id": "jvp-slightly-raised",
+      "finding": {
+        "topic": "JVPSign",
+        "qualifiers": [
+          { "descriptor": "hasLevel", "value": "slightlyRaisedJVP" }
+        ]
+      },
+      "expected": "JVP slightly raised"
+    },
+    {
+      "id": "jvp-normal",
+      "finding": {
+        "topic": "JVPSign",
+        "qualifiers": [
+          { "descriptor": "hasLevel", "value": "normalJVP" }
+        ]
+      },
+      "expected": "JVP normal"
+    },
+    {
+      "id": "jvp-raised",
+      "finding": {
+        "topic": "JVPSign",
+        "qualifiers": [
+          { "descriptor": "hasLevel", "value": "raisedJVP" }
+        ]
+      },
+      "expected": "JVP raised"
+    },
+    {
+      "id": "pitting-oedema-left-mild",
+      "finding": {
+        "topic": "PittingAnkleOedemaSign",
+        "location": "Ankle",
+        "laterality": "left",
+        "summary": "presence",
+        "qualifiers": [
+          { "descriptor": "AbsoluteSeverity", "value": "mild" }
+        ]
+      },
+      "expected": "Mild pitting oedema of left ankle present"
+    }
+  ]
+}

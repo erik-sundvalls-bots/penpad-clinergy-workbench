@@ -67,6 +67,11 @@ export interface FormRow {
   default?: unknown;
   /** Hide this row unless the named feature (or laterality) has one of these values. */
   visibleWhen?: { feature: string; values: string[] };
+  /** Original-engine field caption (e.g. "how long ago?"). */
+  caption?: string;
+  /** Unit concept ids (or singular temporal ids) offered on a quantity row. */
+  units?: string[];
+  defaultUnit?: string;
 }
 
 export interface FormLink {

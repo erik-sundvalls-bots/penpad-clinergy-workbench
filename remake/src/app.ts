@@ -56,6 +56,7 @@ import {
   setFormSummary,
   setLinkSummary,
   setQuantity,
+  setQuantityPart,
   setSubLocation,
   toggleLaterality,
   valueKey,
@@ -66,6 +67,7 @@ import {
   type LateralityChoice,
 } from "./form/engine.ts";
 import { isQuantityRow } from "./form/generate.ts";
+import { isManyValuedQuantity, quantitySpec, quantityTokenCaption, quantityTokens } from "./form/quantities.ts";
 import { loadGeneratedCatalogs } from "./form/catalog.ts";
 import {
   acceptTopPopup,
@@ -1184,6 +1186,8 @@ function examValueLabel(row: FormRow, raw: unknown): string {
     if (key === "moderate") return "moderately painful";
     if (key === "severe") return "severely painful";
   }
+  const displayed = conceptDisplay(key);
+  if (displayed && displayed.toLowerCase() !== key.toLowerCase()) return displayed;
   return valueLabel(raw);
 }
 
@@ -1475,7 +1479,8 @@ function featureRow(form: RemakeForm, fs: FormState, row: FormRow, commit: (next
   const multiple = row.multiple === true;
   const values = row.values ?? [];
   const wrap = el("div", { class: "feat" });
-  wrap.append(el("div", { class: "name" }, featureLabel(row.criterialLink ?? row.feature ?? feature)));
+  const caption = row.caption ?? featureLabel(row.criterialLink ?? row.feature ?? feature);
+  if (caption) wrap.append(el("div", { class: "name" }, caption));
   if (feature === "laterality") {
     const chips = el("div", { class: "chips" });
     for (const side of ["left", "right"] as LateralityChoice[]) {
@@ -1511,10 +1516,56 @@ function featureRow(form: RemakeForm, fs: FormState, row: FormRow, commit: (next
     return wrap;
   }
   if (feature === "QuantityDuration" || values.includes("TemporalValue") || isQuantityRow(row)) {
-    const dur = el("div", { class: "duration" });
+    const spec = quantitySpec(row.feature, values);
+    const units = (row.units?.length ? spec.units.filter((u) => row.units!.includes(u.id)).concat(
+      row.units.filter((id) => !spec.units.some((u) => u.id === id)).map((id) => ({ id, display: id })),
+    ) : spec.units);
+    const defaultUnit = row.defaultUnit ?? spec.defaultUnit;
+    const tokens = quantityTokens(row);
+    const many = isManyValuedQuantity(row) && tokens.length > 1;
+    const box = el("div", { class: many ? "duration many-qty" : "duration" });
+
+    const unitSelect = (current: string | undefined, onChange: (unit: string) => void) => {
+      const unit = document.createElement("select");
+      unit.className = "qty-unit";
+      const selected = current || defaultUnit;
+      for (const u of units.length ? units : [{ id: defaultUnit, display: defaultUnit }]) {
+        const opt = document.createElement("option");
+        opt.value = u.id;
+        opt.textContent = u.display;
+        if (u.id === selected) opt.selected = true;
+        unit.append(opt);
+      }
+      unit.addEventListener("change", () => { onChange(unit.value); });
+      return unit;
+    };
+
+    if (many) {
+      const sel = fs.features[feature];
+      for (const token of tokens) {
+        const part = sel?.quantities?.find((q) => q.value === token);
+        const line = el("div", { class: "qty-part" });
+        line.append(el("div", { class: "name" }, quantityTokenCaption(token, conceptDisplay(token))));
+        const num = document.createElement("input");
+        num.type = "number";
+        num.min = "0";
+        num.step = "1";
+        num.value = part?.number ? String(part.number) : "";
+        const apply = (unit: string) => {
+          const n = num.value === "" ? undefined : Number(num.value);
+          commit(setQuantityPart(fs, feature, token, Number.isFinite(n as number) ? n : undefined, unit, tokens));
+        };
+        const unit = unitSelect(part?.unit ?? sel?.unit, apply);
+        num.addEventListener("change", () => { apply(unit.value); });
+        line.append(num, unit);
+        box.append(line);
+      }
+      wrap.append(box);
+      return wrap;
+    }
+
     const sel = fs.features[feature];
-    const token = typeof values[0] === "string" ? String(values[0]) : "TemporalValue";
-    const timeLike = token === "TemporalValue" || token === "PastHistoryValue" || /Duration|Time/.test(token) || feature === "QuantityDuration";
+    const token = tokens[0] ?? (typeof values[0] === "string" ? String(values[0]) : "TemporalValue");
     const num = document.createElement("input");
     num.type = "number";
     num.min = "0";
@@ -1524,29 +1575,10 @@ function featureRow(form: RemakeForm, fs: FormState, row: FormRow, commit: (next
       const n = num.value === "" ? undefined : Number(num.value);
       commit(setQuantity(fs, feature, token, Number.isFinite(n as number) ? n : undefined, unit));
     };
-    if (timeLike) {
-      const unit = document.createElement("select");
-      for (const u of DURATION_UNITS) {
-        const opt = document.createElement("option");
-        opt.value = u;
-        opt.textContent = u + "s";
-        if ((sel?.unit ?? "day") === u) opt.selected = true;
-        unit.append(opt);
-      }
-      num.addEventListener("change", () => { apply(unit.value); });
-      unit.addEventListener("change", () => { apply(unit.value); });
-      dur.append(num, unit);
-    } else {
-      const unit = document.createElement("input");
-      unit.type = "text";
-      unit.className = "qty-unit";
-      unit.placeholder = "unit";
-      unit.value = sel?.unit ?? "";
-      num.addEventListener("change", () => { apply(unit.value); });
-      unit.addEventListener("change", () => { apply(unit.value); });
-      dur.append(num, unit);
-    }
-    wrap.append(dur);
+    const unit = unitSelect(sel?.unit, apply);
+    num.addEventListener("change", () => { apply(unit.value); });
+    box.append(num, unit);
+    wrap.append(box);
     return wrap;
   }
   const chips = el("div", { class: "chips" });

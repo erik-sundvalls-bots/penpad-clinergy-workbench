@@ -1,6 +1,7 @@
 import type { Finding, Qualifier } from "../sentence/types.ts";
 import type { FormLink, FormRow, RemakeForm } from "../knowledge-data.ts";
 import { examOf, formOf, topicDisplay } from "../knowledge-data.ts";
+import { FEATURE_CAPTIONS, featureCaption } from "./quantities.ts";
 
 export const DURATION_UNITS = ["second", "minute", "hour", "day", "week", "month", "year"] as const;
 
@@ -13,11 +14,19 @@ function isQuantityToken(values: unknown[]): boolean {
 
 export type LateralityChoice = "left" | "right";
 
+export interface QuantityPart {
+  value: string;
+  number?: number;
+  unit?: string;
+}
+
 export interface FeatureSelection {
   /** Selected value keys, or a duration. */
   values: string[];
   number?: number;
   unit?: string;
+  /** Per-token numbers for many-valued quantities (e.g. systolic / diastolic BP). */
+  quantities?: QuantityPart[];
 }
 
 export interface LinkSelection {
@@ -221,6 +230,36 @@ export function setQuantity(
   return { ...state, features: { ...state.features, [feature]: next } };
 }
 
+export function setQuantityPart(
+  state: FormState,
+  feature: string,
+  valueToken: string,
+  number: number | undefined,
+  unit: string | undefined,
+  allTokens: string[],
+): FormState {
+  const current = state.features[feature] ?? { values: [] };
+  const parts = [...(current.quantities ?? [])];
+  const idx = parts.findIndex((p) => p.value === valueToken);
+  const nextPart: QuantityPart = {
+    value: valueToken,
+    number: number !== undefined && number > 0 ? number : undefined,
+    unit: unit || undefined,
+  };
+  if (idx >= 0) parts[idx] = nextPart;
+  else parts.push(nextPart);
+  const filled = parts.filter((p) => p.number && p.number > 0);
+  // Keep a stable token order for later joining (systolic then diastolic).
+  filled.sort((a, b) => allTokens.indexOf(a.value) - allTokens.indexOf(b.value));
+  const next: FeatureSelection = {
+    values: filled.map((p) => p.value),
+    quantities: parts,
+    number: filled.length === 1 ? filled[0]?.number : undefined,
+    unit: filled.length === 1 ? filled[0]?.unit : (filled[0]?.unit ?? unit),
+  };
+  return { ...state, features: { ...state.features, [feature]: next } };
+}
+
 export function setSubLocation(state: FormState, value: string, multiple: boolean): FormState {
   const next = setFeatureValue(state, "sublocation", value, multiple);
   const selected = next.features.sublocation?.values ?? [];
@@ -290,6 +329,18 @@ function qualifiersFromFeatures(form: RemakeForm, state: FormState): Qualifier[]
     const sel = state.features[key];
     if (!sel) continue;
     const token = (row.values ?? []).length === 1 && typeof row.values![0] === "string" ? String(row.values![0]) : undefined;
+    const parts = (sel.quantities ?? []).filter((p) => p.number && p.number > 0);
+    if (parts.length) {
+      for (const part of parts) {
+        out.push({
+          descriptor: row.criterialLink ?? row.feature ?? key,
+          value: part.value,
+          number: part.number,
+          unit: part.unit,
+        });
+      }
+      continue;
+    }
     if (sel.number && (sel.values.some((v) => /Value$/.test(v)) || isQuantityToken(row.values ?? []))) {
       out.push({
         descriptor: row.criterialLink ?? row.feature ?? key,
@@ -446,8 +497,10 @@ export function isFormDirty(state: FormState): boolean {
 
 export function featureLabel(feature: string): string {
   if (feature === "laterality") return "Laterality";
+  if (feature in FEATURE_CAPTIONS) return FEATURE_CAPTIONS[feature];
   if (feature === "QuantityDuration") return "Duration";
-  return feature.replace(/^Absolute/, "").replace(/([a-z0-9])([A-Z])/g, "$1 $2");
+  const caption = featureCaption(feature);
+  return caption || feature.replace(/^has/, "").replace(/^Absolute/, "").replace(/([a-z0-9])([A-Z])/g, "$1 $2");
 }
 
 export function valueLabel(value: string | unknown): string {
