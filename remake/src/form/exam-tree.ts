@@ -6,8 +6,17 @@
  * consistency rows, otherwise Appearance.
  */
 import type { RemakeForm } from "../knowledge-data.ts";
+import { conceptDisplay } from "../knowledge-data.ts";
+import { locativePreposition } from "./engine.ts";
 import EXAM_CAPTIONS from "./exam-captions.json";
+import EXAM_LOCATIVE_SIGNS from "./exam-locative-signs.json";
 import EXAM_INLINE_VALUES from "./exam-inline-values.json";
+
+const LOCATIVE_PAIRS = new Set(
+  ((EXAM_LOCATIVE_SIGNS as { pairs: { sign: string; location: string }[] }).pairs ?? [])
+    .map((row) => `${row.sign}|${row.location}`),
+);
+
 
 type InlineSpec = { inline: string; hide?: string[] };
 const INLINE_SPECS = EXAM_INLINE_VALUES as Record<string, InlineSpec>;
@@ -102,3 +111,38 @@ export function sidedExamCaption(display: string, side: "left" | "right"): strin
   const label = side === "left" ? "Left" : "Right";
   return `${label} ${d}`;
 }
+
+const FOLDER_CAPTIONS = new Set(["appearance", "features"]);
+
+/**
+ * Incomplete signs in an exam pick up the exam site, using the sanctioned
+ * locative ("inflammation of vulva", "abscess on vulva", "foreign body in eyelid").
+ * Features / Appearance folders and captions that already name the site stay as they are.
+ */
+export function locativeExamSignCaption(
+  sign: string,
+  caption: string,
+  location: string | null | undefined,
+): string {
+  const cap = (caption || "").trim();
+  if (!location || !cap || FOLDER_CAPTIONS.has(cap.toLowerCase())) return cap;
+  if (!LOCATIVE_PAIRS.has(`${sign}|${location}`)) return cap;
+  const locDisp = conceptDisplay(location);
+  if (!locDisp || cap.toLowerCase().includes(locDisp.toLowerCase())) return cap;
+  const prep = locativePreposition(sign, location);
+  if (!prep) return cap;
+  return `${cap} ${prep} ${locDisp}`;
+}
+
+export function examSignTreeCaption(
+  examDisplay: string,
+  baseSign: string | null | undefined,
+  sign: string,
+  signDisplay: string,
+  hasFeatures: boolean,
+  location?: string | null,
+): string {
+  const cap = signTreeCaption(examDisplay, baseSign, sign, signDisplay, hasFeatures);
+  return locativeExamSignCaption(sign, cap, location);
+}
+

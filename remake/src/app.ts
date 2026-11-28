@@ -86,7 +86,7 @@ import { getSentenceKnowledge, sentenceKnowledge } from "./knowledge-data.ts";
 import type { RemakeForm, FormExam, FormLink, FormRow } from "./knowledge-data.ts";
 import { examSidesFor, onExamination, sideLabel } from "./exam/prose.ts";
 import type { ExamDefinition } from "./form/exams.ts";
-import { examTreeCaption, inlineExamSign, sidedExamCaption, signHasFeatureFolder, signTreeCaption } from "./form/exam-tree.ts";
+import { examSignTreeCaption, examTreeCaption, inlineExamSign, sidedExamCaption, signHasFeatureFolder } from "./form/exam-tree.ts";
 
 
 interface Hover {
@@ -1313,7 +1313,14 @@ function examSignBlock(
   const display = form?.display || sign.replace(/Sign$/, "").replace(/([a-z0-9])([A-Z])/g, "$1 $2").toLowerCase();
   const parentExam = siteExam ? examOf(siteExam) : examOf(state.examPopup?.exam ?? "");
   const treeCaption = parentExam
-    ? signTreeCaption(parentExam.display, parentExam.baseSign, sign, display, signHasFeatureFolder(form))
+    ? examSignTreeCaption(
+        parentExam.display,
+        parentExam.baseSign,
+        sign,
+        display,
+        signHasFeatureFolder(form),
+        parentExam.baseLocation,
+      )
     : examTreeCaption(display);
   const wrap = el("div", { class: "exam-sign" });
   wrap.append(el("div", { class: "name" }, treeCaption));
