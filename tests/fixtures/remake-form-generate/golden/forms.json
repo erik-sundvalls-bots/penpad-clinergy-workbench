@@ -28,6 +28,7 @@
       "examinations": [],
       "firstLayer": [
         {
+          "caption": "laterality",
           "feature": "laterality",
           "multiple": true,
           "values": [
@@ -36,7 +37,7 @@
           ]
         },
         {
-          "caption": "Duration",
+          "caption": "duration",
           "defaultUnit": "day",
           "feature": "QuantityDuration",
           "units": [
@@ -53,6 +54,7 @@
           ]
         },
         {
+          "caption": "severity",
           "default": "moderate",
           "feature": "AbsoluteSeverity",
           "values": [
@@ -62,6 +64,7 @@
           ]
         },
         {
+          "caption": "onset",
           "feature": "AbsoluteOnset",
           "values": [
             "gradual",
@@ -78,6 +81,7 @@
       "location": "DemoRegion",
       "moreLayer": [
         {
+          "caption": "progress",
           "feature": "AbsoluteProgress",
           "values": [
             "better",
@@ -110,6 +114,7 @@
       ],
       "firstLayer": [
         {
+          "caption": "Sublocation",
           "feature": "sublocation",
           "values": [
             "proximalPart",
@@ -134,6 +139,7 @@
           ]
         },
         {
+          "caption": "conseq Demo Finding",
           "criterialLink": "ConseqDemoFinding",
           "values": [
             {

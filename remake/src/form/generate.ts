@@ -213,26 +213,30 @@ function conceptDisplayOf(concepts: Record<string, unknown>, name: string): stri
   return undefined;
 }
 
-/** Attach original-style captions and unit lists/defaults to quantity rows. */
+/** Attach original-engine captions to every row, plus unit lists/defaults for quantities. */
 function enrichQuantityRows(form: RemakeForm, concepts: Record<string, unknown>): void {
-  for (const row of [...form.firstLayer, ...form.moreLayer]) {
-    const feature = row.feature ?? row.criterialLink;
-    const tokens = quantityTokens(row);
-    const isQty = (feature ?? "").startsWith("Quantity") || feature === "hasQuantity" || feature === "hasManyValuedQuantity" || tokens.length > 0;
-    const known = feature ? featureCaption(feature) : "";
-    const hasNamedCaption = Boolean(feature && known && (feature.startsWith("Quantity") || feature.startsWith("Absolute") || feature.startsWith("has")));
-    if (hasNamedCaption && !row.caption) {
-      // Only store captions we actually know from the original engine / lexicon map.
-      if (["QuantityStartTime","QuantityLengthOfHistory","QuantityDuration","QuantityTimeOcc","QuantityMensesDuration","QuantityMensesFrequency","QuantityFrequency","QuantityCount","QuantityWidth","QuantityLongitude","QuantityHeight","QuantityCircumference","QuantityWalkingDistance","AbsoluteHistoricalPattern","hasQuantity","hasManyValuedQuantity","hasLevel","hasTrendInState","hasChangeInState"].includes(feature!)) {
-        row.caption = known;
+  const layers = [form.firstLayer, form.moreLayer];
+  for (const layer of layers) {
+    for (const row of layer) {
+      const feature = row.feature ?? row.criterialLink;
+      const tokens = quantityTokens(row);
+      const isQty = (feature ?? "").startsWith("Quantity") || feature === "hasQuantity" || feature === "hasManyValuedQuantity" || tokens.length > 0;
+      if (!row.caption && feature) {
+        const siblings = layer.some((other) => other !== row);
+        if ((feature === "hasQuantity" || feature === "hasManyValuedQuantity") && siblings) {
+          row.caption = "value";
+        } else {
+          const known = featureCaption(feature);
+          if (known) row.caption = known;
+        }
       }
+      if (!isQty) continue;
+      const spec = quantitySpec(feature, row.values ?? []);
+      if (!row.units) row.units = spec.units.map((u) => u.id);
+      if (!row.defaultUnit) row.defaultUnit = spec.defaultUnit;
     }
-    if (!isQty) continue;
-    const spec = quantitySpec(feature, row.values ?? []);
-    if (!row.units) row.units = spec.units.map((u) => u.id);
-    if (!row.defaultUnit) row.defaultUnit = spec.defaultUnit;
-    void concepts;
   }
+  void concepts;
 }
 
 function rowConstructs(row: FormRow): string[] {

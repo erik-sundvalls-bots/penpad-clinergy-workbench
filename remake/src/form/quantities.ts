@@ -1,34 +1,22 @@
 /**
  * Captions, unit families, and defaults for quantity rows.
  *
- * Captions for the past-history time bars were observed on the original
- * engine form (s98): "how long ago?" and "lasting how long?". Unit
+ * Field captions in form-captions.json were harvested by majority vote from
+ * the original engine's runtime form specs (aligned by feature). Unit
  * families come from the extract concept tree (value type → *Unit
  * subtypes). Default units are the ones the original numeric bars use
  * (per minute, mmHg, days, …).
  */
 
+import FORM_CAPTIONS from "./form-captions.json";
+
 /** Original-engine field captions, keyed by feature / criterial link. */
 export const FEATURE_CAPTIONS: Record<string, string> = {
-  QuantityStartTime: "how long ago?",
-  QuantityLengthOfHistory: "lasting how long?",
-  QuantityDuration: "Duration",
-  QuantityTimeOcc: "time since occurrence",
-  QuantityMensesDuration: "menses duration",
-  QuantityMensesFrequency: "cycle length",
-  QuantityFrequency: "frequency",
-  QuantityCount: "number",
-  QuantityWidth: "width",
-  QuantityLongitude: "length",
-  QuantityHeight: "height",
-  QuantityCircumference: "circumference",
-  QuantityWalkingDistance: "walking distance",
-  AbsoluteHistoricalPattern: "pattern",
+  ...FORM_CAPTIONS,
+  // Structural rows take their label from the parent sign / topic.
   hasQuantity: "",
   hasManyValuedQuantity: "",
   hasLevel: "",
-  hasTrendInState: "trend",
-  hasChangeInState: "change",
 };
 
 export const TEMPORAL_UNITS = ["second", "minute", "hour", "day", "week", "month", "year"] as const;
