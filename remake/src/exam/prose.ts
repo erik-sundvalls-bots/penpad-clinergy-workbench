@@ -2,7 +2,8 @@
  * "On Examination" narrative. The layout and wording follow the public
  * thumb-pain walkthrough (heading, one line per examined side, indented
  * sub-exam line with movements joined by semicolons; e.g. "flexion full
- * range, mildly painful"). Feature values come from the extract (range
+ * range, mildly painful"). One indented line is emitted per examined site,
+ * never collapsing several sites onto the last label. Feature values come from the extract (range
  * tokens and ConseqPainOnMovement painless / mildly painful / moderately painful / severely painful).
  *
  * The 1998 engine source is not in this repository. Phrases that the
@@ -11,6 +12,9 @@
  */
 import type { ExamDefinition } from "../form/exams.ts";
 import {
+  findingsFromForm,
+  getExamSign,
+  getExamSiteStatus,
   isFormDirty,
   rowKey,
   type ExamSideKey,
@@ -82,37 +86,38 @@ function movementPhrase(sign: string, state: FormState | undefined, form: Remake
   return `${name} ${bits.join(", ")}`;
 }
 
+function hasFeatureValues(state: FormState): boolean {
+  return Object.values(state.features).some((f) => f.values.length || (f.number ?? 0) > 0);
+}
+
 function signSentence(sign: string, state: FormState, form: RemakeForm, laterality: Finding["laterality"], location: string | null): string | null {
   if (!isFormDirty(state) && !state.summary) return null;
-  const finding: Finding = {
-    topic: form.topic || sign,
-    location: state.location ?? location ?? undefined,
-    laterality,
-    subLocation: state.subLocation,
-    qualifiers: [],
-    summary: state.summary,
-  };
-  // Prefer a compact presence phrase for the examination block.
-  if (state.summary && !Object.values(state.features).some((f) => f.values.length || (f.number ?? 0) > 0)) {
+  // Compact presence/absence when no qualifiers are set.
+  if (state.summary && !hasFeatureValues(state)) {
     const name = (form.display || conceptDisplay(sign)).toLowerCase();
     if (state.summary === "presence") return `${name} present`;
     if (state.summary === "absence") return `no ${name}`;
   }
-  const rendered = renderSentence(
-    {
-      ...finding,
-      qualifiers: [],
-    },
-    getSentenceKnowledge(),
-  );
-  // Rebuild with features via findings is handled by callers that already
-  // have a finding; here we only need a short clause.
-  void rendered;
-  const name = (form.display || conceptDisplay(sign)).toLowerCase();
-  if (state.summary === "presence") return `${name} present`;
-  if (state.summary === "absence") return `no ${name}`;
-  if (state.summary) return `${name} ${state.summary.replace(/([a-z0-9])([A-Z])/g, "$1 $2").toLowerCase()}`;
-  return null;
+  // Drop the locative: the On Examination site label already names the place
+  // ("Right kidney: tender, medium size, … lump present").
+  void laterality;
+  void location;
+  const localized: FormState = {
+    ...state,
+    location: null,
+    laterality: [],
+    subLocation: undefined,
+  };
+  const nested = findingsFromForm(form, localized, { includeExams: false });
+  const finding = nested[0];
+  if (!finding) {
+    const name = (form.display || conceptDisplay(sign)).toLowerCase();
+    if (state.summary === "presence") return `${name} present`;
+    if (state.summary === "absence") return `no ${name}`;
+    return null;
+  }
+  const rendered = renderSentence(finding, getSentenceKnowledge());
+  return rendered || null;
 }
 
 function sideState(formState: FormState, exam: string, side: ExamSideKey): ExamSideState | undefined {
@@ -120,72 +125,90 @@ function sideState(formState: FormState, exam: string, side: ExamSideKey): ExamS
 }
 
 function siteName(definition: ExamDefinition): string {
-  if (definition.baseLocation) return conceptDisplay(definition.baseLocation) || definition.display;
-  return definition.display;
+  // Prefer the exam display (original site label, e.g. "Right kidney") over the
+  // concept display, which is often uncapitalised.
+  return definition.display || (definition.baseLocation && conceptDisplay(definition.baseLocation)) || definition.name;
 }
 
 function lateralityOf(side: ExamSideKey): Finding["laterality"] {
   return side === "left" || side === "right" ? side : undefined;
 }
 
-function sideLine(
+function statusPhrases(status: string | undefined): string[] {
+  if (!status) return [];
+  if (status === "normal") return ["normal"];
+  if (status === "notExamined") return ["not examined"];
+  return [status.replace(/([a-z0-9])([A-Z])/g, "$1 $2").toLowerCase()];
+}
+
+function signPhrases(
+  signs: string[],
+  state: ExamSideState,
+  siteExam: string | undefined,
+  laterality: Finding["laterality"],
+  location: string | null,
+): string[] {
+  const parts: string[] = [];
+  for (const sign of signs) {
+    const form = formOf(sign);
+    const st = getExamSign(state, sign, siteExam);
+    if (!st) continue;
+    if (isMovementSign(form)) {
+      const phrase = movementPhrase(sign, st, form);
+      if (phrase) parts.push(phrase);
+      continue;
+    }
+    if (form) {
+      const phrase = signSentence(sign, st, form, laterality, location);
+      if (phrase) parts.push(uncapitalise(phrase));
+    }
+  }
+  return parts;
+}
+
+function formatExamLine(label: string, parts: string[], indent: string, joinWith: string): string {
+  const statusOnly = parts.length > 0 && parts.every((b) => b === "normal" || b === "not examined");
+  if (statusOnly) return `${indent}${label} ${parts.join(", ")}`;
+  return `${indent}${label}: ${parts.join(joinWith)}`;
+}
+
+function sideLines(
   entry: FormExam,
   definition: ExamDefinition,
   formState: FormState,
   side: ExamSideKey,
-): { header: string; joint: string | null } | null {
+): string[] | null {
   const state = sideState(formState, entry.exam, side);
   if (!state) return null;
   const place = siteName(definition);
   const label = sideLabel(side);
   const headerHead = label ? `${label} ${place}` : place;
-  const bits: string[] = [];
-  if (state.status === "normal") bits.push("normal");
-  if (state.status === "notExamined") bits.push("not examined");
-  if (state.status && state.status !== "normal" && state.status !== "notExamined") {
-    bits.push(state.status.replace(/([a-z0-9])([A-Z])/g, "$1 $2").toLowerCase());
-  }
-  for (const sign of definition.signs) {
-    const form = formOf(sign);
-    const st = state.signs[sign];
-    if (!st || !form) continue;
-    if (isMovementSign(form)) continue;
-    const phrase = signSentence(sign, st, form, lateralityOf(side), definition.baseLocation);
-    if (phrase) bits.push(uncapitalise(phrase));
-  }
-  const jointParts: string[] = [];
-  let jointLabel = "";
-  for (const subName of definition.subExams) {
-    const sub = examOf(subName);
-    if (!sub) continue;
-    const subPlace = siteName(sub);
-    jointLabel = label ? `${label} ${subPlace}` : subPlace;
-    for (const sign of sub.signs) {
-      const form = formOf(sign);
-      const st = state.signs[sign];
-      if (!st) continue;
-      if (isMovementSign(form)) {
-        const phrase = movementPhrase(sign, st, form);
-        if (phrase) jointParts.push(phrase);
-        continue;
-      }
-      if (form) {
-        const phrase = signSentence(sign, st, form, lateralityOf(side), sub.baseLocation ?? definition.baseLocation);
-        if (phrase) jointParts.push(uncapitalise(phrase));
-      }
+  const laterality = lateralityOf(side);
+  const bits = [
+    ...statusPhrases(state.status),
+    ...signPhrases(definition.signs, state, entry.exam, laterality, definition.baseLocation),
+  ];
+  const siteLines: string[] = [];
+  const walk = (def: ExamDefinition) => {
+    for (const subName of def.subExams) {
+      const sub = examOf(subName);
+      if (!sub) continue;
+      const subPlace = siteName(sub);
+      const jointLabel = label ? `${label} ${subPlace}` : subPlace;
+      const parts = [
+        ...statusPhrases(getExamSiteStatus(state, subName)),
+        ...signPhrases(sub.signs, state, subName, laterality, sub.baseLocation ?? definition.baseLocation),
+      ];
+      if (parts.length) siteLines.push(formatExamLine(jointLabel, parts, "  ", "; "));
+      walk(sub);
     }
-  }
-  if (!bits.length && !jointParts.length) return null;
-  const statusOnly = bits.length > 0 && bits.every((b) => b === "normal" || b === "not examined") && !jointParts.length;
+  };
+  walk(definition);
+  if (!bits.length && !siteLines.length) return null;
   const header = !bits.length
     ? `${headerHead}:`
-    : statusOnly
-      ? `${headerHead} ${bits.join(", ")}`
-      : `${headerHead}: ${bits.join(", ")}`;
-  return {
-    header,
-    joint: jointParts.length && jointLabel ? `  ${jointLabel}: ${jointParts.join("; ")}` : null,
-  };
+    : formatExamLine(headerHead, bits, "", ", ");
+  return [header, ...siteLines];
 }
 
 /** The whole examination block, or "" when nothing was examined. */
@@ -195,12 +218,17 @@ export function onExamination(form: RemakeForm, formState: FormState): string {
     const definition = examOf(entry.exam);
     if (!definition) continue;
     for (const side of examSidesFor(entry, definition)) {
-      const block = sideLine(entry, definition, formState, side);
+      const block = sideLines(entry, definition, formState, side);
       if (!block) continue;
-      lines.push(block.header);
-      if (block.joint) lines.push(block.joint);
+      lines.push(...block);
     }
   }
   if (!lines.length) return "";
-  return ["On Examination", ...lines].join("\n");
+  return ["On Examination", ...lines.map(capitaliseLine)].join("\n");
+}
+
+function capitaliseLine(line: string): string {
+  const match = /^(\s*)(.*)$/.exec(line);
+  if (!match || !match[2]) return line;
+  return match[1] + match[2].charAt(0).toUpperCase() + match[2].slice(1);
 }

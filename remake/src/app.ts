@@ -39,9 +39,11 @@ import {
   DURATION_UNITS,
   emptyExamSideState,
   emptyFormState,
+  examSignKey,
   featureLabel,
   findingsFromForm,
   getExamSide,
+  getExamSign,
   hasMoreLayer,
   isExamSideDirty,
   lateralityPhrase,
@@ -49,7 +51,6 @@ import {
   rowKey,
   rowsOf,
   setExamSide,
-  setExamSign,
   setExamStatus,
   setFeatureValue,
   setFormSummary,
@@ -1279,8 +1280,8 @@ function examPopupAcceptEnabled(popup: ExamPopup): boolean {
   return JSON.stringify(popup.sideState) !== JSON.stringify(popup.openedState);
 }
 
-function signStateFor(sideState: ExamSideState, sign: string, location: string | null): FormState {
-  const existing = sideState.signs[sign];
+function signStateFor(sideState: ExamSideState, sign: string, location: string | null, siteExam?: string): FormState {
+  const existing = getExamSign(sideState, sign, siteExam);
   if (existing) return existing;
   const form = formOf(sign);
   if (form) return emptyFormState(form, { location: location ?? form.location });
@@ -1302,16 +1303,18 @@ function examSignBlock(
   sideState: ExamSideState,
   location: string | null,
   laterality: LateralityChoice[],
+  siteExam?: string,
 ): HTMLElement {
   const form = formOf(sign);
   const display = form?.display || sign.replace(/Sign$/, "").replace(/([a-z0-9])([A-Z])/g, "$1 $2").toLowerCase();
   const wrap = el("div", { class: "exam-sign" });
   wrap.append(el("div", { class: "name" }, display));
-  const fs = signStateFor(sideState, sign, location);
+  const fs = signStateFor(sideState, sign, location, siteExam);
   const commit = (next: FormState) => {
     const popup = state.examPopup;
     if (!popup) return;
-    const signs = { ...popup.sideState.signs, [sign]: next };
+    const key = examSignKey(siteExam, sign);
+    const signs = { ...popup.sideState.signs, [key]: next };
     commitExamPopup({ ...popup.sideState, signs });
   };
   const type = form?.summaryType ?? "AbsentPresent";
@@ -1357,7 +1360,7 @@ function examPopupWindow(popup: ExamPopup): HTMLElement {
     const sec = el("section", { class: "section" });
     sec.append(el("h3", {}, "Signs"));
     for (const sign of definition.signs) {
-      sec.append(examSignBlock(sign, popup.sideState, definition.baseLocation, popup.side === "left" || popup.side === "right" ? [popup.side] : []));
+      sec.append(examSignBlock(sign, popup.sideState, definition.baseLocation, popup.side === "left" || popup.side === "right" ? [popup.side] : [], popup.exam));
     }
     fill.append(sec);
   }
@@ -1365,8 +1368,25 @@ function examPopupWindow(popup: ExamPopup): HTMLElement {
     const sub = examOf(subName);
     const sec = el("section", { class: "section" });
     sec.append(el("h3", {}, sub?.display || subName.replace(/([a-z0-9])([A-Z])/g, "$1 $2")));
+    const siteType = formOf(sub?.baseSign ?? "")?.summaryType ?? "NormalNotEx";
+    const siteStatusValues = summaryValues(siteType);
+    if (siteStatusValues.length) {
+      const siteRow = el("div", { class: "link-row" });
+      siteRow.append(el("span", { class: "lab" }, "Status"));
+      for (const value of siteStatusValues) {
+        const b = btn(statusLabel(value), () => {
+          const siteStatus = { ...(popup.sideState.siteStatus ?? {}) };
+          if (siteStatus[subName] === value) delete siteStatus[subName];
+          else siteStatus[subName] = value;
+          commitExamPopup({ ...popup.sideState, signs: popup.sideState.signs, siteStatus });
+        });
+        if (popup.sideState.siteStatus?.[subName] === value) b.classList.add("on");
+        siteRow.append(b);
+      }
+      sec.append(siteRow);
+    }
     for (const sign of sub?.signs ?? []) {
-      sec.append(examSignBlock(sign, popup.sideState, sub?.baseLocation ?? definition?.baseLocation ?? null, popup.side === "left" || popup.side === "right" ? [popup.side] : []));
+      sec.append(examSignBlock(sign, popup.sideState, sub?.baseLocation ?? definition?.baseLocation ?? null, popup.side === "left" || popup.side === "right" ? [popup.side] : [], subName));
     }
     fill.append(sec);
   }
