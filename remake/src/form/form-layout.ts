@@ -5,6 +5,12 @@
  * Vaccinations: "stage" is the dose (first / second / booster) and the form
  * summary is given / required / not required / postponed / refused. Family history: "strength" is none / weak / moderate /
  * strong and "relation" is the relative, not a form summary.
+ *
+ * Standalone Normal forms (health checks, menstrual data, faeces, exercise
+ * tolerance) show "normality" as a first-layer row, not as form-summary chips.
+ * Alcohol/tobacco level lists are first-layer drinking/smoking rows. A few
+ * sided symptoms have an explicit laterality row, and Sciatica has a
+ * back-region Sublocation list.
  */
 import type { RemakeForm, FormRow } from "../knowledge-data.ts";
 
@@ -36,6 +42,33 @@ function replaceCaptionedRow(rows: FormRow[], caption: string, next: FormRow): F
   });
   return replaced ? out : [next, ...out];
 }
+
+
+const LATERALITY_FIELD_TOPICS = new Set([
+  "ColdArmSymptom",
+  "ColdFingerSymptom",
+  "ColdFootSymptom",
+  "ColdForearmSymptom",
+  "ColdHandSymptom",
+  "ColdLegSymptom",
+  "ColdLowerLegSymptom",
+  "ColdThumbSymptom",
+  "ColdToeSymptom",
+  "EyeDrynessSymptom",
+  "TMJDysfunction",
+]);
+
+const SCIATICA_SUBLOCATIONS = [
+  "PosteriorRibsRegion",
+  "ScapularRegion",
+  "CervicalRegion",
+  "ThoracicRegion",
+  "LumbarRegion",
+  "SacralRegion",
+  "CoccygealRegion",
+  "Loin",
+  "LowBackRegion",
+];
 
 export function applyFormFieldLayout(form: RemakeForm, summaryTypes: SummaryTypeOptions): RemakeForm {
   if (form.summaryType.startsWith("VaccStage")) {
@@ -85,6 +118,53 @@ export function applyFormFieldLayout(form: RemakeForm, summaryTypes: SummaryType
         firstLayer: nextRows,
       };
     }
+  }
+
+  if (form.summaryType === "Normal" && (form.category === "healthcheck" || form.category === "symptom")) {
+    const values = valuesOf(summaryTypes, "Normal");
+    const normality: FormRow = {
+      caption: "normality",
+      feature: "hasAbnormalityStatus",
+      values: values.length ? values : ["normal"],
+    };
+    const firstLayer = form.firstLayer
+      .filter((row) => row.feature !== "hasAbnormalityStatus")
+      .map((row) => row.feature === "AbsoluteMensesRegularity" ? { ...row, caption: "regularity" } : row);
+    return {
+      ...form,
+      summaryType: "No Summary",
+      firstLayer: [normality, ...firstLayer],
+    };
+  }
+
+  if (form.summaryType === "AlcoholUse" || form.summaryType === "TobaccoUse") {
+    const drinking = form.summaryType === "AlcoholUse";
+    const row: FormRow = {
+      caption: drinking ? "drinking" : "smoking",
+      feature: drinking ? "AbsoluteDrinkingLevel" : "AbsoluteSmokingLevel",
+      values: valuesOf(summaryTypes, form.summaryType),
+    };
+    const firstLayer = form.firstLayer.filter((existing) => existing.feature !== row.feature);
+    return { ...form, summaryType: "No Summary", firstLayer: [row, ...firstLayer] };
+  }
+
+  if (LATERALITY_FIELD_TOPICS.has(form.topic) && !form.firstLayer.some((row) => row.feature === "laterality")) {
+    const laterality: FormRow = {
+      caption: "laterality",
+      feature: "laterality",
+      multiple: true,
+      values: ["leftSelection", "rightSelection"],
+    };
+    return { ...form, firstLayer: [laterality, ...form.firstLayer] };
+  }
+
+  if (form.topic === "Sciatica" && !form.firstLayer.some((row) => row.feature === "sublocation")) {
+    const sublocation: FormRow = {
+      caption: "Sublocation",
+      feature: "sublocation",
+      values: SCIATICA_SUBLOCATIONS,
+    };
+    return { ...form, firstLayer: [sublocation, ...form.firstLayer] };
   }
 
   return form;
