@@ -1,6 +1,6 @@
 import type { Finding, Qualifier } from "../sentence/types.ts";
 import type { FormLink, FormRow, RemakeForm } from "../knowledge-data.ts";
-import { examOf, formOf, topicDisplay } from "../knowledge-data.ts";
+import { conceptDisplay, examOf, formOf, topicDisplay } from "../knowledge-data.ts";
 import { FEATURE_CAPTIONS, featureCaption } from "./quantities.ts";
 
 export const DURATION_UNITS = ["second", "minute", "hour", "day", "week", "month", "year"] as const;
@@ -508,13 +508,16 @@ export function valueLabel(value: string | unknown): string {
   if (key === "leftSelection") return "left";
   if (key === "rightSelection") return "right";
   if (key === "TemporalValue") return "duration";
+  const displayed = conceptDisplay(key);
+  if (displayed && displayed.toLowerCase() !== key.toLowerCase()) return displayed;
   if (/Value$/.test(key)) return "value";
   return key.replace(/Selection$/, "").replace(/Pain$/, "").replace(/([a-z0-9])([A-Z])/g, "$1 $2").toLowerCase();
 }
 
 export function linkLabel(link: FormLink): string {
   if (link.preCoordinated) return topicDisplay(link.preCoordinated);
-  const loc = link.location ? ` ${link.preposition ?? ""} ${link.location}`.replace(/\s+/g, " ") : "";
+  const locDisp = link.location ? conceptDisplay(link.location) : "";
+  const loc = locDisp ? ` ${link.preposition ?? ""} ${locDisp}`.replace(/\s+/g, " ") : "";
   return `${topicDisplay(link.concept)}${loc}`;
 }
 
