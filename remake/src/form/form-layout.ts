@@ -44,6 +44,11 @@ function replaceCaptionedRow(rows: FormRow[], caption: string, next: FormRow): F
 }
 
 
+const LYMPH_NODE_LATERALITY_TOPICS = new Set([
+  "AxillaryLymphNodesSign",
+  "InguinalLymphNodesSign",
+]);
+
 const LATERALITY_FIELD_TOPICS = new Set([
   "ColdArmSymptom",
   "ColdFingerSymptom",
@@ -148,7 +153,8 @@ export function applyFormFieldLayout(form: RemakeForm, summaryTypes: SummaryType
     return { ...form, summaryType: "No Summary", firstLayer: [row, ...firstLayer] };
   }
 
-  if (LATERALITY_FIELD_TOPICS.has(form.topic) && !form.firstLayer.some((row) => row.feature === "laterality")) {
+  if ((LATERALITY_FIELD_TOPICS.has(form.topic) || LYMPH_NODE_LATERALITY_TOPICS.has(form.topic))
+    && !form.firstLayer.some((row) => row.feature === "laterality")) {
     const laterality: FormRow = {
       caption: "laterality",
       feature: "laterality",

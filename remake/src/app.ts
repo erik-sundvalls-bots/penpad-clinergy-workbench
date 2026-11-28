@@ -87,7 +87,7 @@ import { getSentenceKnowledge, sentenceKnowledge } from "./knowledge-data.ts";
 import type { RemakeForm, FormExam, FormLink, FormRow } from "./knowledge-data.ts";
 import { examSidesFor, onExamination, sideLabel } from "./exam/prose.ts";
 import type { ExamDefinition } from "./form/exams.ts";
-import { examSignTreeCaption, examTreeCaption, inheritedSublocationRow, inlineExamSign, resolveExamSiteLocation, sidedExamCaption, signHasFeatureFolder } from "./form/exam-tree.ts";
+import { examSignTreeCaption, examSignsFor, examTreeCaption, inheritedSublocationRow, inlineExamSign, resolveExamSiteLocation, sidedExamCaption, signHasFeatureFolder } from "./form/exam-tree.ts";
 
 
 interface Hover {
@@ -1321,6 +1321,8 @@ function examSignBlock(
         display,
         signHasFeatureFolder(form),
         parentExam.baseLocation,
+        parentExam.name,
+        state.form?.topic,
       )
     : examTreeCaption(display);
   const wrap = el("div", { class: "exam-sign" });
@@ -1375,6 +1377,7 @@ function examSignBlock(
   ];
   if (form) {
     for (const row of rows) {
+      if ((row.feature ?? "") === "laterality" && laterality.length) continue;
       wrap.append(featureRow(form, { ...fs, laterality }, row, commit));
     }
   } else if (inheritedSub) {
@@ -1412,11 +1415,12 @@ function examPopupWindow(popup: ExamPopup): HTMLElement {
     statusRow.append(b);
   }
   fill.append(statusRow);
-  if (definition?.signs.length) {
+  const listedSigns = examSignsFor(state.form?.topic, popup.exam, popup.entry.signs?.length ? popup.entry.signs : definition?.signs);
+  if (listedSigns.length) {
     const sec = el("section", { class: "section" });
     sec.append(el("h3", {}, "Signs"));
-    for (const sign of definition.signs) {
-      sec.append(examSignBlock(sign, popup.sideState, definition.baseLocation, popup.side === "left" || popup.side === "right" ? [popup.side] : [], popup.exam));
+    for (const sign of listedSigns) {
+      sec.append(examSignBlock(sign, popup.sideState, definition?.baseLocation ?? null, popup.side === "left" || popup.side === "right" ? [popup.side] : [], popup.exam));
     }
     fill.append(sec);
   }
@@ -1441,7 +1445,7 @@ function examPopupWindow(popup: ExamPopup): HTMLElement {
       }
       sec.append(siteRow);
     }
-    for (const sign of sub?.signs ?? []) {
+    for (const sign of examSignsFor(state.form?.topic, subName, sub?.signs ?? [])) {
       sec.append(examSignBlock(sign, popup.sideState, sub?.baseLocation ?? definition?.baseLocation ?? null, popup.side === "left" || popup.side === "right" ? [popup.side] : [], subName));
     }
     fill.append(sec);

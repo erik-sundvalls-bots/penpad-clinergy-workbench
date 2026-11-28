@@ -1,0 +1,40 @@
+{
+  "signs": {
+    "JointClickingOfKneeSymptom|KneeExam": [
+      "JointStiffnessSign",
+      "JointLockingSign"
+    ],
+    "JointLockingOfKneeSymptom|KneeExam": [
+      "JointStiffnessSign",
+      "JointClickingSign"
+    ],
+    "InvertedNippleSymptom|BreastExam": [
+      "InvertedNippleSign"
+    ],
+    "NippleBleedingSymptom|BreastExam": [
+      "NippleBleedingSign"
+    ],
+    "NippleDischargeSymptom|BreastExam": [
+      "NippleDischargeSign"
+    ],
+    "StyeSymptom|WholeEyeExam": [
+      "StyeSign"
+    ],
+    "TightForeskinSymptom|MaleGenitaliaExam": [
+      "PhimosisSign",
+      "ParaphimosisSign"
+    ],
+    "RectalForeignBodySymptom|RectalExam": [
+      "ForeignBodySign"
+    ],
+    "ThroatForeignBodySymptom|ThroatExam": [
+      "ForeignBodySign"
+    ],
+    "ThroatForeignBodySymptom|MouthExam": [
+      "ForeignBodySign"
+    ],
+    "VaginalForeignBodySymptom|VaginaExam": [
+      "ForeignBodySign"
+    ]
+  }
+}

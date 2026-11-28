@@ -1,0 +1,92 @@
+{
+  "JointStiffnessSign": {
+    "topic": "JointStiffnessSign",
+    "display": "joint stiffness",
+    "category": "Incomplete sign",
+    "summaryType": "AbsentPresent",
+    "firstLayer": [
+      {
+        "caption": "Sublocation",
+        "feature": "sublocation",
+        "values": [
+          "PoplitealFossa",
+          "AnteriorAspectOfKnee",
+          "MedialAspectOfKnee",
+          "LateralAspectOfKnee"
+        ]
+      },
+      {
+        "caption": "severity",
+        "feature": "AbsoluteSeverity",
+        "values": [
+          "mild",
+          "moderate",
+          "severe"
+        ]
+      },
+      {
+        "caption": "progress",
+        "feature": "AbsoluteProgress",
+        "values": [
+          "better",
+          "same",
+          "worse"
+        ]
+      },
+      {
+        "caption": "chronicity",
+        "feature": "AbsoluteChronicity",
+        "values": [
+          "acute",
+          "subAcute",
+          "chronic"
+        ]
+      }
+    ],
+    "moreLayer": [],
+    "location": null,
+    "associatedSymptomsAndSigns": [],
+    "diagnoses": [],
+    "examinations": []
+  },
+  "JointLockingSign": {
+    "topic": "JointLockingSign",
+    "display": "joint locking",
+    "category": "Incomplete sign",
+    "summaryType": "AbsentPresent",
+    "firstLayer": [
+      {
+        "caption": "Sublocation",
+        "feature": "sublocation",
+        "values": [
+          "PoplitealFossa",
+          "AnteriorAspectOfKnee",
+          "MedialAspectOfKnee",
+          "LateralAspectOfKnee"
+        ]
+      },
+      {
+        "caption": "degree",
+        "feature": "AbsoluteLevel",
+        "values": [
+          "slight",
+          "moderate",
+          "marked"
+        ]
+      },
+      {
+        "caption": "pattern",
+        "feature": "AbsoluteProcessPattern",
+        "values": [
+          "intermittant",
+          "continuous"
+        ]
+      }
+    ],
+    "moreLayer": [],
+    "location": null,
+    "associatedSymptomsAndSigns": [],
+    "diagnoses": [],
+    "examinations": []
+  }
+}
