@@ -526,6 +526,12 @@ function isCompleteConcept(name: string): boolean {
   return /complete/i.test(conceptCategory(name));
 }
 
+/** Category "Complete …", not "Incomplete …" (which also contains the word complete). */
+export function isStrictCompleteConcept(name: string): boolean {
+  const category = conceptCategory(name);
+  return /complete/i.test(category) && !/incomplete/i.test(category);
+}
+
 /** Sanctioned preposition for attaching a location to a (usually incomplete) concept. */
 export function locativePreposition(concept: string, location: string): string | null {
   const links = sentenceKnowledge.locatives[concept] ?? [];
@@ -648,6 +654,21 @@ export function linkLabel(link: FormLink, formLocation?: string | null): string 
     return head;
   }
   return `${head}${loc}`.replace(/\s+/g, " ").trim();
+}
+
+
+/**
+ * Incomplete associated / diagnosis links are only offered when they have a
+ * sanctioned locative at the link site or the parent form location. Complete
+ * concepts are always kept. This hides catalogue extras the original form
+ * does not list (e.g. ganglion on a dorsal-hand lump).
+ */
+export function linkAllowedOnForm(link: FormLink, formLocation?: string | null): boolean {
+  const location = link.location ?? formLocation ?? null;
+  const topics = [link.concept, link.preCoordinated].filter((t): t is string => !!t);
+  if (topics.some(isStrictCompleteConcept)) return true;
+  if (!location) return true;
+  return topics.some((topic) => locativePreposition(topic, location) !== null);
 }
 
 export function rowsOf(form: RemakeForm, moreOpen: boolean, state?: FormState): FormRow[] {
