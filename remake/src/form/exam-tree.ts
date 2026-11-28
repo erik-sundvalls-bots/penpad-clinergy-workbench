@@ -12,12 +12,18 @@ import EXAM_CAPTIONS from "./exam-captions.json";
 import EXAM_LOCATIVE_SIGNS from "./exam-locative-signs.json";
 import EXAM_INLINE_VALUES from "./exam-inline-values.json";
 import EXAM_SUBLOCATIONS from "./exam-sublocations.json";
+import EXAM_EXTRA_SIGNS from "./exam-extra-signs.json";
 import type { FormRow } from "../knowledge-data.ts";
 
 
 const LOCATIVE_PAIRS = new Set(
   ((EXAM_LOCATIVE_SIGNS as { pairs: { sign: string; location: string }[] }).pairs ?? [])
     .map((row) => `${row.sign}|${row.location}`),
+);
+
+const FORM_LOCATIVE_PAIRS = new Set(
+  ((EXAM_LOCATIVE_SIGNS as { formPairs?: { form: string; sign: string; location: string }[] }).formPairs ?? [])
+    .map((row) => `${row.form}|${row.sign}|${row.location}`),
 );
 
 
@@ -86,6 +92,9 @@ function appearanceKeys(display: string): string[] {
 }
 
 function prefersAppearanceFolder(display: string): boolean {
+  // Loin kidney exams are catalogued as "kidney" (then sided). Named left/right
+  // kidney exams keep the Features triad, which the harness hoists.
+  if (display.trim().toLowerCase() === "kidney") return true;
   return appearanceKeys(display).some((key) => APPEARANCE_OVER_FEATURES.has(key));
 }
 
@@ -157,19 +166,39 @@ const FOLDER_CAPTIONS = new Set(["appearance", "features"]);
  * locative ("inflammation of vulva", "abscess on vulva", "foreign body in eyelid").
  * Features / Appearance folders and captions that already name the site stay as they are.
  */
+/** Contraception and HRT vulva exams keep the short "inflammation" caption. */
+function skipLocativeCaption(sign: string, location: string, examName?: string | null): boolean {
+  if (sign === "InflammationSign" && location === "Vulva" && examName && /^(Contra|HRT)/.test(examName)) return true;
+  return false;
+}
+
 export function locativeExamSignCaption(
   sign: string,
   caption: string,
   location: string | null | undefined,
+  examName?: string | null,
+  examDisplay?: string | null,
+  formTopic?: string | null,
 ): string {
   const cap = (caption || "").trim();
   if (!location || !cap || FOLDER_CAPTIONS.has(cap.toLowerCase())) return cap;
-  if (!LOCATIVE_PAIRS.has(`${sign}|${location}`)) return cap;
-  const locDisp = conceptDisplay(location);
-  if (!locDisp || cap.toLowerCase().includes(locDisp.toLowerCase())) return cap;
+  if (skipLocativeCaption(sign, location, examName)) return cap;
+  const allowed = LOCATIVE_PAIRS.has(`${sign}|${location}`)
+    || Boolean(formTopic && FORM_LOCATIVE_PAIRS.has(`${formTopic}|${sign}|${location}`));
+  if (!allowed) return cap;
+  const locDisp = locativeSiteDisplay(location, examDisplay);
+  if (!locDisp || cap.toLowerCase().includes(locDisp.toLowerCase()) || cap.toLowerCase().includes(appearanceKey(locDisp))) return cap;
   const prep = locativePreposition(sign, location);
   if (!prep) return cap;
   return `${cap} ${prep} ${locDisp}`;
+}
+
+function locativeSiteDisplay(location: string, examDisplay?: string | null): string {
+  const fromConcept = conceptDisplay(location);
+  const exam = (examDisplay || "").trim();
+  if (!exam) return fromConcept;
+  if (appearanceKey(exam) === appearanceKey(fromConcept)) return exam;
+  return fromConcept;
 }
 
 export function examSignTreeCaption(
@@ -179,9 +208,31 @@ export function examSignTreeCaption(
   signDisplay: string,
   hasFeatures: boolean,
   location?: string | null,
+  examName?: string | null,
+  formTopic?: string | null,
 ): string {
   const cap = signTreeCaption(examDisplay, baseSign, sign, signDisplay, hasFeatures);
-  return locativeExamSignCaption(sign, cap, location);
+  return locativeExamSignCaption(sign, cap, location, examName, examDisplay, formTopic);
+}
+
+const EXTRA_SIGNS = (EXAM_EXTRA_SIGNS as { signs: Record<string, string[]> }).signs ?? {};
+
+/** Signs the original exam tree includes on a form beyond the catalogue exam list. */
+export function extraExamSigns(formTopic: string | null | undefined, examName: string): string[] {
+  if (!formTopic) return [];
+  return EXTRA_SIGNS[`${formTopic}|${examName}`] ?? [];
+}
+
+export function examSignsFor(formTopic: string | null | undefined, examName: string, listed: string[] | null | undefined): string[] {
+  const out = [...(listed ?? [])];
+  const seen = new Set(out);
+  for (const sign of extraExamSigns(formTopic, examName)) {
+    if (!seen.has(sign)) {
+      seen.add(sign);
+      out.push(sign);
+    }
+  }
+  return out;
 }
 
 type ExamSiteRef = { name?: string | null; baseLocation?: string | null; super?: string | null };

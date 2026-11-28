@@ -5,6 +5,7 @@ import { describe, expect, it } from "vitest";
 import { examOf, formOf } from "../remake/src/knowledge-data.ts";
 import {
   examSignTreeCaption,
+  examSignsFor,
   examTreeCaption,
   inlineExamSign,
   inheritedSublocationRow,
@@ -159,7 +160,6 @@ describe("locative exam-sign captions", () => {
   it("does not add a locative for signs the original keeps short", () => {
     expect(locativeExamSignCaption("LumpSign", "lump", "Stomach")).toBe("lump");
     expect(locativeExamSignCaption("TendernessSign", "tenderness", "Stomach")).toBe("tenderness");
-    expect(locativeExamSignCaption("InflammationSign", "inflammation", "Throat")).toBe("inflammation");
   });
 
   it("adds a locative on flexion at toe joints but not at the shoulder", () => {
@@ -179,6 +179,41 @@ describe("locative exam-sign captions", () => {
     expect(
       examSignTreeCaption(exam.display, exam.baseSign, "VulvaSign", "vulva", false, "Vulva"),
     ).toBe("Appearance");
+  });
+
+  it("adds locatives the original uses on throat, tonsils and the knee", () => {
+    expect(locativeExamSignCaption("InflammationSign", "inflammation", "Throat", undefined, undefined, "SoreThroatSymptom")).toBe("inflammation of throat");
+    expect(locativeExamSignCaption("InfectionLesionSign", "infection", "Tonsil", "TonsilExam", "tonsils", "SoreThroatSymptom")).toBe("infection of tonsils");
+    expect(locativeExamSignCaption("JointStiffnessSign", "joint stiffness", "Knee", undefined, undefined, "JointClickingOfKneeSymptom")).toBe("joint stiffness in knee");
+    expect(locativeExamSignCaption("InflammationSign", "inflammation", "Throat")).toBe("inflammation");
+    expect(locativeExamSignCaption("ForeignBodySign", "foreign body", "Rectum")).toBe("foreign body in rectum");
+  });
+
+  it("keeps short inflammation on contraception and HRT vulva exams", () => {
+    expect(locativeExamSignCaption("InflammationSign", "inflammation", "Vulva", "ContraVulvaExam")).toBe("inflammation");
+    expect(locativeExamSignCaption("InflammationSign", "inflammation", "Vulva", "HRTVulvaExam")).toBe("inflammation");
+    expect(locativeExamSignCaption("InflammationSign", "inflammation", "Vulva", "VulvaExam")).toBe("inflammation of vulva");
+  });
+});
+
+describe("exam leftover folders, laterality and extra signs", () => {
+  it("keeps Appearance on a loin kidney even when the Features triad is present", () => {
+    const exam = examOf("LoinKidneyExam")!;
+    const sign = formOf("KidneySign")!;
+    expect(signHasFeatureFolder(sign)).toBe(true);
+    expect(signTreeCaption(exam.display, exam.baseSign, "KidneySign", sign.display, true)).toBe("Appearance");
+  });
+
+  it("adds laterality to axillary and inguinal node signs", () => {
+    expect(formOf("AxillaryLymphNodesSign")!.firstLayer.some((row) => row.feature === "laterality")).toBe(true);
+    expect(formOf("InguinalLymphNodesSign")!.firstLayer.some((row) => row.feature === "laterality")).toBe(true);
+  });
+
+  it("adds the original's extra signs on leftover forms", () => {
+    expect(examSignsFor("StyeSymptom", "WholeEyeExam", [])).toContain("StyeSign");
+    expect(examSignsFor("JointClickingOfKneeSymptom", "KneeExam", ["TendernessSign", "SwellingSign"]))
+      .toEqual(["TendernessSign", "SwellingSign", "JointStiffnessSign", "JointLockingSign"]);
+    expect(examSignsFor("RectalForeignBodySymptom", "RectalExam", ["RectalMassSign"])).toContain("ForeignBodySign");
   });
 });
 

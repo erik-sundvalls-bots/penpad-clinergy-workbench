@@ -12,6 +12,7 @@ import { knowledgeFromExtract } from "./sentence/knowledge.ts";
 import type { SentenceKnowledge } from "./sentence/types.ts";
 import type { ExamDefinition, GeneratedExamsCatalog } from "./form/exams.ts";
 import { applyFormFieldLayout, VACCINATION_STATUS_OPTIONS, VACCINATION_STATUS_SUMMARY } from "./form/form-layout.ts";
+import examSignForms from "./form/exam-sign-forms.json";
 
 import { sentenceKnowledgeFromGenerated, type GeneratedSentenceKnowledge } from "./sentence/generate.ts";
 
@@ -166,7 +167,7 @@ export function setGeneratedForms(forms: Record<string, RemakeForm> | null): voi
 
 export function setGeneratedExams(catalog: GeneratedExamsCatalog | null): void {
   generatedExams = catalog?.exams ?? {};
-  generatedSignForms = catalog?.signs ?? {};
+  generatedSignForms = { ...(catalog?.signs ?? {}), ...(examSignForms as Record<string, RemakeForm>) };
   generatedSummaryTypes = { ...(catalog?.summaryTypes ?? {}) };
   if (!generatedSummaryTypes[VACCINATION_STATUS_SUMMARY]) {
     generatedSummaryTypes[VACCINATION_STATUS_SUMMARY] = VACCINATION_STATUS_OPTIONS;
