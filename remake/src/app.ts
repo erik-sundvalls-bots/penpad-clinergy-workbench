@@ -1613,7 +1613,7 @@ function linkSection(title: string, bag: "associated" | "diagnoses", links: Form
     : ["presence", "absence"];
   for (const link of links) {
     const row = el("div", { class: "link-row" });
-    row.append(el("span", { class: "lab" }, linkLabel(link)));
+    row.append(el("span", { class: "lab" }, linkLabel(link, fs.location ?? null)));
     const cur = fs[bag][link.item]?.summary;
     for (const s of summaries) {
       const b = btn(s === "presence" ? "present" : s, () => {
