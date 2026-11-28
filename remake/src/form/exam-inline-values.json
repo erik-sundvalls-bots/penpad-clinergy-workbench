@@ -1,0 +1,22 @@
+{
+  "LeftBicepsReflexSign": { "inline": "AbsoluteReflexLev" },
+  "RightBicepsReflexSign": { "inline": "AbsoluteReflexLev" },
+  "LeftTricepsReflexSign": { "inline": "AbsoluteReflexLev" },
+  "RightTricepsReflexSign": { "inline": "AbsoluteReflexLev" },
+  "LeftSupinatorReflexSign": { "inline": "AbsoluteReflexLev" },
+  "RightSupinatorReflexSign": { "inline": "AbsoluteReflexLev" },
+  "LeftPatellarReflexSign": { "inline": "AbsoluteReflexLev" },
+  "RightPatellarReflexSign": { "inline": "AbsoluteReflexLev" },
+  "LeftAchillesReflexSign": { "inline": "AbsoluteReflexLev" },
+  "RightAchillesReflexSign": { "inline": "AbsoluteReflexLev" },
+  "BowelSoundSign": { "inline": "AbsoluteSoundCharacterBowel" },
+  "CardiacDullnessSign": { "inline": "ExpectedProcessActivityLevel" },
+  "GeneralAppearanceSign": { "inline": "hasAbsoluteState" },
+  "EyeContactSign": { "inline": "AbsoluteQuality" },
+  "MoodSign": { "inline": "ExpectedProcessActivityLevel" },
+  "ShortTermMemorySign": { "inline": "AbsoluteQuality" },
+  "LongTermMemorySign": { "inline": "AbsoluteQuality" },
+  "SelfEsteemSign": { "inline": "AbsoluteProcActLevel" },
+  "InhalerTechniqueSign": { "inline": "AbsoluteQuality" },
+  "SpeechSign": { "inline": "AbsoluteRate", "hide": ["AbsoluteRate", "AbsoluteContentSpeech"] }
+}

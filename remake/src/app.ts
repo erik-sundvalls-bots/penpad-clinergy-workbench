@@ -86,7 +86,7 @@ import { getSentenceKnowledge, sentenceKnowledge } from "./knowledge-data.ts";
 import type { RemakeForm, FormExam, FormLink, FormRow } from "./knowledge-data.ts";
 import { examSidesFor, onExamination, sideLabel } from "./exam/prose.ts";
 import type { ExamDefinition } from "./form/exams.ts";
-import { examTreeCaption, sidedExamCaption, signHasFeatureFolder, signTreeCaption } from "./form/exam-tree.ts";
+import { examTreeCaption, inlineExamSign, sidedExamCaption, signHasFeatureFolder, signTreeCaption } from "./form/exam-tree.ts";
 
 
 interface Hover {
@@ -1325,22 +1325,41 @@ function examSignBlock(
     const signs = { ...popup.sideState.signs, [key]: next };
     commitExamPopup({ ...popup.sideState, signs });
   };
-  const type = form?.summaryType ?? "AbsentPresent";
-  const values = summaryValues(type).filter((v) => v !== "normal" || type === "Normal" || type === "NormalAbnormal" || type === "NormalNotEx");
-  // Presence-style signs get present/absent chips; NormalNotEx on a nested sign is unusual.
-  if (type !== "NormalNotEx" && values.length) {
+  const inline = inlineExamSign(form?.topic ?? sign);
+  const inlineRow = inline && form
+    ? [...(form.firstLayer ?? []), ...(form.moreLayer ?? [])].find((r) => r.feature === inline.feature)
+    : undefined;
+  if (inline && inlineRow) {
+    const selected = new Set(fs.features[inline.feature]?.values ?? []);
     const chips = el("div", { class: "chips" });
-    for (const value of values) {
-      const b = btn(statusLabel(value), () => {
-        commit(setFormSummary(fs, fs.summary === value ? undefined : value));
+    for (const raw of inlineRow.values ?? []) {
+      const value = valueKey(raw);
+      const b = btn(valueLabel(value), () => {
+        commit(setFeatureValue(fs, inline.feature, value, inlineRow.multiple === true));
       });
-      if (fs.summary === value) b.classList.add("on");
+      if (selected.has(value)) b.classList.add("on");
       chips.append(b);
     }
     wrap.append(chips);
+  } else {
+    const type = form?.summaryType ?? "AbsentPresent";
+    const values = summaryValues(type).filter((v) => v !== "normal" || type === "Normal" || type === "NormalAbnormal" || type === "NormalNotEx");
+    // Presence-style signs get present/absent chips; NormalNotEx on a nested sign is unusual.
+    if (type !== "NormalNotEx" && values.length) {
+      const chips = el("div", { class: "chips" });
+      for (const value of values) {
+        const b = btn(statusLabel(value), () => {
+          commit(setFormSummary(fs, fs.summary === value ? undefined : value));
+        });
+        if (fs.summary === value) b.classList.add("on");
+        chips.append(b);
+      }
+      wrap.append(chips);
+    }
   }
   if (form) {
     for (const row of rowsOf(form, true, fs)) {
+      if (inline?.hide.has(row.feature ?? row.criterialLink ?? "")) continue;
       wrap.append(featureRow(form, { ...fs, laterality }, row, commit));
     }
   }
