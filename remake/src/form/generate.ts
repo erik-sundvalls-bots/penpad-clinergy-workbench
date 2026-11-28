@@ -10,6 +10,7 @@
  */
 
 import type { FormExam, FormLink, FormRow, RemakeForm } from "../knowledge-data.ts";
+import { featureCaption, quantitySpec, quantityTokens } from "./quantities.ts";
 
 export const GENERATED_FORMS_SCHEMA = "penpad-remake-forms/v1";
 
@@ -45,7 +46,7 @@ const FORM_KEYS = [
   "examinations",
 ] as const;
 
-const ROW_KEYS = ["feature", "criterialLink", "values", "multiple", "inheritance", "default", "visibleWhen"] as const;
+const ROW_KEYS = ["feature", "criterialLink", "values", "multiple", "inheritance", "default", "visibleWhen", "caption", "units", "defaultUnit"] as const;
 
 const LINK_KEYS = ["item", "concept", "preposition", "location", "preCoordinated", "summaryType", "category"] as const;
 
@@ -198,9 +199,40 @@ export function generateRemakeForms(input: ExtractInput): GeneratedCatalog {
   for (const key of topics) {
     const form = formFromExtractDoc(input.forms[key]);
     if (!form) continue;
+    enrichQuantityRows(form, input.concepts ?? {});
     forms[form.topic] = form;
   }
   return { schema: GENERATED_FORMS_SCHEMA, forms };
+}
+
+function conceptDisplayOf(concepts: Record<string, unknown>, name: string): string | undefined {
+  const c = concepts[name];
+  if (c && typeof c === "object" && "display" in c && typeof (c as { display: unknown }).display === "string") {
+    return (c as { display: string }).display;
+  }
+  return undefined;
+}
+
+/** Attach original-style captions and unit lists/defaults to quantity rows. */
+function enrichQuantityRows(form: RemakeForm, concepts: Record<string, unknown>): void {
+  for (const row of [...form.firstLayer, ...form.moreLayer]) {
+    const feature = row.feature ?? row.criterialLink;
+    const tokens = quantityTokens(row);
+    const isQty = (feature ?? "").startsWith("Quantity") || feature === "hasQuantity" || feature === "hasManyValuedQuantity" || tokens.length > 0;
+    const known = feature ? featureCaption(feature) : "";
+    const hasNamedCaption = Boolean(feature && known && (feature.startsWith("Quantity") || feature.startsWith("Absolute") || feature.startsWith("has")));
+    if (hasNamedCaption && !row.caption) {
+      // Only store captions we actually know from the original engine / lexicon map.
+      if (["QuantityStartTime","QuantityLengthOfHistory","QuantityDuration","QuantityTimeOcc","QuantityMensesDuration","QuantityMensesFrequency","QuantityFrequency","QuantityCount","QuantityWidth","QuantityLongitude","QuantityHeight","QuantityCircumference","QuantityWalkingDistance","AbsoluteHistoricalPattern","hasQuantity","hasManyValuedQuantity","hasLevel","hasTrendInState","hasChangeInState"].includes(feature!)) {
+        row.caption = known;
+      }
+    }
+    if (!isQty) continue;
+    const spec = quantitySpec(feature, row.values ?? []);
+    if (!row.units) row.units = spec.units.map((u) => u.id);
+    if (!row.defaultUnit) row.defaultUnit = spec.defaultUnit;
+    void concepts;
+  }
 }
 
 function rowConstructs(row: FormRow): string[] {
@@ -224,13 +256,17 @@ function rowConstructs(row: FormRow): string[] {
 
 /** Quantity-style value tokens used by the extractor (TemporalValue, CountValue, …). */
 export function isQuantityValues(values: unknown[]): boolean {
-  if (values.length !== 1) return false;
-  const v = values[0];
-  return typeof v === "string" && /Value$/.test(v);
+  if (!values.length) return false;
+  return values.every((v) => typeof v === "string" && /Value$/.test(v));
 }
 
 export function isQuantityRow(row: FormRow): boolean {
-  return isQuantityValues(row.values ?? []) || (row.feature ?? "").startsWith("Quantity");
+  return (
+    isQuantityValues(row.values ?? [])
+    || (row.feature ?? "").startsWith("Quantity")
+    || row.feature === "hasQuantity"
+    || row.feature === "hasManyValuedQuantity"
+  );
 }
 
 /**

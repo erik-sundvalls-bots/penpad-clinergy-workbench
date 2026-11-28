@@ -36,7 +36,18 @@
           ]
         },
         {
+          "caption": "Duration",
+          "defaultUnit": "day",
           "feature": "QuantityDuration",
+          "units": [
+            "second",
+            "minute",
+            "hour",
+            "day",
+            "week",
+            "month",
+            "year"
+          ],
           "values": [
             "TemporalValue"
           ]
@@ -106,7 +117,18 @@
           ]
         },
         {
+          "caption": "number",
+          "defaultUnit": "day",
           "feature": "QuantityCount",
+          "units": [
+            "second",
+            "minute",
+            "hour",
+            "day",
+            "week",
+            "month",
+            "year"
+          ],
           "values": [
             "CountValue"
           ]
