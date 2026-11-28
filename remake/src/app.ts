@@ -86,6 +86,7 @@ import { getSentenceKnowledge, sentenceKnowledge } from "./knowledge-data.ts";
 import type { RemakeForm, FormExam, FormLink, FormRow } from "./knowledge-data.ts";
 import { examSidesFor, onExamination, sideLabel } from "./exam/prose.ts";
 import type { ExamDefinition } from "./form/exams.ts";
+import { examTreeCaption, signHasFeatureFolder, signTreeCaption } from "./form/exam-tree.ts";
 
 
 interface Hover {
@@ -1311,8 +1312,12 @@ function examSignBlock(
 ): HTMLElement {
   const form = formOf(sign);
   const display = form?.display || sign.replace(/Sign$/, "").replace(/([a-z0-9])([A-Z])/g, "$1 $2").toLowerCase();
+  const parentExam = siteExam ? examOf(siteExam) : examOf(state.examPopup?.exam ?? "");
+  const treeCaption = parentExam
+    ? signTreeCaption(parentExam.display, parentExam.baseSign, sign, display, signHasFeatureFolder(form))
+    : examTreeCaption(display);
   const wrap = el("div", { class: "exam-sign" });
-  wrap.append(el("div", { class: "name" }, display));
+  wrap.append(el("div", { class: "name" }, treeCaption));
   const fs = signStateFor(sideState, sign, location, siteExam);
   const commit = (next: FormState) => {
     const popup = state.examPopup;
@@ -1371,7 +1376,7 @@ function examPopupWindow(popup: ExamPopup): HTMLElement {
   for (const subName of definition?.subExams ?? []) {
     const sub = examOf(subName);
     const sec = el("section", { class: "section" });
-    sec.append(el("h3", {}, sub?.display || subName.replace(/([a-z0-9])([A-Z])/g, "$1 $2")));
+    sec.append(el("h3", {}, examTreeCaption(sub?.display || subName.replace(/([a-z0-9])([A-Z])/g, "$1 $2"))));
     const siteType = formOf(sub?.baseSign ?? "")?.summaryType ?? "NormalNotEx";
     const siteStatusValues = summaryValues(siteType);
     if (siteStatusValues.length) {
