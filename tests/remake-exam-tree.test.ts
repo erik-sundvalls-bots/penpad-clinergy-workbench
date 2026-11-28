@@ -7,7 +7,9 @@ import {
   examSignTreeCaption,
   examTreeCaption,
   inlineExamSign,
+  inheritedSublocationRow,
   locativeExamSignCaption,
+  resolveExamSiteLocation,
   sidedExamCaption,
   signHasFeatureFolder,
   signTreeCaption,
@@ -139,5 +141,47 @@ describe("locative exam-sign captions", () => {
     expect(
       examSignTreeCaption(exam.display, exam.baseSign, "VulvaSign", "vulva", false, "Vulva"),
     ).toBe("Appearance");
+  });
+});
+
+describe("inherited exam-site sublocations", () => {
+  it("gives abdominal scars the nine abdominal regions", () => {
+    const row = inheritedSublocationRow("AbdominalScarSign", "Abdomen");
+    expect(row?.caption).toBe("Sublocation");
+    expect(row?.values).toEqual([
+      "RightHypochondrium", "Epigastrium", "LeftHypochondrium", "RightFlank",
+      "Umbilicus", "LeftFlank", "RightIliacFossa", "SupraPubicRegion", "LeftIliacFossa",
+    ]);
+  });
+
+  it("gives a colon lump the six colonic segments", () => {
+    const row = inheritedSublocationRow("LumpSign", "Colon");
+    expect(row?.values).toEqual([
+      "AscendingColon", "HepaticFlexure", "SplenicFlexure", "TransverseColon",
+      "DescendingColon", "SigmoidColon",
+    ]);
+  });
+
+  it("walks up to the abdomen when appearance has no baseLocation", () => {
+    const appearance = { name: "AbdominalAppearanceExam", baseLocation: null, super: "AbdomenExam" };
+    const exams: Record<string, { name: string; baseLocation: string | null; super: string | null }> = {
+      AbdomenExam: { name: "AbdomenExam", baseLocation: "Abdomen", super: null },
+    };
+    expect(resolveExamSiteLocation(appearance, (name) => exams[name] ?? null)).toBe("Abdomen");
+  });
+
+  it("maps respiratory exams onto the thorax zone list", () => {
+    const exam = { name: "RespSoundExam", baseLocation: null, super: "RespSysExam" };
+    const exams = {
+      RespSysExam: { name: "RespSysExam", baseLocation: null, super: null },
+    };
+    expect(resolveExamSiteLocation(exam, (name) => exams[name as keyof typeof exams] ?? null)).toBe("Thorax");
+    expect(inheritedSublocationRow("BreathSoundSign", "Thorax")?.values).toHaveLength(12);
+  });
+
+  it("does not invent a sublocation for signs the original keeps without one", () => {
+    expect(inheritedSublocationRow("BowelSoundSign", "Abdomen")).toBeNull();
+    expect(inheritedSublocationRow("AbdominalDistensionSign", "Abdomen")).toBeNull();
+    expect(inheritedSublocationRow("VaginalDischargeSign", "Vagina")).toBeNull();
   });
 });

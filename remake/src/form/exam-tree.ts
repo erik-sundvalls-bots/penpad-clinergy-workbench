@@ -11,6 +11,9 @@ import { locativePreposition } from "./engine.ts";
 import EXAM_CAPTIONS from "./exam-captions.json";
 import EXAM_LOCATIVE_SIGNS from "./exam-locative-signs.json";
 import EXAM_INLINE_VALUES from "./exam-inline-values.json";
+import EXAM_SUBLOCATIONS from "./exam-sublocations.json";
+import type { FormRow } from "../knowledge-data.ts";
+
 
 const LOCATIVE_PAIRS = new Set(
   ((EXAM_LOCATIVE_SIGNS as { pairs: { sign: string; location: string }[] }).pairs ?? [])
@@ -144,5 +147,47 @@ export function examSignTreeCaption(
 ): string {
   const cap = signTreeCaption(examDisplay, baseSign, sign, signDisplay, hasFeatures);
   return locativeExamSignCaption(sign, cap, location);
+}
+
+type ExamSiteRef = { name?: string | null; baseLocation?: string | null; super?: string | null };
+
+const SUBLOCATION_SITES = (EXAM_SUBLOCATIONS as { sites: Record<string, string[]> }).sites;
+const SUBLOCATION_EXAM_SITES = (EXAM_SUBLOCATIONS as { examSites: Record<string, string> }).examSites;
+const SUBLOCATION_SIGNS = new Set((EXAM_SUBLOCATIONS as { signs: string[] }).signs);
+
+/** Walk an exam (and its supers) to the body site whose sublocation list applies. */
+export function resolveExamSiteLocation(
+  exam: ExamSiteRef | null | undefined,
+  examOf: (name: string) => ExamSiteRef | null,
+): string | null {
+  const seen = new Set<string>();
+  let current = exam ?? null;
+  while (current) {
+    const name = current.name ?? "";
+    if (name && SUBLOCATION_EXAM_SITES[name]) return SUBLOCATION_EXAM_SITES[name];
+    if (current.baseLocation) return current.baseLocation;
+    const superName = current.super ?? "";
+    if (!superName || seen.has(superName)) break;
+    seen.add(superName);
+    current = examOf(superName);
+  }
+  return null;
+}
+
+export function examSiteSublocationValues(location: string | null | undefined): string[] | null {
+  if (!location) return null;
+  const values = SUBLOCATION_SITES[location];
+  return values?.length ? values : null;
+}
+
+/**
+ * Signs such as lump, tenderness and inflammation pick up the exam site's
+ * Sublocation list when their own form does not already have one.
+ */
+export function inheritedSublocationRow(sign: string, location: string | null | undefined): FormRow | null {
+  if (!SUBLOCATION_SIGNS.has(sign)) return null;
+  const values = examSiteSublocationValues(location);
+  if (!values) return null;
+  return { caption: "Sublocation", feature: "sublocation", values };
 }
 
