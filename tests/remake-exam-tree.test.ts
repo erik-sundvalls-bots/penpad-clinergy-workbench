@@ -5,6 +5,7 @@ import { describe, expect, it } from "vitest";
 import { examOf, formOf } from "../remake/src/knowledge-data.ts";
 import {
   examTreeCaption,
+  inlineExamSign,
   sidedExamCaption,
   signHasFeatureFolder,
   signTreeCaption,
@@ -64,5 +65,36 @@ describe("sided exam captions", () => {
 
   it("does not double-prefix a display that already names a side", () => {
     expect(sidedExamCaption("left testis", "left")).toBe("Left testis");
+  });
+});
+
+describe("inline exam-sign value lists", () => {
+  it("puts tendon-reflex activity chips on the sign itself", () => {
+    const inline = inlineExamSign("LeftBicepsReflexSign");
+    expect(inline?.feature).toBe("AbsoluteReflexLev");
+    expect(inline?.hide.has("AbsoluteReflexLev")).toBe(true);
+  });
+
+  it("keeps an activity child on plantar, corneal and cremasteric reflexes", () => {
+    expect(inlineExamSign("LeftPlantarReflexSign")).toBeNull();
+    expect(inlineExamSign("CornealReflexSign")).toBeNull();
+    expect(inlineExamSign("CremastericReflexSign")).toBeNull();
+    expect(inlineExamSign("GlabellarReflexSign")).toBeNull();
+    expect(inlineExamSign("SnoutReflexSign")).toBeNull();
+  });
+
+  it("shows speech rate on the sign and hides the content row", () => {
+    const inline = inlineExamSign("SpeechSign");
+    expect(inline?.feature).toBe("AbsoluteRate");
+    expect(inline?.hide.has("AbsoluteRate")).toBe(true);
+    expect(inline?.hide.has("AbsoluteContentSpeech")).toBe(true);
+  });
+
+  it("inlines bowel-sound, dullness, mental-state and inhaler lists", () => {
+    expect(inlineExamSign("BowelSoundSign")?.feature).toBe("AbsoluteSoundCharacterBowel");
+    expect(inlineExamSign("CardiacDullnessSign")?.feature).toBe("ExpectedProcessActivityLevel");
+    expect(inlineExamSign("MoodSign")?.feature).toBe("ExpectedProcessActivityLevel");
+    expect(inlineExamSign("EyeContactSign")?.feature).toBe("AbsoluteQuality");
+    expect(inlineExamSign("InhalerTechniqueSign")?.feature).toBe("AbsoluteQuality");
   });
 });

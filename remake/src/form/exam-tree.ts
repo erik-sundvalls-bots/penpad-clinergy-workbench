@@ -7,6 +7,29 @@
  */
 import type { RemakeForm } from "../knowledge-data.ts";
 import EXAM_CAPTIONS from "./exam-captions.json";
+import EXAM_INLINE_VALUES from "./exam-inline-values.json";
+
+type InlineSpec = { inline: string; hide?: string[] };
+const INLINE_SPECS = EXAM_INLINE_VALUES as Record<string, InlineSpec>;
+
+export interface InlineExamSign {
+  feature: string;
+  hide: Set<string>;
+}
+
+/**
+ * Some signs show their exclusive quality list on the sign itself
+ * (brisk/normal/sluggish/absent on "Left biceps reflex") rather than as a
+ * child row. Plantar, corneal, glabellar, snout and cremasteric reflexes keep
+ * an activity child, so they are not in this map.
+ */
+export function inlineExamSign(topic: string | null | undefined): InlineExamSign | null {
+  if (!topic) return null;
+  const spec = INLINE_SPECS[topic];
+  if (!spec) return null;
+  return { feature: spec.inline, hide: new Set(spec.hide ?? [spec.inline]) };
+}
+
 
 const FEATURE_ATTRS = new Set(["AbsoluteSize", "AbsoluteTexture", "AbsoluteConsistency"]);
 
