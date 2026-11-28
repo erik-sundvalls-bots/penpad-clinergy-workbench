@@ -5,6 +5,7 @@ import { describe, expect, it } from "vitest";
 import { examOf, formOf } from "../remake/src/knowledge-data.ts";
 import {
   examTreeCaption,
+  sidedExamCaption,
   signHasFeatureFolder,
   signTreeCaption,
 } from "../remake/src/form/exam-tree.ts";
@@ -51,5 +52,17 @@ describe("exam tree captions", () => {
     const exam = examOf("AbdoPercussionExam")!;
     const sign = formOf(exam.baseSign ?? "AbdominalPercussionSign")!;
     expect(signTreeCaption(exam.display, exam.baseSign, exam.baseSign ?? "AbdominalPercussionSign", sign.display, signHasFeatureFolder(sign))).toBe("percussion");
+  });
+});
+
+describe("sided exam captions", () => {
+  it("prefixes Left or Right onto the exam display", () => {
+    expect(sidedExamCaption("groin", "left")).toBe("Left groin");
+    expect(sidedExamCaption("eye as a whole", "right")).toBe("Right eye as a whole");
+    expect(sidedExamCaption("ear", "left")).toBe("Left ear");
+  });
+
+  it("does not double-prefix a display that already names a side", () => {
+    expect(sidedExamCaption("left testis", "left")).toBe("Left testis");
   });
 });

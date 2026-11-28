@@ -86,7 +86,7 @@ import { getSentenceKnowledge, sentenceKnowledge } from "./knowledge-data.ts";
 import type { RemakeForm, FormExam, FormLink, FormRow } from "./knowledge-data.ts";
 import { examSidesFor, onExamination, sideLabel } from "./exam/prose.ts";
 import type { ExamDefinition } from "./form/exams.ts";
-import { examTreeCaption, signHasFeatureFolder, signTreeCaption } from "./form/exam-tree.ts";
+import { examTreeCaption, sidedExamCaption, signHasFeatureFolder, signTreeCaption } from "./form/exam-tree.ts";
 
 
 interface Hover {
@@ -1200,8 +1200,7 @@ function summaryValues(summaryType: string | null | undefined): string[] {
 
 function examTitle(definition: ExamDefinition | null, entry: FormExam, side: ExamSideKey): string {
   const place = definition?.display || entry.exam.replace(/Exam$/, "").replace(/([a-z0-9])([A-Z])/g, "$1 $2").toLowerCase();
-  const label = sideLabel(side);
-  const head = label ? `${label} ${place}` : place;
+  const head = (side === "left" || side === "right") ? sidedExamCaption(place, side) : place;
   return `${head[0].toUpperCase()}${head.slice(1)} examination`;
 }
 
@@ -1223,8 +1222,8 @@ function examSection(form: RemakeForm, fs: FormState, commit: (next: FormState) 
       const current = getExamSide(fs, entry.exam, side);
       const row = el("div", { class: "link-row exam-row" });
       const place = definition.display;
-      const label = sideLabel(side);
-      row.append(el("span", { class: "lab" }, label ? `${label} ${place}` : place));
+      const lab = (side === "left" || side === "right") ? sidedExamCaption(place, side) : place;
+      row.append(el("span", { class: "lab" }, lab));
       for (const value of values) {
         const b = btn(statusLabel(value), () => {
           commit(setExamStatus(fs, entry.exam, side, current.status === value ? undefined : value));
